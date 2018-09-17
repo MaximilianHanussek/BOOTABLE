@@ -1,8 +1,23 @@
 #Parse ThreadedBioBenchSuite output
-require(grid)
-require(gridExtra)
-require(RColorBrewer)
-require(stringr)
+
+chooseCRANmirror(ind = 33)
+
+load.fun <- function(x) {
+  x <- as.character(substitute(x))
+  if(isTRUE(x %in% .packages(all.available=TRUE))) {
+    eval(parse(text=paste("require(", x, ")", sep="")))
+  } else {
+    update.packages() # recommended before installing so that dependencies are the latest version
+    eval(parse(text=paste("install.packages('", x, "')", sep="")))
+    eval(parse(text=paste("require(", x, ")", sep="")))
+  }
+} 
+
+load.fun(grid)
+load.fun(gridExtra)
+load.fun(RColorBrewer)
+load.fun(stringr)
+
 workingdir <- "/home/mhanussek/Schreibtisch"
 
 
