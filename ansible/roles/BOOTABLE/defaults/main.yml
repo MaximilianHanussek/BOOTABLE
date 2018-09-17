@@ -13,3 +13,4 @@ common_packages:
   - python-pip
   - cmake3
   - tbb-devel.x86_64
+  - R
