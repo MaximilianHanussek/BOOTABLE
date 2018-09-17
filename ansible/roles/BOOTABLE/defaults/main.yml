@@ -1,0 +1,15 @@
+---
+# defaults file for threadedbiobench
+## List of packages to install for RStudio
+common_packages:
+  - nano
+  - curl
+  - wget
+  - vim
+  - htop
+  - time
+  - git
+  - zlib-devel.x86_64
+  - python-pip
+  - cmake3
+  - tbb-devel.x86_64

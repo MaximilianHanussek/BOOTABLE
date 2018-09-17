@@ -1,0 +1,47 @@
+---
+# tasks file for ./roles/common
+- name: install EPEL
+  when: ansible_pkg_mgr == "yum"
+  yum:
+    name: epel-release
+    state: latest
+
+- name: Install packages
+  with_items: "{{ common_packages | mandatory }}"
+  when: ansible_pkg_mgr == "yum"
+  yum:
+   name: "{{ item }}"
+   state: latest
+
+- name: update packages	with yum
+  when: ansible_pkg_mgr == "yum"
+  yum:
+   name: "*"         
+   state: latest
+
+- name: Install packages
+  with_items: "{{ common_packages | mandatory }}"
+  when: ansible_pkg_mgr == "apt"
+  apt:
+   name: "{{ item }}"
+   state: latest
+
+- name: update packages	with apt
+  when: ansible_pkg_mgr == "apt"
+  apt:
+   upgrade: dist
+
+- name: Remove packages
+  with_items: "{{ unrequired_packages | mandatory }}"
+  when: ansible_pkg_mgr == "yum"
+  yum:
+   name: "{{ item }}"
+   state: absent
+
+- name: Remove packages
+  with_items: "{{ unrequired_packages | mandatory }}"
+  when: ansible_pkg_mgr == "apt"
+  apt:
+   name: "{{ item }}"
+   state: absent
+
