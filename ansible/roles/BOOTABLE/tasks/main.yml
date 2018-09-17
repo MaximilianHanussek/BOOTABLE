@@ -42,6 +42,18 @@
     disable_gpg_check: 1
   become: yes
 
+- name: Install R - packages
+  command: >
+    Rscript --slave --no-save --no-restore-history -e "if (! ('{{ item }}' %in% installed.packages()[,'Package'])) { install.packages(pkgs='{{ item }}', repos=c('http://ftp.heanet.ie/mirrors/cran.r-project.org/')); print('Added'); } else { print('Already installed'); }"
+  register: r_result
+  failed_when: "r_result.rc != 0 or 'had non-zero exit status' in r_result.stderr"
+  changed_when: "'Added' in r_result.stdout"
+  with_items:
+    - grid
+    - gridExtra
+    - RColorBrewer
+    - stringr
+
 - name: Create empty benchmark output directory
   file:
     path: /home/centos/benchmark_output/
