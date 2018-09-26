@@ -33,24 +33,41 @@ cpu_vendor <- str_squish(unlist(strsplit(cpu_info[grep("Vendor ID:", cpu_info)],
 cpu_family <- str_squish(unlist(strsplit(cpu_info[grep("CPU family:", cpu_info)], split = ":")))[2]
 cpu_model <- str_squish(unlist(strsplit(cpu_info[grep("Model:", cpu_info)], split = ":")))[2]
 cpu_model_name <- unlist(strsplit(str_squish(unlist(strsplit(cpu_info[grep("Model name:", cpu_info)], split = ":")))[2], split = "@"))[1]
-cpu_cach_size <- paste0(str_squish(unlist(strsplit(cpu_info[grep("L3 cache:", cpu_info)], split = ":")))[2], "B")
+cpu_cache3_size <- paste0(str_squish(unlist(strsplit(cpu_info[grep("L3 cache:", cpu_info)], split = ":")))[2], "B")
+cpu_cache2_size <- paste0(str_squish(unlist(strsplit(cpu_info[grep("L2 cache:", cpu_info)], split = ":")))[2], "B")
 cpu_proc_speed <- toString(unlist(strsplit(str_squish(unlist(strsplit(cpu_info[grep("Model name:", cpu_info)], split = ":")))[2], split = "@ "))[2])
 cpu_num_cores <- str_squish(unlist(strsplit(cpu_info[grep("CPU\\(s\\):", cpu_info)], split = ":")))[2]
 ram_max_mem <- paste0(str_squish(unlist(strsplit(ram_info[grep("Total online memory:", ram_info)], split = ":")))[2], "B")
 compiler_version <- paste(unlist(strsplit(compiler_info[grep("gcc-Version", compiler_info)], split = " "))[1], unlist(strsplit(compiler_info[7], split = " "))[2], collapse = " ")
 
-system_information_row_names <- c("Hostname",
-                                  "Architecture", 
-                                  "Vendor ID", 
-                                  "CPU Family", 
-                                  "CPU Model", 
-                                  "CPU Model Name", 
-                                  "L3 Cache", 
-                                  "Processor Speed",
-                                  "CPU cores",
-                                  "RAM",
-                                  "Compiler")
-
+if (cpu_cache3_size == "NAB") {
+  system_information_row_names <- c("Hostname",
+                                    "Architecture", 
+                                    "Vendor ID", 
+                                    "CPU Family", 
+                                    "CPU Model", 
+                                    "CPU Model Name", 
+                                    "L2 Cache", 
+                                    "Processor Speed",
+                                    "CPU cores",
+                                    "RAM",
+                                    "Compiler")
+  cpu_cache_size <- cpu_cache2_size
+} else{
+  system_information_row_names <- c("Hostname",
+                                    "Architecture", 
+                                    "Vendor ID", 
+                                    "CPU Family", 
+                                    "CPU Model", 
+                                    "CPU Model Name", 
+                                    "L3 Cache", 
+                                    "Processor Speed",
+                                    "CPU cores",
+                                    "RAM",
+                                    "Compiler")
+  cpu_cache_size <- cpu_cache3_size
+}
+  
 df_system_information <- data.frame(matrix(ncol = 1, nrow = 11))
 colnames(df_system_information) <- c("System Information")
 rownames(df_system_information) <- system_information_row_names
@@ -60,7 +77,7 @@ df_system_information[3,1] <- cpu_vendor
 df_system_information[4,1] <- cpu_family
 df_system_information[5,1] <- cpu_model
 df_system_information[6,1] <- cpu_model_name
-df_system_information[7,1] <- cpu_cach_size
+df_system_information[7,1] <- cpu_cache_size
 df_system_information[8,1] <- cpu_proc_speed
 df_system_information[9,1] <- cpu_num_cores
 df_system_information[10,1] <- ram_max_mem
@@ -68,8 +85,8 @@ df_system_information[11,1] <- compiler_version
 
 
 # Get all summary files, containing the time output
-summary_file_paths <- list.files(path = workingdir, pattern = "^benchmark_summary_*", full.names = TRUE)
-summary_file_names <- list.files(path = workingdir, pattern = "^benchmark_summary_*", full.names = FALSE)
+summary_file_paths <- list.files(path = workingdir, pattern = "^benchmark_summary_.*\\.txt", full.names = TRUE)
+summary_file_names <- list.files(path = workingdir, pattern = "^benchmark_summary_.*\\.txt", full.names = FALSE)
 number_of_summary_files <- length(summary_file_paths)
 names_time_vector <- c("real", "user", "sys")
 
