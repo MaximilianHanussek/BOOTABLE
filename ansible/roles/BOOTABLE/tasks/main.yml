@@ -53,6 +53,7 @@
     - gridExtra
     - RColorBrewer
     - stringr
+  become: yes
 
 - name: Create empty benchmark output directory
   file:

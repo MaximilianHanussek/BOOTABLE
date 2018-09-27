@@ -1,5 +1,5 @@
 ;[openstack-centos-vm-image-creation]
-bionbenchmark_vm ansible_host=193.196.20.81 ansible_user=centos ansible_ssh_private_key_file=/home/mhanussek/Zertifikate/maximilian-demo.pem
+bionbenchmark_vm ansible_host=193.196.20.117 ansible_user=centos ansible_ssh_private_key_file=/home/mhanussek/Zertifikate/maximilian-demo.pem
 
 ;[BOOTABLE]
 ;bootable_machine ansible_host=<IP> ansible_user=<USER> ansible_ssh_private_key_file=</path/to/ssh/key>

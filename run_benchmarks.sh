@@ -50,7 +50,7 @@ OMP_NUM_THREADS=$cores_velvet
 echo "" >> /home/centos/results/benchmark_velvet_time_$cores.txt
 
 
-echo "Replica $replica Velvetg with $cores cores on dataset ERR251006" >> /home/centos/results/benchmark_velvet_time_$cores.txt
+echo "Replica_$replica Velvetg with $cores cores on dataset ERR251006" >> /home/centos/results/benchmark_velvet_time_$cores.txt
 date >> /home/centos/results/benchmark_velvet_time_$cores.txt
 
 /usr/bin/time -p -a -o /home/centos/results/benchmark_velvet_time_$cores.txt sh -c "/home/centos/velvet/velvetg /home/centos/benchmark_output/velvet/" >> /home/centos/benchmark_output/velvet/benchmark_velvetg_output.txt 2>&1
@@ -92,14 +92,6 @@ date >> /home/centos/results/benchmark_SPAdes_time_$cores.txt
 
 /usr/bin/time -p -a -o /home/centos/results/benchmark_SPAdes_time_$cores.txt sh -c "python /home/centos/SPAdes/SPAdes-3.12.0-Linux/bin/spades.py -s /home/centos/datasets/1000_genomes/ERR251006.filt.fastq -o /home/centos/benchmark_output/SPAdes/ -t $cores" >> /home/centos/results/benchmark_SPAdes_output_$cores.txt 2>&1
 echo "" >> /home/centos/results/benchmark_SPAdes_time_$cores.txt
-
-
-#echo "Running HPL benchmark"
-#rm -rf /home/centos/benchmark_output/HPL/*
-#export LD_LIBRARY_PATH=/home/centos/HPL/OpenBLAS-0.2.20/lib/
-
-
-
 
 touch /home/centos/benchmark_summary_$cores.txt
 cat /home/centos/results/benchmark_bowtie_build_time_$cores.txt >> /home/centos/benchmark_summary_$cores.txt

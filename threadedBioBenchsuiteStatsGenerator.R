@@ -247,15 +247,6 @@ for (summary_file in summary_file_paths){
   
   
   pdf(summary_file_name, height = 12, width = 10)
-  #grid.arrange(title, subtitle, arrangeGrob(t0, t1, t2, t3, ncol = 1, nrow = 4), heights = unit.c(grobHeight(title) + 1.2*margin, 
-                                                                                          #grobHeight(subtitle) + margin,
-                                                                                          #unit(1, "null")), newpage = FALSE)
-  #grob_list <- list(t0, t1, t2, t3)
-  #grid_matrix <- rbind(c(1, 1),
-                       #c(2, 2),
-                       #c(3, 4))
-  
-  #grid.arrange(grobs = grob_list, layout_matrix = grid_matrix)
   
   grob_list0 <- list(title, subtitle)
   grob_list1 <- list(t0, t1, t2, t3)
@@ -310,13 +301,6 @@ for (summary_file in summary_file_paths){
       radius = 0.8)
   legend("bottom", legend=legend_vector_tools_sys, cex=1.2, bty = "n", fill = brewer.pal(length(used_tools_unique), "Set1"))
   
-  
-  
-  #grid.arrange(arrangeGrob(t3, ncol = 1, nrow = 1), heights = unit.c(grobHeight(title_empty) + 10*margin, 
-                                                                                  #unit(1,"null")), newpage = FALSE)
-  
-  
-  #par(mfrow=c(2,3))
   pie(as.numeric(real_mean_values_replica_vector), 
       labels=c("","",""), font=2, 
       main="Averaged real runtimes of all replica",
