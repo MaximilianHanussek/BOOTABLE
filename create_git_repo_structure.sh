@@ -29,6 +29,13 @@ tar -xf ADH_bench_systems.tar.gz
 rm ADH_bench_systems.tar.gz
 #change pme_verlet.mdp nsteps to 50000 instead of 10000
 
+cd ../tensorflow/
+wget https://s3.denbi.uni-tuebingen.de/fb-test/tf_benchmark/models.tar.gz
+tar -xf models.tar.gz
+rm models.tar.gz
+
+
+
 cd ../../bowtie2/
 wget https://sourceforge.net/projects/bowtie-bio/files/bowtie2/2.3.4.2/bowtie2-2.3.4.2-source.zip
 unzip bowtie2-2.3.4.2-source.zip
