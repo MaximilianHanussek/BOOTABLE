@@ -28,7 +28,7 @@ If you want to install the tools and scripts BOOTABLE use please be sure to have
 - time
 - git
 - zlib-devel.x86_64
-- python-pip
+- python-pip (in Version 9.0.3)
 - cmake3
 - tbb-devel.x86_64
 - R
