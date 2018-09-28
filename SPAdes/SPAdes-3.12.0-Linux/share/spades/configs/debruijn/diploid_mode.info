@@ -1,0 +1,14 @@
+mode diploid
+
+simp
+{
+	; bulge remover:
+	br
+	{
+		enabled false
+	}
+}
+
+amb_de {
+    enabled true
+}
