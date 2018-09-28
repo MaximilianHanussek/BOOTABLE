@@ -55,7 +55,15 @@ There are 6 different kinds of installation possibilities.
 In order to compile and install the tools directly on a server without a virtualization technique 
 in between, clone this github repo and run the `install_bootable.sh` script like in the following.
 
-<pre>git clone </pre>
+Clone the github repo 
+<pre>git clone https://github.com/MaximilianHanussek/BOOTABLE.git</pre>
+
+Change into the cloned repo
+<pre>cd BOOTABLE/</pre>
+
+Run the installation script and all the tools will be compiled and installed in the BOOTABLE directory
+sh install_bootable.sh
+
 
 ### 2. Using a .qcow2 image
 
