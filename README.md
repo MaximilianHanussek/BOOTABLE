@@ -7,7 +7,8 @@ This toolsuite currently consists of the follwoing tools
 - GROMACS
 - Tensowflow
 - SPAdes
- more are coming soon ...
+
+more are coming soon ...
  
 All the tools are included in this bundle and are carfeully chosen to 
 cover a range of different application cases and make strong use multithreading 
