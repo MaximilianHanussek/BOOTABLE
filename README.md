@@ -53,7 +53,9 @@ There are 6 different kinds of installation possibilities.
 
 ### 1. Bare metal installation
 In order to compile and install the tools directly on a server without a virtualization technique 
-in between, clone this github repo and run the `install_bootable.sh` script
+in between, clone this github repo and run the `install_bootable.sh` script like in the following.
+
+<pre>git clone </pre>
 
 ### 2. Using a .qcow2 image
 
