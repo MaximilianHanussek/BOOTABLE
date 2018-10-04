@@ -34,11 +34,28 @@ sudo pip install tensorflow==1.4.0
 
 # Download, compile and install GROMACS (sudo)
 wget ftp://ftp.gromacs.org/pub/gromacs/gromacs-2018.3.tar.gz -P gromacs/
-gzip -dc /home/centos/gromacs/gromacs-2018.3.tar.gz | tar -xvf /home/centos/gromacs/
-mkdir /home/centos/gromacs/gromacs-2018.3/build
+gzip -dc gromacs/gromacs-2018.3.tar.gz | tar -xvf gromacs/
+mkdir gromacs/gromacs-2018.3/build
 cd gromacs/gromacs-2018.3/build/
-cmake3 -DGMX_BUILD_OWN_FFTW=on -DGMX_GPU=off -DGMX_BUILD_MPI=off --build /home/centos/gromacs/gromacs-2018.3/build/  /home/centos/gromacs/gromacs-2018.3/
+cmake3 -DGMX_BUILD_OWN_FFTW=on -DGMX_GPU=off -DGMX_BUILD_MPI=off --build ./  ../../gromacs-2018.3/
 make
 sudo make install
+cd ../
 
-/usr/local/gromacs/bin/gmx grompp -f /home/centos/datasets/gromacs/adh_cubic/pme_verlet.mdp -c /home/centos/datasets/gromacs/adh_cubic/conf.gro -p /home/centos/datasets/gromacs/adh_cubic/topol.top -o /home/centos/datasets/gromacs/adh_cubic/topol -po /home/centos/datasets/gromacs/adh_cubic/mdout
+/usr/local/gromacs/bin/gmx grompp -f datasets/gromacs/adh_cubic/pme_verlet.mdp -c datasets/gromacs/adh_cubic/conf.gro -p datasets/gromacs/adh_cubic/topol.top -o datasets/gromacs/adh_cubic/topol -po datasets/gromacs/adh_cubic/mdout
+
+# Convert fastq files to fasta files 
+IDBA/idba_ud-1.0.9/bin/fq2fa datasets/1000_genomes/ERR016155.filt.fastq datasets/1000_genomes/ERR016155.filt.fa
+
+IDBA/idba_ud-1.0.9/bin/fq2fa datasets/1000_genomes/ERR251006.filt.fastq datasets/1000_genomes/ERR251006.filt.fa
+
+
+
+
+
+
+
+
+
+
+
