@@ -17,7 +17,7 @@ In the following is explained how to install BOOTABLE, how to run it and what ki
 
 ## Prerequisites
 This current version is only tested for CentOS 7. Ubuntu support will be added soon.  
-If you want to install the tools and scripts BOOTABLE use please be sure to have following packages installed via yum:
+If you want to install the tools and scripts BOOTABLE use please be sure to have following packages installed via yum (CentOS):
 - epel-release
 - Development Tools (group install)
 - nano
@@ -32,6 +32,12 @@ If you want to install the tools and scripts BOOTABLE use please be sure to have
 - cmake3
 - tbb-devel.x86_64
 - R
+
+<pre>yum update -y
+yum install epel-release -y
+yum group install "Development-Tools" -y
+yum install nano curl wget vim htop time git zlib-devel.x86_64 python-pip cmake3 tbb-devel.x86_64 R -y</pre>
+
 
 Further the system needs access to the internet to load the specific datasets and some R packages.
 
