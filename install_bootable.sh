@@ -1,5 +1,20 @@
 #!bin/bash
 
+# Create empty directories
+mkdir benchmark_output
+mkdir benchmark_output/bowtie2
+mkdir benchmark_output/gromacs
+mkdir benchmark_output/IDBA
+mkdir benchmark_output/SPAdes
+mkdir benchmark_output/tensorflow
+mkdir benchmark_output/velvet
+
+mkdir datasets/1000_genomes
+
+mkdir gromacs
+
+mkdir results
+
 # Download benchmark datasets
 wget ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/phase3/data/HG00110/sequence_read/ERR251006.filt.fastq.gz -P datasets/1000_genomes/
 gunzip datasets/1000_genomes/ERR251006.filt.fastq.gz
