@@ -35,7 +35,7 @@ If you want to install the tools and scripts BOOTABLE use please be sure to have
 
 <pre>yum update -y
 yum install epel-release -y
-yum group install "Development-Tools" -y
+yum group install "Development Tools" -y
 yum install nano curl wget vim htop time git zlib-devel.x86_64 python-pip cmake3 tbb-devel.x86_64 R -y</pre>
 
 
