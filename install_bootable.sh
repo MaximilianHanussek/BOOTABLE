@@ -10,7 +10,7 @@ gunzip datasets/1000_genomes/ERR016155.filt.fastq.gz
 wget http://ftp.1000genomes.ebi.ac.uk/vol1/ftp/technical/reference/GRCh38_reference_genome/GRCh38_full_analysis_set_plus_decoy_hla.fa -P datasets/1000_genomes/
 
 wget https://s3.denbi.uni-tuebingen.de/fb-test/tf_benchmark/cifar-10-binary.tar.gz -P datasets/tensorflow
-tar xzfv datasets/tensorflow/cifar-10-binary.tar.gz -C /home/centos/datasets/tensorflow/
+tar xf datasets/tensorflow/cifar-10-binary.tar.gz -C datasets/tensorflow/
 
 # Compile and install bowtie2 
 cd bowtie2/bowtie2-2.3.4.2/
@@ -34,17 +34,20 @@ sudo pip install tensorflow==1.4.0
 
 # Download, compile and install GROMACS (sudo)
 wget ftp://ftp.gromacs.org/pub/gromacs/gromacs-2018.3.tar.gz -P gromacs/
-gzip -dc gromacs/gromacs-2018.3.tar.gz | tar -xvf gromacs/
+tar -xf gromacs/gromacs-2018.3.tar.gz -C gromacs/
+rm gromacs/gromacs-2018.3.tar.gz
 mkdir gromacs/gromacs-2018.3/build
 cd gromacs/gromacs-2018.3/build/
 cmake3 -DGMX_BUILD_OWN_FFTW=on -DGMX_GPU=off -DGMX_BUILD_MPI=off --build ./  ../../gromacs-2018.3/
 make
 sudo make install
+pwd
 cd ../
 
 /usr/local/gromacs/bin/gmx grompp -f datasets/gromacs/adh_cubic/pme_verlet.mdp -c datasets/gromacs/adh_cubic/conf.gro -p datasets/gromacs/adh_cubic/topol.top -o datasets/gromacs/adh_cubic/topol -po datasets/gromacs/adh_cubic/mdout
 
-# Convert fastq files to fasta files 
+# Convert fastq files to fasta files
+pwd
 IDBA/idba_ud-1.0.9/bin/fq2fa datasets/1000_genomes/ERR016155.filt.fastq datasets/1000_genomes/ERR016155.filt.fa
 
 IDBA/idba_ud-1.0.9/bin/fq2fa datasets/1000_genomes/ERR251006.filt.fastq datasets/1000_genomes/ERR251006.filt.fa
