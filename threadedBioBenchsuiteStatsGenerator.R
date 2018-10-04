@@ -18,9 +18,8 @@ load.fun(gridExtra)
 load.fun(RColorBrewer)
 load.fun(stringr)
 
-workingdir <- "/home/mhanussek/Schreibtisch"
-
-
+#workingdir <- "/home/mhanussek/Schreibtisch"
+workingdir <- "/home/mhanussek/Downloads"
 # Get host information
 
 cpu_info <- system("lscpu", intern = TRUE)
