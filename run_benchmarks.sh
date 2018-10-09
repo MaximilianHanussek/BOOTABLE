@@ -45,11 +45,11 @@ echo "" >> results/benchmark_bowtie_build_time_$cores.txt	#Blank line for clarit
 
 # Bowtie2 aligner
 echo "Running bowtie2 align benchmark"
-echo "Replica_$replica Bowtie2_align with $cores cores on dataset $dataset" > results/benchmark_bowtie_align_time_$cores.txt				 #Create results file with walltime
+echo "Replica_$replica Bowtie2_align with $cores cores on dataset $dataset" >> results/benchmark_bowtie_align_time_$cores.txt				 #Create results file with walltime
 date >> results/benchmark_bowtie_align_time_$cores.txt	#Add date to walltime file
 
-# Run bowtie2 index builder on dataset $dataset
-/usr/bin/time -p -a -o results/benchmark_bowtie_align_time_$cores.txt sh -c "bowtie2/bowtie2-2.3.4.2/bowtie2 --threads $cores -x benchmark_output/bowtie2/benchmark -U datasets/1000_genomes/$dataset.filt.fastq -S benchmark_output/bowtie2/benchmark_$dataset.sam" >> benchmark_bowtie_align_output_$cores.txt 2>&1
+# Run bowtie2 aligner on dataset $dataset
+/usr/bin/time -p -a -o results/benchmark_bowtie_align_time_$cores.txt sh -c "bowtie2/bowtie2-2.3.4.2/bowtie2 --threads $cores -x benchmark_output/bowtie2/benchmark -U datasets/1000_genomes/$dataset.filt.fastq -S benchmark_output/bowtie2/benchmark_$dataset.sam" >> results/benchmark_bowtie_align_output_$cores.txt 2>&1
 echo "" >> results/benchmark_bowtie_align_time_$cores.txt	#Blank line for clarity and parsing
 
 
@@ -57,7 +57,7 @@ echo "" >> results/benchmark_bowtie_align_time_$cores.txt	#Blank line for clarit
 echo "Running velvet benchmark"
 rm -rf benchmark_output/velvet/*		#Clean up velvet output directory
 echo "Replica_$replica Velveth with $cores cores on dataset $dataset" >> results/benchmark_velvet_time_$cores.txt					 #Create results file with walltime
-date >> benchmark_velvet_time_$cores.txt	#Add date to walltime file
+date >> results/benchmark_velvet_time_$cores.txt	#Add date to walltime file
 
 OMP_NUM_THREADS=$cores_velvet			#Set number of threads explicitly with OMP variable
 
@@ -87,7 +87,7 @@ echo "" >> results/benchmark_idba_time_$cores.txt
 
 echo "Running Tensoflow benchmark"
 rm -rf benchmark_output/tensorflow/*
-echo "Replica_$replica Tensorflow with $cores cores on dataset cifar10" >> benchmark_tensorflow_time_$cores.txt
+echo "Replica_$replica Tensorflow with $cores cores on dataset cifar10" >> results/benchmark_tensorflow_time_$cores.txt
 date >> results/benchmark_tensorflow_time_$cores.txt
 
 /usr/bin/time -p -a -o results/benchmark_tensorflow_time_$cores.txt sh -c "python datasets/tensorflow/models/tutorials/image/cifar10/cifar10_train.py --data_dir=datasets/tensorflow/ --train_dir=benchmark_output/tensorflow/cifar10_train --max_steps=5000 --threads=$cores" >> results/benchmark_tensorflow_output_$cores.txt 2>&1
