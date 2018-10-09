@@ -10,26 +10,31 @@ quarter_cores=$(expr $max_cores / 4)		#Calculate quarter core number
 quarter_cores_velvet=$(expr $quarter_cores - 1) #Calculate quarter core number fir velvet
 one_core=1					#Set one core variable
 clean=0						#Set clean flag initially to 0
+dataset="ERR016155"
+
 
 # Check if the -c flag is set or not for clean up operation
-while getopts c option
+while getopts cd option
 do
 case "${option}"
 in
 c) clean=1;;
+d) dataset=$OPTARG
 esac
 done
 
 # Define function for benchmarking tools and there parameters
 run_benchmark_tools () {
-cores=$1					#Input parameter number cores
-cores_velvet=$2					#Input parameter number cores velvet
-replica=$3					#Input parameter number of replica
+cores=$1					#Input parameter number cores (1,2,3,...)
+cores_velvet=$2					#Input parameter number cores velvet (1,2,3,...)
+replica=$3					#Input parameter number of replica (1,2,3,..)
+dataset=$4					#Input parameter which dataset (medium, large)
+
 
 # Bowtie2 build index
 rm -rf benchmark_output/bowtie2/*		#Clean up bowtie2 output directoy
 echo "Running bowtie2 index build benchmark"	
-echo "Replica_$replica Bowtie2_build with $cores cores on dataset ERR251006" >> results/benchmark_bowtie_build_time_$cores.txt				 #Create results file with walltime
+echo "Replica_$replica Bowtie2_build with $cores cores on dataset GRCh38" >> results/benchmark_bowtie_build_time_$cores.txt				 #Create results file with walltime
 date >> results/benchmark_bowtie_build_time_$cores.txt	#Add date to walltime file
 
 # Run bowtie2 index builder on dataset GRCh38 
@@ -38,32 +43,32 @@ echo "" >> results/benchmark_bowtie_build_time_$cores.txt	#Blank line for clarit
 
 # Bowtie2 aligner
 echo "Running bowtie2 align benchmark"
-echo "Replica_$replica Bowtie2_align with $cores cores on dataset ERR251006" > results/benchmark_bowtie_align_time_$cores.txt				 #Create results file with walltime
+echo "Replica_$replica Bowtie2_align with $cores cores on dataset $dataset" > results/benchmark_bowtie_align_time_$cores.txt				 #Create results file with walltime
 date >> results/benchmark_bowtie_align_time_$cores.txt	#Add date to walltime file
 
-# Run bowtie2 index builder on dataset ERR251006
-/usr/bin/time -p -a -o results/benchmark_bowtie_align_time_$cores.txt sh -c "bowtie2/bowtie2-2.3.4.2/bowtie2 --threads $cores -x benchmark_output/bowtie2/benchmark -U datasets/1000_genomes/ERR251006.filt.fastq -S benchmark_output/bowtie2/benchmark_ERR251006.sam" >> benchmark_bowtie_align_output_$cores.txt 2>&1
+# Run bowtie2 index builder on dataset $dataset
+/usr/bin/time -p -a -o results/benchmark_bowtie_align_time_$cores.txt sh -c "bowtie2/bowtie2-2.3.4.2/bowtie2 --threads $cores -x benchmark_output/bowtie2/benchmark -U datasets/1000_genomes/$dataset.filt.fastq -S benchmark_output/bowtie2/benchmark_$dataset.sam" >> benchmark_bowtie_align_output_$cores.txt 2>&1
 echo "" >> results/benchmark_bowtie_align_time_$cores.txt	#Blank line for clarity and parsing
 
 
 # Velvet
 echo "Running velvet benchmark"
 rm -rf benchmark_output/velvet/*		#Clean up velvet output directory
-echo "Replica_$replica Velveth with $cores cores on dataset ERR251006" >> results/benchmark_velvet_time_$cores.txt					 #Create results file with walltime
+echo "Replica_$replica Velveth with $cores cores on dataset $dataset" >> results/benchmark_velvet_time_$cores.txt					 #Create results file with walltime
 date >> benchmark_velvet_time_$cores.txt	#Add date to walltime file
 
 OMP_NUM_THREADS=$cores_velvet			#Set number of threads explicitly with OMP variable
 
-# Run velveth on dataset ERR251006
-/usr/bin/time -p -a -o results/benchmark_velvet_time_$cores.txt sh -c "velvet/velveth benchmark_output/velvet/ 21 -fastq datasets/1000_genomes/ERR251006.filt.fastq" >> results/benchmark_velveth_output_$cores.txt 2>&1
+# Run velveth on dataset $dataset
+/usr/bin/time -p -a -o results/benchmark_velvet_time_$cores.txt sh -c "velvet/velveth benchmark_output/velvet/ 21 -fastq datasets/1000_genomes/$dataset.filt.fastq" >> results/benchmark_velveth_output_$cores.txt 2>&1
 echo "" >> results/benchmark_velvet_time_$cores.txt		#Blank line for clarity and parsing
 
 
-echo "Replica_$replica Velvetg with $cores cores on dataset ERR251006" >> results/benchmark_velvet_time_$cores.txt					 #Create results file with walltime
+echo "Replica_$replica Velvetg with $cores cores on dataset $dataset" >> results/benchmark_velvet_time_$cores.txt					 #Create results file with walltime
 date >> results/benchmark_velvet_time_$cores.txt #Add date to walltime file
 
 
-# Run velvetg on dataset ERR251006
+# Run velvetg on dataset $dataset
 /usr/bin/time -p -a -o results/benchmark_velvet_time_$cores.txt sh -c "velvet/velvetg benchmark_output/velvet/" >> benchmark_output/velvet/benchmark_velvetg_output.txt 2>&1
 echo "" >> results/benchmark_velvet_time_$cores.txt 		#Blank line for clarity and parsing
 
@@ -71,10 +76,10 @@ echo "" >> results/benchmark_velvet_time_$cores.txt 		#Blank line for clarity an
 # IDBA 
 echo "Running IDBA benchmark"
 rm -rf benchmark_output/IDBA/*
-echo "Replica_$replica IDBA with $cores cores on dataset ERR251006" >> results/benchmark_idba_time_$cores.txt
+echo "Replica_$replica IDBA with $cores cores on dataset $dataset" >> results/benchmark_idba_time_$cores.txt
 date >> results/benchmark_idba_time_$cores.txt
 
-/usr/bin/time -p -a -o results/benchmark_idba_time_$cores.txt sh -c "IDBA/idba_ud-1.0.9/bin/idba_ud -r datasets/1000_genomes/ERR251006.filt.fa --num_threads $cores -o benchmark_output/IDBA/" >> results/benchmark_idba_output_$cores.txt 2>&1
+/usr/bin/time -p -a -o results/benchmark_idba_time_$cores.txt sh -c "IDBA/idba_ud-1.0.9/bin/idba_ud -r datasets/1000_genomes/$dataset.filt.fa --num_threads $cores -o benchmark_output/IDBA/" >> results/benchmark_idba_output_$cores.txt 2>&1
 echo "" >> results/benchmark_idba_time_$cores.txt
 
 
@@ -99,10 +104,10 @@ echo "" >> results/benchmark_gromacs_time_$cores.txt
 
 echo "Running SPAdes benchmark"
 rm -rf benchmark_output/SPAdes/*
-echo "Replica_$replica SPAdes with $cores cores on dataset ERR251006" >> results/benchmark_SPAdes_time_$cores.txt
+echo "Replica_$replica SPAdes with $cores cores on dataset $dataset" >> results/benchmark_SPAdes_time_$cores.txt
 date >> results/benchmark_SPAdes_time_$cores.txt
 
-/usr/bin/time -p -a -o results/benchmark_SPAdes_time_$cores.txt sh -c "python SPAdes/SPAdes-3.12.0-Linux/bin/spades.py -s datasets/1000_genomes/ERR251006.filt.fastq -o benchmark_output/SPAdes/ -t $cores" >> results/benchmark_SPAdes_output_$cores.txt 2>&1
+/usr/bin/time -p -a -o results/benchmark_SPAdes_time_$cores.txt sh -c "python SPAdes/SPAdes-3.12.0-Linux/bin/spades.py -s datasets/1000_genomes/$dataset.filt.fastq -o benchmark_output/SPAdes/ -t $cores" >> results/benchmark_SPAdes_output_$cores.txt 2>&1
 echo "" >> results/benchmark_SPAdes_time_$cores.txt
 
 touch benchmark_summary_$cores.txt
@@ -143,20 +148,30 @@ then
 	rm -rf results/*
 fi
 
+if [ $dataset == "large" ]
+then
+	dataset="ERR251006"
+elif [ $dataset == "medium" ]
+then
+	dataset="ERR016155"
+elif [ $dataset == "small" ]
+then	dataset="" 
+fi
+
 echo "First run with maximal core number and three replicates"
 for replica in {1..3} 
 do
-	run_benchmark_tools $max_cores $max_cores_velvet $replica
+	run_benchmark_tools $max_cores $max_cores_velvet $replica $dataset
 done
 
 echo "Second run with half of the maximal core number and three replicates"
 for replica in {1..3} 
 do
-	run_benchmark_tools $half_cores $half_cores_velvet $replica
+	run_benchmark_tools $half_cores $half_cores_velvet $replica $dataset
 done
 
 echo "Third run with 1 core and three replicates"
 for replica in {1..3} 
 do
-	run_benchmark_tools $one_core $one_core $replica
+	run_benchmark_tools $one_core $one_core $replica $dataset
 done
