@@ -58,23 +58,21 @@ RUN tar xf ~/datasets/tensorflow/cifar-10-binary.tar.gz -C ~/datasets/tensorflow
 RUN make -C ~/bowtie2/bowtie2-2.3.4.2/ static-libs  && make -C ~/bowtie2/bowtie2-2.3.4.2/ STATIC_BUILD=1
 #RUN cd ~/velvet/
 RUN make -C ~/velvet/ 'OPENMP=1'
-#RUN cd ~/IDBA/idba_ud-1.0.9/
-RUN  ~/IDBA/idba_ud-1.0.9/configure --prefix=~/IDBA/idba_ud-1.0.9/
+RUN cd ~/IDBA/idba_ud-1.0.9/ && ~/IDBA/idba_ud-1.0.9/configure
 RUN make -C ~/IDBA/idba_ud-1.0.9/
 #RUN cd ~/
 RUN pip install --upgrade --force-reinstall pip==9.0.3
 RUN pip install tensorflow==1.4.0
 RUN wget ftp://ftp.gromacs.org/pub/gromacs/gromacs-2018.3.tar.gz -P ~/gromacs/
-RUN tar -xf ~/gromacs/gromacs-2018.3.tar.gz -C gromacs/
+RUN tar -xf ~/gromacs/gromacs-2018.3.tar.gz -C ~/gromacs/
 RUN rm ~/gromacs/gromacs-2018.3.tar.gz
 RUN mkdir ~/gromacs/gromacs-2018.3/build
-#RUN cd ~/gromacs/gromacs-2018.3/build/
-RUN cmake3 -DGMX_BUILD_OWN_FFTW=on -DGMX_GPU=off -DGMX_BUILD_MPI=off --build ~/gromacs/gromacs-2018.3/build  ~/gromacs/gromacs-2018.3/
+RUN cd ~/gromacs/gromacs-2018.3/build/ && cmake3 -DGMX_BUILD_OWN_FFTW=on -DGMX_GPU=off -DGMX_BUILD_MPI=off --build ./  ~/gromacs/gromacs-2018.3/
 RUN make -C ~/gromacs/gromacs-2018.3/build/ 
 RUN make -C ~/gromacs/gromacs-2018.3/build/ install
 #RUN cd ~/
 RUN /usr/local/gromacs/bin/gmx grompp -f ~/datasets/gromacs/adh_cubic/pme_verlet.mdp -c ~/datasets/gromacs/adh_cubic/conf.gro -p ~/datasets/gromacs/adh_cubic/topol.top -o ~/datasets/gromacs/adh_cubic/topol -po ~/datasets/gromacs/adh_cubic/mdout
-RUN ~/IDBA/idba_ud-1.0.9/bin/fq2fa datasets/1000_genomes/ERR016155.filt.fastq ~/datasets/1000_genomes/ERR016155.filt.fa
-RUN ~/IDBA/idba_ud-1.0.9/bin/fq2fa datasets/1000_genomes/ERR251006.filt.fastq ~/datasets/1000_genomes/ERR251006.filt.fa
+RUN ~/IDBA/idba_ud-1.0.9/bin/fq2fa ~/datasets/1000_genomes/ERR016155.filt.fastq ~/datasets/1000_genomes/ERR016155.filt.fa
+RUN ~/IDBA/idba_ud-1.0.9/bin/fq2fa ~/datasets/1000_genomes/ERR251006.filt.fastq ~/datasets/1000_genomes/ERR251006.filt.fa
 COPY run_benchmarks.sh ~/
 COPY threadedBioBenchsuiteStatsGenerator.R ~/
