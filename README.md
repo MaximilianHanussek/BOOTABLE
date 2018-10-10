@@ -74,6 +74,19 @@ sh install_bootable.sh
 ### 2. Using a .qcow2 image
 
 ### 3. Using a Docker container
+This instructions assume that docker is already installed and running. If not you should find most of the information
+on the [Docker website](https://www.docker.com/get-started)
+
+The first possibility is to pull the already configured BOOTABLE docker container from [docker hub](https://hub.docker.com/)
+with the follwing docker pull command.
+
+<pre>docker pull maximilianhanussek/bootable</pre>
+
+After the container has been downloaded you can just start the benchmarking with the follwoing command
+
+<pre>docker run --rm maximilianhanussek/bootable sh /root/run_benchmarks.sh </pre>
+
+
 
 ### 4. Using a Singularity container
 
