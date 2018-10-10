@@ -91,7 +91,7 @@ Change into the home directory (`/home/centos/`), where you will find all tools 
 
 This will start the calculations of the different tools first with the maximal number of CPU cores, second the half of the maximal number of CPU cores and at the end with one CPU core. Each number of CPU cores is running three times to get the mean value. As a comparison value, on a 28 core machine this will take some days (~80 hours).
 
-After the benchmarks have finished run the following Rscript to generate a brief report for each number of benchmarked CPUs:
+After the benchmarks have finished run the following Rscript to generate a brief report in .pdf format for each number of benchmarked CPUs:
 
 <pre>Rscript --vanilla report_generator.R</pre>
 
