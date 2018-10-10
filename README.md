@@ -67,8 +67,8 @@ Clone the github repo
 Change into the cloned repo
 <pre>cd BOOTABLE/</pre>
 
-Run the installation script and all the tools will be compiled and installed in the BOOTABLE directory
-sh install_bootable.sh
+Run the installation script and all the tools will be compiled and installed in the BOOTABLE directory except some gromacs tools which will be installed under /usr/local/ at the moment and tensorflow which will be installed via `pip`
+<pre>sh install_bootable.sh</pre>
 
 
 ### 2. Using a .qcow2 image
