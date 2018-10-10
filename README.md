@@ -2,7 +2,7 @@
 BiOinfOrmatics ThreAded Benchmark tooLsuitE (BOOTABLE)
 This toolsuite currently consists of the follwoing tools
 - Bowtie2
-- velvet
+- Velvet
 - IDBA
 - GROMACS
 - Tensowflow
