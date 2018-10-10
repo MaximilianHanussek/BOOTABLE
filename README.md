@@ -72,6 +72,34 @@ Run the installation script and all the tools will be compiled and installed in 
 
 
 ### 2. Using a .qcow2 image
+This instructions tell you how to use a .qcow2 image with everything preinstalled. It is further assumed that you know how to install an image in an virtuel environment or have a virtuel environment already running. Make sure you have at least 50GB of disk space. 
+The image is deposited in an S3 bucket with the following URL `https://s3.denbi.uni-tuebingen.de/max/benchmark_image.qcow2`.
+You can just download it into your current directory via `wget` for example:
+
+<pre>wget https://s3.denbi.uni-tuebingen.de/max/benchmark_image.qcow2</pre>
+
+Just start the image in any virtuel environment you like, for example with `virt-manager` under CentOS.
+You can login with the following credentials:
+- Username: root
+- Password: rootdenbi
+
+After the login please change the password of the user `centos` via the passwd command to anyone you like.
+Afterwards logout and login to the virtual machine as user `centos` with the password you have entered before.
+Change into the home directory (`/home/centos/`), where you will find all tools already installed. Start the benchmarks by running the following command:
+
+<pre>sh run_benchmarks</pre>
+
+This will start the calculations of the different tools first with the maximal number of CPU cores, second the half of the maximal number of CPU cores and at the end with one CPU core. Each number of CPU cores is running three times to get the mean value. As a comparison value, on a 28 core machine this will take some days (~80 hours).
+
+After the benchmarks have finished run the following Rscript to generate a brief report for each number of benchmarked CPUs:
+
+<pre>Rscript --vanilla report_generator.R</pre>
+
+If you want to rerun the benchmarks use the -c flag in order to delete the created output files and benchmark results from the run before:
+
+<pre>sh run_benchmarks -c</pre>
+
+
 
 ### 3. Using a Docker container
 This instructions assume that docker is already installed and running. If not you should find most of the information
