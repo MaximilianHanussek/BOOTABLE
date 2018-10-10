@@ -77,14 +77,29 @@ sh install_bootable.sh
 This instructions assume that docker is already installed and running. If not you should find most of the information
 on the [Docker website](https://www.docker.com/get-started)
 
-The first possibility is to pull the already configured BOOTABLE docker container from [docker hub](https://hub.docker.com/)
+The first possibility is to pull the already configured BOOTABLE Docker image  from [docker hub](https://hub.docker.com/)
 with the follwing docker pull command.
 
 <pre>docker pull maximilianhanussek/bootable</pre>
 
-After the container has been downloaded you can just start the benchmarking with the follwoing command
+After the image has been downloaded you can just start the benchmarking with the follwoing command
 
 <pre>docker run --rm maximilianhanussek/bootable sh /root/run_benchmarks.sh </pre>
+
+The second option is to build the Docker container by yourself with the provided `Dockerfile`. You can find it in the github repo
+in the `docker` directory.
+
+To build the Docker container by yourself clone this github repo, change into the `docker` directory and run the following command:
+
+<pre>docker build --tag bootable .</pre>
+
+The build will take a couple of minutes (30-60) as the first step is to update the underlying operating sytem /(centOS7) to the latest version and installing all the required packages. Further some large datasets need to be downloaded and this depends on your network conectivity. Afterwards most of the tools have to be compiled and installed.
+
+After the Docker image has been build you can start the benchmark with the same command like if you had pulled it from Docker Hub:
+
+<pre>docker run --rm maximilianhanussek/bootable sh /root/run_benchmarks.sh</pre>
+
+
 
 
 
