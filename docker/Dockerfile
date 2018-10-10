@@ -21,59 +21,60 @@ RUN mkdir ~/IDBA
 RUN mkdir ~/SPAdes
 RUN mkdir ~/tensorflow
 RUN mkdir ~/velvet
-RUN cd ~/datasets/gromacs/
-RUN wget ftp://ftp.gromacs.org/pub/benchmarks/ADH_bench_systems.tar.gz
-RUN tar -xf ADH_bench_systems.tar.gz
-RUN rm ADH_bench_systems.tar.gz
-RUN cd ~/datasets/tensorflow/
-RUN wget https://s3.denbi.uni-tuebingen.de/fb-test/tf_benchmark/models.tar.gz
-RUN tar -xf models.tar.gz
-RUN rm models.tar.gz
-RUN cd ~/bowtie2/
-RUN wget https://sourceforge.net/projects/bowtie-bio/files/bowtie2/2.3.4.2/bowtie2-2.3.4.2-source.zip
-RUN unzip bowtie2-2.3.4.2-source.zip
-RUN rm bowtie2-2.3.4.2-source.zip
-RUN cd ../
-RUN git clone https://github.com/dzerbino/velvet.git velvet/
-RUN cd velvet/
-RUN rm -rf .gitignore .git/
-RUN cd ~/IDBA/
-RUN wget https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/hku-idba/idba_ud-1.0.9.tar.gz
-RUN tar -xf idba_ud-1.0.9.tar.gz
-RUN rm idba_ud-1.0.9.tar.gz
-RUN cd ~/SPAdes
-RUN wget http://cab.spbu.ru/files/release3.12.0/SPAdes-3.12.0-Linux.tar.gz
-RUN tar -xf SPAdes-3.12.0-Linux.tar.gz
-RUN rm SPAdes-3.12.0-Linux.tar.gz
-RUN cd ~/
-RUN wget ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/phase3/data/HG00110/sequence_read/ERR251006.filt.fastq.gz -P datasets/1000_genomes/
-RUN gunzip datasets/1000_genomes/ERR251006.filt.fastq.gz
-RUN wget ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/phase3/data/HG00125/sequence_read/ERR016155.filt.fastq.gz -P datasets/1000_genomes/
-RUN gunzip datasets/1000_genomes/ERR016155.filt.fastq.gz
-RUN wget http://ftp.1000genomes.ebi.ac.uk/vol1/ftp/technical/reference/GRCh38_reference_genome/GRCh38_full_analysis_set_plus_decoy_hla.fa -P datasets/1000_genomes/
-RUN wget https://s3.denbi.uni-tuebingen.de/fb-test/tf_benchmark/cifar-10-binary.tar.gz -P datasets/tensorflow
-RUN tar xf datasets/tensorflow/cifar-10-binary.tar.gz -C datasets/tensorflow/
-RUN cd bowtie2/bowtie2-2.3.4.2/
-RUN make static-libs && make STATIC_BUILD=1
-RUN cd ~/velvet/
-RUN make 'OPENMP=1'
-RUN cd ~/IDBA/idba_ud-1.0.9/
-RUN ./configure
-RUN make
-RUN cd ~/
-RUN sudo pip install --upgrade --force-reinstall pip==9.0.3
-RUN sudo pip install tensorflow==1.4.0
-RUN wget ftp://ftp.gromacs.org/pub/gromacs/gromacs-2018.3.tar.gz -P gromacs/
-RUN tar -xf gromacs/gromacs-2018.3.tar.gz -C gromacs/
-RUN rm gromacs/gromacs-2018.3.tar.gz
-RUN mkdir gromacs/gromacs-2018.3/build
-RUN cd gromacs/gromacs-2018.3/build/
-RUN cmake3 -DGMX_BUILD_OWN_FFTW=on -DGMX_GPU=off -DGMX_BUILD_MPI=off --build ./  ~/gromacs/gromacs-2018.3/
-RUN make
-RUN sudo make install
-RUN cd ~/
-RUN /usr/local/gromacs/bin/gmx grompp -f datasets/gromacs/adh_cubic/pme_verlet.mdp -c datasets/gromacs/adh_cubic/conf.gro -p datasets/gromacs/adh_cubic/topol.top -o datasets/gromacs/adh_cubic/topol -po datasets/gromacs/adh_cubic/mdout
-RUN IDBA/idba_ud-1.0.9/bin/fq2fa datasets/1000_genomes/ERR016155.filt.fastq datasets/1000_genomes/ERR016155.filt.fa
-RUN IDBA/idba_ud-1.0.9/bin/fq2fa datasets/1000_genomes/ERR251006.filt.fastq datasets/1000_genomes/ERR251006.filt.fa
+#RUN cd ~/datasets/gromacs/
+RUN wget ftp://ftp.gromacs.org/pub/benchmarks/ADH_bench_systems.tar.gz -P ~/datasets/gromacs
+RUN tar -xf ~/datasets/gromacs/ADH_bench_systems.tar.gz -C ~/datasets/gromacs/
+RUN rm ~/datasets/gromacs/ADH_bench_systems.tar.gz
+#RUN cd ~/datasets/tensorflow/
+RUN wget https://s3.denbi.uni-tuebingen.de/fb-test/tf_benchmark/models.tar.gz -P ~/datasets/tensorflow
+RUN tar -xf ~/datasets/tensorflow/models.tar.gz -C ~/datasets/tensorflow/
+RUN rm ~/datasets/tensorflow/models.tar.gz
+#RUN cd ~/bowtie2/
+RUN wget https://sourceforge.net/projects/bowtie-bio/files/bowtie2/2.3.4.2/bowtie2-2.3.4.2-source.zip -P ~/bowtie2
+
+RUN unzip ~/bowtie2/bowtie2-2.3.4.2-source.zip -d ~/bowtie2/
+RUN rm ~/bowtie2/bowtie2-2.3.4.2-source.zip
+#RUN cd ../
+RUN git clone https://github.com/dzerbino/velvet.git ~/velvet/
+#RUN cd velvet/
+RUN rm -rf ~/velvet/.gitignore ~/velvet/.git/
+#RUN cd ~/IDBA/
+RUN wget https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/hku-idba/idba_ud-1.0.9.tar.gz -P ~/IDBA
+RUN tar -xf ~/IDBA/idba_ud-1.0.9.tar.gz -C ~/IDBA/
+RUN rm ~/IDBA/idba_ud-1.0.9.tar.gz
+#RUN cd ~/SPAdes/
+RUN wget http://cab.spbu.ru/files/release3.12.0/SPAdes-3.12.0-Linux.tar.gz -P ~/SPAdes
+RUN tar -xf ~/SPAdes/SPAdes-3.12.0-Linux.tar.gz -C ~/SPAdes
+RUN rm ~/SPAdes/SPAdes-3.12.0-Linux.tar.gz
+#RUN cd ~/
+RUN wget ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/phase3/data/HG00110/sequence_read/ERR251006.filt.fastq.gz -P ~/datasets/1000_genomes/
+RUN gunzip ~/datasets/1000_genomes/ERR251006.filt.fastq.gz
+RUN wget ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/phase3/data/HG00125/sequence_read/ERR016155.filt.fastq.gz -P ~/datasets/1000_genomes/
+RUN gunzip ~/datasets/1000_genomes/ERR016155.filt.fastq.gz
+#RUN wget http://ftp.1000genomes.ebi.ac.uk/vol1/ftp/technical/reference/GRCh38_reference_genome/GRCh38_full_analysis_set_plus_decoy_hla.fa -P ~/datasets/1000_genomes/
+RUN wget https://s3.denbi.uni-tuebingen.de/fb-test/tf_benchmark/cifar-10-binary.tar.gz -P ~/datasets/tensorflow
+RUN tar xf ~/datasets/tensorflow/cifar-10-binary.tar.gz -C ~/datasets/tensorflow/
+#RUN cd ~/bowtie2/bowtie2-2.3.4.2/
+RUN make -C ~/bowtie2/bowtie2-2.3.4.2/ static-libs  && make -C ~/bowtie2/bowtie2-2.3.4.2/ STATIC_BUILD=1
+#RUN cd ~/velvet/
+RUN make -C ~/velvet/ 'OPENMP=1'
+#RUN cd ~/IDBA/idba_ud-1.0.9/
+RUN  ~/IDBA/idba_ud-1.0.9/configure --prefix=~/IDBA/idba_ud-1.0.9/
+RUN make -C ~/IDBA/idba_ud-1.0.9/
+#RUN cd ~/
+RUN pip install --upgrade --force-reinstall pip==9.0.3
+RUN pip install tensorflow==1.4.0
+RUN wget ftp://ftp.gromacs.org/pub/gromacs/gromacs-2018.3.tar.gz -P ~/gromacs/
+RUN tar -xf ~/gromacs/gromacs-2018.3.tar.gz -C gromacs/
+RUN rm ~/gromacs/gromacs-2018.3.tar.gz
+RUN mkdir ~/gromacs/gromacs-2018.3/build
+#RUN cd ~/gromacs/gromacs-2018.3/build/
+RUN cmake3 -DGMX_BUILD_OWN_FFTW=on -DGMX_GPU=off -DGMX_BUILD_MPI=off --build ~/gromacs/gromacs-2018.3/build  ~/gromacs/gromacs-2018.3/
+RUN make -C ~/gromacs/gromacs-2018.3/build/ 
+RUN make -C ~/gromacs/gromacs-2018.3/build/ install
+#RUN cd ~/
+RUN /usr/local/gromacs/bin/gmx grompp -f ~/datasets/gromacs/adh_cubic/pme_verlet.mdp -c ~/datasets/gromacs/adh_cubic/conf.gro -p ~/datasets/gromacs/adh_cubic/topol.top -o ~/datasets/gromacs/adh_cubic/topol -po ~/datasets/gromacs/adh_cubic/mdout
+RUN ~/IDBA/idba_ud-1.0.9/bin/fq2fa datasets/1000_genomes/ERR016155.filt.fastq ~/datasets/1000_genomes/ERR016155.filt.fa
+RUN ~/IDBA/idba_ud-1.0.9/bin/fq2fa datasets/1000_genomes/ERR251006.filt.fastq ~/datasets/1000_genomes/ERR251006.filt.fa
 COPY run_benchmarks.sh ~/
-COPY threadedBioBenchsuiteStatsGenerator.R
+COPY threadedBioBenchsuiteStatsGenerator.R ~/
