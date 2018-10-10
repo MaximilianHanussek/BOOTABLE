@@ -52,6 +52,7 @@ RUN gunzip ~/datasets/1000_genomes/ERR251006.filt.fastq.gz
 RUN wget ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/phase3/data/HG00125/sequence_read/ERR016155.filt.fastq.gz -P ~/datasets/1000_genomes/
 RUN gunzip ~/datasets/1000_genomes/ERR016155.filt.fastq.gz
 #RUN wget http://ftp.1000genomes.ebi.ac.uk/vol1/ftp/technical/reference/GRCh38_reference_genome/GRCh38_full_analysis_set_plus_decoy_hla.fa -P ~/datasets/1000_genomes/
+RUN wget https://s3.denbi.uni-tuebingen.de/max/GRCh38_full_analysis_set_plus_decoy_hla.fa -P ~/datasets/1000_genomes/
 RUN wget https://s3.denbi.uni-tuebingen.de/fb-test/tf_benchmark/cifar-10-binary.tar.gz -P ~/datasets/tensorflow
 RUN tar xf ~/datasets/tensorflow/cifar-10-binary.tar.gz -C ~/datasets/tensorflow/
 #RUN cd ~/bowtie2/bowtie2-2.3.4.2/
@@ -74,5 +75,5 @@ RUN make -C ~/gromacs/gromacs-2018.3/build/ install
 RUN /usr/local/gromacs/bin/gmx grompp -f ~/datasets/gromacs/adh_cubic/pme_verlet.mdp -c ~/datasets/gromacs/adh_cubic/conf.gro -p ~/datasets/gromacs/adh_cubic/topol.top -o ~/datasets/gromacs/adh_cubic/topol -po ~/datasets/gromacs/adh_cubic/mdout
 RUN ~/IDBA/idba_ud-1.0.9/bin/fq2fa ~/datasets/1000_genomes/ERR016155.filt.fastq ~/datasets/1000_genomes/ERR016155.filt.fa
 RUN ~/IDBA/idba_ud-1.0.9/bin/fq2fa ~/datasets/1000_genomes/ERR251006.filt.fastq ~/datasets/1000_genomes/ERR251006.filt.fa
-COPY run_benchmarks.sh ~/
-COPY threadedBioBenchsuiteStatsGenerator.R ~/
+COPY run_benchmarks.sh /root/
+COPY threadedBioBenchsuiteStatsGenerator.R /root/
