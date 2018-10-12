@@ -16,17 +16,23 @@ mkdir gromacs
 mkdir results
 
 # Download benchmark datasets
-wget ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/phase3/data/HG00110/sequence_read/ERR251006.filt.fastq.gz -P datasets/1000_genomes/
+#wget ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/phase3/data/HG00110/sequence_read/ERR251006.filt.fastq.gz -P datasets/1000_genomes/
+
+wget https://s3.denbi.uni-tuebingen.de/max/ERR251006.filt.fastq.gz -P datasets/1000_genomes/
 gunzip datasets/1000_genomes/ERR251006.filt.fastq.gz
 
-wget ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/phase3/data/HG00125/sequence_read/ERR016155.filt.fastq.gz -P datasets/1000_genomes/
+#wget ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/phase3/data/HG00125/sequence_read/ERR016155.filt.fastq.gz -P datasets/1000_genomes/
+
+wget https://s3.denbi.uni-tuebingen.de/max/ERR016155.filt.fastq.gz -P datasets/1000_genomes/
 gunzip datasets/1000_genomes/ERR016155.filt.fastq.gz
 
 #wget http://ftp.1000genomes.ebi.ac.uk/vol1/ftp/technical/reference/GRCh38_reference_genome/GRCh38_full_analysis_set_plus_decoy_hla.fa -P datasets/1000_genomes/
 
 wget https://s3.denbi.uni-tuebingen.de/max/GRCh38_full_analysis_set_plus_decoy_hla.fa -P datasets/1000_genomes/
 
-wget https://s3.denbi.uni-tuebingen.de/fb-test/tf_benchmark/cifar-10-binary.tar.gz -P datasets/tensorflow
+#wget https://s3.denbi.uni-tuebingen.de/fb-test/tf_benchmark/cifar-10-binary.tar.gz -P datasets/tensorflow
+
+wget https://s3.denbi.uni-tuebingen.de/max/cifar-10-binary.tar.gz -P datasets/tensorflow
 tar xf datasets/tensorflow/cifar-10-binary.tar.gz -C datasets/tensorflow/
 
 # Compile and install bowtie2 
@@ -50,7 +56,9 @@ sudo pip install --upgrade --force-reinstall pip==9.0.3
 sudo pip install tensorflow==1.4.0
 
 # Download, compile and install GROMACS (sudo)
-wget ftp://ftp.gromacs.org/pub/gromacs/gromacs-2018.3.tar.gz -P gromacs/
+#wget ftp://ftp.gromacs.org/pub/gromacs/gromacs-2018.3.tar.gz -P gromacs/
+
+wget https://s3.denbi.uni-tuebingen.de/max/gromacs-2018.3.tar.gz -P gromacs/
 tar -xf gromacs/gromacs-2018.3.tar.gz -C gromacs/
 rm gromacs/gromacs-2018.3.tar.gz
 mkdir gromacs/gromacs-2018.3/build

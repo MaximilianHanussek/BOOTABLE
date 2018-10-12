@@ -89,7 +89,7 @@
 
 - name: Download read set ERR016155
   get_url:
-    url: ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/phase3/data/HG00125/sequence_read/ERR016155.filt.fastq.gz
+    url: https://s3.denbi.uni-tuebingen.de/max/ERR016155.filt.fastq.gz
     dest: /home/centos/datasets/1000_genomes/ERR016155.filt.fastq.gz
 
 - name: Unarchive read set ERR016155
@@ -97,7 +97,7 @@
 
 - name: Download read set ERR251006
   get_url:
-    url: ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/phase3/data/HG00110/sequence_read/ERR251006.filt.fastq.gz
+    url:  https://s3.denbi.uni-tuebingen.de/max/ERR251006.filt.fastq.gz
     dest: /home/centos/datasets/1000_genomes/ERR251006.filt.fastq.gz
 
 - name: Unarchive read set ERR251006
@@ -105,30 +105,30 @@
 
 - name: Download reference genome GRCh38
   get_url: 
-    url: ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/technical/reference/GRCh38_reference_genome/GRCh38_full_analysis_set_plus_decoy_hla.fa
+    url: https://s3.denbi.uni-tuebingen.de/max/GRCh38_full_analysis_set_plus_decoy_hla.fa
     dest: /home/centos/datasets/1000_genomes/GRCh38_full_analysis_set_plus_decoy_hla.fa
 
 - name: Download and unarchive tensorflow models
   unarchive:
-    src: https://s3.denbi.uni-tuebingen.de/fb-test/tf_benchmark/models.tar.gz
+    src: https://s3.denbi.uni-tuebingen.de/max/models.tar.gz
     dest: /home/centos/datasets/tensorflow/
     remote_src: yes
 
 - name: Download and unarchive tensorflow cifar-10-binary
   unarchive:
-    src: https://s3.denbi.uni-tuebingen.de/fb-test/tf_benchmark/cifar-10-binary.tar.gz
+    src: https://s3.denbi.uni-tuebingen.de/max/cifar-10-binary.tar.gz
     dest: /home/centos/datasets/tensorflow/
     remote_src: yes
 
 - name: Download tensorflow cifar-10-binary again, needs to be present as .tar.gz
   get_url:
-    url: https://s3.denbi.uni-tuebingen.de/fb-test/tf_benchmark/cifar-10-binary.tar.gz
+    url: https://s3.denbi.uni-tuebingen.de/max/cifar-10-binary.tar.gz
     dest: /home/centos/datasets/tensorflow/
 
 
 - name: Download and unarchive GROMACS dataset
   unarchive:
-    src: ftp://ftp.gromacs.org/pub/benchmarks/ADH_bench_systems.tar.gz
+    src: https://s3.denbi.uni-tuebingen.de/max/ADH_bench_systems.tar.gz
     dest: /home/centos/datasets/gromacs/
     remote_src: yes
 
@@ -147,7 +147,7 @@
 
 - name: Download and unarchive bowtie2 tool
   unarchive:
-    src: https://sourceforge.net/projects/bowtie-bio/files/bowtie2/2.3.4.2/bowtie2-2.3.4.2-source.zip
+    src: https://s3.denbi.uni-tuebingen.de/max/bowtie2-2.3.4.2-source.zip
     dest: /home/centos/bowtie2/
     remote_src: yes
     creates: /home/centos/bowtie2/*
@@ -193,7 +193,7 @@
 
 - name: Download and unarchive IDBA tool in version 1.0.9
   unarchive:
-    src: https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/hku-idba/idba_ud-1.0.9.tar.gz
+    src: https://s3.denbi.uni-tuebingen.de/max/idba_ud-1.0.9.tar.gz
     dest: /home/centos/IDBA/
     remote_src: yes
     creates: /home/centos/IDBA/*
@@ -247,7 +247,7 @@
 
 - name: Download and unarchive GROMACS 2018.3
   unarchive:
-    src: ftp://ftp.gromacs.org/pub/gromacs/gromacs-2018.3.tar.gz
+    src: https://s3.denbi.uni-tuebingen.de/max/gromacs-2018.3.tar.gz
     dest: /home/centos/gromacs/
     remote_src: yes
     creates: /home/centos/gromacs/*
@@ -281,7 +281,7 @@
 
 - name: Download and unarchive SPAdes 3.12.0
   unarchive:
-    src: http://cab.spbu.ru/files/release3.12.0/SPAdes-3.12.0-Linux.tar.gz
+    src: https://s3.denbi.uni-tuebingen.de/max/SPAdes-3.12.0-Linux.tar.gz
     dest: /home/centos/SPAdes/
     remote_src: yes
 
