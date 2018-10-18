@@ -47,25 +47,28 @@ wget https://s3.denbi.uni-tuebingen.de/max/ADH_bench_systems.tar.gz -P datasets/
 tar -xf datasets/gromacs/ADH_bench_systems.tar.gz -C datasets/gromacs/
 rm datasets/gromacs/ADH_bench_systems.tar.gz
 
+# Download Bowtie2 Sources
 wget https://s3.denbi.uni-tuebingen.de/max/bowtie2-2.3.4.2-source.zip -P bowtie2
 unzip bowtie2/bowtie2-2.3.4.2-source.zip -d bowtie2/
 rm bowtie2/bowtie2-2.3.4.2-source.zip
 
+# Download Velvet github repository
 git clone https://github.com/dzerbino/velvet.git velvet/
 rm -rf velvet/.gitignore velvet/.git/
 
+# Download IDBA sources
 wget https://s3.denbi.uni-tuebingen.de/max/idba_ud-1.0.9.tar.gz -P IDBA
 tar -xf IDBA/idba_ud-1.0.9.tar.gz -C IDBA/
 rm IDBA/idba_ud-1.0.9.tar.gz
 
-# GROMACS download
+# Download GROMACS sources
 #wget ftp://ftp.gromacs.org/pub/gromacs/gromacs-2018.3.tar.gz -P gromacs/
 
 wget https://s3.denbi.uni-tuebingen.de/max/gromacs-2018.3.tar.gz -P gromacs/
 tar -xf gromacs/gromacs-2018.3.tar.gz -C gromacs/
 rm gromacs/gromacs-2018.3.tar.gz
 
-
+# Download SPAdes binaries
 wget https://s3.denbi.uni-tuebingen.de/max/SPAdes-3.12.0-Linux.tar.gz -P SPAdes
 tar -xf SPAdes/SPAdes-3.12.0-Linux.tar.gz -C SPAdes
 rm SPAdes/SPAdes-3.12.0-Linux.tar.gz
@@ -91,9 +94,7 @@ cd ../../
 sudo pip install --upgrade --force-reinstall pip==9.0.3
 sudo pip install tensorflow==1.4.0
 
-# Download, compile and install GROMACS (sudo)
-#wget ftp://ftp.gromacs.org/pub/gromacs/gromacs-2018.3.tar.gz -P gromacs/
-
+# Compile and install GROMACS (sudo)
 mkdir gromacs/gromacs-2018.3/build
 cd gromacs/gromacs-2018.3/build/
 cmake3 -DGMX_BUILD_OWN_FFTW=on -DGMX_GPU=off -DGMX_BUILD_MPI=off --build ./  ../../gromacs-2018.3/
@@ -109,14 +110,3 @@ echo "Converting datasets from .fastq to .fa"
 IDBA/idba_ud-1.0.9/bin/fq2fa datasets/1000_genomes/ERR016155.filt.fastq datasets/1000_genomes/ERR016155.filt.fa
 
 IDBA/idba_ud-1.0.9/bin/fq2fa datasets/1000_genomes/ERR251006.filt.fastq datasets/1000_genomes/ERR251006.filt.fa
-
-
-
-
-
-
-
-
-
-
-
