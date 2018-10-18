@@ -85,7 +85,7 @@ date >> results/benchmark_idba_time_$cores.txt
 echo "" >> results/benchmark_idba_time_$cores.txt
 
 
-echo "Running Tensoflow benchmark"
+echo "Running Tensorflow benchmark"
 rm -rf benchmark_output/tensorflow/*
 echo "Replica_$replica Tensorflow with $cores cores on dataset cifar10" >> results/benchmark_tensorflow_time_$cores.txt
 date >> results/benchmark_tensorflow_time_$cores.txt
