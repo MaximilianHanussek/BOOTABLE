@@ -93,14 +93,16 @@ cd gcc/gcc-build
 make clean
 make -j$(nproc) && make install
 cd ../../
-export PATH=$PWD/gcc/gcc-installed/bin:$PATH
-export LD_LIBRARY_PATH=$PWD/gcc/gcc-installed/lib64:$LD_LIBRARY_PATH
 
 # Compile and install bowtie2 
 cd bowtie2/bowtie2-2.3.4.2/
 make clean
 sudo make static-libs && make -j$(nproc) STATIC_BUILD=1
 cd ../../
+
+# Set GCC to 7.3.0
+export PATH=$PWD/gcc/gcc-installed/bin:$PATH
+export LD_LIBRARY_PATH=$PWD/gcc/gcc-installed/lib64:$LD_LIBRARY_PATH
 
 # Compile and install velvet
 cd velvet/
