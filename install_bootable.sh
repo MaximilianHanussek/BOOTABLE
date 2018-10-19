@@ -102,7 +102,7 @@ sudo pip install tensorflow==1.4.0
 mkdir gromacs/gromacs-2018.3/build
 cd gromacs/gromacs-2018.3/build/
 cmake3 -DGMX_BUILD_OWN_FFTW=on -DGMX_GPU=off -DGMX_BUILD_MPI=off --build ./  ../../gromacs-2018.3/
-make
+make -j$(nproc)
 sudo make install
 cd ../../../
 
