@@ -83,20 +83,23 @@ wget https://s3.denbi.uni-tuebingen.de/max/SPAdes-3.12.0-Linux.tar.gz -P SPAdes
 tar -xf SPAdes/SPAdes-3.12.0-Linux.tar.gz -C SPAdes
 rm SPAdes/SPAdes-3.12.0-Linux.tar.gz
 
+# Save original PATH and LD_LIBRARY variables
+original_path_variable=$(echo $PATH)
+original_ld_library_variable=$(echo $LD_LIBRARY_PATH)
+
 # Compile and install GCC 7.3.0
 cd gcc/gcc-build
 ../gcc-7.3.0/configure --enable-languages=c,c++ --disable-multilib --prefix=$PWD/../gcc-installed
 make clean
 make -j$(nproc) && make install
+cd ../../
 export PATH=$PWD/gcc/gcc-installed/bin:$PATH
 export LD_LIBRARY_PATH=$PWD/gcc/gcc-installed/lib64:$LD_LIBRARY_PATH
-cd ../../
 
 # Compile and install bowtie2 
 cd bowtie2/bowtie2-2.3.4.2/
 make clean
-make -j$(nproc)
-#sudo make static-libs && make STATIC_BUILD=1
+sudo make static-libs && make -j$(nproc) STATIC_BUILD=1
 cd ../../
 
 # Compile and install velvet
@@ -104,6 +107,10 @@ cd velvet/
 make clean
 make -j$(nproc) 'OPENMP=1'
 cd ..
+
+# Reset to system compiler as IDBA is not compiling with GCC 7.3.0
+export PATH=$original_path_variable
+export LD_LIBRARY_PATH=$original_ld_library_variable
 
 # Compile and install IDBA
 cd IDBA/idba_ud-1.0.9/
@@ -115,6 +122,10 @@ cd ../../
 # Compile and install tensorflow (sudo)
 sudo pip install --upgrade --force-reinstall pip==9.0.3
 sudo pip install tensorflow==1.4.0
+
+# Set GCC to 7.3.0 to fasten up GROMACS
+export PATH=$PWD/gcc/gcc-installed/bin:$PATH
+export LD_LIBRARY_PATH=$PWD/gcc/gcc-installed/lib64:$LD_LIBRARY_PATH
 
 # Compile and install GROMACS (sudo)
 mkdir gromacs/gromacs-2018.3/build
@@ -133,3 +144,8 @@ echo "Converting datasets from .fastq to .fa"
 IDBA/idba_ud-1.0.9/bin/fq2fa datasets/1000_genomes/ERR016155.filt.fastq datasets/1000_genomes/ERR016155.filt.fa
 
 IDBA/idba_ud-1.0.9/bin/fq2fa datasets/1000_genomes/ERR251006.filt.fastq datasets/1000_genomes/ERR251006.filt.fa
+
+# Reset to system compiler after finishing installation process
+export PATH=$original_path_variable
+export LD_LIBRARY_PATH=$original_ld_library_variable
+
