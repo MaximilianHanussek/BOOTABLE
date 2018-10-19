@@ -34,11 +34,14 @@ If you want to install the tools and scripts BOOTABLE use please be sure to have
 - R
 - hwloc
 - hwloc-devel
+- gmp-devel 
+- mpfr-devel 
+- libmpc-devel
 
 <pre>yum update -y
 yum install epel-release -y
 yum group install "Development Tools" -y
-yum install nano curl wget vim htop time git zlib-devel.x86_64 python-pip cmake3 tbb-devel.x86_64 hwloc hwloc-devel R -y</pre>
+yum install nano curl wget vim htop time git zlib-devel.x86_64 python-pip cmake3 tbb-devel.x86_64 hwloc hwloc-devel gmp-devel mpfr-devel libmpc-devel R -y</pre>
 
 
 Further the system needs access to the internet to load the specific datasets and some R packages.
