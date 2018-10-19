@@ -20,8 +20,9 @@ mkdir SPAdes
 mkdir tensorflow
 mkdir velvet
 mkdir results
-
-
+mkdir gcc
+mkdir gcc/gcc-build
+mkdir gcc/gcc-installed
 
 # Download benchmark datasets
 #wget ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/phase3/data/HG00110/sequence_read/ERR251006.filt.fastq.gz -P datasets/1000_genomes/
@@ -51,6 +52,11 @@ wget https://s3.denbi.uni-tuebingen.de/max/ADH_bench_systems.tar.gz -P datasets/
 tar -xf datasets/gromacs/ADH_bench_systems.tar.gz -C datasets/gromacs/
 rm datasets/gromacs/ADH_bench_systems.tar.gz
 
+# Download GCC compiler version 7.3.0
+wget https://s3.denbi.uni-tuebingen.de/max/gcc-7.3.0.tar.gz -P gcc
+tar -xf gcc/gcc-7.3.0.tar.gz -C gcc/
+rm gcc/gcc-7.3.0.tar.gz
+
 # Download Bowtie2 Sources
 wget https://s3.denbi.uni-tuebingen.de/max/bowtie2-2.3.4.2-source.zip -P bowtie2
 unzip bowtie2/bowtie2-2.3.4.2-source.zip -d bowtie2/
@@ -77,6 +83,11 @@ wget https://s3.denbi.uni-tuebingen.de/max/SPAdes-3.12.0-Linux.tar.gz -P SPAdes
 tar -xf SPAdes/SPAdes-3.12.0-Linux.tar.gz -C SPAdes
 rm SPAdes/SPAdes-3.12.0-Linux.tar.gz
 
+# Compile and install GCC 7.3.0
+cd gcc/gcc-build
+../gcc-7.3.0/configure --enable-languages=c,c++ --disable-multilib --prefix=$PWD/../gcc-installed
+make -j$(nproc) && make install
+cd ../../
 
 # Compile and install bowtie2 
 cd bowtie2/bowtie2-2.3.4.2/
