@@ -88,6 +88,8 @@ cd gcc/gcc-build
 ../gcc-7.3.0/configure --enable-languages=c,c++ --disable-multilib --prefix=$PWD/../gcc-installed
 make clean
 make -j$(nproc) && make install
+export PATH=$PWD/gcc/gcc-installed/bin:$PATH
+export LD_LIBRARY_PATH=$PWD/gcc/gcc-installed/lib64:$LD_LIBRARY_PATH
 cd ../../
 
 # Compile and install bowtie2 
