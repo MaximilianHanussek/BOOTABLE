@@ -86,23 +86,28 @@ rm SPAdes/SPAdes-3.12.0-Linux.tar.gz
 # Compile and install GCC 7.3.0
 cd gcc/gcc-build
 ../gcc-7.3.0/configure --enable-languages=c,c++ --disable-multilib --prefix=$PWD/../gcc-installed
+make clean
 make -j$(nproc) && make install
 cd ../../
 
 # Compile and install bowtie2 
 cd bowtie2/bowtie2-2.3.4.2/
-sudo make static-libs && make STATIC_BUILD=1
+make clean
+make -j$(nproc)
+#sudo make static-libs && make STATIC_BUILD=1
 cd ../../
 
 # Compile and install velvet
 cd velvet/
-make 'OPENMP=1'
+make clean
+make -j$(nproc) 'OPENMP=1'
 cd ..
 
 # Compile and install IDBA
 cd IDBA/idba_ud-1.0.9/
 ./configure
-make
+make clean
+make -j$(nproc)
 cd ../../
 
 # Compile and install tensorflow (sudo)
@@ -113,6 +118,7 @@ sudo pip install tensorflow==1.4.0
 mkdir gromacs/gromacs-2018.3/build
 cd gromacs/gromacs-2018.3/build/
 cmake3 -DGMX_BUILD_OWN_FFTW=on -DGMX_GPU=off -DGMX_BUILD_MPI=off --build ./  ../../gromacs-2018.3/
+make clean
 make -j$(nproc)
 sudo make install
 cd ../../../
