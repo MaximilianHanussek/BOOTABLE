@@ -44,7 +44,7 @@ wget https://s3.denbi.uni-tuebingen.de/max/GRCh38_full_analysis_set_plus_decoy_h
 wget https://s3.denbi.uni-tuebingen.de/max/cifar-10-binary.tar.gz -P datasets/tensorflow
 tar -xf datasets/tensorflow/cifar-10-binary.tar.gz -C datasets/tensorflow/
 
-wget https://s3.denbi.uni-tuebingen.de/max/models.tar.gz -P /datasets/tensorflow
+wget https://s3.denbi.uni-tuebingen.de/max/models.tar.gz -P datasets/tensorflow
 tar -xf datasets/tensorflow/models.tar.gz -C datasets/tensorflow/
 rm datasets/tensorflow/models.tar.gz
 
