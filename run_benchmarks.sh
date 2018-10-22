@@ -11,10 +11,12 @@ quarter_cores_velvet=$(expr $quarter_cores - 1) #Calculate quarter core number f
 one_core=1					#Set one core variable
 clean=0						#Set clean flag initially to 0
 dataset="ERR016155"
+default_cores=$max_cores
+default_cores_velvet=$max_cores_velvet
 
 
 # Check if the -c flag is set or not for clean up operation
-while getopts "cd:" option; do
+while getopts "cdp:" option; do
 	case "${option}" in
 		c) 
 			clean=1
@@ -22,6 +24,9 @@ while getopts "cd:" option; do
 		d) 
 			dataset=${OPTARG}
 			;;
+		p)
+			default_cores=${OPTARG}
+			default_cores_velvet=$(expr $default_cores - 1)
 	esac
 done
 
@@ -162,22 +167,25 @@ then
 fi
 
 echo $dataset
+echo $default_cores
+echo $default_cores_velvet
+
 
 echo "First run with maximal core number and three replicates"
 for replica in {1..3} 
 do
-	run_benchmark_tools $max_cores $max_cores_velvet $replica $dataset
+	run_benchmark_tools $default_cores $default_cores_velvet $replica $dataset
 done
 
-echo "Second run with half of the maximal core number and three replicates"
-for replica in {1..3} 
-do
-	run_benchmark_tools $half_cores $half_cores_velvet $replica $dataset
-done
+#echo "Second run with half of the maximal core number and three replicates"
+#for replica in {1..3} 
+#do
+#	run_benchmark_tools $half_cores $half_cores_velvet $replica $dataset
+#done
 
-echo "Third run with 1 core and three replicates"
-for replica in {1..3} 
-do
-	run_benchmark_tools $one_core $one_core $replica $dataset
-done
+#echo "Third run with 1 core and three replicates"
+#for replica in {1..3} 
+#do
+#	run_benchmark_tools $one_core $one_core $replica $dataset
+#done
 
