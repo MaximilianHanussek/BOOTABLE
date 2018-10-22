@@ -88,7 +88,9 @@ original_path_variable=$(echo $PATH)
 original_ld_library_variable=$(echo $LD_LIBRARY_PATH)
 
 # Compile and install GCC 7.3.0
-cd gcc/gcc-build
+cd gcc/gcc-7.3.0
+./contrib/download_prerequisites
+cd ../gcc-build
 ../gcc-7.3.0/configure --enable-languages=c,c++ --disable-multilib --prefix=$PWD/../gcc-installed
 make clean
 make -j$(nproc) && make install
