@@ -9,14 +9,16 @@ half_cores_velvet=$(expr $half_cores - 1)	#Calculate half core number for velvet
 quarter_cores=$(expr $max_cores / 4)		#Calculate quarter core number
 quarter_cores_velvet=$(expr $quarter_cores - 1) #Calculate quarter core number fir velvet
 one_core=1					#Set one core variable
-clean=0						#Set clean flag initially to 0
+clean=0 					#Set clean flag initially to 0
 dataset="ERR016155"
 default_cores=$max_cores
 default_cores_velvet=$max_cores_velvet
+default_replicas=3
+integer_regex='^[0-9]+$'
 
 
-# Check if the -c flag is set or not for clean up operation
-while getopts "cdp:" option; do
+# Create flag options
+while getopts "cd:p:r:" option; do
 	case "${option}" in
 		c) 
 			clean=1
@@ -26,6 +28,10 @@ while getopts "cdp:" option; do
 			;;
 		p)
 			default_cores=${OPTARG}
+			;;
+		r)
+			default_replicas=${OPTARG}
+			;;
 	esac
 done
 
@@ -157,9 +163,11 @@ fi
 if [ $dataset == "large" ]
 then
 	dataset="ERR251006"
+
 elif [ $dataset == "medium" ]
 then
 	dataset="ERR016155"
+
 elif [ $dataset == "small" ]
 then	
 	dataset="" 
@@ -168,23 +176,25 @@ fi
 if [ $default_cores == "full" ]
 then
         default_cores=$max_cores
-        default_cores=$max_cores_velvet
+        default_cores_velvet=$max_cores_velvet
 
 elif [ $default_cores == "half" ]
 then
         default_cores=$half_cores
-	default_cores=$half_cores_velvet
+	default_cores_velvet=$half_cores_velvet
 
 elif [ $default_cores == "one" ]
 then
         default_cores=$one_core
-        default_cores=$one_core
+        default_cores_velvet=$one_core
 
-elif ! [[ "$default_cores" =~ ^[0-9]+$ ]]
+elif [[ "$default_cores" =~ $integer_regex ]]
+then
 	default_cores_velvet=$(expr $default_cores - 1)
 
 else
 	echo "Parameter is not one of full, half, one or an integer number. Please check -p flag again."
+	exit 1
 fi
 
 
@@ -193,23 +203,11 @@ fi
 echo $dataset
 echo $default_cores
 echo $default_cores_velvet
+echo $default_replicas
 
 
-echo "First run with maximal core number and three replicates"
-for replica in {1..3} 
+echo "BOOTABLE benchmark run with $default_cores and three replicates"
+for replica in {1..$default_replicas} 
 do
 	run_benchmark_tools $default_cores $default_cores_velvet $replica $dataset
 done
-
-#echo "Second run with half of the maximal core number and three replicates"
-#for replica in {1..3} 
-#do
-#	run_benchmark_tools $half_cores $half_cores_velvet $replica $dataset
-#done
-
-#echo "Third run with 1 core and three replicates"
-#for replica in {1..3} 
-#do
-#	run_benchmark_tools $one_core $one_core $replica $dataset
-#done
-
