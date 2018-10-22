@@ -26,7 +26,6 @@ while getopts "cdp:" option; do
 			;;
 		p)
 			default_cores=${OPTARG}
-			default_cores_velvet=$(expr $default_cores - 1)
 	esac
 done
 
@@ -165,6 +164,31 @@ elif [ $dataset == "small" ]
 then	
 	dataset="" 
 fi
+
+if [ $default_cores == "full" ]
+then
+        default_cores=$max_cores
+        default_cores=$max_cores_velvet
+
+elif [ $default_cores == "half" ]
+then
+        default_cores=$half_cores
+	default_cores=$half_cores_velvet
+
+elif [ $default_cores == "one" ]
+then
+        default_cores=$one_core
+        default_cores=$one_core
+
+elif ! [[ "$default_cores" =~ ^[0-9]+$ ]]
+	default_cores_velvet=$(expr $default_cores - 1)
+
+else
+	echo "Parameter is not one of full, half, one or an integer number. Please check -p flag again."
+fi
+
+
+
 
 echo $dataset
 echo $default_cores
