@@ -134,7 +134,7 @@ export LD_LIBRARY_PATH=$PWD/gcc/gcc-installed/lib64:$LD_LIBRARY_PATH
 # Compile and install GROMACS (sudo)
 mkdir gromacs/gromacs-2018.3/build
 cd gromacs/gromacs-2018.3/build/
-cmake3 -DGMX_BUILD_OWN_FFTW=on -DGMX_GPU=off -DGMX_BUILD_MPI=off --build ./  ../../gromacs-2018.3/
+CC=gcc CXX=g++ cmake3 -DCMAKE_CXX_COMPILER=g++ -DGMX_BUILD_OWN_FFTW=on -DGMX_GPU=off -DGMX_BUILD_MPI=off --build ./ ../../gromacs-2018.3/
 make clean
 make -j$(nproc)
 sudo make install
