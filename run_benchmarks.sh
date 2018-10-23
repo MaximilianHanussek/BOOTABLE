@@ -11,6 +11,8 @@ quarter_cores_velvet=$(expr $quarter_cores - 1) #Calculate quarter core number f
 one_core=1					#Set one core variable
 clean=0 					#Set clean flag initially to 0
 dataset="ERR016155"
+default_tensorflow_steps=2500
+default_gromacs_steps=30000
 default_cores=$max_cores
 default_cores_velvet=$max_cores_velvet
 default_replicas=3
@@ -41,7 +43,8 @@ cores=$1					#Input parameter number cores (1,2,3,...)
 cores_velvet=$2					#Input parameter number cores velvet (1,2,3,...)
 replica=$3					#Input parameter number of replica (1,2,3,..)
 dataset=$4					#Input parameter which dataset (medium, large)
-
+tf_steps=$5					#Input parameter for Tensorflow how much steps
+#gromacs_steps=$6				#Input parameter for GROMACS how much steps 
 
 # Bowtie2 build index
 rm -rf benchmark_output/bowtie2/*		#Clean up bowtie2 output directoy
@@ -95,12 +98,12 @@ date >> results/benchmark_idba_time_$cores.txt
 echo "" >> results/benchmark_idba_time_$cores.txt
 
 
-echo "Running Tensorflow benchmark"
+echo "Running Tensorflow benchmark with $tf_steps"
 rm -rf benchmark_output/tensorflow/*
 echo "Replica_$replica Tensorflow with $cores cores on dataset cifar10" >> results/benchmark_tensorflow_time_$cores.txt
 date >> results/benchmark_tensorflow_time_$cores.txt
 
-/usr/bin/time -p -a -o results/benchmark_tensorflow_time_$cores.txt sh -c "python datasets/tensorflow/models/tutorials/image/cifar10/cifar10_train.py --data_dir=datasets/tensorflow/ --train_dir=benchmark_output/tensorflow/cifar10_train --max_steps=5000 --threads=$cores" >> results/benchmark_tensorflow_output_$cores.txt 2>&1
+/usr/bin/time -p -a -o results/benchmark_tensorflow_time_$cores.txt sh -c "python datasets/tensorflow/models/tutorials/image/cifar10/cifar10_train.py --data_dir=datasets/tensorflow/ --train_dir=benchmark_output/tensorflow/cifar10_train --max_steps=$tf_steps --threads=$cores" >> results/benchmark_tensorflow_output_$cores.txt 2>&1
 echo "" >> results/benchmark_tensorflow_time_$cores.txt
 
 
@@ -163,14 +166,17 @@ fi
 if [ $dataset == "large" ]
 then
 	dataset="ERR251006"
+	default_tensorflow_steps=5000
 
 elif [ $dataset == "medium" ]
 then
 	dataset="ERR016155"
+	default_tensorflow_steps=2500
 
 elif [ $dataset == "small" ]
 then	
 	dataset="" 
+	default_tensorflow_steps=1000
 fi
 
 if [ $default_cores == "full" ]
@@ -200,14 +206,17 @@ fi
 
 
 
+
+
 echo $dataset
 echo $default_cores
 echo $default_cores_velvet
 echo $default_replicas
+echo $default_tensorflow_steps
 
 
 echo "BOOTABLE benchmark run with $default_cores and three replicates"
 for replica in {1..$default_replicas} 
 do
-	run_benchmark_tools $default_cores $default_cores_velvet $replica $dataset
+	run_benchmark_tools $default_cores $default_cores_velvet $replica $dataset $default_tensorflow_steps
 done
