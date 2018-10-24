@@ -10,13 +10,13 @@ quarter_cores=$(expr $max_cores / 4)		#Calculate quarter core number
 quarter_cores_velvet=$(expr $quarter_cores - 1) #Calculate quarter core number fir velvet
 one_core=1					#Set one core variable
 clean=0 					#Set clean flag initially to 0
-dataset="ERR016155"
-default_tensorflow_steps=2500
-default_gromacs_steps=30000
-default_cores=$max_cores
-default_cores_velvet=$max_cores_velvet
-default_replicas=3
-integer_regex='^[0-9]+$'
+dataset="ERR016155"				#Set ERR016155 as defautl dataset
+default_tensorflow_steps=2500			#Set 2500 tensorflow steps as default 
+default_gromacs_steps=30000			#Set 30000 gromacs steps as default
+default_cores=$max_cores			#Set maximal core number as default
+default_cores_velvet=$max_cores_velvet		#Set default core number for velvet tool
+default_replicas=3				#Set default number of replicas to 3
+integer_regex='^[0-9]+$'			#Define regex for integers
 
 
 # Create flag options
@@ -44,7 +44,7 @@ cores_velvet=$2					#Input parameter number cores velvet (1,2,3,...)
 replica=$3					#Input parameter number of replica (1,2,3,..)
 dataset=$4					#Input parameter which dataset (medium, large)
 tf_steps=$5					#Input parameter for Tensorflow how much steps
-#gromacs_steps=$6				#Input parameter for GROMACS how much steps 
+gromacs_steps=$6				#Input parameter for GROMACS how much steps 
 
 # Bowtie2 build index
 rm -rf benchmark_output/bowtie2/*		#Clean up bowtie2 output directoy
@@ -107,10 +107,14 @@ date >> results/benchmark_tensorflow_time_$cores.txt
 echo "" >> results/benchmark_tensorflow_time_$cores.txt
 
 
+echo "Creating GROMACS test model with $gromacs_steps"
+sed -i "s/nsteps.*/nsteps                  = $gromacs_steps/g" datasets/gromacs/adh_cubic/pme_verlet.mdp
+
+/usr/local/gromacs/bin/gmx grompp -f datasets/gromacs/adh_cubic/pme_verlet.mdp -c datasets/gromacs/adh_cubic/conf.gro -p datasets/gromacs/adh_cubic/topol.top -o datasets/gromacs/adh_cubic/topol -po datasets/gromacs/adh_cubic/mdout
 
 echo "Running GROMACS benchmark"
 rm -rf benchmark_output/gromacs/*
-echo "Replica_$replica GROMACS with $cores cores on dataset adh_cubic calculating 50000 steps with CPU pinning enabled" >> results/benchmark_gromacs_time_$cores.txt
+echo "Replica_$replica GROMACS with $cores cores on dataset adh_cubic calculating $gromacs_steps steps with CPU pinning enabled" >> results/benchmark_gromacs_time_$cores.txt
 date >> results/benchmark_gromacs_time_$cores.txt
 
 /usr/bin/time -p -a -o results/benchmark_gromacs_time_$cores.txt sh -c "/usr/local/gromacs/bin/gmx mdrun -v -pin on -nt $cores -s datasets/gromacs/adh_cubic/topol.tpr -o benchmark_output/gromacs/benchmark -cpo benchmark_output/gromacs/benchmark -e benchmark_output/gromacs/benchmark -g benchmark_output/gromacs/benchmark -c benchmark_output/gromacs/benchmark" >> results/benchmark_gromacs_output_$cores.txt 2>&1
@@ -167,16 +171,19 @@ if [ $dataset == "large" ]
 then
 	dataset="ERR251006"
 	default_tensorflow_steps=5000
+	default_gromacs_steps=50000
 
 elif [ $dataset == "medium" ]
 then
 	dataset="ERR016155"
 	default_tensorflow_steps=2500
+	default_gromacs_steps=30000
 
 elif [ $dataset == "small" ]
 then	
 	dataset="" 
 	default_tensorflow_steps=1000
+	default_gromacs_steps=10000
 fi
 
 if [ $default_cores == "full" ]
@@ -204,19 +211,15 @@ else
 fi
 
 
-
-
-
-
 echo $dataset
 echo $default_cores
 echo $default_cores_velvet
 echo $default_replicas
 echo $default_tensorflow_steps
+echo $default_gromacs_steps
 
-
-echo "BOOTABLE benchmark run with $default_cores and three replicates"
-for replica in {1..$default_replicas} 
+echo "BOOTABLE benchmark run with $default_cores and $default_replicas  replicates"
+for replica in $( seq 1 $default_replicas ) 
 do
-	run_benchmark_tools $default_cores $default_cores_velvet $replica $dataset $default_tensorflow_steps
+	run_benchmark_tools $default_cores $default_cores_velvet $replica $dataset $default_tensorflow_steps $default_gromacs_steps
 done
