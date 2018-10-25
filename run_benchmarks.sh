@@ -231,7 +231,7 @@ echo $default_gromacs_steps
 echo $default_reference
 echo $dataset_idba
 
-echo "BOOTABLE benchmark run with $default_cores cores and $default_replicas  replicates"
+echo "BOOTABLE benchmark run with $default_cores cores and $default_replicas replicates"
 for replica in $( seq 1 $default_replicas ) 
 do
 	run_benchmark_tools $default_cores $default_cores_velvet $replica $dataset $default_tensorflow_steps $default_gromacs_steps $default_reference $dataset_idba
