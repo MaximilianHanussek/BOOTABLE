@@ -10,8 +10,9 @@ quarter_cores=$(expr $max_cores / 4)		#Calculate quarter core number
 quarter_cores_velvet=$(expr $quarter_cores - 1) #Calculate quarter core number fir velvet
 one_core=1					#Set one core variable
 clean=0 					#Set clean flag initially to 0
-dataset="ERR016155"				#Set ERR016155 as default dataset
-default_reference="DRR001012"   		#Set DRR001012 as default reference dataset
+dataset="datasets/1000_genomes/ERR016155.filt.fastq" #Set ERR016155 as default dataset
+dataset_idba="datasets/1000_genomes/ERR016155.filt.fa" #Set ERR016155 as default dataset for IDBA
+default_reference="datasets/ebi/DRR001025.fa"   #Set DRR001012 as default reference dataset
 default_tensorflow_steps=2500			#Set 2500 tensorflow steps as default 
 default_gromacs_steps=30000			#Set 30000 gromacs steps as default
 default_cores=$max_cores			#Set maximal core number as default
@@ -105,7 +106,7 @@ echo "" >> results/benchmark_idba_time_$cores.txt
 
 echo "Running Tensorflow benchmark with $tf_steps"
 rm -rf benchmark_output/tensorflow/*
-echo "Replica_$replica Tensorflow with $cores cores on dataset cifar10" >> results/benchmark_tensorflow_time_$cores.txt
+echo "Replica_$replica Tensorflow with $cores cores on dataset cifar10 with $tf_steps" >> results/benchmark_tensorflow_time_$cores.txt
 date >> results/benchmark_tensorflow_time_$cores.txt
 
 /usr/bin/time -p -a -o results/benchmark_tensorflow_time_$cores.txt sh -c "python datasets/tensorflow/models/tutorials/image/cifar10/cifar10_train.py --data_dir=datasets/tensorflow/ --train_dir=benchmark_output/tensorflow/cifar10_train --max_steps=$tf_steps --threads=$cores" >> results/benchmark_tensorflow_output_$cores.txt 2>&1
@@ -176,7 +177,7 @@ if [ $dataset == "large" ]
 then
 	dataset="datasets/1000_genomes/ERR251006.filt.fastq"
 	dataset_idba="datasets/1000_genomes/ERR251006.filt.fa"
-        default_reference="datasets/ebi/GRCh38_full_analysis_set_plus_decoy_hla.fa"
+        default_reference="datasets/1000_genomes/GRCh38_full_analysis_set_plus_decoy_hla.fa"
 	default_tensorflow_steps=5000
 	default_gromacs_steps=50000
 
@@ -184,7 +185,7 @@ elif [ $dataset == "medium" ]
 then
 	dataset="datasets/1000_genomes/ERR016155.filt.fastq"
         dataset_idba="datasets/1000_genomes/ERR016155.filt.fa"
-	default_reference="datasets/ebi/DRR001012.fa"
+	default_reference="datasets/ebi/DRR001025.fa"
 	default_tensorflow_steps=2500
 	default_gromacs_steps=30000
 
@@ -192,7 +193,7 @@ elif [ $dataset == "small" ]
 then	
 	dataset="datasets/1000_genomes/ERR016155.filt.fastq"
 	dataset_idba="datasets/1000_genomes/ERR016155.filt.fa"
-	default_reference="datasets/1000_genomes/chr1.fa" 
+	default_reference="datasets/ebi/DRR001012.fa" 
 	default_tensorflow_steps=1000
 	default_gromacs_steps=10000
 fi
