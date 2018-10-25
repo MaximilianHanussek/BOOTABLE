@@ -50,8 +50,6 @@ gunzip datasets/ebi/DRR001025.fastq.gz
 
 wget https://s3.denbi.uni-tuebingen.de/max/GRCh38_full_analysis_set_plus_decoy_hla.fa -P datasets/1000_genomes/
 
-#wget https://s3.denbi.uni-tuebingen.de/fb-test/tf_benchmark/cifar-10-binary.tar.gz -P datasets/tensorflow
-
 wget https://s3.denbi.uni-tuebingen.de/max/cifar-10-binary.tar.gz -P datasets/tensorflow
 tar -xf datasets/tensorflow/cifar-10-binary.tar.gz -C datasets/tensorflow/
 

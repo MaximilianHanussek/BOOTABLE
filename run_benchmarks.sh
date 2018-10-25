@@ -54,16 +54,16 @@ dataset_idba=$8					#Input parameter fro IDBA (needs .fa file)
 
 # Bowtie2 build index
 rm -rf benchmark_output/bowtie2/*		#Clean up bowtie2 output directoy
-echo "Running bowtie2 index build benchmark"	
+echo "Running bowtie2 index build benchmark on dataset $reference_name"	
 echo "Replica_$replica Bowtie2_build with $cores cores on dataset $reference_name" >> results/benchmark_bowtie_build_time_$cores.txt				 #Create results file with walltime
 date >> results/benchmark_bowtie_build_time_$cores.txt	#Add date to walltime file
 
-# Run bowtie2 index builder on dataset GRCh38 
+# Run bowtie2 index builder on dataset $reference_name
 /usr/bin/time -p -a -o results/benchmark_bowtie_build_time_$cores.txt sh -c "bowtie2/bowtie2-2.3.4.2/bowtie2-build --threads $cores --seed 42 $reference benchmark_output/bowtie2/benchmark" >> results/benchmark_bowtie_build_output_$cores.txt 2>&1
 echo "" >> results/benchmark_bowtie_build_time_$cores.txt	#Blank line for clarity and parsing
 
 # Bowtie2 aligner
-echo "Running bowtie2 align benchmark"
+echo "Running bowtie2 align benchmark on dataset $dataset_name"
 echo "Replica_$replica Bowtie2_align with $cores cores on dataset $dataset_name" >> results/benchmark_bowtie_align_time_$cores.txt				 #Create results file with walltime
 date >> results/benchmark_bowtie_align_time_$cores.txt	#Add date to walltime file
 
@@ -73,7 +73,7 @@ echo "" >> results/benchmark_bowtie_align_time_$cores.txt	#Blank line for clarit
 
 
 # Velvet
-echo "Running velvet benchmark"
+echo "Running velvet benchmark on dataset $dataset_name"
 rm -rf benchmark_output/velvet/*		#Clean up velvet output directory
 echo "Replica_$replica Velveth with $cores cores on dataset $dataset_name" >> results/benchmark_velvet_time_$cores.txt					 #Create results file with walltime
 date >> results/benchmark_velvet_time_$cores.txt	#Add date to walltime file
@@ -95,7 +95,7 @@ echo "" >> results/benchmark_velvet_time_$cores.txt 		#Blank line for clarity an
 
 
 # IDBA 
-echo "Running IDBA benchmark"
+echo "Running IDBA benchmark on dataset $dataset_name"
 rm -rf benchmark_output/IDBA/*
 echo "Replica_$replica IDBA with $cores cores on dataset $dataset_name" >> results/benchmark_idba_time_$cores.txt
 date >> results/benchmark_idba_time_$cores.txt
@@ -104,7 +104,7 @@ date >> results/benchmark_idba_time_$cores.txt
 echo "" >> results/benchmark_idba_time_$cores.txt
 
 
-echo "Running Tensorflow benchmark with $tf_steps"
+echo "Running Tensorflow benchmark with $tf_steps steps"
 rm -rf benchmark_output/tensorflow/*
 echo "Replica_$replica Tensorflow with $cores cores on dataset cifar10 with $tf_steps" >> results/benchmark_tensorflow_time_$cores.txt
 date >> results/benchmark_tensorflow_time_$cores.txt
@@ -127,7 +127,7 @@ date >> results/benchmark_gromacs_time_$cores.txt
 echo "" >> results/benchmark_gromacs_time_$cores.txt
 
 
-echo "Running SPAdes benchmark"
+echo "Running SPAdes benchmark on dataset $dataset_name"
 rm -rf benchmark_output/SPAdes/*
 echo "Replica_$replica SPAdes with $cores cores on dataset $dataset_name" >> results/benchmark_SPAdes_time_$cores.txt
 date >> results/benchmark_SPAdes_time_$cores.txt
