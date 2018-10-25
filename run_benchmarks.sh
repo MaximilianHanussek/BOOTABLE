@@ -10,7 +10,8 @@ quarter_cores=$(expr $max_cores / 4)		#Calculate quarter core number
 quarter_cores_velvet=$(expr $quarter_cores - 1) #Calculate quarter core number fir velvet
 one_core=1					#Set one core variable
 clean=0 					#Set clean flag initially to 0
-dataset="ERR016155"				#Set ERR016155 as defautl dataset
+dataset="ERR016155"				#Set ERR016155 as default dataset
+default_reference="DRR001012"   		#Set DRR001012 as default reference dataset
 default_tensorflow_steps=2500			#Set 2500 tensorflow steps as default 
 default_gromacs_steps=30000			#Set 30000 gromacs steps as default
 default_cores=$max_cores			#Set maximal core number as default
@@ -45,45 +46,49 @@ replica=$3					#Input parameter number of replica (1,2,3,..)
 dataset=$4					#Input parameter which dataset (medium, large)
 tf_steps=$5					#Input parameter for Tensorflow how much steps
 gromacs_steps=$6				#Input parameter for GROMACS how much steps 
+reference=$7					#Input parameter for bowtie build index which dataset
+reference_name=$(basename $dataset | cut -d. -f1)	#Get only the name of the dataset from the filepath
+dataset_name=$(basename $dataset | cut -d. -f1) #Get only the name of the dataset from the filepath
+dataset_idba=$8					#Input parameter fro IDBA (needs .fa file)
 
 # Bowtie2 build index
 rm -rf benchmark_output/bowtie2/*		#Clean up bowtie2 output directoy
 echo "Running bowtie2 index build benchmark"	
-echo "Replica_$replica Bowtie2_build with $cores cores on dataset GRCh38" >> results/benchmark_bowtie_build_time_$cores.txt				 #Create results file with walltime
+echo "Replica_$replica Bowtie2_build with $cores cores on dataset $reference_name" >> results/benchmark_bowtie_build_time_$cores.txt				 #Create results file with walltime
 date >> results/benchmark_bowtie_build_time_$cores.txt	#Add date to walltime file
 
 # Run bowtie2 index builder on dataset GRCh38 
-/usr/bin/time -p -a -o results/benchmark_bowtie_build_time_$cores.txt sh -c "bowtie2/bowtie2-2.3.4.2/bowtie2-build --threads $cores --seed 42 datasets/1000_genomes/GRCh38_full_analysis_set_plus_decoy_hla.fa benchmark_output/bowtie2/benchmark" >> results/benchmark_bowtie_build_output_$cores.txt 2>&1
+/usr/bin/time -p -a -o results/benchmark_bowtie_build_time_$cores.txt sh -c "bowtie2/bowtie2-2.3.4.2/bowtie2-build --threads $cores --seed 42 $reference benchmark_output/bowtie2/benchmark" >> results/benchmark_bowtie_build_output_$cores.txt 2>&1
 echo "" >> results/benchmark_bowtie_build_time_$cores.txt	#Blank line for clarity and parsing
 
 # Bowtie2 aligner
 echo "Running bowtie2 align benchmark"
-echo "Replica_$replica Bowtie2_align with $cores cores on dataset $dataset" >> results/benchmark_bowtie_align_time_$cores.txt				 #Create results file with walltime
+echo "Replica_$replica Bowtie2_align with $cores cores on dataset $dataset_name" >> results/benchmark_bowtie_align_time_$cores.txt				 #Create results file with walltime
 date >> results/benchmark_bowtie_align_time_$cores.txt	#Add date to walltime file
 
 # Run bowtie2 aligner on dataset $dataset
-/usr/bin/time -p -a -o results/benchmark_bowtie_align_time_$cores.txt sh -c "bowtie2/bowtie2-2.3.4.2/bowtie2 --threads $cores -x benchmark_output/bowtie2/benchmark -U datasets/1000_genomes/$dataset.filt.fastq -S benchmark_output/bowtie2/benchmark_$dataset.sam" >> results/benchmark_bowtie_align_output_$cores.txt 2>&1
+/usr/bin/time -p -a -o results/benchmark_bowtie_align_time_$cores.txt sh -c "bowtie2/bowtie2-2.3.4.2/bowtie2 --threads $cores -x benchmark_output/bowtie2/benchmark -U $dataset -S benchmark_output/bowtie2/benchmark_$dataset_name.sam" >> results/benchmark_bowtie_align_output_$cores.txt 2>&1
 echo "" >> results/benchmark_bowtie_align_time_$cores.txt	#Blank line for clarity and parsing
 
 
 # Velvet
 echo "Running velvet benchmark"
 rm -rf benchmark_output/velvet/*		#Clean up velvet output directory
-echo "Replica_$replica Velveth with $cores cores on dataset $dataset" >> results/benchmark_velvet_time_$cores.txt					 #Create results file with walltime
+echo "Replica_$replica Velveth with $cores cores on dataset $dataset_name" >> results/benchmark_velvet_time_$cores.txt					 #Create results file with walltime
 date >> results/benchmark_velvet_time_$cores.txt	#Add date to walltime file
 
 OMP_NUM_THREADS=$cores_velvet			#Set number of threads explicitly with OMP variable
 
-# Run velveth on dataset $dataset
-/usr/bin/time -p -a -o results/benchmark_velvet_time_$cores.txt sh -c "velvet/velveth benchmark_output/velvet/ 21 -fastq datasets/1000_genomes/$dataset.filt.fastq" >> results/benchmark_velveth_output_$cores.txt 2>&1
+# Run velveth on dataset $dataset_name
+/usr/bin/time -p -a -o results/benchmark_velvet_time_$cores.txt sh -c "velvet/velveth benchmark_output/velvet/ 21 -fastq $dataset" >> results/benchmark_velveth_output_$cores.txt 2>&1
 echo "" >> results/benchmark_velvet_time_$cores.txt		#Blank line for clarity and parsing
 
 
-echo "Replica_$replica Velvetg with $cores cores on dataset $dataset" >> results/benchmark_velvet_time_$cores.txt					 #Create results file with walltime
+echo "Replica_$replica Velvetg with $cores cores on dataset $dataset_name" >> results/benchmark_velvet_time_$cores.txt					 #Create results file with walltime
 date >> results/benchmark_velvet_time_$cores.txt #Add date to walltime file
 
 
-# Run velvetg on dataset $dataset
+# Run velvetg on dataset $dataset_name
 /usr/bin/time -p -a -o results/benchmark_velvet_time_$cores.txt sh -c "velvet/velvetg benchmark_output/velvet/" >> benchmark_output/velvet/benchmark_velvetg_output.txt 2>&1
 echo "" >> results/benchmark_velvet_time_$cores.txt 		#Blank line for clarity and parsing
 
@@ -91,10 +96,10 @@ echo "" >> results/benchmark_velvet_time_$cores.txt 		#Blank line for clarity an
 # IDBA 
 echo "Running IDBA benchmark"
 rm -rf benchmark_output/IDBA/*
-echo "Replica_$replica IDBA with $cores cores on dataset $dataset" >> results/benchmark_idba_time_$cores.txt
+echo "Replica_$replica IDBA with $cores cores on dataset $dataset_name" >> results/benchmark_idba_time_$cores.txt
 date >> results/benchmark_idba_time_$cores.txt
 
-/usr/bin/time -p -a -o results/benchmark_idba_time_$cores.txt sh -c "IDBA/idba_ud-1.0.9/bin/idba_ud -r datasets/1000_genomes/$dataset.filt.fa --num_threads $cores -o benchmark_output/IDBA/" >> results/benchmark_idba_output_$cores.txt 2>&1
+/usr/bin/time -p -a -o results/benchmark_idba_time_$cores.txt sh -c "IDBA/idba_ud-1.0.9/bin/idba_ud -r $dataset_spades --num_threads $cores -o benchmark_output/IDBA/" >> results/benchmark_idba_output_$cores.txt 2>&1
 echo "" >> results/benchmark_idba_time_$cores.txt
 
 
@@ -107,12 +112,12 @@ date >> results/benchmark_tensorflow_time_$cores.txt
 echo "" >> results/benchmark_tensorflow_time_$cores.txt
 
 
-echo "Creating GROMACS test model with $gromacs_steps"
+echo "Creating GROMACS test model with $gromacs_steps steps"
 sed -i "s/nsteps.*/nsteps                  = $gromacs_steps/g" datasets/gromacs/adh_cubic/pme_verlet.mdp
 
-/usr/local/gromacs/bin/gmx grompp -f datasets/gromacs/adh_cubic/pme_verlet.mdp -c datasets/gromacs/adh_cubic/conf.gro -p datasets/gromacs/adh_cubic/topol.top -o datasets/gromacs/adh_cubic/topol -po datasets/gromacs/adh_cubic/mdout
+/usr/local/gromacs/bin/gmx grompp -f datasets/gromacs/adh_cubic/pme_verlet.mdp -c datasets/gromacs/adh_cubic/conf.gro -p datasets/gromacs/adh_cubic/topol.top -o datasets/gromacs/adh_cubic/topol -po datasets/gromacs/adh_cubic/mdout 2>&1
 
-echo "Running GROMACS benchmark"
+echo "Running GROMACS benchmark with $gromacs_steps steps"
 rm -rf benchmark_output/gromacs/*
 echo "Replica_$replica GROMACS with $cores cores on dataset adh_cubic calculating $gromacs_steps steps with CPU pinning enabled" >> results/benchmark_gromacs_time_$cores.txt
 date >> results/benchmark_gromacs_time_$cores.txt
@@ -123,10 +128,10 @@ echo "" >> results/benchmark_gromacs_time_$cores.txt
 
 echo "Running SPAdes benchmark"
 rm -rf benchmark_output/SPAdes/*
-echo "Replica_$replica SPAdes with $cores cores on dataset $dataset" >> results/benchmark_SPAdes_time_$cores.txt
+echo "Replica_$replica SPAdes with $cores cores on dataset $dataset_name" >> results/benchmark_SPAdes_time_$cores.txt
 date >> results/benchmark_SPAdes_time_$cores.txt
 
-/usr/bin/time -p -a -o results/benchmark_SPAdes_time_$cores.txt sh -c "python SPAdes/SPAdes-3.12.0-Linux/bin/spades.py -s datasets/1000_genomes/$dataset.filt.fastq -o benchmark_output/SPAdes/ -t $cores" >> results/benchmark_SPAdes_output_$cores.txt 2>&1
+/usr/bin/time -p -a -o results/benchmark_SPAdes_time_$cores.txt sh -c "python SPAdes/SPAdes-3.12.0-Linux/bin/spades.py -s $dataset -o benchmark_output/SPAdes/ -t $cores" >> results/benchmark_SPAdes_output_$cores.txt 2>&1
 echo "" >> results/benchmark_SPAdes_time_$cores.txt
 
 touch benchmark_summary_$cores.txt
@@ -169,19 +174,25 @@ fi
 
 if [ $dataset == "large" ]
 then
-	dataset="ERR251006"
+	dataset="datasets/1000_genomes/ERR251006.filt.fastq"
+	dataset_idba="datasets/1000_genomes/ERR251006.filt.fa"
+        default_reference="datasets/ebi/GRCh38_full_analysis_set_plus_decoy_hla.fa"
 	default_tensorflow_steps=5000
 	default_gromacs_steps=50000
 
 elif [ $dataset == "medium" ]
 then
-	dataset="ERR016155"
+	dataset="datasets/1000_genomes/ERR016155.filt.fastq"
+        dataset_idba="datasets/1000_genomes/ERR016155.filt.fa"
+	default_reference="datasets/ebi/DRR001012.fa"
 	default_tensorflow_steps=2500
 	default_gromacs_steps=30000
 
 elif [ $dataset == "small" ]
 then	
-	dataset="" 
+	dataset="datasets/1000_genomes/ERR016155.filt.fastq"
+	dataset_idba="datasets/1000_genomes/ERR016155.filt.fa"
+	default_reference="datasets/1000_genomes/chr1.fa" 
 	default_tensorflow_steps=1000
 	default_gromacs_steps=10000
 fi
@@ -217,9 +228,11 @@ echo $default_cores_velvet
 echo $default_replicas
 echo $default_tensorflow_steps
 echo $default_gromacs_steps
+echo $default_reference
+echo $dataset_idba
 
-echo "BOOTABLE benchmark run with $default_cores and $default_replicas  replicates"
+echo "BOOTABLE benchmark run with $default_cores cores and $default_replicas  replicates"
 for replica in $( seq 1 $default_replicas ) 
 do
-	run_benchmark_tools $default_cores $default_cores_velvet $replica $dataset $default_tensorflow_steps $default_gromacs_steps
+	run_benchmark_tools $default_cores $default_cores_velvet $replica $dataset $default_tensorflow_steps $default_gromacs_steps $default_reference $dataset_idba
 done

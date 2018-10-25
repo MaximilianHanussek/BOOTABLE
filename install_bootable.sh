@@ -12,6 +12,7 @@ mkdir datasets
 mkdir datasets/1000_genomes
 mkdir datasets/gromacs
 mkdir datasets/tensorflow
+mkdir dataset/ebi
 mkdir gromacs
 mkdir results
 mkdir bowtie2
@@ -34,6 +35,11 @@ gunzip datasets/1000_genomes/ERR251006.filt.fastq.gz
 
 wget https://s3.denbi.uni-tuebingen.de/max/ERR016155.filt.fastq.gz -P datasets/1000_genomes/
 gunzip datasets/1000_genomes/ERR016155.filt.fastq.gz
+
+#wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/DRR001/DRR001012/DRR001012.fastq.gz -P datasets/ebi/
+
+wget https://s3.denbi.uni-tuebingen.de/max/DRR001012.fastq.gz -p datasets/ebi/
+gunzip datasets/ebi/DRR001012.fastq.gz
 
 #wget http://ftp.1000genomes.ebi.ac.uk/vol1/ftp/technical/reference/GRCh38_reference_genome/GRCh38_full_analysis_set_plus_decoy_hla.fa -P datasets/1000_genomes/
 
@@ -148,6 +154,8 @@ echo "Converting datasets from .fastq to .fa"
 IDBA/idba_ud-1.0.9/bin/fq2fa datasets/1000_genomes/ERR016155.filt.fastq datasets/1000_genomes/ERR016155.filt.fa
 
 IDBA/idba_ud-1.0.9/bin/fq2fa datasets/1000_genomes/ERR251006.filt.fastq datasets/1000_genomes/ERR251006.filt.fa
+
+IDBA/idba_ud-1.0.9/bin/fq2fa datasets/ebi/DRR001012.fastq datasets/ebi/DRR001012.fa
 
 # Reset to system compiler after finishing installation process
 export PATH=$original_path_variable
