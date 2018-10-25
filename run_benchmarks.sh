@@ -47,7 +47,7 @@ dataset=$4					#Input parameter which dataset (medium, large)
 tf_steps=$5					#Input parameter for Tensorflow how much steps
 gromacs_steps=$6				#Input parameter for GROMACS how much steps 
 reference=$7					#Input parameter for bowtie build index which dataset
-reference_name=$(basename $dataset | cut -d. -f1)	#Get only the name of the dataset from the filepath
+reference_name=$(basename $reference | cut -d. -f1)	#Get only the name of the dataset from the filepath
 dataset_name=$(basename $dataset | cut -d. -f1) #Get only the name of the dataset from the filepath
 dataset_idba=$8					#Input parameter fro IDBA (needs .fa file)
 
@@ -115,7 +115,7 @@ echo "" >> results/benchmark_tensorflow_time_$cores.txt
 echo "Creating GROMACS test model with $gromacs_steps steps"
 sed -i "s/nsteps.*/nsteps                  = $gromacs_steps/g" datasets/gromacs/adh_cubic/pme_verlet.mdp
 
-/usr/local/gromacs/bin/gmx grompp -f datasets/gromacs/adh_cubic/pme_verlet.mdp -c datasets/gromacs/adh_cubic/conf.gro -p datasets/gromacs/adh_cubic/topol.top -o datasets/gromacs/adh_cubic/topol -po datasets/gromacs/adh_cubic/mdout 2>&1
+/usr/local/gromacs/bin/gmx grompp -f datasets/gromacs/adh_cubic/pme_verlet.mdp -c datasets/gromacs/adh_cubic/conf.gro -p datasets/gromacs/adh_cubic/topol.top -o datasets/gromacs/adh_cubic/topol -po datasets/gromacs/adh_cubic/mdout >> /dev/null 2>&1
 
 echo "Running GROMACS benchmark with $gromacs_steps steps"
 rm -rf benchmark_output/gromacs/*
