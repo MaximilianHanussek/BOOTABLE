@@ -229,7 +229,7 @@ else
 fi
 
 
-echo "General genomic dataset: $dataset"
+echo "General genomic dataset for Bowtie2, Velvet, SPAdes: $dataset"
 echo "IDBA dataset: $dataset_idba"
 echo "Reference dataset: $default_reference"
 echo "Number of used cores: $default_cores"
