@@ -229,14 +229,13 @@ else
 fi
 
 
-echo $dataset
-echo $default_cores
-echo $default_cores_velvet
-echo $default_replicas
-echo $default_tensorflow_steps
-echo $default_gromacs_steps
-echo $default_reference
-echo $dataset_idba
+echo "General genomic dataset: $dataset"
+echo "IDBA dataset: $dataset_idba"
+echo "Reference dataset: $default_reference"
+echo "Number of used cores: $default_cores"
+echo "Number of used replicates: $default_replicas"
+echo "Number of Tensorflow steps: $default_tensorflow_steps"
+echo "Number of GROMACS steps: $default_gromacs_steps"
 
 echo "BOOTABLE benchmark run with $default_cores cores and $default_replicas replicates"
 for replica in $( seq 1 $default_replicas ) 
