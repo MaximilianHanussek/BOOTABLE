@@ -13,6 +13,7 @@ mkdir datasets/1000_genomes
 mkdir datasets/gromacs
 mkdir datasets/tensorflow
 mkdir dataset/ebi
+mkdir backed_up_benchmark_results
 mkdir gromacs
 mkdir results
 mkdir bowtie2

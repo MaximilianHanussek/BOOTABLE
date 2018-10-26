@@ -169,6 +169,12 @@ rm results/benchmark_SPAdes_time_$cores.txt
 
 if [ $clean == 1 ]
 then
+	backup_date=$(stat -c %y benchmark_summary_*.txt | cut -d ' ' -f1)
+	backup_time=$(stat -c %y benchmark_summary_*.txt | cut -d ' ' -f2 | cut -d. -f1)
+	backup_dir_name="$backup_date-$backup_time"
+	mkdir backed_up_benchmark_results/$backup_dir_name
+	tar -cf backed_up_benchmark_results/$backup_dir_name/results.tar results/*
+	cp benchmark_summary_* backed_up_benchmark_results/$backup_dir_name
 	rm benchmark_summary_*
 	rm -rf results/*
 fi
