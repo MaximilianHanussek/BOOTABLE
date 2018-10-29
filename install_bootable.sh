@@ -284,7 +284,7 @@ fi
 # Compile and install tensorflow (sudo)
 
 #check if pip is in general installed (if 0 then it is installed if 1 needs to be installed)
-which pip
+which pip > /dev/null 2>&1
 pip_installed=$(echo $?)
 if [ $pip_installed == 0 ]
 then
@@ -305,7 +305,7 @@ fi
 
 
 #check if pip is already installed in Version 9.0.3 (if 1 then it is installed if 0 needs to be installed)
-which pip 
+which pip > /dev/null 2>&1
 pip_installed=$(echo $?)
 pip_version_installed=$(pip list installed  2> /dev/null | grep -c "pip (9.0.3)")
 if [ $pip_installed == 0 ] && [ $pip_version_installed == 0 ]
