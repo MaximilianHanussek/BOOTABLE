@@ -51,7 +51,7 @@ then
         echo "File datasets/ebi/DRR001012.fastq already exists."
 else
 	#wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/DRR001/DRR001012/DRR001012.fastq.gz -P datasets/ebi/
-	wget https://s3.denbi.uni-tuebingen.de/max/DRR001012.fastq.gz -p datasets/ebi/
+	wget https://s3.denbi.uni-tuebingen.de/max/DRR001012.fastq.gz -P datasets/ebi/
 	gunzip datasets/ebi/DRR001012.fastq.gz
 fi
 
@@ -60,7 +60,7 @@ then
         echo "File datasets/ebi/DRR001025.fastq already exists."
 else
 	#wget ftp://ftp.sra.ebi.ac.uk/vol1/fastq/DRR001/DRR001025/DRR001025.fastq.gz -P datasets/ebi/
-	wget https://s3.denbi.uni-tuebingen.de/max/DRR001025.fastq.gz -p datasets/ebi/
+	wget https://s3.denbi.uni-tuebingen.de/max/DRR001025.fastq.gz -P datasets/ebi/
 	gunzip datasets/ebi/DRR001025.fastq.gz
 fi
 
@@ -282,8 +282,72 @@ else
 fi
 
 # Compile and install tensorflow (sudo)
-sudo pip install --upgrade --force-reinstall pip==9.0.3
-sudo pip install tensorflow==1.4.0
+
+#check if pip is in general installed (if 0 then it is installed if 1 needs to be installed)
+which pip
+pip_installed=$(echo $?)
+if [ $pip_installed == 0 ]
+then
+	echo "pip is already installed, nothing to do here."
+else
+	while true; do
+                read -p "Pip in general seems not to be installed or is not in your path, do you want to install it via yum?" yn
+                case $yn in
+                        [Yy]* ) sudo yum install pip -y
+                                break;;
+                        [Nn]* ) echo "Pip will not be installed, please install it on your own, or the Tensorflow benchmarks will not work"
+                                break;;
+                        * ) echo "Please answer yes or no."
+                                ;;
+                esac
+        done
+fi
+
+
+#check if pip is already installed in Version 9.0.3 (if 1 then it is installed if 0 needs to be installed)
+which pip 
+pip_installed=$(echo $?)
+pip_version_installed=$(pip list installed  2> /dev/null | grep -c "pip (9.0.3)")
+if [ $pip_installed == 0 ] && [ $pip_version_installed == 0 ]
+then
+	while true; do
+                read -p "pip is already installed but not in the required version 9.0.3 do you want to upgrade/downgrade to pip version 9.0.3?" yn
+                case $yn in
+                        [Yy]* ) sudo pip install --upgrade --force-reinstall pip==9.0.3
+                                break;;
+                        [Nn]* ) echo "pip will not be upgraded/downgraded to version 9.0.3, make sure tensorflow version 1.4.0 is working correctly"
+                                break;;
+                        * ) echo "Please answer yes or no."
+                                ;;
+                esac
+        done
+else
+	echo "Pip is already installed in version 9.0.3, nothing to do here."
+fi
+
+#check if tensorflow is installed in version 1.4.0 (if 1 then it is installed if 0 needs to be installed)
+pip_version_installed=$(pip list installed  2> /dev/null | grep -c "pip (9.0.3)")
+tensorflow_installed=$(pip list installed  2> /dev/null | grep -c "tensorflow (1.4.0)")
+
+if [ $tensorflow_installed == 0 ] && [ $pip_version_installed == 1 ]
+then
+	sudo pip install tensorflow==1.4.0
+elif [ $tensorflow_installed == 1 ] && [ $pip_version_installed == 1 ]
+then 
+	while true; do
+                read -p "Tensorflow seems already to be installed in version 1.4.0 via pip, do you want to reinstall it?" yn
+                case $yn in
+                        [Yy]* ) sudo pip install --force-reinstall tensorflow==1.4.0
+                                break;;
+                        [Nn]* ) echo "Tensorflow will not be reinstalled"
+                                break;;
+                        * ) echo "Please answer yes or no."
+                                ;;
+                esac
+        done
+else 
+	echo "Something seems to be wrong with the pip and tensorflow installation please check if pip is installed in version 9.0.3 and tensorflow in version 1.4.0."
+fi
 
 # Set GCC to 7.3.0 to fasten up GROMACS
 export PATH=$PWD/gcc/gcc-installed/bin:$PATH
