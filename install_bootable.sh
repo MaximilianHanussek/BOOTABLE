@@ -12,7 +12,7 @@ mkdir datasets
 mkdir datasets/1000_genomes
 mkdir datasets/gromacs
 mkdir datasets/tensorflow
-mkdir dataset/ebi
+mkdir datasets/ebi
 mkdir backed_up_benchmark_results
 mkdir gromacs
 mkdir results
@@ -198,7 +198,7 @@ fi
 
 
 # Compile and install bowtie2
-if [ -e bowtie2/bowtie2-2.3.4.2/bowtie2-build ]
+if [ -e bowtie2/bowtie2-2.3.4.2/bowtie2-align-l ]
 then      
         while true; do
                 read -p "Bowtie2 seems already to be installed, do you want to recompile it?" yn
