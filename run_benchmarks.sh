@@ -52,6 +52,11 @@ reference_name=$(basename $reference | cut -d. -f1)	#Get only the name of the da
 dataset_name=$(basename $dataset | cut -d. -f1) #Get only the name of the dataset from the filepath
 dataset_idba=$8					#Input parameter fro IDBA (needs .fa file)
 
+
+# Save original PATH and LD_LIBRARY variables
+original_path_variable=$(echo $PATH)
+original_ld_library_variable=$(echo $LD_LIBRARY_PATH)
+
 # Bowtie2 build index
 rm -rf benchmark_output/bowtie2/*		#Clean up bowtie2 output directoy
 echo "Running bowtie2 index build benchmark on dataset $reference_name"	
@@ -100,7 +105,7 @@ rm -rf benchmark_output/IDBA/*
 echo "Replica_$replica IDBA with $cores cores on dataset $dataset_name" >> results/benchmark_idba_time_$cores.txt
 date >> results/benchmark_idba_time_$cores.txt
 
-/usr/bin/time -p -a -o results/benchmark_idba_time_$cores.txt sh -c "IDBA/idba_ud-1.0.9/bin/idba_ud -r $dataset_spades --num_threads $cores -o benchmark_output/IDBA/" >> results/benchmark_idba_output_$cores.txt 2>&1
+/usr/bin/time -p -a -o results/benchmark_idba_time_$cores.txt sh -c "IDBA/idba_ud-1.0.9/bin/idba_ud -r $dataset_idba --num_threads $cores -o benchmark_output/IDBA/" >> results/benchmark_idba_output_$cores.txt 2>&1
 echo "" >> results/benchmark_idba_time_$cores.txt
 
 
@@ -112,6 +117,11 @@ date >> results/benchmark_tensorflow_time_$cores.txt
 /usr/bin/time -p -a -o results/benchmark_tensorflow_time_$cores.txt sh -c "python datasets/tensorflow/models/tutorials/image/cifar10/cifar10_train.py --data_dir=datasets/tensorflow/ --train_dir=benchmark_output/tensorflow/cifar10_train --max_steps=$tf_steps --threads=$cores" >> results/benchmark_tensorflow_output_$cores.txt 2>&1
 echo "" >> results/benchmark_tensorflow_time_$cores.txt
 
+
+# Load correct compiler paths for GCC 7.3.0
+# Set GCC to 7.3.0 to fasten up GROMACS
+export PATH=$PWD/gcc/gcc-installed/bin:$PATH
+export LD_LIBRARY_PATH=$PWD/gcc/gcc-installed/lib64:$LD_LIBRARY_PATH
 
 echo "Creating GROMACS test model with $gromacs_steps steps"
 sed -i "s/nsteps.*/nsteps                  = $gromacs_steps/g" datasets/gromacs/adh_cubic/pme_verlet.mdp
@@ -126,6 +136,9 @@ date >> results/benchmark_gromacs_time_$cores.txt
 /usr/bin/time -p -a -o results/benchmark_gromacs_time_$cores.txt sh -c "/usr/local/gromacs/bin/gmx mdrun -v -pin on -nt $cores -s datasets/gromacs/adh_cubic/topol.tpr -o benchmark_output/gromacs/benchmark -cpo benchmark_output/gromacs/benchmark -e benchmark_output/gromacs/benchmark -g benchmark_output/gromacs/benchmark -c benchmark_output/gromacs/benchmark" >> results/benchmark_gromacs_output_$cores.txt 2>&1
 echo "" >> results/benchmark_gromacs_time_$cores.txt
 
+# Reset to system compiler as IDBA is not compiling with GCC 7.3.0
+export PATH=$original_path_variable
+export LD_LIBRARY_PATH=$original_ld_library_variable
 
 echo "Running SPAdes benchmark on dataset $dataset_name"
 rm -rf benchmark_output/SPAdes/*
