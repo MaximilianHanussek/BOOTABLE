@@ -131,6 +131,7 @@ fi
 # Tensorflow
 cmd="python datasets/tensorflow/models/tutorials/image/cifar10/cifar10_train.py --help"
 name="Tensorflow"
+check_tool "$cmd" "$name"
 
 # GROMACS
 # Set GCC to 7.3.0
