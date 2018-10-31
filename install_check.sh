@@ -4,15 +4,20 @@ green='\033[0;32m'
 red='\033[0;31m'
 nc='\033[0m' # No Color
 
+# Save original PATH and LD_LIBRARY variables
+original_path_variable=$(echo $PATH)
+original_ld_library_variable=$(echo $LD_LIBRARY_PATH)
+
+
 check_files() {
 filepath=$1
 filename=$(basename $1)
 
 if [ -e $filepath ]
 then
-        echo "${green}The file: $filename is at the right place.${nc}"
+        echo -e "${green}The file: $filename is at the right place.${nc}"
 else
-        echo "${red}The file: $filename can not be found at the expected location. Please check and re-download the file.${nc}"
+        echo -e "${red}The file: $filename can not be found at the expected location. Please check and re-download the file.${nc}"
 fi
 }
 
@@ -21,9 +26,9 @@ dirpath=$1
 
 if [ -d $dirpath ]
 then
-        echo "${green}The directory: $dirpath exists.${nc}"
+        echo -e "${green}The directory: $dirpath exists.${nc}"
 else
-        echo "${red}The directory: $dirpath can not be found at the expected location. Please check and re-run the install script.${nc}"
+        echo -e "${red}The directory: $dirpath can not be found at the expected location. Please check and re-run the install script.${nc}"
 fi
 }
 
@@ -128,9 +133,17 @@ cmd="python datasets/tensorflow/models/tutorials/image/cifar10/cifar10_train.py 
 name="Tensorflow"
 
 # GROMACS
+# Set GCC to 7.3.0
+export PATH=$PWD/gcc/gcc-installed/bin:$PATH
+export LD_LIBRARY_PATH=$PWD/gcc/gcc-installed/lib64:$LD_LIBRARY_PATH
+
 cmd="/usr/local/gromacs/bin/gmx --version"
 name="GROMACS"
 check_tool "$cmd" "$name"
+
+# Reset to system compiler
+export PATH=$original_path_variable
+export LD_LIBRARY_PATH=$original_ld_library_variable
 
 # SPAdes
 cmd="python SPAdes/SPAdes-3.12.0-Linux/bin/spades.py --help"
