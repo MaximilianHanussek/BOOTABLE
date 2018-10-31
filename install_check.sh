@@ -16,6 +16,17 @@ else
 fi
 }
 
+check_directories() {
+dirpath=$1
+
+if [ -d $dirpath ]
+then
+        echo "${green}The directory: $dirpath exists.${nc}"
+else
+        echo "${red}The directory: $dirpath can not be found at the expected location. Please check and re-run the install script.${nc}"
+fi
+}
+
 check_tool () {
 commandstring=$1
 toolname=$2
@@ -34,16 +45,48 @@ fi
 # ERR251006
 path="datasets/1000_genomes/ERR251006.filt.fastq"
 check_files "$path"
-
-# ERR016155
-path="File datasets/1000_genomes/ERR016155.filt.fastq"
+path="datasets/1000_genomes/ERR251006.filt.fa"
 check_files "$path"
 
+# ERR016155
+path="datasets/1000_genomes/ERR016155.filt.fastq"
+check_files "$path"
+path="datasets/1000_genomes/ERR016155.filt.fa"
+check_files "$path"
+
+# DRR001012
+path="datasets/ebi/DRR001012.fastq"
+check_files "$path"
+path="datasets/ebi/DRR001012.fa"
+check_files "$path"
+
+# DRR001025
+path="datasets/ebi/DRR001025.fastq"
+check_files "$path"
+path="datasets/ebi/DRR001025.fa"
+check_files "$path"
+
+# GRCh38
+path="datasets/1000_genomes/GRCh38_full_analysis_set_plus_decoy_hla.fa"
+check_files "$path"
+
+# cifar-10-batches-bin
+path="datasets/tensorflow/cifar-10-batches-bin"
+check_directories "$path"
+
+# Tensorflow models
+path="datasets/tensorflow/models"
+check_directories "$path"
+
+# GROMACS adh_cubic
+path="datasets/gromacs/adh_cubic"
+check_directories "$path"
 
 
-
-
-
+# GCC 7.3.0
+cmd="gcc/gcc-installed/bin/gcc --version"
+name="GCC 7.3.0"
+check_tool "$cmd" "$name"
 
 # Bowtie2 build
 cmd="bowtie2/bowtie2-2.3.4.2/bowtie2-build --version"
@@ -71,6 +114,14 @@ else
 fi
 
 # IDBA
+path="datasets/1000_genomes/ERR251006.filt.fa"
+name="IDBA"
+if [ -e "$path" ]
+then
+	echo -e "${green}$name seems to be installed correctly.${nc}"
+else
+	echo -e "${red}Something seems to be wrong with $name. Please check and maybe reinstall again.${nc}"
+fi
 
 # Tensorflow
 cmd="python datasets/tensorflow/models/tutorials/image/cifar10/cifar10_train.py --help"
