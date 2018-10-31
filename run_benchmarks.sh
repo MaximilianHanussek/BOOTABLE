@@ -43,6 +43,20 @@ while getopts "cd:p:r:t:" option; do
 	esac
 done
 
+# Define function to check whether a file exists or not
+check_results() {
+filepath=$1
+cores=$2
+
+if [ -e $filepath ]
+then
+        cat $filepath >> benchmark_summary_$cores.txt
+	rm $filepath
+fi
+}
+
+
+
 # Define function for benchmarking tools and there parameters
 run_benchmark_tools () {
 cores=$1					#Input parameter number cores (1,2,3,...)
@@ -61,7 +75,7 @@ toolgroup=$9					#Input parameter which tools should be used
 original_path_variable=$(echo $PATH)
 original_ld_library_variable=$(echo $LD_LIBRARY_PATH)
 
-if [ $toolgroup == "all"] || [ $toolgroup == "genomics"]
+if [ $toolgroup == "all" ] || [ $toolgroup == "genomics" ]
 then
 	# Bowtie2 build index
 	rm -rf benchmark_output/bowtie2/*		#Clean up bowtie2 output directoy
@@ -76,7 +90,7 @@ else
         echo "Bowtie2 index build will not be started as you did not choose the genomics tools or all tools"
 fi
 
-if [ $toolgroup == "all"] || [ $toolgroup == "genomics"]
+if [ $toolgroup == "all" ] || [ $toolgroup == "genomics" ]
 then
 	# Bowtie2 aligner
 	echo "Running bowtie2 align benchmark on dataset $dataset_name"
@@ -90,7 +104,7 @@ else
 	echo "Bowtie2 aligner will not be started as you did not choose the genomics tools or all tools"
 fi
 
-if [ $toolgroup == "all"] || [ $toolgroup == "genomics"]
+if [ $toolgroup == "all" ] || [ $toolgroup == "genomics" ]
 then
 	# Velvet
 	echo "Running velvet benchmark on dataset $dataset_name"
@@ -116,7 +130,7 @@ else
         echo "Velvet will not be started as you did not choose the genomics tools or all tools"
 fi
 
-if [ $toolgroup == "all"] || [ $toolgroup == "genomics"]
+if [ $toolgroup == "all" ] || [ $toolgroup == "genomics" ]
 then
 	# IDBA 
 	echo "Running IDBA benchmark on dataset $dataset_name"
@@ -130,7 +144,7 @@ else
 	echo "IDBA will not be started as you did not choose the genomics tools or all tools"
 fi
 
-if [ $toolgroup == "all"] || [ $toolgroup == "ml"]
+if [ $toolgroup == "all" ] || [ $toolgroup == "ml" ]
 then
 	# Tensorflow
 	echo "Running Tensorflow benchmark with $tf_steps steps"
@@ -141,10 +155,10 @@ then
 	/usr/bin/time -p -a -o results/benchmark_tensorflow_time_$cores.txt sh -c "python datasets/tensorflow/models/tutorials/image/cifar10/cifar10_train.py --data_dir=datasets/tensorflow/ --train_dir=benchmark_output/tensorflow/cifar10_train --max_steps=$tf_steps --threads=$cores" >> results/benchmark_tensorflow_output_$cores.txt 2>&1
 	echo "" >> results/benchmark_tensorflow_time_$cores.txt
 else
-	echo "Tensorflow will not be started as you did not choose the genomics tools or all tools"
+	echo "Tensorflow will not be started as you did not choose the ml tools or all tools"
 fi
 
-if [ $toolgroup == "all"] || [ $toolgroup == "quant"]
+if [ $toolgroup == "all" ] || [ $toolgroup == "quant" ]
 then
 	# GROMACS
 	# Load correct compiler paths for GCC 7.3.0
@@ -169,10 +183,10 @@ then
 	export PATH=$original_path_variable
 	export LD_LIBRARY_PATH=$original_ld_library_variable
 else
-	echo "GROMACS will not be started as you did not choose the genomics tools or all tools"
+	echo "GROMACS will not be started as you did not choose the quant tools or all tools"
 fi
 
-if [ $toolgroup == "all"] || [ $toolgroup == "genomics"]
+if [ $toolgroup == "all" ] || [ $toolgroup == "genomics" ]
 then
 	# SPAdes
 	echo "Running SPAdes benchmark on dataset $dataset_name"
@@ -187,34 +201,27 @@ else
 fi
 
 touch benchmark_summary_$cores.txt
-cat results/benchmark_bowtie_build_time_$cores.txt >> benchmark_summary_$cores.txt
 
-cat results/benchmark_bowtie_align_time_$cores.txt >> benchmark_summary_$cores.txt
+path="results/benchmark_bowtie_build_time_$cores.txt"
+check_results $path $cores
 
-cat results/benchmark_velvet_time_$cores.txt >> benchmark_summary_$cores.txt
+path="results/benchmark_bowtie_align_time_$cores.txt"
+check_results $path $cores
 
-cat results/benchmark_idba_time_$cores.txt >> benchmark_summary_$cores.txt
+path="results/benchmark_velvet_time_$cores.txt"
+check_results $path $cores
 
-cat results/benchmark_tensorflow_time_$cores.txt >> benchmark_summary_$cores.txt
+path="results/benchmark_idba_time_$cores.txt"
+check_results $path $cores
 
-cat results/benchmark_gromacs_time_$cores.txt >> benchmark_summary_$cores.txt
+path="results/benchmark_tensorflow_time_$cores.txt"
+check_results $path $cores
 
-cat results/benchmark_SPAdes_time_$cores.txt >> benchmark_summary_$cores.txt
+path="results/benchmark_gromacs_time_$cores.txt"
+check_results $path $cores
 
-rm results/benchmark_bowtie_build_time_$cores.txt
-
-rm results/benchmark_bowtie_align_time_$cores.txt
-
-rm results/benchmark_velvet_time_$cores.txt
-
-rm results/benchmark_idba_time_$cores.txt
-
-rm results/benchmark_tensorflow_time_$cores.txt
-
-rm results/benchmark_gromacs_time_$cores.txt
-
-rm results/benchmark_SPAdes_time_$cores.txt
-
+path="results/benchmark_SPAdes_time_$cores.txt"
+check_results $path $cores
 }
 
 
@@ -301,8 +308,7 @@ else
 	exit 1
 fi
 
-
-if ! [ $default_toolgroup == "all" ] || ! [ $default_toolgroup == "genomics" ] || ! [ $default_toolgroup == "ml" ] || ! [ $default_toolgroup == "quant" ]
+if [[ $default_toolgroup != "all" && $default_toolgroup != "genomics" && $default_toolgroup != "ml" && $default_toolgroup != "quant" ]]
 then
 	echo "Parameter is not one of all, genomics, ml or quant. Please check -t flag again."
 	exit 1
@@ -323,3 +329,4 @@ for replica in $( seq 1 $default_replicas )
 do
 	run_benchmark_tools $default_cores $default_cores_velvet $replica $dataset $default_tensorflow_steps $default_gromacs_steps $default_reference $dataset_idba $default_toolgroup
 done
+
