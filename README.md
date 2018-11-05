@@ -77,18 +77,21 @@ Change into the root directory of the cloned repo
 Run the installation script and all the tools will be compiled and installed in the BOOTABLE directory except some GROMACS tools which will be installed under /usr/local/ at the moment and tensorflow which will be installed via `pip`
 <pre>sh install_bootable.sh</pre>
 
-Afterwards please run the install_ckeck.sh tool from the BOOTABLE root directory in order to check everything is installed
-and working as it should be. If everything is correct all the output on the screen will appear in green. If not the problematic tools/files will be marked in red.
+Afterwards please run the `install_ckeck.sh` tool from the BOOTABLE root directory in order to check everything is installed
+and working as it should be. 
+<pre>sh install_check.sh</pre>
+
+If everything is correct all the output on the screen will appear in green. If not, the problematic tools/files will be marked in red.
 
 If everything is green you can start with running your first benchmark.
 
 In order to start a benchmark just stay in the BOOTABLE root directory and run the `run_benchmarks.sh` script.
 If you provide no flags the default parameters will be chosen like stated in the following.
 
-- c: Clean option, if you want to run an other benchmark, the old results will be cleaned up and a backup will be placed in 
-in the directory backed_up_benchmark_results if you confirm that. Per default the cleanup will not be done.
+- c: Clean option, if you want to run an other new benchmark, the old results will be cleaned up and a backup will be placed in 
+in the directory backed_up_benchmark_results if you confirm that. Per default the cleanup will not be done and the old date will be overwritten.
 
-- d: Dataset option, if you want to change the default dataset just set the flag `-d` and one of corresponding keywords (large, medium, small). The default parameters are the one of the medium group. 
+- d: Dataset option, if you want to change the default dataset just set the flag `-d` and one of the corresponding keywords (`large`, `medium`, `small`). The default parameters are the one of the medium group. 
 
 |   Parameter     |        small       |        medium      |                  large                   |
 |-----------------|--------------------|--------------------|------------------------------------------|
@@ -97,7 +100,7 @@ in the directory backed_up_benchmark_results if you confirm that. Per default th
 |Tensorflow steps |1000                |2500                |5000                                      |
 |GROMACS steps    |10000               |30000               |50000                                     |
 
-- p: Number of cores you want to use to run the benchmark you can choose any arbitrary integer number or one of the three keywords `full`, `half` and `one`.
+- p: Number of cores you want to use to run the benchmark. You can choose any arbitrary integer number or one of the three keywords `full`, `half` and `one`.
    - full: All cores which are accesible (Default)
    - half: Half of the cores that are accesible
    - one: Only one core (very long runtime)
@@ -109,7 +112,7 @@ in the directory backed_up_benchmark_results if you confirm that. Per default th
 Some execution examples:
 
 <pre>sh run_benchmarks.sh</pre>
-This would be the same if we would run the command the following:
+This would be the same if we would run the command:
 <pre>sh run_benchmarks.sh -d medium -p full -r 3 -t all</pre>
 
 If you want to run a very long benchmark with maximal CPU usage you could use:
