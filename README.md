@@ -126,8 +126,14 @@ If you just want to run some tensorflow benchmarks use for example:
 
 You can also skip flags where you just want to use the default values.
 
+After the benchmarks are finished you can create a Summary file in pdf format running the following command from BOOTABLE root directory:
+<pre>Rscript --vanilla threadedBioBenchsuiteStatsGenerator.R>/pre>
+
+You will find the pdf file in the BOOTABLE root directory.
+
+
 ### 2. Using a .qcow2 image
-This instructions tell you how to use a .qcow2 image with everything preinstalled. It is further assumed that you know how to install an image in an virtuel environment or have a virtuel environment already running. Make sure you have at least 50GB of disk space. 
+This instructions tell you how to use a .qcow2 image with everything preinstalled. It is further assumed that you know how to install an image in an virtual environment or have a virtual environment already running. Make sure you have at least 50GB of disk space. 
 The image is deposited in an S3 bucket with the following URL `https://s3.denbi.uni-tuebingen.de/max/benchmark_image.qcow2`.
 You can just download it into your current directory via `wget` for example:
 
@@ -138,7 +144,7 @@ You can login with the following credentials:
 - Username: root
 - Password: rootdenbi
 
-After the login please change the password of the user `centos` via the passwd command to anyone you like.
+After the login please change the password of the user `centos` via the passwd command to any you like.
 Afterwards logout and login to the virtual machine as user `centos` with the password you have entered before.
 Change into the home directory (`/home/centos/`), where you will find all tools already installed. Start the benchmarks by running the following command:
 
