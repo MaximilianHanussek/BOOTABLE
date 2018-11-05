@@ -98,9 +98,9 @@ in the directory backed_up_benchmark_results if you confirm that. Per default th
 |GROMACS steps    |10000               |30000               |50000                                     |
 
 - p: Number of cores you want to use to run the benchmark you can choose any arbitrary integer number or one of the three keywords `full`, `half` and `one`.
-- full: All cores which are accesible (Default)
-- half: Half of the cores that are accesible
-- one: Only one core (very long runtime)
+   - full: All cores which are accesible (Default)
+   - half: Half of the cores that are accesible
+   - one: Only one core (very long runtime)
 
 ### 2. Using a .qcow2 image
 This instructions tell you how to use a .qcow2 image with everything preinstalled. It is further assumed that you know how to install an image in an virtuel environment or have a virtuel environment already running. Make sure you have at least 50GB of disk space. 
