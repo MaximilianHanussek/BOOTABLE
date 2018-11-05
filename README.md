@@ -32,6 +32,7 @@ If you want to install the tools and scripts BOOTABLE use please be sure to have
 - cmake3
 - tbb-devel.x86_64
 - R
+- inxi
 - uitl-linux
 - hwloc
 - hwloc-devel
@@ -42,7 +43,7 @@ If you want to install the tools and scripts BOOTABLE use please be sure to have
 <pre>yum update -y
 yum install epel-release -y
 yum group install "Development Tools" -y
-yum install nano curl wget vim htop time git zlib-devel.x86_64 python-pip cmake3 tbb-devel.x86_64 util-linux hwloc hwloc-devel gmp-devel mpfr-devel libmpc-devel R -y</pre>
+yum install nano curl wget vim htop time git zlib-devel.x86_64 python-pip inxi cmake3 tbb-devel.x86_64 util-linux hwloc hwloc-devel gmp-devel mpfr-devel libmpc-devel R -y</pre>
 
 
 Further the system needs access to the internet to load the specific datasets and some R packages.
@@ -70,12 +71,31 @@ in between, clone this github repo and run the `install_bootable.sh` script like
 Clone the github repo 
 <pre>git clone https://github.com/MaximilianHanussek/BOOTABLE.git</pre>
 
-Change into the cloned repo
+Change into the root directory of the cloned repo
 <pre>cd BOOTABLE/</pre>
 
-Run the installation script and all the tools will be compiled and installed in the BOOTABLE directory except some gromacs tools which will be installed under /usr/local/ at the moment and tensorflow which will be installed via `pip`
+Run the installation script and all the tools will be compiled and installed in the BOOTABLE directory except some GROMACS tools which will be installed under /usr/local/ at the moment and tensorflow which will be installed via `pip`
 <pre>sh install_bootable.sh</pre>
 
+Afterwards please run the install_ckeck.sh tool from the BOOTABLE root directory in order to check everything is installed
+and working as it should be. If everything is correct all the output on the screen will appear in green. If not the problematic tools/files will be marked in red.
+
+If everything is green you can start with running your first benchmark.
+
+In order to start a benchmark just stay in the BOOTABLE root directory and run the `run_benchmarks.sh` script.
+If you provide no flags the default parameters will be chosen like stated in the following.
+
+- c: Clean option, if you want to run an other benchmark, the old results will be cleaned up and a backup will be placed in 
+in the directory backed_up_benchmark_results if you confirm that. Per default the cleanup will not be done.
+
+- d: Dataset option, if you want to change the default dataset just set the flag `-d` and one of corresponding keywords (large, medium, small). The default parameters are the one of the medium group. 
+
+|   Parameter     |        small       |        medium      |                  large                   |
+|-----------------|--------------------|--------------------|------------------------------------------|
+|Dataset          |ERR016155.filt.fastq|ERR016155.filt.fastq|ERR251006.filt.fastq                      |
+|Reference dataset|DRR001012.fa        |DRR001025.fa        |GRCh38_full_analysis_set_plus_decoy_hla.fa|
+|Tensorflow steps |1000                |2500                |5000                                      |
+|GROMACS steps    |10000               |30000               |50000                                     |
 
 ### 2. Using a .qcow2 image
 This instructions tell you how to use a .qcow2 image with everything preinstalled. It is further assumed that you know how to install an image in an virtuel environment or have a virtuel environment already running. Make sure you have at least 50GB of disk space. 
