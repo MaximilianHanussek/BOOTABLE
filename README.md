@@ -127,7 +127,7 @@ If you just want to run some tensorflow benchmarks use for example:
 You can also skip flags where you just want to use the default values.
 
 After the benchmarks are finished you can create a Summary file in pdf format running the following command from BOOTABLE root directory:
-<pre>Rscript --vanilla threadedBioBenchsuiteStatsGenerator.R>/pre>
+<pre>Rscript --vanilla threadedBioBenchsuiteStatsGenerator.R</pre>
 
 You will find the pdf file in the BOOTABLE root directory.
 
