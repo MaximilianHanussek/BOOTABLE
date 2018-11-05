@@ -109,7 +109,7 @@ in the directory backed_up_benchmark_results if you confirm that. Per default th
 Some execution examples:
 
 <pre>sh run_benchmarks.sh</pre>
-This would be the same if would have run the command the following:
+This would be the same if we would run the command the following:
 <pre>sh run_benchmarks.sh -d medium -p full -r 3 -t all</pre>
 
 If you want to run a very long benchmark with maximal CPU usage you could use:
@@ -120,6 +120,8 @@ If you have already executed a benchmark and want to run a new one use the `-c` 
 
 If you just want to run some tensorflow benchmarks use for example:
 <pre>sh run_benchmarks.sh -d large -p full -r 3 -t ml</pre>
+
+You can also skip flags where you just want to use the default values.
 
 ### 2. Using a .qcow2 image
 This instructions tell you how to use a .qcow2 image with everything preinstalled. It is further assumed that you know how to install an image in an virtuel environment or have a virtuel environment already running. Make sure you have at least 50GB of disk space. 
