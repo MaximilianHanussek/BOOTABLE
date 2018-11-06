@@ -162,7 +162,7 @@ if [ $toolgroup == "all" ] || [ $toolgroup == "quant" ]
 then
 	# GROMACS
 	# Load correct compiler paths for GCC 7.3.0
-	# Set GCC to 7.3.0 to fasten up GROMACS
+	# Set GCC to 7.3.0 to use GROMACS
 	export PATH=$PWD/gcc/gcc-installed/bin:$PATH
 	export LD_LIBRARY_PATH=$PWD/gcc/gcc-installed/lib64:$LD_LIBRARY_PATH
 
@@ -179,7 +179,7 @@ then
 	/usr/bin/time -p -a -o results/benchmark_gromacs_time_$cores.txt sh -c "/usr/local/gromacs/bin/gmx mdrun -v -pin on -nt $cores -s datasets/gromacs/adh_cubic/topol.tpr -o benchmark_output/gromacs/benchmark -cpo benchmark_output/gromacs/benchmark -e benchmark_output/gromacs/benchmark -g benchmark_output/gromacs/benchmark -c benchmark_output/gromacs/benchmark" >> results/benchmark_gromacs_output_$cores.txt 2>&1
 	echo "" >> results/benchmark_gromacs_time_$cores.txt
 
-	# Reset to system compiler as IDBA is not compiling with GCC 7.3.0
+	# Reset to system compiler
 	export PATH=$original_path_variable
 	export LD_LIBRARY_PATH=$original_ld_library_variable
 else
@@ -227,7 +227,7 @@ check_results $path $cores
 
 if [ $clean == 1 ]
 then
-	if [ -e benchmark_summary_* ]
+	if [ -e benchmark_summary_*.txt ]
 	then
 		backup_date=$(stat -c %y benchmark_summary_*.txt | cut -d ' ' -f1)
 		backup_time=$(stat -c %y benchmark_summary_*.txt | cut -d ' ' -f2 | cut -d. -f1)
@@ -237,6 +237,7 @@ then
 		cp benchmark_summary_* backed_up_benchmark_results/$backup_dir_name
 		rm benchmark_summary_*
 		rm -rf results/*
+		rm bootable_system_info.txt
 	else
 		while true; do
                 read -p "There are no files to back them up, do you want to start the benchmark?" yn
@@ -252,6 +253,37 @@ then
 	fi
 
 fi
+
+touch bootable_system_info.txt
+date=$(date)
+if [ $clean == 1 ]
+then
+        used_command="-c -d $dataset -p $default_cores -r $default_replicas -t $default_toolgroup"
+else
+        used_command="-d $dataset -p $default_cores -r $default_replicas -t $default_toolgroup"
+fi
+
+echo "$date" >> bootable_system_info.txt
+echo "" >> bootable_system_info.txt
+echo "Executed command: run_benchmarks.sh $used_command" >> bootable_system_info.txt
+echo "" >> bootable_system_info.txt
+echo "System information:" >> bootable_system_info.txt
+inxi -C -f -M -m -S -I -D -x >> bootable_system_info.txt
+echo "" >> bootable_system_info.txt
+echo "Bowtie2 compile information:" >> bootable_system_info.txt
+bowtie2/bowtie2-2.3.4.2/bowtie2 --version >> bootable_system_info.txt
+echo "" >> bootable_system_info.txt
+echo "GROMACS compile information:" >> bootable_system_info.txt
+
+# Set GCC to 7.3.0 to use GROMACS
+export PATH=$PWD/gcc/gcc-installed/bin:$PATH
+export LD_LIBRARY_PATH=$PWD/gcc/gcc-installed/lib64:$LD_LIBRARY_PATH
+gromacs_line=$(/usr/local/gromacs/bin/gmx --version | grep -n "GROMACS version:" | cut -d ":" -f 1)
+/usr/local/gromacs/bin/gmx --version | tail -n $gromacs_line >> bootable_system_info.txt
+
+# Reset to system compiler
+#export PATH=$original_path_variable
+#export LD_LIBRARY_PATH=$original_ld_library_variable
 
 if [ $dataset == "large" ]
 then
@@ -315,6 +347,7 @@ then
 fi
 
 
+
 echo "General genomic dataset for Bowtie2, Velvet, SPAdes: $dataset"
 echo "IDBA dataset: $dataset_idba"
 echo "Reference dataset: $default_reference"
@@ -329,4 +362,5 @@ for replica in $( seq 1 $default_replicas )
 do
 	run_benchmark_tools $default_cores $default_cores_velvet $replica $dataset $default_tensorflow_steps $default_gromacs_steps $default_reference $dataset_idba $default_toolgroup
 done
+
 
