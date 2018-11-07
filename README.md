@@ -13,7 +13,7 @@ more are coming soon ...
 All the tools and datasets included in this bundle are carfeully chosen to 
 cover a range of different application cases and make strong use of multithreading 
 in order to get some benchmarks of the underlying hardware and about the scalability of the system.
-In the following is explained how to install BOOTABLE, how to run it and what kind of options you have.
+In the following is explained how to install BOOTABLE, how to run it and what kind of options you have. Information about results are stated in the **Results**  section.
 
 ## Prerequisites
 This current version is only tested for CentOS 7. Ubuntu support will be added soon.  
@@ -53,6 +53,10 @@ You can also install the required R packages in beforehand which are:
 - gridExtra
 - RColorBrewer
 - stringr
+
+## Short guide
+If you can not wait to test your system or tool and want to read through the whole tutorial here just the commands to start on a bare metal system.
+
 
 ## Installation
 
@@ -197,6 +201,66 @@ After the Docker image has been build you can start the benchmark with the same 
 ### 5. Transform an existing Docker container into a Singularity container
 
 ### 6. Using Ansible
+
+## Results
+BOOTABLE will produce different result files. Mainly the most interesting file is the `benchmark_summary_\*.txt` file which you will find in the BOOTABLE root directory. The content looks like the following:
+<pre>Replica_1 Bowtie2_build with 28 cores on dataset DRR001012
+Mi 7. Nov 09:55:58 UTC 2018
+real 211.35
+user 3097.55
+sys 14.13
+
+Replica_1 Bowtie2_align with 28 cores on dataset ERR016155
+Mi 7. Nov 09:59:29 UTC 2018
+real 6.66
+user 66.12
+sys 7.77
+
+Replica_1 Velveth with 28 cores on dataset ERR016155
+Mi 7. Nov 09:59:36 UTC 2018
+real 10.77
+user 105.95
+sys 6.74
+
+Replica_1 Velvetg with 28 cores on dataset ERR016155
+Mi 7. Nov 09:59:47 UTC 2018
+real 64.57
+user 155.62
+sys 1.30
+
+Replica_1 IDBA with 28 cores on dataset ERR016155
+Mi 7. Nov 10:00:51 UTC 2018
+real 110.99
+user 2277.08
+sys 10.19
+
+Replica_1 Tensorflow with 28 cores on dataset cifar10 with 1000
+Mi 7. Nov 10:02:42 UTC 2018
+real 148.45
+user 1934.74
+sys 310.51
+
+Replica_1 GROMACS with 28 cores on dataset adh_cubic calculating 10000 steps with CPU pinning enabled
+Mi 7. Nov 10:05:12 UTC 2018
+real 79.11
+user 1707.00
+sys 465.29
+
+Replica_1 SPAdes with 28 cores on dataset ERR016155
+Mi 7. Nov 10:06:31 UTC 2018
+real 440.31
+user 4642.39
+sys 784.05</pre>
+
+Every block gives you information about which replica (Replica_1) of which tool with how many cores and on which dataset or stepsize took how long. The different runtimes are stated in seconds.
+- real: The real walltime the tool used from start to end 
+- user: The used CPU time taking the number of cores into account
+- sys:  The amount of CPU time spent in the kernel for system calls
+
+Further you will find the file `benchmark_summary_\*.pdf` which gives you a more compact and statistical overview about the ran benhcmarks. You will find this file only if you have run the `threadedBioBenchsuiteStatsGenerator.R` script as stated above.
+
+
+
 
 
 
