@@ -238,6 +238,7 @@ then
 		mkdir backed_up_benchmark_results/$backup_dir_name
 		tar -cf backed_up_benchmark_results/$backup_dir_name/results.tar results/*
 		cp benchmark_summary_* backed_up_benchmark_results/$backup_dir_name
+		cp bootable_system_info.txt backed_up_benchmark_results/$backup_dir_name
 		rm benchmark_summary_*
 		rm -rf results/*
 		rm bootable_system_info.txt
@@ -266,12 +267,30 @@ else
         used_command="-d $dataset -p $default_cores -r $default_replicas -t $default_toolgroup"
 fi
 
-echo "$date" >> bootable_system_info.txt
+echo "$date" > bootable_system_info.txt
 echo "" >> bootable_system_info.txt
 echo "Executed command: run_benchmarks.sh $used_command" >> bootable_system_info.txt
 echo "" >> bootable_system_info.txt
 echo "System information:" >> bootable_system_info.txt
 inxi -C -f -M -m -S -I -D -x >> bootable_system_info.txt
+
+if [ -e /usr/sbin/tuned-adm ]
+then
+	tuned_out=$(tuned-adm active)
+	echo "tuned status: $tuned_out" >> bootable_system_info.txt 
+else 
+	echo "NOT installed." >> bootable_system_info.txt
+fi
+
+lscpu -p='Core' | grep -v ^# | sort | uniq -c | awk '{print $1}' | uniq -c | while read -r no_cores threads ;
+do
+        if [ "$threads" -eq 1 ] ; then
+                ht="disabled"
+        else
+                ht="enabled"
+        fi
+        echo "Hyperthreading: $ht ($threads thread(s)) per core" >> bootable_system_info.txt
+done
 echo "" >> bootable_system_info.txt
 echo "Bowtie2 compile information:" >> bootable_system_info.txt
 bowtie2/bowtie2-2.3.4.2/bowtie2 --version >> bootable_system_info.txt
