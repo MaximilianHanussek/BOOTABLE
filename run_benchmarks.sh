@@ -21,6 +21,9 @@ default_replicas=3				#Set default number of replicas to 3
 default_toolgroup="all"
 integer_regex='^[0-9]+$'			#Define regex for integers
 
+# Save original PATH and LD_LIBRARY variables
+original_path_variable=$(echo $PATH)
+original_ld_library_variable=$(echo $LD_LIBRARY_PATH)
 
 # Create flag options
 while getopts "cd:p:r:t:" option; do
@@ -279,11 +282,11 @@ echo "GROMACS compile information:" >> bootable_system_info.txt
 export PATH=$PWD/gcc/gcc-installed/bin:$PATH
 export LD_LIBRARY_PATH=$PWD/gcc/gcc-installed/lib64:$LD_LIBRARY_PATH
 gromacs_line=$(/usr/local/gromacs/bin/gmx --version | grep -n "GROMACS version:" | cut -d ":" -f 1)
-/usr/local/gromacs/bin/gmx --version | tail -n $gromacs_line >> bootable_system_info.txt
+/usr/local/gromacs/bin/gmx --version | tail --lines=+$gromacs_line >> bootable_system_info.txt
 
 # Reset to system compiler
-#export PATH=$original_path_variable
-#export LD_LIBRARY_PATH=$original_ld_library_variable
+export PATH=$original_path_variable
+export LD_LIBRARY_PATH=$original_ld_library_variable
 
 if [ $dataset == "large" ]
 then
