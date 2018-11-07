@@ -277,6 +277,7 @@ Every block gives you information about which replica (Replica_1) of which tool 
 Further you will find the file `benchmark_summary_\*.pdf` which gives you a more compact and statistical overview about the ran benhcmarks. You will find this file only if you have run the `threadedBioBenchsuiteStatsGenerator.R` script as stated above.
 Also in the .pdf file all numbers are stated in seconds. Futher you can find a detailed list, tool by tool, in the results directory. There you can also find the stdout output (`benchmark_<tool>_output_<cores>.txt`) of the single tools and refollow the steps they have done.
 
+Further you will find a summary of the system where the benchmark has been executed, which flags of BOOTABLE has been used and how Bowtie2 and GROMACS has been compiled in the file `bootable_system_info.txt`.
 
 
 
