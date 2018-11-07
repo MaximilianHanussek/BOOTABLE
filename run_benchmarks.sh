@@ -78,7 +78,7 @@ toolgroup=$9					#Input parameter which tools should be used
 original_path_variable=$(echo $PATH)
 original_ld_library_variable=$(echo $LD_LIBRARY_PATH)
 
-if [ $toolgroup == "all" ] || [ $toolgroup == "genomics" ]
+if [ $toolgroup == "all" ] || [ $toolgroup == "genomics" ] || [ $toolgroup == "bowtie2-build" ]
 then
 	# Bowtie2 build index
 	rm -rf benchmark_output/bowtie2/*		#Clean up bowtie2 output directoy
@@ -90,7 +90,7 @@ then
 	/usr/bin/time -p -a -o results/benchmark_bowtie_build_time_$cores.txt sh -c "bowtie2/bowtie2-2.3.4.2/bowtie2-build --threads $cores --seed 42 $reference benchmark_output/bowtie2/benchmark" >> results/benchmark_bowtie_build_output_$cores.txt 2>&1
 	echo "" >> results/benchmark_bowtie_build_time_$cores.txt	#Blank line for clarity and parsing
 else
-        echo "Bowtie2 index build will not be started as you did not choose the genomics tools or all tools"
+        echo "Bowtie2 index build will not be started as you did not choose the genomics tools, all tools or the tool itself."
 fi
 
 if [ $toolgroup == "all" ] || [ $toolgroup == "genomics" ]
@@ -104,10 +104,10 @@ then
 	/usr/bin/time -p -a -o results/benchmark_bowtie_align_time_$cores.txt sh -c "bowtie2/bowtie2-2.3.4.2/bowtie2 --threads $cores -x benchmark_output/bowtie2/benchmark -U $dataset -S benchmark_output/bowtie2/benchmark_$dataset_name.sam" >> results/benchmark_bowtie_align_output_$cores.txt 2>&1
 	echo "" >> results/benchmark_bowtie_align_time_$cores.txt	#Blank line for clarity and parsing
 else
-	echo "Bowtie2 aligner will not be started as you did not choose the genomics tools or all tools"
+	echo "Bowtie2 aligner will not be started as you did not choose the genomics tools, or all tools."
 fi
 
-if [ $toolgroup == "all" ] || [ $toolgroup == "genomics" ]
+if [ $toolgroup == "all" ] || [ $toolgroup == "genomics" ] || [ $toolgroup == "velvet" ]
 then
 	# Velvet
 	echo "Running velvet benchmark on dataset $dataset_name"
@@ -130,10 +130,10 @@ then
 	/usr/bin/time -p -a -o results/benchmark_velvet_time_$cores.txt sh -c "velvet/velvetg benchmark_output/velvet/" >> benchmark_output/velvet/benchmark_velvetg_output.txt 2>&1
 	echo "" >> results/benchmark_velvet_time_$cores.txt 		#Blank line for clarity and parsing
 else
-        echo "Velvet will not be started as you did not choose the genomics tools or all tools"
+        echo "Velvet will not be started as you did not choose the genomics tools, all tools or the tool itself."
 fi
 
-if [ $toolgroup == "all" ] || [ $toolgroup == "genomics" ]
+if [ $toolgroup == "all" ] || [ $toolgroup == "genomics" ] || [ $toolgroup == "idba" ]
 then
 	# IDBA 
 	echo "Running IDBA benchmark on dataset $dataset_name"
@@ -144,10 +144,10 @@ then
 	/usr/bin/time -p -a -o results/benchmark_idba_time_$cores.txt sh -c "IDBA/idba_ud-1.0.9/bin/idba_ud -r $dataset_idba --num_threads $cores -o benchmark_output/IDBA/" >> results/benchmark_idba_output_$cores.txt 2>&1
 	echo "" >> results/benchmark_idba_time_$cores.txt
 else
-	echo "IDBA will not be started as you did not choose the genomics tools or all tools"
+	echo "IDBA will not be started as you did not choose the genomics tools, all tools or the tool itself."
 fi
 
-if [ $toolgroup == "all" ] || [ $toolgroup == "ml" ]
+if [ $toolgroup == "all" ] || [ $toolgroup == "ml" ] || [ $toolgroup == "tensorflow" ]
 then
 	# Tensorflow
 	echo "Running Tensorflow benchmark with $tf_steps steps"
@@ -158,10 +158,10 @@ then
 	/usr/bin/time -p -a -o results/benchmark_tensorflow_time_$cores.txt sh -c "python datasets/tensorflow/models/tutorials/image/cifar10/cifar10_train.py --data_dir=datasets/tensorflow/ --train_dir=benchmark_output/tensorflow/cifar10_train --max_steps=$tf_steps --threads=$cores" >> results/benchmark_tensorflow_output_$cores.txt 2>&1
 	echo "" >> results/benchmark_tensorflow_time_$cores.txt
 else
-	echo "Tensorflow will not be started as you did not choose the ml tools or all tools"
+	echo "Tensorflow will not be started as you did not choose the ml tools, all tools or the tool itself."
 fi
 
-if [ $toolgroup == "all" ] || [ $toolgroup == "quant" ]
+if [ $toolgroup == "all" ] || [ $toolgroup == "quant" ] || [ $toolgroup == "gromacs" ]
 then
 	# GROMACS
 	# Load correct compiler paths for GCC 7.3.0
@@ -186,10 +186,10 @@ then
 	export PATH=$original_path_variable
 	export LD_LIBRARY_PATH=$original_ld_library_variable
 else
-	echo "GROMACS will not be started as you did not choose the quant tools or all tools"
+	echo "GROMACS will not be started as you did not choose the quant tools, all tools or the tool itself."
 fi
 
-if [ $toolgroup == "all" ] || [ $toolgroup == "genomics" ]
+if [ $toolgroup == "all" ] || [ $toolgroup == "genomics" ] || [ $toolgroup == "SPAdes" ]
 then
 	# SPAdes
 	echo "Running SPAdes benchmark on dataset $dataset_name"
@@ -200,7 +200,7 @@ then
 	/usr/bin/time -p -a -o results/benchmark_SPAdes_time_$cores.txt sh -c "python SPAdes/SPAdes-3.12.0-Linux/bin/spades.py -s $dataset -o benchmark_output/SPAdes/ -t $cores" >> results/benchmark_SPAdes_output_$cores.txt 2>&1
 	echo "" >> results/benchmark_SPAdes_time_$cores.txt
 else
-	echo "SPAdes will not be started as you did not choose the genomics tools or all tools"
+	echo "SPAdes will not be started as you did not choose the genomics tools, all tools or the tool itself."
 fi
 
 touch benchmark_summary_$cores.txt
@@ -362,9 +362,9 @@ else
 	exit 1
 fi
 
-if [[ $default_toolgroup != "all" && $default_toolgroup != "genomics" && $default_toolgroup != "ml" && $default_toolgroup != "quant" ]]
+if [[ $default_toolgroup != "all" && $default_toolgroup != "genomics" && $default_toolgroup != "ml" && $default_toolgroup != "quant" && $default_toolgroup != "bowtie2-build" && $default_toolgroup != "velvet" && $default_toolgroup != "idba" && $default_toolgroup != "tensorflow" && $default_toolgroup != "gromacs" && $default_toolgroup != "SPAdes" ]]
 then
-	echo "Parameter is not one of all, genomics, ml or quant. Please check -t flag again."
+	echo "Parameter is not one of all, genomics, ml, quant, bowtie2-build, velvet, idba, tensorflow, gromacs or SPAdes. Please check -t flag again."
 	exit 1
 fi
 
