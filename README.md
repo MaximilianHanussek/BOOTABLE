@@ -57,6 +57,23 @@ You can also install the required R packages in beforehand which are:
 ## Short guide
 If you can not wait to test your system or tool and want to read through the whole tutorial here just the commands to start on a bare metal system.
 
+- Clone the github repo
+<pre>git clone https://github.com/MaximilianHanussek/BOOTABLE.git</pre>
+
+- Change into the root directory of the cloned repo
+<pre>cd BOOTABLE/</pre>
+
+- Install BOOTABLE
+<pre>sh install_bootable.sh</pre>
+
+- Check if installation is correct
+<pre>sh install_check.sh</pre>
+
+- Run your first benchmark
+<pre>sh run_benchmarks.sh</pre>
+
+- After the benchmarking has finished create a report if wanted
+<pre>Rscript --vanilla threadedBioBenchsuiteStatsGenerator.R</pre>
 
 ## Installation
 
