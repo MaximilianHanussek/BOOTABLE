@@ -106,53 +106,6 @@ If everything is correct all the output on the screen will appear in green. If n
 
 If everything is green you can start with running your first benchmark.
 
-In order to start a benchmark just stay in the BOOTABLE root directory and run the `run_benchmarks.sh` script.
-If you provide no flags the default parameters will be chosen like stated in the following.
-
-- c: Clean option, if you want to run an other new benchmark, the old results will be cleaned up and a backup will be placed in 
-in the directory backed_up_benchmark_results if you confirm that. Per default the cleanup will not be done and the old date will be overwritten.
-
-- d: Dataset option, if you want to change the default dataset just set the flag `-d` and one of the corresponding keywords (`large`, `medium`, `small`). The default parameters are the one of the medium group. 
-
-|   Parameter     |        small       |        medium      |                  large                   |
-|-----------------|--------------------|--------------------|------------------------------------------|
-|Dataset          |ERR016155.filt.fastq|ERR016155.filt.fastq|ERR251006.filt.fastq                      |
-|Reference dataset|DRR001012.fa        |DRR001025.fa        |GRCh38_full_analysis_set_plus_decoy_hla.fa|
-|Tensorflow steps |1000                |2500                |5000                                      |
-|GROMACS steps    |10000               |30000               |50000                                     |
-
-- p: Number of cores you want to use to run the benchmark. You can choose any arbitrary integer number or one of the three keywords `full`, `half` and `one`.
-   - full: All cores which are accesible (Default)
-   - half: Half of the cores that are accesible
-   - one: Only one core (very long runtime)
-
-- r: Number of replicates you want to use. The more replicates the better is the chance to get a trustworthy result and regulate outliers. You can choose any integer value you want. The default value is 3.
-
-- t: Toolgroup you want to use. You can choose between `all` which will use all tools, `genomics` which will use only genomic tools (Bowtie2, Velvet, IDBA, SPAdes), `ml` which will only use Tensorflow and `quant` which will only use GROMACS. The default option is `all`.
-
-Some execution examples:
-
-<pre>sh run_benchmarks.sh</pre>
-This would be the same if we would run the command:
-<pre>sh run_benchmarks.sh -d medium -p full -r 3 -t all</pre>
-
-If you want to run a very long benchmark with maximal CPU usage you could use:
-<pre>sh run_benchmarks.sh -d large -p full -r 5 -t all</pre>
-
-If you have already executed a benchmark and want to run a new one use the `-c` flag:
-<pre>sh run_benchmarks.sh -c -d medium -p full -r 3 -t all</pre>
-
-If you just want to run some tensorflow benchmarks use for example:
-<pre>sh run_benchmarks.sh -d large -p full -r 3 -t ml</pre>
-
-You can also skip flags where you just want to use the default values.
-
-After the benchmarks are finished you can create a Summary file in pdf format running the following command from BOOTABLE root directory:
-<pre>Rscript --vanilla threadedBioBenchsuiteStatsGenerator.R</pre>
-
-You will find the pdf file in the BOOTABLE root directory.
-
-
 ### 2. Using a .qcow2 image
 This instructions tell you how to use a .qcow2 image with everything preinstalled. It is further assumed that you know how to install an image in an virtual environment or have a virtual environment already running. Make sure you have at least 50GB of disk space. 
 The image is deposited in an S3 bucket with the following URL `https://s3.denbi.uni-tuebingen.de/max/benchmark_image.qcow2`.
@@ -210,14 +163,58 @@ After the Docker image has been build you can start the benchmark with the same 
 <pre>docker run --rm maximilianhanussek/bootable sh /root/run_benchmarks.sh</pre>
 
 
-
-
-
 ### 4. Using a Singularity container
 
 ### 5. Transform an existing Docker container into a Singularity container
 
 ### 6. Using Ansible
+
+## Start Benchmarks
+In order to start a benchmark just stay in the BOOTABLE root directory and run the `run_benchmarks.sh` script.
+If you provide no flags the default parameters will be chosen like stated in the following.
+
+- c: Clean option, if you want to run an other new benchmark, the old results will be cleaned up and a backup will be placed in 
+in the directory backed_up_benchmark_results if you confirm that. Per default the cleanup will not be done and the old date will be overwritten.
+
+- d: Dataset option, if you want to change the default dataset just set the flag `-d` and one of the corresponding keywords (`large`, `medium`, `small`). The default parameters are the one of the medium group. 
+
+|   Parameter     |        small       |        medium      |                  large                   |
+|-----------------|--------------------|--------------------|------------------------------------------|
+|Dataset          |ERR016155.filt.fastq|ERR016155.filt.fastq|ERR251006.filt.fastq                      |
+|Reference dataset|DRR001012.fa        |DRR001025.fa        |GRCh38_full_analysis_set_plus_decoy_hla.fa|
+|Tensorflow steps |1000                |2500                |5000                                      |
+|GROMACS steps    |10000               |30000               |50000                                     |
+
+- p: Number of cores you want to use to run the benchmark. You can choose any arbitrary integer number or one of the three keywords `full`, `half` and `one`.
+   - full: All cores which are accesible (Default)
+   - half: Half of the cores that are accesible
+   - one: Only one core (very long runtime)
+
+- r: Number of replicates you want to use. The more replicates the better is the chance to get a trustworthy result and regulate outliers. You can choose any integer value you want. The default value is 3.
+
+- t: Toolgroup you want to use. You can choose between `all` which will use all tools, `genomics` which will use only genomic tools (Bowtie2, Velvet, IDBA, SPAdes), `ml` which will only use Tensorflow and `quant` which will only use GROMACS. The default option is `all`.
+
+Some execution examples:
+
+<pre>sh run_benchmarks.sh</pre>
+This would be the same if we would run the command:
+<pre>sh run_benchmarks.sh -d medium -p full -r 3 -t all</pre>
+
+If you want to run a very long benchmark with maximal CPU usage you could use:
+<pre>sh run_benchmarks.sh -d large -p full -r 5 -t all</pre>
+
+If you have already executed a benchmark and want to run a new one use the `-c` flag:
+<pre>sh run_benchmarks.sh -c -d medium -p full -r 3 -t all</pre>
+
+If you just want to run some tensorflow benchmarks use for example:
+<pre>sh run_benchmarks.sh -d large -p full -r 3 -t ml</pre>
+
+You can also skip flags where you just want to use the default values.
+
+After the benchmarks are finished you can create a Summary file in pdf format running the following command from BOOTABLE root directory:
+<pre>Rscript --vanilla threadedBioBenchsuiteStatsGenerator.R</pre>
+
+You will find the pdf file in the BOOTABLE root directory.
 
 ## Results
 BOOTABLE will produce different result files. Mainly the most interesting file is the `benchmark_summary_\*.txt` file which you will find in the BOOTABLE root directory. The content looks like the following:
