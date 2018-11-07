@@ -275,7 +275,7 @@ Every block gives you information about which replica (Replica_1) of which tool 
 - sys:  The amount of CPU time spent in the kernel for system calls
 
 Further you will find the file `benchmark_summary_\*.pdf` which gives you a more compact and statistical overview about the ran benhcmarks. You will find this file only if you have run the `threadedBioBenchsuiteStatsGenerator.R` script as stated above.
-Also in the .pdf file all numbers are stated in seconds. Futher you can find a detailed list, tool by tool, in the results directory. There you can also find the stdout output (benchmark_<tool>_output_<cores>.txt) of the single tools and refollow the steps they have done.
+Also in the .pdf file all numbers are stated in seconds. Futher you can find a detailed list, tool by tool, in the results directory. There you can also find the stdout output (`benchmark_<tool>_output_<cores>.txt`) of the single tools and refollow the steps they have done.
 
 
 
