@@ -192,7 +192,7 @@ in the directory backed_up_benchmark_results if you confirm that. Per default th
 
 - r: Number of replicates you want to use. The more replicates the better is the chance to get a trustworthy result and regulate outliers. You can choose any integer value you want. The default value is 3.
 
-- t: Toolgroup you want to use. You can choose between `all` which will use all tools, `genomics` which will use only genomic tools (Bowtie2, Velvet, IDBA, SPAdes), `ml` which will only use Tensorflow and `quant` which will only use GROMACS. The default option is `all`.
+- t: Toolgroup you want to use. You can choose between `all` which will use all tools, `genomics` which will use only genomic tools (Bowtie2, Velvet, IDBA, SPAdes), `ml` which will only use Tensorflow and `quant` which will only use GROMACS. The default option is `all`. You can also choose just single tools. Currently these are `bowtie2-build`, `velvet`, `idba`, `tensorflow`, `gromacs`, `SPAdes`, which are also the keywords which the flag exceppts.
 
 Some execution examples:
 
