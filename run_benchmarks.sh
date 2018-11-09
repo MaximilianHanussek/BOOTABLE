@@ -25,9 +25,21 @@ integer_regex='^[0-9]+$'			#Define regex for integers
 original_path_variable=$(echo $PATH)
 original_ld_library_variable=$(echo $LD_LIBRARY_PATH)
 
+usage="$(basename "$0") [-h] [-cdprt]
+where:
+    -h  show this help text
+    -c  clean up old benchmarks and back them up 
+    -d  choose a dataset category (small, medium, large), medium will be default
+    -p  number of cores/threads that should be used (one, half, full, or any integer value, full is default)
+    -r  number of replica cycles that should be executed (any integer value, 3 is default)  
+    -t  toolgroup which should be used for the benchmarks (all, genomics, ml, quant) or a specific tool (bowtie2-build, velvet, idba, tensorflow, gromacs, SPAdes). Default is all"
+
 # Create flag options
-while getopts "cd:p:r:t:" option; do
+while getopts "chd:p:r:t:" option; do
 	case "${option}" in
+		h)	echo "$usage"
+			exit 1
+			;;
 		c) 
 			clean=1
 			;;
@@ -332,9 +344,13 @@ then
 	default_gromacs_steps=10000
 
 else
-        echo "Parameter is not one of small, medium or large. Please check -d flag again."
-        exit 1
+	dataset="datasets/1000_genomes/ERR016155.filt.fastq"
+        dataset_idba="datasets/1000_genomes/ERR016155.filt.fa"
+        default_reference="datasets/ebi/DRR001025.fa"
+        default_tensorflow_steps=2500
+        default_gromacs_steps=30000
 
+        echo "Parameter is not one of small, medium or large. Please check -d flag again. Default settings will be used (medium)"
 fi
 
 
