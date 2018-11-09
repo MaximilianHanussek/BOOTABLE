@@ -291,7 +291,7 @@ then
 	tuned_out=$(tuned-adm active)
 	echo "tuned status: $tuned_out" >> bootable_system_info.txt 
 else 
-	echo "NOT installed." >> bootable_system_info.txt
+	echo "tuned status: NOT installed." >> bootable_system_info.txt
 fi
 
 lscpu -p='Core' | grep -v ^# | sort | uniq -c | awk '{print $1}' | uniq -c | while read -r no_cores threads ;
