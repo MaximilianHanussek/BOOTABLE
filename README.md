@@ -130,27 +130,32 @@ After the benchmarks have finished run the following Rscript to generate a brief
 
 <pre>Rscript --vanilla report_generator.R</pre>
 
-If you want to rerun the benchmarks use the -c flag in order to delete the created output files and benchmark results from the run before:
+If you want to re-run the benchmarks use the -c flag in order to delete the created output files and benchmark results from the run before:
 
 <pre>sh run_benchmarks -c</pre>
-
 
 
 ### 3. Using a Docker container
 This instructions assume that docker is already installed and running. If not you should find most of the information
 on the [Docker website](https://www.docker.com/get-started)
 
-The first possibility is to pull the already configured BOOTABLE Docker image  from [docker hub](https://hub.docker.com/)
+The **first** possibility is to pull the already configured BOOTABLE Docker image  from [docker hub](https://hub.docker.com/)
 with the follwing docker pull command.
 
 <pre>docker pull maximilianhanussek/bootable</pre>
 
-After the image has been downloaded you can just start the benchmarking with the follwoing command
+After the image has been downloaded you can start an interactive Docker container with the following command
+<pre>docker run --rm -it maximilianhanussek/bootable</pre>
 
-<pre>docker run --rm maximilianhanussek/bootable sh /root/run_benchmarks.sh </pre>
+After you are in the container change into the home directory (root)
+<pre>cd /root/</pre>
 
-The second option is to build the Docker container by yourself with the provided `Dockerfile`. You can find it in the github repo
-in the `docker` directory.
+In the home directory you will find all the tools already installed. In order to start the benchmark just run
+<pre>sh run_benchmarks.sh</pre>
+
+or enter some additional parameters via the provided flags.
+
+The **second** option is to build the Docker container by yourself with the provided `Dockerfile`. You can find it in the github repo in the `docker` directory.
 
 To build the Docker container by yourself clone this github repo, change into the `docker` directory and run the following command:
 
@@ -160,8 +165,9 @@ The build will take a couple of minutes (30-60) as the first step is to update t
 
 After the Docker image has been build you can start the benchmark with the same command like if you had pulled it from Docker Hub:
 
-<pre>docker run --rm maximilianhanussek/bootable sh /root/run_benchmarks.sh</pre>
-
+<pre>docker run --rm -it maximilianhanussek/bootable</pre>
+<pre>cd /root/</pre>
+<pre>sh run_benchmarks.sh</pre>
 
 ### 4. Using a Singularity container
 
@@ -276,7 +282,11 @@ Also in the .pdf file all numbers are stated in seconds. Futher you can find a d
 
 Further you will find a summary of the system where the benchmark has been executed, which flags of BOOTABLE has been used and how Bowtie2 and GROMACS has been compiled in the file `bootable_system_info.txt`.
 
-
+## Uninstall
+In order to uninstall BOOTABLE just run the following commands from a directory one level higher than the BOOTABLE directory:
+<pre>sudo rm -rf Bootable/
+sudo rm-rf /usr/local/gromacs/
+sudo pip uninstall tensorflow (1.4.0)</pre>
 
 
 
