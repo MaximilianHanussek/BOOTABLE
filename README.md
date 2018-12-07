@@ -1,4 +1,4 @@
-# BOOTABLE TETSTSTS
+# BOOTABLE
 BiOinfOrmatics ThreAded Benchmark tooLsuitE (BOOTABLE)
 This toolsuite currently consists of the following tools
 - Bowtie2
