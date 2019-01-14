@@ -79,8 +79,6 @@ If you can not wait to test your system or tool and want to read through the who
 
 ## Installation
 
-You can also find the first initial release  here [![DOI](https://zenodo.org/badge/149121128.svg)](https://zenodo.org/badge/latestdoi/149121128)
-
 There are 6 different kinds of installation possibilities.
 1. Bare metal installation
 2. Using a .qcow2 image with everything already preinstalled
