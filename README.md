@@ -1,4 +1,6 @@
-# BOOTABLE
+# BOOTABLE                                                                                    [![DOI](https://zenodo.org/badge/149121128.svg)](https://zenodo.org/badge/latestdoi/149121128)
+
+
 BiOinfOrmatics ThreAded Benchmark tooLsuitE (BOOTABLE)
 This toolsuite currently consists of the following tools
 - Bowtie2
