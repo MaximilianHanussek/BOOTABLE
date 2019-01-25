@@ -29,6 +29,7 @@ If you want to install the tools and scripts BOOTABLE use please be sure to have
 - htop
 - time
 - git
+- nmon
 - zlib-devel.x86_64
 - python-pip (in Version 9.0.3)
 - cmake3
