@@ -98,8 +98,19 @@ then
 	echo "Replica_$replica Bowtie2_build with $cores cores on dataset $reference_name" >> results/benchmark_bowtie_build_time_$cores.txt				 #Create results file with walltime
 	date >> results/benchmark_bowtie_build_time_$cores.txt	#Add date to walltime file
 
+	# Start nmon capturing
+	NMON_FILE_NAME="bowtie2_build_"$replica"_$(date +"%Y-%m-%d-%H-%M")"
+	NMON_PID=$(nmon -F $NMON_FILE_NAME.nmon -m nmon_stats/ -p -s 2 -c 12000000) # -s is the interval between snapshots, -c is the number of snapshots very high to ensure them to the end of the tool run
+
 	# Run bowtie2 index builder on dataset $reference_name
 	/usr/bin/time -p -a -o results/benchmark_bowtie_build_time_$cores.txt sh -c "bowtie2/bowtie2-2.3.4.2/bowtie2-build --threads $cores --seed 42 $reference benchmark_output/bowtie2/benchmark" >> results/benchmark_bowtie_build_output_$cores.txt 2>&1
+
+	# Stop nmon capturing
+        kill -USR2 $NMON_PID
+
+	# Make nmon html graphs
+	sh nmonchart/nmonchart nmon_stats/$NMON_FILE_NAME.nmon nmon_stats/$NMON_FILE_NAME.html 
+
 	echo "" >> results/benchmark_bowtie_build_time_$cores.txt	#Blank line for clarity and parsing
 else
         echo "Bowtie2 index build will not be started as you did not choose the genomics tools, all tools or the tool itself."
@@ -112,8 +123,19 @@ then
 	echo "Replica_$replica Bowtie2_align with $cores cores on dataset $dataset_name" >> results/benchmark_bowtie_align_time_$cores.txt				 #Create results file with walltime
 	date >> results/benchmark_bowtie_align_time_$cores.txt	#Add date to walltime file
 
+	# Start nmon capturing
+	NMON_FILE_NAME="bowtie2_align_"$replica"_$(date +"%Y-%m-%d-%H-%M")"
+        NMON_PID=$(nmon -F $NMON_FILE_NAME.nmon -m nmon_stats/ -p -s 2 -c 12000000)
+
 	# Run bowtie2 aligner on dataset $dataset
 	/usr/bin/time -p -a -o results/benchmark_bowtie_align_time_$cores.txt sh -c "bowtie2/bowtie2-2.3.4.2/bowtie2 --threads $cores -x benchmark_output/bowtie2/benchmark -U $dataset -S benchmark_output/bowtie2/benchmark_$dataset_name.sam" >> results/benchmark_bowtie_align_output_$cores.txt 2>&1
+
+	# Stop nmon capturing
+        kill -USR2 $NMON_PID
+
+	# Make nmon html graphs
+        sh nmonchart/nmonchart nmon_stats/$NMON_FILE_NAME.nmon nmon_stats/$NMON_FILE_NAME.html
+
 	echo "" >> results/benchmark_bowtie_align_time_$cores.txt	#Blank line for clarity and parsing
 else
 	echo "Bowtie2 aligner will not be started as you did not choose the genomics tools, or all tools."
@@ -129,17 +151,37 @@ then
 
 	OMP_NUM_THREADS=$cores_velvet			#Set number of threads explicitly with OMP variable
 
+	# Start nmon capturing
+	NMON_FILE_NAME="velveth_"$replica"_$(date +"%Y-%m-%d-%H-%M")"
+        NMON_PID=$(nmon -F $NMON_FILE_NAME.nmon -m nmon_stats/ -p -s 2 -c 12000000)
+
 	# Run velveth on dataset $dataset_name
 	/usr/bin/time -p -a -o results/benchmark_velvet_time_$cores.txt sh -c "velvet/velveth benchmark_output/velvet/ 21 -fastq $dataset" >> results/benchmark_velveth_output_$cores.txt 2>&1
-	echo "" >> results/benchmark_velvet_time_$cores.txt		#Blank line for clarity and parsing
+	
+	# Stop nmon capturing
+        kill -USR2 $NMON_PID
 
+	# Make nmon html graphs
+        sh nmonchart/nmonchart nmon_stats/$NMON_FILE_NAME.nmon nmon_stats/$NMON_FILE_NAME.html
+	
+	echo "" >> results/benchmark_velvet_time_$cores.txt		#Blank line for clarity and parsing
 
 	echo "Replica_$replica Velvetg with $cores cores on dataset $dataset_name" >> results/benchmark_velvet_time_$cores.txt					 #Create results file with walltime
 	date >> results/benchmark_velvet_time_$cores.txt #Add date to walltime file
 
+	# Start nmon capturing
+	NMON_FILE_NAME="velvetg_"$replica"_$(date +"%Y-%m-%d-%H-%M")"
+        NMON_PID=$(nmon -F $NMON_FILE_NAME.nmon -m nmon_stats/ -p -s 2 -c 12000000)
 
 	# Run velvetg on dataset $dataset_name
 	/usr/bin/time -p -a -o results/benchmark_velvet_time_$cores.txt sh -c "velvet/velvetg benchmark_output/velvet/" >> benchmark_output/velvet/benchmark_velvetg_output.txt 2>&1
+	
+	# Stop nmon capturing
+        kill -USR2 $NMON_PID
+
+	# Make nmon html graphs
+        sh nmonchart/nmonchart nmon_stats/$NMON_FILE_NAME.nmon nmon_stats/$NMON_FILE_NAME.html
+
 	echo "" >> results/benchmark_velvet_time_$cores.txt 		#Blank line for clarity and parsing
 else
         echo "Velvet will not be started as you did not choose the genomics tools, all tools or the tool itself."
@@ -153,7 +195,18 @@ then
 	echo "Replica_$replica IDBA with $cores cores on dataset $dataset_name" >> results/benchmark_idba_time_$cores.txt
 	date >> results/benchmark_idba_time_$cores.txt
 
+	# Start nmon capturing
+	NMON_FILE_NAME="IDBA_"$replica"_$(date +"%Y-%m-%d-%H-%M")"
+        NMON_PID=$(nmon -F $NMON_FILE_NAME.nmon -m nmon_stats/ -p -s 2 -c 12000000)
+
 	/usr/bin/time -p -a -o results/benchmark_idba_time_$cores.txt sh -c "IDBA/idba_ud-1.0.9/bin/idba_ud -r $dataset_idba --num_threads $cores -o benchmark_output/IDBA/" >> results/benchmark_idba_output_$cores.txt 2>&1
+
+	# Stop nmon capturing
+        kill -USR2 $NMON_PID
+
+	# Make nmon html graphs
+        sh nmonchart/nmonchart nmon_stats/$NMON_FILE_NAME.nmon nmon_stats/$NMON_FILE_NAME.html
+
 	echo "" >> results/benchmark_idba_time_$cores.txt
 else
 	echo "IDBA will not be started as you did not choose the genomics tools, all tools or the tool itself."
@@ -167,7 +220,19 @@ then
 	echo "Replica_$replica Tensorflow with $cores cores on dataset cifar10 with $tf_steps" >> results/benchmark_tensorflow_time_$cores.txt
 	date >> results/benchmark_tensorflow_time_$cores.txt
 
+
+	# Start nmon capturing
+	NMON_FILE_NAME="tensorflow_"$replica"_$(date +"%Y-%m-%d-%H-%M")"
+        NMON_PID=$(nmon -F $NMON_FILE_NAME.nmon -m nmon_stats/ -p -s 2 -c 12000000)
+
 	/usr/bin/time -p -a -o results/benchmark_tensorflow_time_$cores.txt sh -c "python datasets/tensorflow/models/tutorials/image/cifar10/cifar10_train.py --data_dir=datasets/tensorflow/ --train_dir=benchmark_output/tensorflow/cifar10_train --max_steps=$tf_steps --threads=$cores" >> results/benchmark_tensorflow_output_$cores.txt 2>&1
+	
+	# Stop nmon capturing
+        kill -USR2 $NMON_PID
+
+	# Make nmon html graphs
+        sh nmonchart/nmonchart nmon_stats/$NMON_FILE_NAME.nmon nmon_stats/$NMON_FILE_NAME.html
+	
 	echo "" >> results/benchmark_tensorflow_time_$cores.txt
 else
 	echo "Tensorflow will not be started as you did not choose the ml tools, all tools or the tool itself."
@@ -191,7 +256,19 @@ then
 	echo "Replica_$replica GROMACS with $cores cores on dataset adh_cubic calculating $gromacs_steps steps with CPU pinning enabled" >> results/benchmark_gromacs_time_$cores.txt
 	date >> results/benchmark_gromacs_time_$cores.txt
 
+
+	# Start nmon capturing
+	NMON_FILE_NAME="GROMACS_"$replica"_$(date +"%Y-%m-%d-%H-%M")"
+        NMON_PID=$(nmon -F $NMON_FILE_NAME.nmon -m nmon_stats/ -p -s 2 -c 12000000)
+
 	/usr/bin/time -p -a -o results/benchmark_gromacs_time_$cores.txt sh -c "/usr/local/gromacs/bin/gmx mdrun -v -pin on -nt $cores -s datasets/gromacs/adh_cubic/topol.tpr -o benchmark_output/gromacs/benchmark -cpo benchmark_output/gromacs/benchmark -e benchmark_output/gromacs/benchmark -g benchmark_output/gromacs/benchmark -c benchmark_output/gromacs/benchmark" >> results/benchmark_gromacs_output_$cores.txt 2>&1
+
+	# Stop nmon capturing
+        kill -USR2 $NMON_PID
+
+	# Make nmon html graphs
+        sh nmonchart/nmonchart nmon_stats/$NMON_FILE_NAME.nmon nmon_stats/$NMON_FILE_NAME.html
+	
 	echo "" >> results/benchmark_gromacs_time_$cores.txt
 
 	# Reset to system compiler
@@ -209,7 +286,18 @@ then
 	echo "Replica_$replica SPAdes with $cores cores on dataset $dataset_name" >> results/benchmark_SPAdes_time_$cores.txt
 	date >> results/benchmark_SPAdes_time_$cores.txt
 
+	# Start nmon capturing
+	NMON_FILE_NAME="SPAdes_"$replica"_$(date +"%Y-%m-%d-%H-%M")"
+        NMON_PID=$(nmon -F $NMON_FILE_NAME.nmon -m nmon_stats/ -p -s 2 -c 12000000)
+
 	/usr/bin/time -p -a -o results/benchmark_SPAdes_time_$cores.txt sh -c "python SPAdes/SPAdes-3.12.0-Linux/bin/spades.py -s $dataset -o benchmark_output/SPAdes/ -t $cores" >> results/benchmark_SPAdes_output_$cores.txt 2>&1
+
+	# Stop nmon capturing
+        kill -USR2 $NMON_PID
+
+	# Make nmon html graphs
+        sh nmonchart/nmonchart nmon_stats/$NMON_FILE_NAME.nmon nmon_stats/$NMON_FILE_NAME.html
+
 	echo "" >> results/benchmark_SPAdes_time_$cores.txt
 else
 	echo "SPAdes will not be started as you did not choose the genomics tools, all tools or the tool itself."
@@ -251,14 +339,20 @@ then
 		tar -cf backed_up_benchmark_results/$backup_dir_name/results.tar results/*
 		cp benchmark_summary_* backed_up_benchmark_results/$backup_dir_name
 		cp bootable_system_info.txt backed_up_benchmark_results/$backup_dir_name
+		tar -cf backed_up_benchmark_results/$backup_dir_name/nmon_stats.tar nmon_stats/*
 		rm benchmark_summary_*
 		rm -rf results/*
 		rm bootable_system_info.txt
+		rm -rf nmon_stats/*
 	else
 		while true; do
-                read -p "There are no files to back them up, do you want to start the benchmark?" yn
+                read -p "No full benchmark could have been detected so there are no files to back them up, all related data from stopped run before will be deleted. Do you want to start the benchmark?" yn
                 case $yn in
-                        [Yy]* ) break;;
+                        [Yy]* )	rm -rf results/*
+                		rm bootable_system_info.txt
+                		rm -rf nmon_stats/*
+				break
+				;;
                         [Nn]* ) echo "The benchmarks will not be started"
 				exit 1
                                 ;;
@@ -291,7 +385,7 @@ then
 	tuned_out=$(tuned-adm active)
 	echo "tuned status: $tuned_out" >> bootable_system_info.txt 
 else 
-	echo "tuned status: NOT installed." >> bootable_system_info.txt
+	echo "NOT installed." >> bootable_system_info.txt
 fi
 
 lscpu -p='Core' | grep -v ^# | sort | uniq -c | awk '{print $1}' | uniq -c | while read -r no_cores threads ;
