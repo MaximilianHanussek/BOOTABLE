@@ -25,6 +25,8 @@ mkdir results
 mkdir gcc
 mkdir gcc/gcc-build
 mkdir gcc/gcc-installed
+mkdir nmon_stats
+mkdir nmonchart
 
 # Download benchmark datasets
 
@@ -106,6 +108,16 @@ else
 	wget https://s3.denbi.uni-tuebingen.de/max/gcc-7.3.0.tar.gz -P gcc
 	tar -xf gcc/gcc-7.3.0.tar.gz -C gcc/
 	rm gcc/gcc-7.3.0.tar.gz
+fi
+
+# Download nmonchart34
+if [-d nmonchart]
+then
+	wget https://s3.denbi.uni-tuebingen.de/max/nmonchart34.tar -P nmonchart
+	tar -xf nmonchart/nmonchart34.tar -C nmonchart/
+	rm nmonchart/nmonchart34.tar
+else
+	echo "Directory nmonchart does not exist. Can not download nmonchart tool."
 fi
 
 # Download Bowtie2 Sources
