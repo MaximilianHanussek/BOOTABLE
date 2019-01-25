@@ -7,6 +7,7 @@ RUN yum update -y && yum install epel-release -y && yum group install "Developme
 	htop \ 
 	time \
 	git \
+	nmon\
 	zlib-devel.x86_64 \
 	python-pip \
 	inxi \ 
@@ -41,7 +42,9 @@ RUN mkdir ~/benchmark_output \
 	~/velvet \
 	~/gcc \
 	~/gcc/gcc-build \
-	~/gcc/gcc-installed
+	~/gcc/gcc-installed\
+	~/nmon_stat\
+	~/nmonchart
 
 RUN original_path_variable=$(echo $PATH) \
 && original_ld_library_variable=$(echo $LD_LIBRARY_PATH)
@@ -93,6 +96,10 @@ RUN wget https://s3.denbi.uni-tuebingen.de/max/DRR001025.fastq.gz -P ~/datasets/
 RUN wget https://s3.denbi.uni-tuebingen.de/max/ADH_bench_systems.tar.gz -P ~/datasets/gromacs \
 && tar -xf ~/datasets/gromacs/ADH_bench_systems.tar.gz -C ~/datasets/gromacs/ \
 && rm ~/datasets/gromacs/ADH_bench_systems.tar.gz
+
+RUN wget https://s3.denbi.uni-tuebingen.de/max/nmonchart34.tar -P ~/nmonchart \
+&& tar -xf ~nmonchart/nmonchart34.tar -C ~/nmonchart/ \
+&& rm ~/nmonchart/nmonchart34.tar
 
 RUN cd ~/gcc/gcc-7.3.0 \
 && ./contrib/download_prerequisites

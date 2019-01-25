@@ -75,6 +75,10 @@ check_files "$path"
 path="datasets/1000_genomes/GRCh38_full_analysis_set_plus_decoy_hla.fa"
 check_files "$path"
 
+# nmonchart
+path="nmonchart/nmonchart"
+check_files "$path"
+
 # cifar-10-batches-bin
 path="datasets/tensorflow/cifar-10-batches-bin"
 check_directories "$path"
@@ -87,6 +91,10 @@ check_directories "$path"
 path="datasets/gromacs/adh_cubic"
 check_directories "$path"
 
+
+# nmonchart
+cmd="sh nmonchart/nmonchart -h"
+name="nmonchart"
 
 # GCC 7.3.0
 cmd="gcc/gcc-installed/bin/gcc --version"
