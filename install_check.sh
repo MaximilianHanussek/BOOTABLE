@@ -95,6 +95,7 @@ check_directories "$path"
 # nmonchart
 cmd="sh nmonchart/nmonchart -h"
 name="nmonchart"
+check_tool "$cmd" "$name"
 
 # GCC 7.3.0
 cmd="gcc/gcc-installed/bin/gcc --version"

@@ -349,7 +349,7 @@ then
                 read -p "No full benchmark could have been detected so there are no files to back them up, all related data from stopped run before will be deleted. Do you want to start the benchmark?" yn
                 case $yn in
                         [Yy]* )	rm -rf results/*
-                		rm bootable_system_info.txt
+                		rm -f bootable_system_info.txt
                 		rm -rf nmon_stats/*
 				break
 				;;
@@ -385,7 +385,7 @@ then
 	tuned_out=$(tuned-adm active)
 	echo "tuned status: $tuned_out" >> bootable_system_info.txt 
 else 
-	echo "NOT installed." >> bootable_system_info.txt
+	echo "tuned: NOT installed." >> bootable_system_info.txt
 fi
 
 lscpu -p='Core' | grep -v ^# | sort | uniq -c | awk '{print $1}' | uniq -c | while read -r no_cores threads ;

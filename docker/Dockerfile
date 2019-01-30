@@ -42,8 +42,8 @@ RUN mkdir ~/benchmark_output \
 	~/velvet \
 	~/gcc \
 	~/gcc/gcc-build \
-	~/gcc/gcc-installed\
-	~/nmon_stat\
+	~/gcc/gcc-installed \
+	~/nmon_stats \
 	~/nmonchart
 
 RUN original_path_variable=$(echo $PATH) \
@@ -98,7 +98,7 @@ RUN wget https://s3.denbi.uni-tuebingen.de/max/ADH_bench_systems.tar.gz -P ~/dat
 && rm ~/datasets/gromacs/ADH_bench_systems.tar.gz
 
 RUN wget https://s3.denbi.uni-tuebingen.de/max/nmonchart34.tar -P ~/nmonchart \
-&& tar -xf ~nmonchart/nmonchart34.tar -C ~/nmonchart/ \
+&& tar -xf ~/nmonchart/nmonchart34.tar -C ~/nmonchart/ \
 && rm ~/nmonchart/nmonchart34.tar
 
 RUN cd ~/gcc/gcc-7.3.0 \

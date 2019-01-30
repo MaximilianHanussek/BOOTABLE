@@ -1,0 +1,165 @@
+Bootstrap: shub
+
+From: singularityhub/centos
+
+%files
+
+	../run_benchmarks.sh /run_benchmarks.sh
+	../install_check.sh /install_check.sh
+	../threadedBioBenchsuiteStatsGenerator.R /threadedBioBenchsuiteStatsGenerator.R
+
+%labels
+	AUTHOR maximilian.hanussek@uni-tuebingen.de
+
+%post
+	yum update -y && yum install epel-release -y && yum group install "Development Tools" -y && yum install -y \
+        nano \
+        curl \
+        wget \
+        vim \
+        htop \
+        time \
+        git \
+        nmon\
+        zlib-devel.x86_64 \
+        python-pip \
+        inxi \
+        cmake3 \
+        tbb-devel.x86_64 \
+        util-linux \
+        hwloc \
+        hwloc-devel \
+        gmp-devel \
+        mpfr-devel \
+        libmpc-devel \
+        R
+
+
+	mkdir /benchmark_output \
+        	/benchmark_output/bowtie2 \
+        	/benchmark_output/gromacs \
+        	/benchmark_output/IDBA \
+        	/benchmark_output/SPAdes \
+        	/benchmark_output/tensorflow \
+        	/benchmark_output/velvet \
+        	/datasets \
+		/datasets/1000_genomes \
+        	/datasets/gromacs \
+        	/datasets/tensorflow \
+        	/datasets/ebi \
+        	/backed_up_benchmark_results \
+        	/gromacs \
+        	/results \
+        	/bowtie2 \
+        	/IDBA \
+        	/SPAdes \
+        	/tensorflow \
+        	/velvet \
+        	/gcc \
+        	/gcc/gcc-build \
+        	/gcc/gcc-installed \
+        	/nmon_stats \
+        	/nmonchart
+
+original_path_variable=$(echo $PATH) \
+&& original_ld_library_variable=$(echo $LD_LIBRARY_PATH)
+
+wget https://s3.denbi.uni-tuebingen.de/max/bowtie2-2.3.4.2-source.zip -P /bowtie2 \
+&& unzip /bowtie2/bowtie2-2.3.4.2-source.zip -d /bowtie2/ \
+&& rm /bowtie2/bowtie2-2.3.4.2-source.zip
+
+git clone https://github.com/dzerbino/velvet.git /velvet/ \
+&& rm -rf /velvet/.gitignore /velvet/.git/
+
+wget https://s3.denbi.uni-tuebingen.de/max/idba_ud-1.0.9.tar.gz -P /IDBA \
+&& tar -xf /IDBA/idba_ud-1.0.9.tar.gz -C /IDBA/ \
+&& rm /IDBA/idba_ud-1.0.9.tar.gz
+
+wget https://s3.denbi.uni-tuebingen.de/max/gromacs-2018.3.tar.gz -P /gromacs/ \
+&& tar -xf /gromacs/gromacs-2018.3.tar.gz -C /gromacs/ \
+&& rm /gromacs/gromacs-2018.3.tar.gz
+
+wget https://s3.denbi.uni-tuebingen.de/max/SPAdes-3.12.0-Linux.tar.gz -P /SPAdes \
+&& tar -xf /SPAdes/SPAdes-3.12.0-Linux.tar.gz -C /SPAdes \
+&& rm /SPAdes/SPAdes-3.12.0-Linux.tar.gz
+
+wget https://s3.denbi.uni-tuebingen.de/max/gcc-7.3.0.tar.gz -P /gcc \
+&& tar -xf /gcc/gcc-7.3.0.tar.gz -C /gcc/ \
+&& rm /gcc/gcc-7.3.0.tar.gz
+
+wget https://s3.denbi.uni-tuebingen.de/max/ERR251006.filt.fastq.gz -P /datasets/1000_genomes/ \
+&& gunzip /datasets/1000_genomes/ERR251006.filt.fastq.gz
+
+wget https://s3.denbi.uni-tuebingen.de/max/ERR016155.filt.fastq.gz -P /datasets/1000_genomes/ \
+&& gunzip /datasets/1000_genomes/ERR016155.filt.fastq.gz
+
+wget https://s3.denbi.uni-tuebingen.de/max/GRCh38_full_analysis_set_plus_decoy_hla.fa -P /datasets/1000_genomes/
+
+wget https://s3.denbi.uni-tuebingen.de/max/cifar-10-binary.tar.gz -P /datasets/tensorflow \
+&& tar xf /datasets/tensorflow/cifar-10-binary.tar.gz -C /datasets/tensorflow/
+
+wget https://s3.denbi.uni-tuebingen.de/max/models.tar.gz -P /datasets/tensorflow \
+&& tar -xf /datasets/tensorflow/models.tar.gz -C /datasets/tensorflow/ \
+&& rm /datasets/tensorflow/models.tar.gz
+
+wget https://s3.denbi.uni-tuebingen.de/max/DRR001012.fastq.gz -P /datasets/ebi/ \
+&& gunzip /datasets/ebi/DRR001012.fastq.gz
+
+wget https://s3.denbi.uni-tuebingen.de/max/DRR001025.fastq.gz -P /datasets/ebi/ \
+&& gunzip /datasets/ebi/DRR001025.fastq.gz
+
+wget https://s3.denbi.uni-tuebingen.de/max/ADH_bench_systems.tar.gz -P /datasets/gromacs \
+&& tar -xf /datasets/gromacs/ADH_bench_systems.tar.gz -C /datasets/gromacs/ \
+
+wget https://s3.denbi.uni-tuebingen.de/max/nmonchart34.tar -P /nmonchart \
+&& tar -xf /nmonchart/nmonchart34.tar -C /nmonchart/ \
+&& rm /nmonchart/nmonchart34.tar
+
+cd /gcc/gcc-7.3.0 \
+&& ./contrib/download_prerequisites
+
+cd /gcc/gcc-build \
+&& ../gcc-7.3.0/configure --enable-languages=c,c++ --disable-multilib --prefix=$PWD/../gcc-installed \
+&& make clean \
+&& make -j$(nproc) \
+&& make install
+
+make -C /bowtie2/bowtie2-2.3.4.2/ static-libs \
+&& make -C /bowtie2/bowtie2-2.3.4.2/ STATIC_BUILD=1
+
+export PATH=$PWD/gcc/gcc-installed/bin:$PATH \
+&& export LD_LIBRARY_PATH=$PWD/gcc/gcc-installed/lib64:$LD_LIBRARY_PATH
+
+make -C /velvet/ 'OPENMP=1'
+
+export PATH=$original_path_variable \
+&& export LD_LIBRARY_PATH=$original_ld_library_variable
+
+cd /IDBA/idba_ud-1.0.9/ \
+&& /IDBA/idba_ud-1.0.9/configure \
+&& make -C /IDBA/idba_ud-1.0.9/
+
+pip install --upgrade --force-reinstall pip==9.0.3
+pip install tensorflow==1.4.0
+
+export PATH=$PWD/gcc/gcc-installed/bin:$PATH \
+&& export LD_LIBRARY_PATH=$PWD/gcc/gcc-installed/lib64:$LD_LIBRARY_PATH
+
+mkdir /gromacs/gromacs-2018.3/build
+
+cd /gromacs/gromacs-2018.3/build/ \
+&& CC=gcc CXX=g++ cmake3 -DCMAKE_CXX_COMPILER=g++ -DGMX_BUILD_OWN_FFTW=on -DGMX_GPU=off -DGMX_BUILD_MPI=off --build ./ /gromacs/gromacs-2018.3/
+
+make -C /gromacs/gromacs-2018.3/build/ \
+&& make -C /gromacs/gromacs-2018.3/build/ install
+
+export PATH=$original_path_variable \
+&& export LD_LIBRARY_PATH=$original_ld_library_variable
+
+/IDBA/idba_ud-1.0.9/bin/fq2fa /datasets/1000_genomes/ERR016155.filt.fastq /datasets/1000_genomes/ERR016155.filt.fa
+
+/IDBA/idba_ud-1.0.9/bin/fq2fa /datasets/1000_genomes/ERR251006.filt.fastq /datasets/1000_genomes/ERR251006.filt.fa
+
+/IDBA/idba_ud-1.0.9/bin/fq2fa /datasets/ebi/DRR001012.fastq /datasets/ebi/DRR001012.fa
+
+/IDBA/idba_ud-1.0.9/bin/fq2fa /datasets/ebi/DRR001025.fastq /datasets/ebi/DRR001025.fa
