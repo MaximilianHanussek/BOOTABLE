@@ -9,6 +9,7 @@ This toolsuite currently consists of the following tools
 - GROMACS
 - Tensowflow
 - SPAdes
+- Clustal Omega (currently in testing phase)
 
 more are coming soon ...
  
@@ -143,7 +144,7 @@ This instructions assume that docker is already installed and running. If not yo
 on the [Docker website](https://www.docker.com/get-started)
 
 The **first** possibility is to pull the already configured BOOTABLE Docker image  from [docker hub](https://hub.docker.com/)
-with the follwing docker pull command.
+with the following docker pull command.
 
 <pre>docker pull maximilianhanussek/bootable</pre>
 
@@ -173,10 +174,55 @@ After the Docker image has been build you can start the benchmark with the same 
 <pre>sh run_benchmarks.sh</pre>
 
 ### 4. Using a Singularity container
+This instructions assume that singularity is already installed and working. If not you should find most of the information
+on the [Singularity website](https://www.sylabs.io/guides/2.6/user-guide/installation.html)
 
-### 5. Transform an existing Docker container into a Singularity container
+The **first** possibility is to pull the already configured and build container from [singularity hub]()
+with the following singularity pull command.
 
-### 6. Using Ansible
+<pre>singularity pull maximilianhanussek/bootable</pre>
+
+After the image has been downloaded you can start an interactive Singularity container with the following command
+<pre>sudo singularity shell bootable.simg</pre>
+
+After you are in the container change to the root directory
+<pre>cd /</pre>
+
+In this directory you will find all the tools already installed. In order to start the benchmark just run
+<pre>sh run_benchmarks.sh</pre>
+
+or enter some additional parameters via the provided flags.
+
+The **second** option is to pull the already configured and build BOOTABLE Docker container from [docker hub](https://hub.docker.com/) with the following singularity pull command.
+
+<pre>singularity pull docker://maximilianhanussek/bootable</pre>
+
+After the image has been downloaded into your current working directory and converted into a singularity container you can start an interactive Singularity container with the following command
+<pre>sudo singularity shell IMAGE_NAME</pre>
+
+After you are in the container, change to the root home directory /root/
+<pre>cd /root/</pre>
+
+In this directory you will find all the tools already installed. In order to start the benchmark just run
+<pre>sh run_benchmarks.sh</pre>
+
+or enter some additional parameters via the provided flags.
+
+The **third** option is to build the Singularity container by yourself with the provided `Singularity recipe`. You can find it in the github repo in the `singularity` directory.
+
+To build the Docker container by yourself clone this github repo, change into the `singularity` directory and run the following command:
+
+<pre>sudo singularity build bootable.simg singularity_bootable_recipe</pre>
+
+The build will take a couple of minutes (30-60) as the first step is to update the underlying operating sytem /(centOS7) to the latest version and installing all the required packages. Further some large datasets need to be downloaded and this depends on your network conectivity. Afterwards most of the tools have to be compiled and installed.
+
+After the Singularity image has been build you can start the benchmark with the same command like if you had pulled it from Singularity Hub:
+
+<pre>sudo singularity shell bootable.simg</pre>
+<pre>cd /root/</pre>
+<pre>sh run_benchmarks.sh</pre>
+
+### 5. Using Ansible
 
 ## Start Benchmarks
 In order to start a benchmark just stay in the BOOTABLE root directory and run the `run_benchmarks.sh` script.
