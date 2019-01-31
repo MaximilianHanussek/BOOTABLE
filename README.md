@@ -37,6 +37,7 @@ If you want to install the tools and scripts BOOTABLE use please be sure to have
 - python-pip (in Version 9.0.3)
 - cmake3
 - tbb-devel.x86_64
+- argtable-devel
 - R
 - inxi
 - uitl-linux
@@ -49,7 +50,7 @@ If you want to install the tools and scripts BOOTABLE use please be sure to have
 <pre>yum update -y
 yum install epel-release -y
 yum group install "Development Tools" -y
-yum install nano curl wget vim htop nmon time git zlib-devel.x86_64 python-pip inxi cmake3 tbb-devel.x86_64 util-linux hwloc hwloc-devel gmp-devel mpfr-devel libmpc-devel R -y</pre>
+yum install nano curl wget vim htop nmon time git zlib-devel.x86_64 python-pip inxi cmake3 tbb-devel.x86_64 argtable-devel util-linux hwloc hwloc-devel gmp-devel mpfr-devel libmpc-devel R -y</pre>
 
 
 Further the system needs access to the internet to load the specific datasets and some R packages.
