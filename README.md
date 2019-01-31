@@ -193,7 +193,7 @@ After the image has been downloaded you can start an interactive Singularity con
 After you are in the container change to the root directory
 <pre>cd /</pre>
 
-In this directory you will find all the tools already installed. Before you start the benchmark you can run the install_check.s script to be sure everything is fine 
+In this directory you will find all the tools already installed. Before you start the benchmark you can run the install_check.sh script to be sure everything is fine 
 <pre>sh install_check.sh</pre>
 
 In order to start the benchmark just run
