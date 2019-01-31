@@ -37,6 +37,7 @@ If you want to install the tools and scripts BOOTABLE use please be sure to have
 - python-pip (in Version 9.0.3)
 - cmake3
 - tbb-devel.x86_64
+- argtable-devel
 - R
 - inxi
 - uitl-linux
@@ -49,7 +50,7 @@ If you want to install the tools and scripts BOOTABLE use please be sure to have
 <pre>yum update -y
 yum install epel-release -y
 yum group install "Development Tools" -y
-yum install nano curl wget vim htop nmon time git zlib-devel.x86_64 python-pip inxi cmake3 tbb-devel.x86_64 util-linux hwloc hwloc-devel gmp-devel mpfr-devel libmpc-devel R -y</pre>
+yum install nano curl wget vim htop nmon time git zlib-devel.x86_64 python-pip inxi cmake3 tbb-devel.x86_64 argtable-devel util-linux hwloc hwloc-devel gmp-devel mpfr-devel libmpc-devel R -y</pre>
 
 
 Further the system needs access to the internet to load the specific datasets and some R packages.
@@ -206,7 +207,7 @@ The **second** option is to pull the already configured and build BOOTABLE Docke
 <pre>singularity pull docker://maximilianhanussek/bootable</pre>
 
 After the image has been downloaded into your current working directory and converted into a singularity container you can start an interactive Singularity container with the following command
-<pre>sudo singularity shell IMAGE_NAME</pre>
+<pre>sudo singularity shell bootable.simg</pre>
 
 After you are in the container, change to the root home directory /root/
 <pre>cd /root/</pre>
