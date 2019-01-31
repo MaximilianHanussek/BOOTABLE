@@ -75,6 +75,18 @@ check_files "$path"
 path="datasets/1000_genomes/GRCh38_full_analysis_set_plus_decoy_hla.fa"
 check_files "$path"
 
+# wgs.ANCA.1_200.fsa
+path="datasets/clustalOmega/wgs.ANCA.1_200.fsa"
+check_files "$path"
+
+# wgs.ANCA.1_400.fsa
+path="datasets/clustalOmega/wgs.ANCA.1_400.fsa"
+check_files "$path"
+
+# wgs.ANCA.1_400.fsa
+path="datasets/clustalOmega/wgs.ANCA.1_400.fsa"
+check_files "$path"
+
 # nmonchart
 path="nmonchart/nmonchart"
 check_files "$path"
@@ -94,7 +106,7 @@ check_directories "$path"
 
 # nmonchart
 cmd="sh nmonchart/nmonchart -h"
-name="nmonchart" 
+name="nmonchart"
 check_tool "$cmd" "$name"
 
 # GCC 7.3.0
@@ -160,3 +172,7 @@ cmd="python SPAdes/SPAdes-3.12.0-Linux/bin/spades.py --help"
 name="SPAdes"
 check_tool "$cmd" "$name"
 
+# ClustalOmega
+cmd="clustalOmega/clustal-omega-1.2.4/bin/clustalo --version"
+name="ClustalOmega"
+check_tool "$cmd" "$name"

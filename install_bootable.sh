@@ -3,6 +3,7 @@
 # Create empty directories
 mkdir benchmark_output
 mkdir benchmark_output/bowtie2
+mkdir benchmark_output/clustalOmega
 mkdir benchmark_output/gromacs
 mkdir benchmark_output/IDBA
 mkdir benchmark_output/SPAdes
@@ -10,6 +11,7 @@ mkdir benchmark_output/tensorflow
 mkdir benchmark_output/velvet
 mkdir datasets
 mkdir datasets/1000_genomes
+mkdir datasets/clustalOmega
 mkdir datasets/gromacs
 mkdir datasets/tensorflow
 mkdir datasets/ebi
@@ -17,11 +19,11 @@ mkdir backed_up_benchmark_results
 mkdir gromacs
 mkdir results
 mkdir bowtie2
+mkdir clustalOmega
 mkdir IDBA
 mkdir SPAdes
 mkdir tensorflow
 mkdir velvet
-mkdir results
 mkdir gcc
 mkdir gcc/gcc-build
 mkdir gcc/gcc-installed
@@ -74,6 +76,30 @@ else
 	wget https://s3.denbi.uni-tuebingen.de/max/GRCh38_full_analysis_set_plus_decoy_hla.fa -P datasets/1000_genomes/
 fi
 
+if [ -e datasets/clustalOmega/wgs.ANCA.1_200.fsa ]
+then
+        echo "File datasets/clustalOmega/wgs.ANCA.1_200.fsa already exists."
+else
+        wget https://s3.denbi.uni-tuebingen.de/max/wgs.ANCA.1_200.fsa -P datasets/clustalOmega
+fi
+
+
+if [ -e datasets/clustalOmega/wgs.ANCA.1_400.fsa ]
+then
+        echo "File datasets/clustalOmega/wgs.ANCA.1_400.fsa already exists."
+else
+        wget https://s3.denbi.uni-tuebingen.de/max/wgs.ANCA.1_400.fsa -P datasets/clustalOmega
+fi
+
+
+if [ -e datasets/clustalOmega/wgs.ANCA.1_500.fsa ]
+then
+        echo "File datasets/clustalOmega/wgs.ANCA.1_500.fsa already exists."
+else
+	wget https://s3.denbi.uni-tuebingen.de/max/wgs.ANCA.1_500.fsa -P datasets/clustalOmega
+fi
+
+
 if [ -d datasets/tensorflow/cifar-10-batches-bin ]
 then
 	echo "Directory datasets/tensorflow/cifar-10-batches-bin already exists."
@@ -99,6 +125,7 @@ else
 	tar -xf datasets/gromacs/ADH_bench_systems.tar.gz -C datasets/gromacs/
 	rm datasets/gromacs/ADH_bench_systems.tar.gz
 fi
+
 
 # Download GCC compiler version 7.3.0
 if [ -d gcc/gcc-7.3.0 ]
@@ -169,6 +196,17 @@ else
 	tar -xf SPAdes/SPAdes-3.12.0-Linux.tar.gz -C SPAdes
 	rm SPAdes/SPAdes-3.12.0-Linux.tar.gz
 fi
+
+# Download ClustalOmega sources
+if [ -d clustalOmega/clustal-omega-1.2.4 ]
+then
+        echo "Directory clustalOmega/clustal-omega-1.2.4 already exists."
+else
+        wget https://s3.denbi.uni-tuebingen.de/max/clustal-omega-1.2.4.tar.gz -P clustalOmega
+        tar -xf clustalOmega/clustal-omega-1.2.4.tar.gz -C clustalOmega/
+        rm clustalOmega/clustal-omega-1.2.4.tar.gz
+fi
+
 
 # Save original PATH and LD_LIBRARY variables
 original_path_variable=$(echo $PATH)
@@ -291,6 +329,32 @@ else
 	make clean
 	make -j$(nproc)
 	cd ../../
+fi
+
+# Compile and install clustalOmega
+if [ -e clustalOmega/clustal-omega-1.2.4/bin/clustalo ]
+then
+	while true; do
+                read -p "clustalOmega seems already to be installed, do you want to recompile it?" yn
+                case $yn in
+                        [Yy]* ) cd clustalOmega/clustal-omega-1.2.4/
+                                ./configure --prefix=$PWD
+                                make clean
+                                make -j$(nproc)
+                                cd ../../
+                                break;;
+                        [Nn]* ) echo "ClustalOmega will not be recompiled"
+                                break;;
+                        * ) echo "Please answer yes or no."
+                                ;;
+                esac
+        done
+else
+	cd clustalOmega/clustal-omega-1.2.4/
+        ./configure --prefix=$PWD
+        make clean
+        make -j$(nproc)
+        cd ../../
 fi
 
 # Compile and install tensorflow (sudo)

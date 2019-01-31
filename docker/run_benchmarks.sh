@@ -15,6 +15,7 @@ dataset_idba="datasets/1000_genomes/ERR016155.filt.fa" #Set ERR016155 as default
 default_reference="datasets/ebi/DRR001025.fa"   #Set DRR001012 as default reference dataset
 default_tensorflow_steps=2500			#Set 2500 tensorflow steps as default 
 default_gromacs_steps=30000			#Set 30000 gromacs steps as default
+dataset_clustalOmega="datasets/clustalOmega/wgs.ANCA.1_400.fsa"	#Set wgs.ANCA.1_400.fsa as default datatset for ClustalOmega
 default_cores=$max_cores			#Set maximal core number as default
 default_cores_velvet=$max_cores_velvet		#Set default core number for velvet tool
 default_replicas=3				#Set default number of replicas to 3
@@ -85,6 +86,8 @@ reference_name=$(basename $reference | cut -d. -f1)	#Get only the name of the da
 dataset_name=$(basename $dataset | cut -d. -f1) #Get only the name of the dataset from the filepath
 dataset_idba=$8					#Input parameter for IDBA (needs .fa file)
 toolgroup=$9					#Input parameter which tools should be used
+dataset_clustalOmega=${10}
+dataset_name_clustalOmega=$(basename $dataset_clustalOmega | cut -d. -f-3)
 
 # Save original PATH and LD_LIBRARY variables
 original_path_variable=$(echo $PATH)
@@ -212,6 +215,34 @@ else
 	echo "IDBA will not be started as you did not choose the genomics tools, all tools or the tool itself."
 fi
 
+
+if [ $toolgroup == "all" ] || [ $toolgroup == "genomics" ] || [ $toolgroup == "clustalomega" ]
+then
+	# ClustalOmega
+        echo "Running ClustalOmega benchmark on dataset $dataset_name_clustalOmega"
+        rm -rf benchmark_output/clustalOmega/*
+        echo "Replica_$replica clustalOmega with $cores cores on dataset $dataset_name_clustalOmega" >> results/benchmark_clustalomega_time_$cores.txt
+        date >> results/benchmark_clustalomega_time_$cores.txt
+
+        # Start nmon capturing
+        NMON_FILE_NAME="ClustalOmega_"$replica"_$(date +"%Y-%m-%d-%H-%M")"
+        NMON_PID=$(nmon -F $NMON_FILE_NAME.nmon -m nmon_stats/ -p -s 2 -c 12000000)
+	
+	/usr/bin/time -p -a -o results/benchmark_clustalomega_time_$cores.txt sh -c "clustalOmega/clustal-omega-1.2.4/bin/clustalo -i $dataset_clustalOmega -o benchmark_output/clustalOmega/$dataset_name_clustalOmega.fa --force --outfmt=fa --threads=$cores" >> results/benchmark_clustalomega_output_$cores.txt 2>&1
+
+	# Stop nmon capturing
+        kill -USR2 $NMON_PID
+
+        # Make nmon html graphs
+        sh nmonchart/nmonchart nmon_stats/$NMON_FILE_NAME.nmon nmon_stats/$NMON_FILE_NAME.html
+
+        echo "" >> results/benchmark_clustalomega_time_$cores.txt
+else
+        echo "ClustalOmega will not be started as you did not choose the genomics tools, all tools or the tool itself."
+fi
+
+
+
 if [ $toolgroup == "all" ] || [ $toolgroup == "ml" ] || [ $toolgroup == "tensorflow" ]
 then
 	# Tensorflow
@@ -317,6 +348,9 @@ check_results $path $cores
 path="results/benchmark_idba_time_$cores.txt"
 check_results $path $cores
 
+path="results/benchmark_clustalomega_time_$cores.txt"
+check_results $path $cores
+
 path="results/benchmark_tensorflow_time_$cores.txt"
 check_results $path $cores
 
@@ -417,6 +451,7 @@ if [ $dataset == "large" ]
 then
 	dataset="datasets/1000_genomes/ERR251006.filt.fastq"
 	dataset_idba="datasets/1000_genomes/ERR251006.filt.fa"
+	dataset_clustalOmega="datasets/clustalOmega/wgs.ANCA.1_500.fsa"
         default_reference="datasets/1000_genomes/GRCh38_full_analysis_set_plus_decoy_hla.fa"
 	default_tensorflow_steps=5000
 	default_gromacs_steps=50000
@@ -425,6 +460,7 @@ elif [ $dataset == "medium" ]
 then
 	dataset="datasets/1000_genomes/ERR016155.filt.fastq"
         dataset_idba="datasets/1000_genomes/ERR016155.filt.fa"
+	dataset_clustalOmega="datasets/clustalOmega/wgs.ANCA.1_400.fsa"
 	default_reference="datasets/ebi/DRR001025.fa"
 	default_tensorflow_steps=2500
 	default_gromacs_steps=30000
@@ -433,6 +469,7 @@ elif [ $dataset == "small" ]
 then	
 	dataset="datasets/1000_genomes/ERR016155.filt.fastq"
 	dataset_idba="datasets/1000_genomes/ERR016155.filt.fa"
+	dataset_clustalOmega="datasets/clustalOmega/wgs.ANCA.1_200.fsa"
 	default_reference="datasets/ebi/DRR001012.fa" 
 	default_tensorflow_steps=1000
 	default_gromacs_steps=10000
@@ -440,6 +477,7 @@ then
 else
 	dataset="datasets/1000_genomes/ERR016155.filt.fastq"
         dataset_idba="datasets/1000_genomes/ERR016155.filt.fa"
+	dataset_clustalOmega="datasets/clustalOmega/wgs.ANCA.1_400.fsa"
         default_reference="datasets/ebi/DRR001025.fa"
         default_tensorflow_steps=2500
         default_gromacs_steps=30000
@@ -472,7 +510,7 @@ else
 	exit 1
 fi
 
-if [[ $default_toolgroup != "all" && $default_toolgroup != "genomics" && $default_toolgroup != "ml" && $default_toolgroup != "quant" && $default_toolgroup != "bowtie2-build" && $default_toolgroup != "velvet" && $default_toolgroup != "idba" && $default_toolgroup != "tensorflow" && $default_toolgroup != "gromacs" && $default_toolgroup != "SPAdes" ]]
+if [[ $default_toolgroup != "all" && $default_toolgroup != "genomics" && $default_toolgroup != "ml" && $default_toolgroup != "quant" && $default_toolgroup != "bowtie2-build" && $default_toolgroup != "velvet" && $default_toolgroup != "idba" && $default_toolgroup != "tensorflow" && $default_toolgroup != "gromacs" && $default_toolgroup != "SPAdes" && $default_toolgroup != "clustalomega" ]]
 then
 	echo "Parameter is not one of all, genomics, ml, quant, bowtie2-build, velvet, idba, tensorflow, gromacs or SPAdes. Please check -t flag again."
 	exit 1
@@ -483,6 +521,7 @@ fi
 echo "General genomic dataset for Bowtie2, Velvet, SPAdes: $dataset"
 echo "IDBA dataset: $dataset_idba"
 echo "Reference dataset: $default_reference"
+echo "ClustalOmega dataset: $dataset_clustalOmega"
 echo "Number of used cores: $default_cores"
 echo "Number of used replicates: $default_replicas"
 echo "Number of Tensorflow steps: $default_tensorflow_steps"
@@ -492,7 +531,5 @@ echo "Toolgroup: $default_toolgroup"
 echo "BOOTABLE benchmark run with $default_cores cores and $default_replicas replicates"
 for replica in $( seq 1 $default_replicas ) 
 do
-	run_benchmark_tools $default_cores $default_cores_velvet $replica $dataset $default_tensorflow_steps $default_gromacs_steps $default_reference $dataset_idba $default_toolgroup
+	run_benchmark_tools $default_cores $default_cores_velvet $replica $dataset $default_tensorflow_steps $default_gromacs_steps $default_reference $dataset_idba $default_toolgroup $dataset_clustalOmega
 done
-
-
