@@ -145,7 +145,7 @@ If you want to re-run the benchmarks use the -c flag in order to delete the crea
 This instructions assume that docker is already installed and running. If not you should find most of the information
 on the [Docker website](https://www.docker.com/get-started)
 
-The **first** possibility is to pull the already configured BOOTABLE Docker image  from [docker hub](https://hub.docker.com/)
+The **first** possibility is to pull the already configured BOOTABLE Docker image from [docker hub](https://hub.docker.com/)
 with the following docker pull command.
 
 <pre>docker pull maximilianhanussek/bootable</pre>
@@ -156,7 +156,10 @@ After the image has been downloaded you can start an interactive Docker containe
 After you are in the container change into the home directory (root)
 <pre>cd /root/</pre>
 
-In the home directory you will find all the tools already installed. In order to start the benchmark just run
+In the home directory you will find all the tools already installed. Before you start the benchmark you can run the install_check.sh script to be sure everything is fine 
+<pre>sh install_check.sh</pre>
+
+In order to start the benchmark just run
 <pre>sh run_benchmarks.sh</pre>
 
 or enter some additional parameters via the provided flags.
@@ -182,7 +185,7 @@ on the [Singularity website](https://www.sylabs.io/guides/2.6/user-guide/install
 The **first** possibility is to pull the already configured and build container from [singularity hub]()
 with the following singularity pull command.
 
-<pre>singularity pull maximilianhanussek/bootable</pre>
+<pre>singularity pull shub://MaximilianHanussek/BOOTABLE</pre>
 
 After the image has been downloaded you can start an interactive Singularity container with the following command
 <pre>sudo singularity shell bootable.simg</pre>
@@ -190,7 +193,10 @@ After the image has been downloaded you can start an interactive Singularity con
 After you are in the container change to the root directory
 <pre>cd /</pre>
 
-In this directory you will find all the tools already installed. In order to start the benchmark just run
+In this directory you will find all the tools already installed. Before you start the benchmark you can run the install_check.s script to be sure everything is fine 
+<pre>sh install_check.sh</pre>
+
+In order to start the benchmark just run
 <pre>sh run_benchmarks.sh</pre>
 
 or enter some additional parameters via the provided flags.
