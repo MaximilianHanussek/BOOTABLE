@@ -1,5 +1,7 @@
 # BOOTABLE                                                                                    [![DOI](https://zenodo.org/badge/149121128.svg)](https://zenodo.org/badge/latestdoi/149121128)
 
+[![https://www.singularity-hub.org/static/img/hosted-singularity--hub-%23e32929.svg](https://www.singularity-hub.org/static/img/hosted-singularity--hub-%23e32929.svg)](https://singularity-hub.org/collections/2258)
+
 
 BiOinfOrmatics ThreAded Benchmark tooLsuitE (BOOTABLE)
 This toolsuite currently consists of the following tools
