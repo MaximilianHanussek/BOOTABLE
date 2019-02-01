@@ -12,7 +12,8 @@ RUN yum update -y && yum install epel-release -y && yum group install "Developme
 	python-pip \
 	inxi \ 
 	cmake3 \
-	tbb-devel.x86_64 \ 
+	tbb-devel.x86_64 \
+	argtable-devel \
 	util-linux \ 
 	hwloc \ 
 	hwloc-devel \ 
@@ -22,13 +23,16 @@ RUN yum update -y && yum install epel-release -y && yum group install "Developme
 	R
 
 RUN mkdir ~/benchmark_output \
-	~/benchmark_output/bowtie2 \ 
+	~/benchmark_output/bowtie2 \
+	~/benchmark_output/clustalOmega \ 
 	~/benchmark_output/gromacs \
 	~/benchmark_output/IDBA \
 	~/benchmark_output/SPAdes \
 	~/benchmark_output/tensorflow \
 	~/benchmark_output/velvet \
-	~/datasets ~/datasets/1000_genomes \
+	~/datasets \
+	~/datasets/1000_genomes \
+	~/datasets/clustalOmega \
 	~/datasets/gromacs \
 	~/datasets/tensorflow \
 	~/datasets/ebi \
@@ -68,6 +72,10 @@ RUN wget https://s3.denbi.uni-tuebingen.de/max/SPAdes-3.12.0-Linux.tar.gz -P ~/S
 && tar -xf ~/SPAdes/SPAdes-3.12.0-Linux.tar.gz -C ~/SPAdes \
 && rm ~/SPAdes/SPAdes-3.12.0-Linux.tar.gz
 
+RUN wget https://s3.denbi.uni-tuebingen.de/max/clustal-omega-1.2.4.tar.gz -P ~/clustalOmega \
+&& tar -xf ~/clustalOmega/clustal-omega-1.2.4.tar.gz -C ~/clustalOmega/ \
+&& rm ~/clustalOmega/clustal-omega-1.2.4.tar.gz
+
 RUN wget https://s3.denbi.uni-tuebingen.de/max/gcc-7.3.0.tar.gz -P ~/gcc \
 && tar -xf ~/gcc/gcc-7.3.0.tar.gz -C ~/gcc/ \
 && rm ~/gcc/gcc-7.3.0.tar.gz
@@ -79,6 +87,13 @@ RUN wget https://s3.denbi.uni-tuebingen.de/max/ERR016155.filt.fastq.gz -P ~/data
 && gunzip ~/datasets/1000_genomes/ERR016155.filt.fastq.gz
 
 RUN wget https://s3.denbi.uni-tuebingen.de/max/GRCh38_full_analysis_set_plus_decoy_hla.fa -P ~/datasets/1000_genomes/
+
+RUN wget https://s3.denbi.uni-tuebingen.de/max/wgs.ANCA.1_200.fsa -P ~/datasets/clustalOmega
+
+RUN wget https://s3.denbi.uni-tuebingen.de/max/wgs.ANCA.1_400.fsa -P ~/datasets/clustalOmega
+
+RUN wget https://s3.denbi.uni-tuebingen.de/max/wgs.ANCA.1_500.fsa -P ~/datasets/clustalOmega
+
 
 RUN wget https://s3.denbi.uni-tuebingen.de/max/cifar-10-binary.tar.gz -P ~/datasets/tensorflow \
 && tar xf ~/datasets/tensorflow/cifar-10-binary.tar.gz -C ~/datasets/tensorflow/
@@ -124,6 +139,11 @@ RUN export PATH=$original_path_variable \
 RUN cd ~/IDBA/idba_ud-1.0.9/ \
 && ~/IDBA/idba_ud-1.0.9/configure \
 && make -C ~/IDBA/idba_ud-1.0.9/
+
+RUN cd ~/clustalOmega/clustal-omega-1.2.4/ \
+&& ~/clustalOmega/clustal-omega-1.2.4/configure --prefix=$PWD \
+&& make -j$(nproc) \
+&& make
 
 RUN pip install --upgrade --force-reinstall pip==9.0.3
 RUN pip install tensorflow==1.4.0

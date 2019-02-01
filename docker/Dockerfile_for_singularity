@@ -1,0 +1,175 @@
+FROM centos:latest
+RUN yum update -y && yum install epel-release -y && yum group install "Development Tools" -y && yum install -y \
+	nano \
+	curl \
+     	wget \ 
+	vim \
+	htop \ 
+	time \
+	git \
+	nmon\
+	zlib-devel.x86_64 \
+	python-pip \
+	inxi \ 
+	cmake3 \
+	tbb-devel.x86_64 \
+	argtable-devel \ 
+	util-linux \ 
+	hwloc \ 
+	hwloc-devel \ 
+	gmp-devel \ 
+	mpfr-devel \ 
+	libmpc-devel \ 
+	R
+
+RUN mkdir /benchmark_output \
+	/benchmark_output/bowtie2 \
+	/benchmark_output/clustalOmega \ 
+	/benchmark_output/gromacs \
+	/benchmark_output/IDBA \
+	/benchmark_output/SPAdes \
+	/benchmark_output/tensorflow \
+	/benchmark_output/velvet \
+	/datasets \
+	/datasets/1000_genomes \
+	/datasets/clustalOmega \
+	/datasets/gromacs \
+	/datasets/tensorflow \
+	/datasets/ebi \
+	/backed_up_benchmark_results \
+	/gromacs \
+	/results \
+	/bowtie2 \
+	/clustalOmega \
+	/IDBA \
+	/SPAdes \
+	/tensorflow \
+	/velvet \
+	/gcc \
+	/gcc/gcc-build \
+	/gcc/gcc-installed \
+	/nmon_stats \
+	/nmonchart
+
+RUN original_path_variable=$(echo $PATH) \
+&& original_ld_library_variable=$(echo $LD_LIBRARY_PATH)
+
+RUN wget https://s3.denbi.uni-tuebingen.de/max/bowtie2-2.3.4.2-source.zip -P /bowtie2 \
+&& unzip /bowtie2/bowtie2-2.3.4.2-source.zip -d /bowtie2/ \
+&& rm /bowtie2/bowtie2-2.3.4.2-source.zip
+
+RUN git clone https://github.com/dzerbino/velvet.git /velvet/ \
+&& rm -rf /velvet/.gitignore /velvet/.git/
+
+RUN wget https://s3.denbi.uni-tuebingen.de/max/idba_ud-1.0.9.tar.gz -P /IDBA \
+&& tar -xf /IDBA/idba_ud-1.0.9.tar.gz -C /IDBA/ \
+&& rm /IDBA/idba_ud-1.0.9.tar.gz
+
+RUN wget https://s3.denbi.uni-tuebingen.de/max/gromacs-2018.3.tar.gz -P /gromacs/ \
+&& tar -xf /gromacs/gromacs-2018.3.tar.gz -C /gromacs/ \
+&& rm /gromacs/gromacs-2018.3.tar.gz
+
+RUN wget https://s3.denbi.uni-tuebingen.de/max/SPAdes-3.12.0-Linux.tar.gz -P /SPAdes \
+&& tar -xf /SPAdes/SPAdes-3.12.0-Linux.tar.gz -C /SPAdes \
+&& rm /SPAdes/SPAdes-3.12.0-Linux.tar.gz
+
+RUN wget https://s3.denbi.uni-tuebingen.de/max/clustal-omega-1.2.4.tar.gz -P /clustalOmega \
+&& tar -xf /clustalOmega/clustal-omega-1.2.4.tar.gz -C /clustalOmega/ \
+&& rm /clustalOmega/clustal-omega-1.2.4.tar.gz 
+
+RUN wget https://s3.denbi.uni-tuebingen.de/max/gcc-7.3.0.tar.gz -P /gcc \
+&& tar -xf /gcc/gcc-7.3.0.tar.gz -C /gcc/ \
+&& rm /gcc/gcc-7.3.0.tar.gz
+
+RUN wget https://s3.denbi.uni-tuebingen.de/max/ERR251006.filt.fastq.gz -P /datasets/1000_genomes/ \
+&& gunzip /datasets/1000_genomes/ERR251006.filt.fastq.gz
+
+RUN wget https://s3.denbi.uni-tuebingen.de/max/ERR016155.filt.fastq.gz -P /datasets/1000_genomes/ \
+&& gunzip /datasets/1000_genomes/ERR016155.filt.fastq.gz
+
+RUN wget https://s3.denbi.uni-tuebingen.de/max/GRCh38_full_analysis_set_plus_decoy_hla.fa -P /datasets/1000_genomes/
+
+RUN wget https://s3.denbi.uni-tuebingen.de/max/wgs.ANCA.1_200.fsa -P /datasets/clustalOmega
+
+RUN wget https://s3.denbi.uni-tuebingen.de/max/wgs.ANCA.1_400.fsa -P /datasets/clustalOmega
+
+RUN wget https://s3.denbi.uni-tuebingen.de/max/wgs.ANCA.1_500.fsa -P /datasets/clustalOmega
+
+RUN wget https://s3.denbi.uni-tuebingen.de/max/cifar-10-binary.tar.gz -P /datasets/tensorflow \
+&& tar xf /datasets/tensorflow/cifar-10-binary.tar.gz -C /datasets/tensorflow/
+
+RUN wget https://s3.denbi.uni-tuebingen.de/max/models.tar.gz -P /datasets/tensorflow \
+&& tar -xf /datasets/tensorflow/models.tar.gz -C /datasets/tensorflow/ \
+&& rm /datasets/tensorflow/models.tar.gz
+
+RUN wget https://s3.denbi.uni-tuebingen.de/max/DRR001012.fastq.gz -P /datasets/ebi/ \
+&& gunzip /datasets/ebi/DRR001012.fastq.gz
+
+RUN wget https://s3.denbi.uni-tuebingen.de/max/DRR001025.fastq.gz -P /datasets/ebi/ \
+&& gunzip /datasets/ebi/DRR001025.fastq.gz
+
+RUN wget https://s3.denbi.uni-tuebingen.de/max/ADH_bench_systems.tar.gz -P /datasets/gromacs \
+&& tar -xf /datasets/gromacs/ADH_bench_systems.tar.gz -C /datasets/gromacs/ \
+&& rm /datasets/gromacs/ADH_bench_systems.tar.gz
+
+RUN wget https://s3.denbi.uni-tuebingen.de/max/nmonchart34.tar -P /nmonchart \
+&& tar -xf /nmonchart/nmonchart34.tar -C /nmonchart/ \
+&& rm /nmonchart/nmonchart34.tar
+
+RUN cd /gcc/gcc-7.3.0 \
+&& ./contrib/download_prerequisites
+
+RUN cd /gcc/gcc-build \
+&& ../gcc-7.3.0/configure --enable-languages=c,c++ --disable-multilib --prefix=$PWD/../gcc-installed \
+&& make clean \
+&& make -j$(nproc) \
+&& make install
+
+RUN make -C /bowtie2/bowtie2-2.3.4.2/ static-libs \
+&& make -C /bowtie2/bowtie2-2.3.4.2/ STATIC_BUILD=1
+
+RUN export PATH=$PWD/gcc/gcc-installed/bin:$PATH \
+&& export LD_LIBRARY_PATH=$PWD/gcc/gcc-installed/lib64:$LD_LIBRARY_PATH
+
+RUN make -C /velvet/ 'OPENMP=1'
+
+RUN export PATH=$original_path_variable \
+&& export LD_LIBRARY_PATH=$original_ld_library_variable
+
+RUN cd /IDBA/idba_ud-1.0.9/ \
+&& /IDBA/idba_ud-1.0.9/configure \
+&& make -C /IDBA/idba_ud-1.0.9/
+
+RUN cd /clustalOmega/clustal-omega-1.2.4/ \
+&& ./configure --prefix=$PWD \
+&& make -j$(nproc) \
+&& make install
+
+
+RUN pip install --upgrade --force-reinstall pip==9.0.3
+RUN pip install tensorflow==1.4.0
+
+RUN export PATH=$PWD/gcc/gcc-installed/bin:$PATH \
+&& export LD_LIBRARY_PATH=$PWD/gcc/gcc-installed/lib64:$LD_LIBRARY_PATH 
+
+RUN mkdir /gromacs/gromacs-2018.3/build
+
+RUN cd /gromacs/gromacs-2018.3/build/ \
+&& CC=gcc CXX=g++ cmake3 -DCMAKE_CXX_COMPILER=g++ -DGMX_BUILD_OWN_FFTW=on -DGMX_GPU=off -DGMX_BUILD_MPI=off --build ./  /gromacs/gromacs-2018.3/
+
+RUN make -C /gromacs/gromacs-2018.3/build/ \
+&& make -C /gromacs/gromacs-2018.3/build/ install
+
+RUN export PATH=$original_path_variable \
+&& export LD_LIBRARY_PATH=$original_ld_library_variable
+
+
+#RUN /usr/local/gromacs/bin/gmx grompp -f /datasets/gromacs/adh_cubic/pme_verlet.mdp -c /datasets/gromacs/adh_cubic/conf.gro -p /datasets/gromacs/adh_cubic/topol.top -o /datasets/gromacs/adh_cubic/topol -po /datasets/gromacs/adh_cubic/mdout
+RUN /IDBA/idba_ud-1.0.9/bin/fq2fa /datasets/1000_genomes/ERR016155.filt.fastq /datasets/1000_genomes/ERR016155.filt.fa
+RUN /IDBA/idba_ud-1.0.9/bin/fq2fa /datasets/1000_genomes/ERR251006.filt.fastq /datasets/1000_genomes/ERR251006.filt.fa
+RUN /IDBA/idba_ud-1.0.9/bin/fq2fa /datasets/ebi/DRR001012.fastq /datasets/ebi/DRR001012.fa
+RUN /IDBA/idba_ud-1.0.9/bin/fq2fa /datasets/ebi/DRR001025.fastq /datasets/ebi/DRR001025.fa
+
+COPY run_benchmarks.sh /
+COPY threadedBioBenchsuiteStatsGenerator.R /
+COPY install_check.sh /
