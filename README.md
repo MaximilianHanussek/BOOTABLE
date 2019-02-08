@@ -207,7 +207,7 @@ The **second** option is to pull the already configured and build BOOTABLE Docke
 <pre>singularity pull docker://maximilianhanussek/bootable</pre>
 
 After the image has been downloaded into your current working directory and converted into a singularity container you can start an interactive Singularity container with the following command
-<pre>sudo singularity shell bootable.simg</pre>
+<pre>sudo singularity shell MaximilianHanussek-BOOTABLE-master-latest.simg</pre>
 
 After you are in the container, change to the root home directory /root/
 <pre>cd /root/</pre>
