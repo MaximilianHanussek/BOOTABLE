@@ -11,7 +11,7 @@ quarter_cores_velvet=$(expr $quarter_cores - 1) #Calculate quarter core number f
 one_core=1					#Set one core variable
 clean=0 					#Set clean flag initially to 0
 dataset="datasets/1000_genomes/ERR016155.filt.fastq" #Set ERR016155 as default dataset
-dataset_idba="datasets/1000_genomes/ERR016155.filt.fa" #Set ERR016155 as default dataset for IDBA
+dataset_idba="datasets/1000_genomes/ERR015528.filt.fa" #Set ERR015528 as default dataset for IDBA
 default_reference="datasets/ebi/DRR001025.fa"   #Set DRR001012 as default reference dataset
 default_tensorflow_steps=2500			#Set 2500 tensorflow steps as default 
 default_gromacs_steps=30000			#Set 30000 gromacs steps as default
@@ -33,7 +33,7 @@ where:
     -d  choose a dataset category (small, medium, large), medium will be default
     -p  number of cores/threads that should be used (one, half, full, or any integer value, full is default)
     -r  number of replica cycles that should be executed (any integer value, 3 is default)  
-    -t  toolgroup which should be used for the benchmarks (all, genomics, ml, quant) or a specific tool (bowtie2-build, velvet, idba, tensorflow, gromacs, SPAdes). Default is all"
+    -t  toolgroup which should be used for the benchmarks (all, genomics, ml, quant) or a specific tool (bowtie2-build, velvet, idba, tensorflow, gromacs, SPAdes, clustalomega). Default is all"
 
 # Create flag options
 while getopts "chd:p:r:t:" option; do
@@ -459,7 +459,7 @@ then
 elif [ $dataset == "medium" ]
 then
 	dataset="datasets/1000_genomes/ERR016155.filt.fastq"
-        dataset_idba="datasets/1000_genomes/ERR016155.filt.fa"
+        dataset_idba="datasets/1000_genomes/ERR015528.filt.fa"
 	dataset_clustalOmega="datasets/clustalOmega/wgs.ANCA.1_400.fsa"
 	default_reference="datasets/ebi/DRR001025.fa"
 	default_tensorflow_steps=2500
@@ -468,7 +468,7 @@ then
 elif [ $dataset == "small" ]
 then	
 	dataset="datasets/1000_genomes/ERR016155.filt.fastq"
-	dataset_idba="datasets/1000_genomes/ERR016155.filt.fa"
+	dataset_idba="datasets/1000_genomes/SRR741411.filt.fa"
 	dataset_clustalOmega="datasets/clustalOmega/wgs.ANCA.1_200.fsa"
 	default_reference="datasets/ebi/DRR001012.fa" 
 	default_tensorflow_steps=1000
@@ -476,7 +476,7 @@ then
 
 else
 	dataset="datasets/1000_genomes/ERR016155.filt.fastq"
-        dataset_idba="datasets/1000_genomes/ERR016155.filt.fa"
+        dataset_idba="datasets/1000_genomes/ERR015528.filt.fa"
 	dataset_clustalOmega="datasets/clustalOmega/wgs.ANCA.1_400.fsa"
         default_reference="datasets/ebi/DRR001025.fa"
         default_tensorflow_steps=2500
@@ -512,7 +512,7 @@ fi
 
 if [[ $default_toolgroup != "all" && $default_toolgroup != "genomics" && $default_toolgroup != "ml" && $default_toolgroup != "quant" && $default_toolgroup != "bowtie2-build" && $default_toolgroup != "velvet" && $default_toolgroup != "idba" && $default_toolgroup != "tensorflow" && $default_toolgroup != "gromacs" && $default_toolgroup != "SPAdes" && $default_toolgroup != "clustalomega" ]]
 then
-	echo "Parameter is not one of all, genomics, ml, quant, bowtie2-build, velvet, idba, tensorflow, gromacs or SPAdes. Please check -t flag again."
+	echo "Parameter is not one of all, genomics, ml, quant, bowtie2-build, velvet, idba, tensorflow, gromacs, SPAdes or clustalomega. Please check -t flag again."
 	exit 1
 fi
 

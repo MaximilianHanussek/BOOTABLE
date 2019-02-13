@@ -50,6 +50,25 @@ else
 	gunzip datasets/1000_genomes/ERR016155.filt.fastq.gz
 fi
 
+if [ -e datasets/1000_genomes/ERR015528.filt.fastq ]
+then
+        echo "File datasets/1000_genomes/ERR015528.filt.fastq already exists."
+else
+        #wget ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/phase3/data/HG00106/sequence_read/ERR015528.filt.fastq.gz -P datasets/1000_genomes/
+        wget https://s3.denbi.uni-tuebingen.de/max/ERR015528.filt.fastq.gz -P datasets/1000_genomes/
+        gunzip datasets/1000_genomes/ERR015528.filt.fastq.gz
+fi
+
+if [ -e datasets/1000_genomes/SRR741411.filt.fastq ]
+then
+        echo "File datasets/1000_genomes/SRR741411.filt.fastq already exists."
+else
+        #wget ftp://ftp.1000genomes.ebi.ac.uk/vol1/ftp/phase3/data/HG00099/sequence_read/SRR741411.filt.fastq.gz -P datasets/1000_genomes/
+        wget https://s3.denbi.uni-tuebingen.de/max/SRR741411.filt.fastq.gz -P datasets/1000_genomes/
+        gunzip datasets/1000_genomes/SRR741411.filt.fastq.gz
+fi
+
+
 if [ -e datasets/ebi/DRR001012.fastq ]
 then
         echo "File datasets/ebi/DRR001012.fastq already exists."
@@ -476,6 +495,20 @@ then
         echo "File datasets/1000_genomes/ERR251006.filt.fa already exists."
 else
 	IDBA/idba_ud-1.0.9/bin/fq2fa datasets/1000_genomes/ERR251006.filt.fastq datasets/1000_genomes/ERR251006.filt.fa
+fi
+
+if [ -e datasets/1000_genomes/ERR015528.filt.fa ]
+then
+        echo "File datasets/1000_genomes/ERR015528.filt.fa already exists."
+else
+        IDBA/idba_ud-1.0.9/bin/fq2fa datasets/1000_genomes/ERR015528.filt.fastq datasets/1000_genomes/ERR015528.filt.fa
+fi
+
+if [ -e datasets/1000_genomes/SRR741411.filt.fa ]
+then
+        echo "File datasets/1000_genomes/SRR741411.filt.fa already exists."
+else
+        IDBA/idba_ud-1.0.9/bin/fq2fa datasets/1000_genomes/SRR741411.filt.fastq datasets/1000_genomes/SRR741411.filt.fa
 fi
 
 if [ -e datasets/ebi/DRR001012.fa ]

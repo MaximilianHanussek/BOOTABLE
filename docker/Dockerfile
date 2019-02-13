@@ -47,8 +47,7 @@ RUN mkdir ~/benchmark_output \
 	~/gcc \
 	~/gcc/gcc-build \
 	~/gcc/gcc-installed \
-	~/nmon_stats \
-	~/nmonchart
+	~/nmon_stats
 
 RUN original_path_variable=$(echo $PATH) \
 && original_ld_library_variable=$(echo $LD_LIBRARY_PATH)
@@ -85,6 +84,13 @@ RUN wget https://s3.denbi.uni-tuebingen.de/max/ERR251006.filt.fastq.gz -P ~/data
 
 RUN wget https://s3.denbi.uni-tuebingen.de/max/ERR016155.filt.fastq.gz -P ~/datasets/1000_genomes/ \
 && gunzip ~/datasets/1000_genomes/ERR016155.filt.fastq.gz
+
+RUN wget https://s3.denbi.uni-tuebingen.de/max/ERR015528.filt.fastq.gz -P ~/datasets/1000_genomes/ \
+&& gunzip ~/datasets/1000_genomes/ERR015528.filt.fastq.gz
+
+RUN wget https://s3.denbi.uni-tuebingen.de/max/SRR741411.filt.fastq.gz -P ~/datasets/1000_genomes/ \
+&& gunzip ~/datasets/1000_genomes/SRR741411.filt.fastq.gz
+
 
 RUN wget https://s3.denbi.uni-tuebingen.de/max/GRCh38_full_analysis_set_plus_decoy_hla.fa -P ~/datasets/1000_genomes/
 
@@ -142,8 +148,8 @@ RUN cd ~/IDBA/idba_ud-1.0.9/ \
 
 RUN cd ~/clustalOmega/clustal-omega-1.2.4/ \
 && ~/clustalOmega/clustal-omega-1.2.4/configure --prefix=$PWD \
-&& make -j$(nproc) \
-&& make
+&& make -j$(nproc) -C ~/clustalOmega/clustal-omega-1.2.4/ \
+&& make -C ~/clustalOmega/clustal-omega-1.2.4/ install
 
 RUN pip install --upgrade --force-reinstall pip==9.0.3
 RUN pip install tensorflow==1.4.0
@@ -166,6 +172,8 @@ RUN export PATH=$original_path_variable \
 #RUN /usr/local/gromacs/bin/gmx grompp -f ~/datasets/gromacs/adh_cubic/pme_verlet.mdp -c ~/datasets/gromacs/adh_cubic/conf.gro -p ~/datasets/gromacs/adh_cubic/topol.top -o ~/datasets/gromacs/adh_cubic/topol -po ~/datasets/gromacs/adh_cubic/mdout
 RUN ~/IDBA/idba_ud-1.0.9/bin/fq2fa ~/datasets/1000_genomes/ERR016155.filt.fastq ~/datasets/1000_genomes/ERR016155.filt.fa
 RUN ~/IDBA/idba_ud-1.0.9/bin/fq2fa ~/datasets/1000_genomes/ERR251006.filt.fastq ~/datasets/1000_genomes/ERR251006.filt.fa
+RUN ~/IDBA/idba_ud-1.0.9/bin/fq2fa ~/datasets/1000_genomes/ERR015528.filt.fastq ~/datasets/1000_genomes/ERR015528.filt.fa
+RUN ~/IDBA/idba_ud-1.0.9/bin/fq2fa ~/datasets/1000_genomes/SRR741411.filt.fastq ~/datasets/1000_genomes/SRR741411.filt.fa
 RUN ~/IDBA/idba_ud-1.0.9/bin/fq2fa ~/datasets/ebi/DRR001012.fastq ~/datasets/ebi/DRR001012.fa
 RUN ~/IDBA/idba_ud-1.0.9/bin/fq2fa ~/datasets/ebi/DRR001025.fastq ~/datasets/ebi/DRR001025.fa
 

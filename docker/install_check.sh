@@ -59,6 +59,18 @@ check_files "$path"
 path="datasets/1000_genomes/ERR016155.filt.fa"
 check_files "$path"
 
+# ERR015528
+path="datasets/1000_genomes/ERR015528.filt.fastq"
+check_files "$path"
+path="datasets/1000_genomes/ERR015528.filt.fa"
+check_files "$path"
+
+# SRR741411
+path="datasets/1000_genomes/SRR741411.filt.fastq"
+check_files "$path"
+path="datasets/1000_genomes/SRR741411.filt.fa"
+check_files "$path"
+
 # DRR001012
 path="datasets/ebi/DRR001012.fastq"
 check_files "$path"

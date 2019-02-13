@@ -121,6 +121,12 @@ wget https://s3.denbi.uni-tuebingen.de/max/DRR001012.fastq.gz -P /datasets/ebi/ 
 wget https://s3.denbi.uni-tuebingen.de/max/DRR001025.fastq.gz -P /datasets/ebi/ \
 && gunzip /datasets/ebi/DRR001025.fastq.gz
 
+wget https://s3.denbi.uni-tuebingen.de/max/ERR015528.filt.fastq.gz -P /datasets/1000_genomes/ \
+&& gunzip /datasets/1000_genomes/ERR015528.filt.fastq.gz
+
+wget https://s3.denbi.uni-tuebingen.de/max/SRR741411.filt.fastq.gz -P /datasets/1000_genomes/ \
+&& gunzip /datasets/1000_genomes/SRR741411.filt.fastq.gz
+
 wget https://s3.denbi.uni-tuebingen.de/max/ADH_bench_systems.tar.gz -P /datasets/gromacs \
 && tar -xf /datasets/gromacs/ADH_bench_systems.tar.gz -C /datasets/gromacs/ \
 
@@ -178,6 +184,9 @@ export PATH=$original_path_variable \
 
 /IDBA/idba_ud-1.0.9/bin/fq2fa /datasets/1000_genomes/ERR251006.filt.fastq /datasets/1000_genomes/ERR251006.filt.fa
 
+/IDBA/idba_ud-1.0.9/bin/fq2fa ~/datasets/1000_genomes/ERR015528.filt.fastq /datasets/1000_genomes/ERR015528.filt.fa
+
+/IDBA/idba_ud-1.0.9/bin/fq2fa ~/datasets/1000_genomes/SRR741411.filt.fastq /datasets/1000_genomes/SRR741411.filt.fa
 /IDBA/idba_ud-1.0.9/bin/fq2fa /datasets/ebi/DRR001012.fastq /datasets/ebi/DRR001012.fa
 
 /IDBA/idba_ud-1.0.9/bin/fq2fa /datasets/ebi/DRR001025.fastq /datasets/ebi/DRR001025.fa
