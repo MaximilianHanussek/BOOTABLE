@@ -118,9 +118,9 @@ RUN wget https://s3.denbi.uni-tuebingen.de/max/ADH_bench_systems.tar.gz -P ~/dat
 && tar -xf ~/datasets/gromacs/ADH_bench_systems.tar.gz -C ~/datasets/gromacs/ \
 && rm ~/datasets/gromacs/ADH_bench_systems.tar.gz
 
-RUN wget https://s3.denbi.uni-tuebingen.de/max/nmonchart34.tar -P ~/nmonchart \
-&& tar -xf ~/nmonchart/nmonchart34.tar -C ~/nmonchart/ \
-&& rm ~/nmonchart/nmonchart34.tar
+RUN wget https://s3.denbi.uni-tuebingen.de/max/nmonchart34.tar -P ~/ \
+&& tar -xf ~/nmonchart34.tar -C ~/ \
+&& rm ~/nmonchart34.tar
 
 RUN cd ~/gcc/gcc-7.3.0 \
 && ./contrib/download_prerequisites
