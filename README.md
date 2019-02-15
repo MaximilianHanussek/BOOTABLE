@@ -210,7 +210,7 @@ After the image has been downloaded into your current working directory and conv
 <pre>sudo singularity shell MaximilianHanussek-BOOTABLE-master-latest.simg</pre>
 
 After you are in the container, change to the root home directory /root/
-<pre>cd /root/</pre>
+<pre>cd / </pre>
 
 In this directory you will find all the tools already installed. In order to start the benchmark just run
 <pre>sh run_benchmarks.sh</pre>
@@ -228,7 +228,7 @@ The build will take a couple of minutes (30-60) as the first step is to update t
 After the Singularity image has been build you can start the benchmark with the same command like if you had pulled it from Singularity Hub:
 
 <pre>sudo singularity shell bootable.simg</pre>
-<pre>cd /root/</pre>
+<pre>cd / </pre>
 <pre>sh run_benchmarks.sh</pre>
 
 ### 5. Using Ansible
@@ -242,12 +242,12 @@ in the directory backed_up_benchmark_results if you confirm that. Per default th
 
 - d: Dataset option, if you want to change the default dataset just set the flag `-d` and one of the corresponding keywords (`large`, `medium`, `small`). The default parameters are the one of the medium group. 
 
-|   Parameter     |        small       |        medium      |                  large                   |
-|-----------------|--------------------|--------------------|------------------------------------------|
-|Dataset          |ERR016155.filt.fastq|ERR016155.filt.fastq|ERR251006.filt.fastq                      |
-|Reference dataset|DRR001012.fa        |DRR001025.fa        |GRCh38_full_analysis_set_plus_decoy_hla.fa|
-|Tensorflow steps |1000                |2500                |5000                                      |
-|GROMACS steps    |10000               |30000               |50000                                     |
+|   Parameter     |        small                         |        medium      |                  large                   |
+|-----------------|--------------------------------------|--------------------|------------------------------------------|
+|Dataset          |ERR016155.filt.fastq/SRR741411.filt.fa|ERR016155.filt.fastq/ERR015528.filt.fa|ERR251006.filt.fastq    |
+|Reference dataset|DRR001012.fa                          |DRR001025.fa        |GRCh38_full_analysis_set_plus_decoy_hla.fa|
+|Tensorflow steps |1000                                  |2500                |5000                                      |
+|GROMACS steps    |10000                                 |30000               |50000                                     |
 
 - p: Number of cores you want to use to run the benchmark. You can choose any arbitrary integer number or one of the three keywords `full`, `half` and `one`.
    - full: All cores which are accesible (Default)
