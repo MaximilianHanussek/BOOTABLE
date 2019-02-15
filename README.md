@@ -344,7 +344,7 @@ Further you will find a summary of the system where the benchmark has been execu
 In order to uninstall BOOTABLE just run the following commands from a directory one level higher than the BOOTABLE directory:
 <pre>sudo rm -rf Bootable/
 sudo rm -rf /usr/local/gromacs/
-sudo pip uninstall tensorflow (1.4.0)</pre>
+sudo pip uninstall tensorflow==1.4.0</pre>
 
 
 
