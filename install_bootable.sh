@@ -1,9 +1,6 @@
 #!bin/bash
 
 # Create empty directories
- ../timetest.txt
-# Create empty directories
-time_start=$(date)
 if [ -d benchmark_output ]
 then
         echo "Directory benchmark_output already exists."
@@ -192,8 +189,6 @@ then
 else
 	mkdir nmon_stats
 fi
-time_end=$(date)
-mkdir nmon_stats
 
 # Download benchmark datasets
 
