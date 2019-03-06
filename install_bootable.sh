@@ -1,32 +1,198 @@
 #!bin/bash
 
 # Create empty directories
-mkdir benchmark_output
-mkdir benchmark_output/bowtie2
-mkdir benchmark_output/clustalOmega
-mkdir benchmark_output/gromacs
-mkdir benchmark_output/IDBA
-mkdir benchmark_output/SPAdes
-mkdir benchmark_output/tensorflow
-mkdir benchmark_output/velvet
-mkdir datasets
-mkdir datasets/1000_genomes
-mkdir datasets/clustalOmega
-mkdir datasets/gromacs
-mkdir datasets/tensorflow
-mkdir datasets/ebi
-mkdir backed_up_benchmark_results
-mkdir gromacs
-mkdir results
-mkdir bowtie2
-mkdir clustalOmega
-mkdir IDBA
-mkdir SPAdes
-mkdir tensorflow
-mkdir velvet
-mkdir gcc
-mkdir gcc/gcc-build
-mkdir gcc/gcc-installed
+ ../timetest.txt
+# Create empty directories
+time_start=$(date)
+if [ -d benchmark_output ]
+then
+        echo "Directory benchmark_output already exists."
+else
+	mkdir benchmark_output
+fi
+
+if [ -d benchmark_output/bowtie2 ]
+then
+        echo "Directory benchmark_output/bowtie2 already exists."
+else
+	mkdir benchmark_output/bowtie2
+fi
+
+if [ -d benchmark_output/clustalOmega ]
+then
+        echo "Directory benchmark_output/clustalOmega already exists."
+else
+	mkdir benchmark_output/clustalOmega
+fi
+
+if [ -d benchmark_output/gromacs ]
+then
+        echo "Directory benchmark_output/gromacs already exists."
+else
+	mkdir benchmark_output/gromacs
+fi
+
+if [ -d benchmark_output/IDBA ]
+then
+        echo "Directory benchmark_output/IDBA already exists."
+else
+	mkdir benchmark_output/IDBA
+fi
+
+if [ -d benchmark_output/SPAdes ]
+then
+        echo "Directory benchmark_output/SPAdes already exists."
+else
+	mkdir benchmark_output/SPAdes
+fi
+
+if [ -d benchmark_output/tensorflow ]
+then
+        echo "Directory benchmark_output/tensorflow already exists."
+else
+	mkdir benchmark_output/tensorflow
+fi
+
+if [ -d benchmark_output/velvet ]
+then
+        echo "Directory benchmark_output/velvet already exists."
+else
+	mkdir benchmark_output/velvet
+fi
+
+if [ -d datasets ]
+then
+        echo "Directory datasets already exists."
+else
+	mkdir datasets
+fi
+
+if [ -d datasets/1000_genomes ]
+then
+        echo "Directory datasets/1000_genomes already exists."
+else
+	mkdir datasets/1000_genomes
+fi
+
+if [ -d datasets/clustalOmega ]
+then
+        echo "Directory datasets/clustalOmega already exists."
+else
+	mkdir datasets/clustalOmega
+fi
+
+if [ -d datasets/gromacs ]
+then
+        echo "Directory datasets/gromacs already exists."
+else
+	mkdir datasets/gromacs
+fi
+
+if [ -d datasets/tensorflow ]
+then
+        echo "Directory datasets/tensorflow already exists."
+else
+	mkdir datasets/tensorflow
+fi
+
+if [ -d datasets/ebi ]
+then
+        echo "Directory datasets/ebi already exists."
+else
+	mkdir datasets/ebi
+fi
+
+if [ -d backed_up_benchmark_results ]
+then
+        echo "Directory backed_up_benchmark_results already exists."
+else
+	mkdir backed_up_benchmark_results
+fi
+
+if [ -d gromacs ]
+then
+        echo "Directory gromacs already exists."
+else
+	mkdir gromacs
+fi
+
+if [ -d results ]
+then
+        echo "Directory results already exists."
+else
+	mkdir results
+fi
+
+if [ -d bowtie2 ]
+then
+        echo "Directory bowtie2 already exists."
+else
+	mkdir bowtie2
+fi
+
+if [ -d clustalOmega ]
+then
+        echo "Directory clustalOmega already exists."
+else
+	mkdir clustalOmega
+fi
+
+if [ -d IDBA ]
+then
+        echo "Directory IDBA already exists."
+else
+	mkdir IDBA
+fi
+
+if [ -d SPAdes ]
+then
+        echo "Directory SPAdes already exists."
+else
+	mkdir SPAdes
+fi
+
+if [ -d tensorflow ]
+then
+        echo "Directory tensorflow already exists."
+else
+	mkdir tensorflow
+fi
+
+if [ -d velvet ]
+then
+        echo "Directory velvet already exists."
+else
+	mkdir velvet
+fi
+
+if [ -d gcc ]
+then
+        echo "Directory gcc already exists."
+else
+	mkdir gcc
+fi
+
+if [ -d gcc/gcc-build ]
+then
+        echo "Directory gcc/gcc-build already exists."
+else
+	mkdir gcc/gcc-build
+fi
+
+if [ -d gcc/gcc-installed ]
+then
+        echo "Directory gcc/gcc-installed already exists."
+else
+	mkdir gcc/gcc-installed
+fi
+
+if [ -d nmon_stats ]
+then
+        echo "Directory nmon_stats already exists."
+else
+	mkdir nmon_stats
+fi
+time_end=$(date)
 mkdir nmon_stats
 
 # Download benchmark datasets
@@ -162,7 +328,7 @@ then
 	tar -xf nmonchart34.tar 
 	rm nmonchart34.tar
 else
-	echo "Directory nmonchart does not exist. Can not download nmonchart tool."
+	echo "Directory nmonchart already exists."
 fi
 
 # Download Bowtie2 Sources
