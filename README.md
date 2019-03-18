@@ -105,8 +105,10 @@ Change into the root directory of the cloned repo
 Run the installation script and all the tools will be compiled and installed in the BOOTABLE directory except some GROMACS tools which will be installed under /usr/local/ at the moment and tensorflow which will be installed via `pip`
 <pre>sh install_bootable.sh</pre>
 
+During the installation you will see a percentage bar which will fill up after they tasks are finished. The compilation of the gcc compiler will take the most time so do not wonder if it can take up to an hour. You can find all the logs from the installation process in the `log` directory.
+
 Afterwards please run the `install_ckeck.sh` tool from the BOOTABLE root directory in order to check everything is installed
-and working as it should be. 
+and works as it is intended. 
 <pre>sh install_check.sh</pre>
 
 If everything is correct all the output on the screen will appear in green. If not, the problematic tools/files will be marked in red.
