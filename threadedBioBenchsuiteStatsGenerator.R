@@ -18,7 +18,12 @@ load.fun(gridExtra)
 load.fun(RColorBrewer)
 load.fun(stringr)
 
-workingdir <- "./"
+#workingdir <- "./"
+workingdir <- "/home/mhanussek/Schreibtisch/"
+
+#args <- commandArgs(trailingOnly = TRUE)
+#scaling_flag <- args[1]
+scaling_flag <- "scaling"
 # Get host information
 
 cpu_info <- system("lscpu", intern = TRUE)
@@ -88,6 +93,9 @@ summary_file_names <- list.files(path = workingdir, pattern = "^benchmark_summar
 number_of_summary_files <- length(summary_file_paths)
 names_time_vector <- c("real", "user", "sys")
 
+# Initialize scaling capabilities vector
+scaling_cores_vector <- c()
+scaling_mean_real_times_vector <- c()
 
 for (summary_file in summary_file_paths){
   used_tools <- c()
@@ -106,6 +114,7 @@ for (summary_file in summary_file_paths){
   sys_entries_line_numbers <- grep ("sys ", summary_file_lines)
   
   number_of_cores <- as.integer(strsplit(summary_file_lines[1], "\\s+")[[1]][4])
+  scaling_cores_vector <- c(scaling_cores_vector, number_of_cores)
   
   for (replica_entry in replica_entries_line_numbers){
     used_replica <- c(used_replica, strsplit(summary_file_lines[replica_entry], "\\s+")[[1]][1])
@@ -172,10 +181,14 @@ for (summary_file in summary_file_paths){
     user_mean_values_tools_vector <- c(user_mean_values_tools_vector, df_toolwise[[2, tool]])
     sys_mean_values_tools_vector <- c(sys_mean_values_tools_vector, df_toolwise[[3, tool]])
     
+    
+    
     real_values_all_vector <- c(real_values_all_vector, real_values_vector)
     user_values_all_vector <- c(user_values_all_vector, user_values_vector)
     sys_values_all_vector  <- c(sys_values_all_vector, sys_values_vector) 
   }
+  
+  scaling_mean_real_times_vector <- c(scaling_mean_real_times_vector, real_mean_values_tools_vector)
   
   df_replicawise <- data.frame(matrix(ncol = number_of_used_replica, nrow = 3))
   colnames(df_replicawise) <- used_replica_unique
@@ -331,8 +344,35 @@ for (summary_file in summary_file_paths){
       lty = NULL,
       radius = 0.8)
   legend("bottom", legend=legend_vector_replica_sys, cex=1.2, bty = "n", fill = brewer.pal(length(used_replica_unique), "Set1"))
-  
   dev.off()
 }
 
-
+if (scaling_flag == "scaling") {
+  pdf("scaling_plot.pdf")
+  
+  par(mfrow = c(2,2))
+  
+  for (i in 1:number_of_used_tools) {
+  
+  plot(scaling_cores_vector, 
+       c(as.numeric(scaling_mean_real_times_vector[i]),
+         as.numeric(scaling_mean_real_times_vector[i + number_of_used_tools]), 
+         as.numeric(scaling_mean_real_times_vector[i + number_of_used_tools + number_of_used_tools])),
+       main = paste("Scaling behaviour of averaged real times \n for", used_tools_unique[i], sep = " "),
+       col = brewer.pal(length(scaling_cores_vector), "Set1"), 
+       xlab = "Number of used CPU cores",
+       ylab = "Wall clock time in seconds",
+       xaxt = "n",
+       cex.main = 0.8)
+    
+  lines(scaling_cores_vector, c(as.numeric(scaling_mean_real_times_vector[i]),
+                                as.numeric(scaling_mean_real_times_vector[i + number_of_used_tools]), 
+                                as.numeric(scaling_mean_real_times_vector[i + number_of_used_tools + number_of_used_tools])))
+  
+ axis(side = 1, 
+       at = scaling_cores_vector, 
+       labels = scaling_cores_vector,
+       tck=-.02)
+  }
+  dev.off()
+}
