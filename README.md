@@ -11,7 +11,7 @@ This toolsuite currently consists of the following tools
 - GROMACS
 - Tensowflow
 - SPAdes
-- Clustal Omega (currently in testing phase)
+- Clustal Omega
 
 more are coming soon ...
  
@@ -335,10 +335,13 @@ Every block gives you information about which replica (Replica_1) of which tool 
 - user: The used CPU time taking the number of cores into account
 - sys:  The amount of CPU time spent in the kernel for system calls
 
-Further you will find the file `benchmark_summary_\*.pdf` which gives you a more compact and statistical overview about the ran benhcmarks. You will find this file only if you have run the `threadedBioBenchsuiteStatsGenerator.R` script as stated above.
-Also in the .pdf file all numbers are stated in seconds. Futher you can find a detailed list, tool by tool, in the results directory. There you can also find the stdout output (`benchmark_<tool>_output_<cores>.txt`) of the single tools and refollow the steps they have done.
+Further you will find the file `benchmark_summary_\*.pdf` which gives you a more compact and statistical overview about the executed benchmarks. You will find this file only if you have run the `threadedBioBenchsuiteStatsGenerator.R` script as stated above.
 
-Further you will find a summary of the system where the benchmark has been executed, which flags of BOOTABLE has been used and how Bowtie2 and GROMACS has been compiled in the file `bootable_system_info.txt`.
+Also in the .pdf file all numbers are stated in seconds. Futher you can find a detailed list, tool by tool, in the results directory. There you can also find the stdout output (`benchmark_<tool>_output_<cores>.txt`) of the single tools and recapture the steps they have done.
+
+Further you will find a summary of the underlying hardware/system where the benchmark has been executed, which flags of BOOTABLE has been used and how Bowtie2 and GROMACS has been compiled in the file `bootable_system_info.txt`.
+
+Further you find lots of interesting graphs and metadata collected and ilustrated by the tool [nmon chart](http://nmon.sourceforge.net/pmwiki.php?n=Site.Nmonchart) in the nmon_stats directory.
 
 ## Uninstall
 In order to uninstall BOOTABLE just run the following commands from a directory one level higher than the BOOTABLE directory:
