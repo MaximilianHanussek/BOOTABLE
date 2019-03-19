@@ -1,6 +1,11 @@
 #Parse ThreadedBioBenchSuite output
 
+
+
 chooseCRANmirror(ind = 33)
+
+old_warnvalue <- getOption("warn")
+options(warn = -1)
 
 load.fun <- function(x) {
   x <- as.character(substitute(x))
@@ -351,11 +356,14 @@ for (summary_file in summary_file_paths){
       lty = NULL,
       radius = 0.8)
   legend("bottom", legend=legend_vector_replica_sys, cex=1.1, bty = "n", fill = brewer.pal(length(used_replica_unique), "Set1"))
-  dev.off()
+  invisible(dev.off())
 }
 
 if (scaling_flag == "scaling") {
-  pdf("scaling_plot.pdf")
+  date <- format(Sys.time(), "%Y-%m-%d_%H:%M")
+  scaling_output_filename <- paste("scaling_plot_", date, ".pdf", sep = "")
+  
+  pdf(scaling_output_filename)
   
   par(mfrow = c(2,2))
   
@@ -367,10 +375,6 @@ if (scaling_flag == "scaling") {
 
   plot(scaling_cores_vector, 
        y_value_vector,
-       #c(as.numeric(scaling_mean_real_times_vector[i]),
-       # as.numeric(scaling_mean_real_times_vector[i + scaling_number_of_used_tools]), 
-       # as.numeric(scaling_mean_real_times_vector[i + (2 * scaling_number_of_used_tools)]),
-       # as.numeric(scaling_mean_real_times_vector[i + (3 * scaling_number_of_used_tools)])),
        main = paste("Scaling behaviour of averaged real times \n for", used_tools_unique[i], sep = " "),
        col = brewer.pal(length(scaling_cores_vector), "Set1"), 
        xlab = "Number of used CPU cores",
@@ -380,15 +384,13 @@ if (scaling_flag == "scaling") {
     
   lines(scaling_cores_vector,
         y_value_vector)
-        #c(as.numeric(scaling_mean_real_times_vector[i]),
-        #                        as.numeric(scaling_mean_real_times_vector[i + scaling_number_of_used_tools]), 
-        #                        as.numeric(scaling_mean_real_times_vector[i + (2 * scaling_number_of_used_tools)]),
-        #                        as.numeric(scaling_mean_real_times_vector[i + (3 * scaling_number_of_used_tools)])))
   
  axis(side = 1, 
        at = scaling_cores_vector, 
        labels = scaling_cores_vector,
        tck=-.02)
   }
-  dev.off()
+  invisible(dev.off())
 }
+
+options(warn = old_warnvalue)
