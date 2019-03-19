@@ -18,12 +18,17 @@ load.fun(gridExtra)
 load.fun(RColorBrewer)
 load.fun(stringr)
 
-#workingdir <- "./"
-workingdir <- "/home/mhanussek/Schreibtisch/"
+workingdir <- "./"
 
-#args <- commandArgs(trailingOnly = TRUE)
-#scaling_flag <- args[1]
-scaling_flag <- "scaling"
+
+args <- commandArgs(trailingOnly = TRUE)
+argslen <- length(args)
+if (argslen == 1){ 
+  scaling_flag <- args[1]
+} else {
+  scaling_flag <- FALSE
+}
+
 # Get host information
 
 cpu_info <- system("lscpu", intern = TRUE)
@@ -96,6 +101,7 @@ names_time_vector <- c("real", "user", "sys")
 # Initialize scaling capabilities vector
 scaling_cores_vector <- c()
 scaling_mean_real_times_vector <- c()
+scaling_number_of_used_tools <- c()
 
 for (summary_file in summary_file_paths){
   used_tools <- c()
@@ -123,6 +129,7 @@ for (summary_file in summary_file_paths){
   
   used_tools_unique <- unique(used_tools)
   number_of_used_tools <- length(used_tools_unique)
+  scaling_number_of_used_tools <- number_of_used_tools
   used_replica_unique <- unique(used_replica)
   number_of_used_replica <- length(used_replica_unique)
   
@@ -286,7 +293,7 @@ for (summary_file in summary_file_paths){
       border = NULL,
       lty = NULL,
       radius = 0.8)
-  legend("bottom", legend=legend_vector_tools_real, cex=1.2, bty = "n", fill = brewer.pal(length(used_tools_unique), "Set1"))
+  legend("bottom", legend=legend_vector_tools_real, cex=1.1, bty = "n", fill = brewer.pal(length(used_tools_unique), "Set1"))
   
   
   pie(as.numeric(user_mean_values_tools_vector), 
@@ -298,7 +305,7 @@ for (summary_file in summary_file_paths){
       border = NULL,
       lty = NULL,
       radius = 0.8)
-  legend("bottom", legend=legend_vector_tools_user, cex=1.2, bty = "n", fill = brewer.pal(length(used_tools_unique), "Set1"))
+  legend("bottom", legend=legend_vector_tools_user, cex=1.1, bty = "n", fill = brewer.pal(length(used_tools_unique), "Set1"))
   
  
   pie(as.numeric(sys_mean_values_tools_vector), 
@@ -310,7 +317,7 @@ for (summary_file in summary_file_paths){
       border = NULL,
       lty = NULL,
       radius = 0.8)
-  legend("bottom", legend=legend_vector_tools_sys, cex=1.2, bty = "n", fill = brewer.pal(length(used_tools_unique), "Set1"))
+  legend("bottom", legend=legend_vector_tools_sys, cex=1.1, bty = "n", fill = brewer.pal(length(used_tools_unique), "Set1"))
   
   pie(as.numeric(real_mean_values_replica_vector), 
       labels=c("","",""), font=2, 
@@ -321,7 +328,7 @@ for (summary_file in summary_file_paths){
       border = NULL,
       lty = NULL,
       radius = 0.8)
-  legend("bottom", legend=legend_vector_replica_real, cex=1.2, bty = "n", fill = brewer.pal(length(used_replica_unique), "Set1"))
+  legend("bottom", legend=legend_vector_replica_real, cex=1.1, bty = "n", fill = brewer.pal(length(used_replica_unique), "Set1"))
   
   pie(as.numeric(user_mean_values_replica_vector), 
       labels=c("","","","","","","",""), font=2, 
@@ -332,7 +339,7 @@ for (summary_file in summary_file_paths){
       border = NULL,
       lty = NULL,
       radius = 0.8)
-  legend("bottom", legend=legend_vector_replica_user, cex=1.2, bty = "n", fill = brewer.pal(length(used_replica_unique), "Set1"))
+  legend("bottom", legend=legend_vector_replica_user, cex=1.1, bty = "n", fill = brewer.pal(length(used_replica_unique), "Set1"))
   
   pie(as.numeric(sys_mean_values_replica_vector), 
       labels=c("","","","","","","",""), font=2, 
@@ -343,7 +350,7 @@ for (summary_file in summary_file_paths){
       border = NULL,
       lty = NULL,
       radius = 0.8)
-  legend("bottom", legend=legend_vector_replica_sys, cex=1.2, bty = "n", fill = brewer.pal(length(used_replica_unique), "Set1"))
+  legend("bottom", legend=legend_vector_replica_sys, cex=1.1, bty = "n", fill = brewer.pal(length(used_replica_unique), "Set1"))
   dev.off()
 }
 
@@ -352,12 +359,18 @@ if (scaling_flag == "scaling") {
   
   par(mfrow = c(2,2))
   
-  for (i in 1:number_of_used_tools) {
-  
+  for (i in 1:scaling_number_of_used_tools) {
+  y_value_vector <- c()
+    for (j in 1:length(scaling_cores_vector)) {
+      y_value_vector <- c(y_value_vector, as.numeric(scaling_mean_real_times_vector[(i * j)]))
+    }    
+
   plot(scaling_cores_vector, 
-       c(as.numeric(scaling_mean_real_times_vector[i]),
-         as.numeric(scaling_mean_real_times_vector[i + number_of_used_tools]), 
-         as.numeric(scaling_mean_real_times_vector[i + number_of_used_tools + number_of_used_tools])),
+       y_value_vector,
+       #c(as.numeric(scaling_mean_real_times_vector[i]),
+       # as.numeric(scaling_mean_real_times_vector[i + scaling_number_of_used_tools]), 
+       # as.numeric(scaling_mean_real_times_vector[i + (2 * scaling_number_of_used_tools)]),
+       # as.numeric(scaling_mean_real_times_vector[i + (3 * scaling_number_of_used_tools)])),
        main = paste("Scaling behaviour of averaged real times \n for", used_tools_unique[i], sep = " "),
        col = brewer.pal(length(scaling_cores_vector), "Set1"), 
        xlab = "Number of used CPU cores",
@@ -365,9 +378,12 @@ if (scaling_flag == "scaling") {
        xaxt = "n",
        cex.main = 0.8)
     
-  lines(scaling_cores_vector, c(as.numeric(scaling_mean_real_times_vector[i]),
-                                as.numeric(scaling_mean_real_times_vector[i + number_of_used_tools]), 
-                                as.numeric(scaling_mean_real_times_vector[i + number_of_used_tools + number_of_used_tools])))
+  lines(scaling_cores_vector,
+        y_value_vector)
+        #c(as.numeric(scaling_mean_real_times_vector[i]),
+        #                        as.numeric(scaling_mean_real_times_vector[i + scaling_number_of_used_tools]), 
+        #                        as.numeric(scaling_mean_real_times_vector[i + (2 * scaling_number_of_used_tools)]),
+        #                        as.numeric(scaling_mean_real_times_vector[i + (3 * scaling_number_of_used_tools)])))
   
  axis(side = 1, 
        at = scaling_cores_vector, 
