@@ -10,6 +10,7 @@ quarter_cores=$(expr $max_cores / 4)		#Calculate quarter core number
 quarter_cores_velvet=$(expr $quarter_cores - 1) #Calculate quarter core number fir velvet
 one_core=1					#Set one core variable
 clean=0 					#Set clean flag initially to 0
+scaling="none"					#Set scaling initally to "none"
 dataset="datasets/1000_genomes/ERR016155.filt.fastq" #Set ERR016155 as default dataset
 dataset_idba="datasets/1000_genomes/ERR015528.filt.fa" #Set ERR015528 as default dataset for IDBA
 default_reference="datasets/ebi/DRR001025.fa"   #Set DRR001012 as default reference dataset
@@ -26,17 +27,18 @@ integer_regex='^[0-9]+$'			#Define regex for integers
 original_path_variable=$(echo $PATH)
 original_ld_library_variable=$(echo $LD_LIBRARY_PATH)
 
-usage="$(basename "$0") [-h] [-cdprt]
+usage="$(basename "$0") [-h] [-cdprst]
 where:
     -h  show this help text
     -c  clean up old benchmarks and back them up 
     -d  choose a dataset category (small, medium, large), medium will be default
     -p  number of cores/threads that should be used (one, half, full, or any integer value, full is default)
     -r  number of replica cycles that should be executed (any integer value, 3 is default)  
+    -s  run scaling benchmark (small, medium, large), parameters describe the used datasets
     -t  toolgroup which should be used for the benchmarks (all, genomics, ml, quant) or a specific tool (bowtie2-build, velvet, idba, tensorflow, gromacs, SPAdes, clustalomega). Default is all"
 
 # Create flag options
-while getopts "chd:p:r:t:" option; do
+while getopts "chd:p:r:s:t:" option; do
 	case "${option}" in
 		h)	echo "$usage"
 			exit 1
@@ -52,6 +54,9 @@ while getopts "chd:p:r:t:" option; do
 			;;
 		r)
 			default_replicas=${OPTARG}
+			;;
+		s)	
+			scaling=${OPTARG}
 			;;
 		t)
 			default_toolgroup=${OPTARG}
@@ -404,7 +409,7 @@ if [ $clean == 1 ]
 then
         used_command="-c -d $dataset -p $default_cores -r $default_replicas -t $default_toolgroup"
 else
-        used_command="-d $dataset -p $default_cores -r $default_replicas -t $default_toolgroup"
+	used_command="-d $dataset -p $default_cores -r $default_replicas -t $default_toolgroup -s $scaling"
 fi
 
 echo "$date" > bootable_system_info.txt
@@ -447,7 +452,7 @@ gromacs_line=$(/usr/local/gromacs/bin/gmx --version | grep -n "GROMACS version:"
 export PATH=$original_path_variable
 export LD_LIBRARY_PATH=$original_ld_library_variable
 
-if [ $dataset == "large" ]
+if [[ $dataset == "large" || "$scaling" == "large" ]]
 then
 	dataset="datasets/1000_genomes/ERR251006.filt.fastq"
 	dataset_idba="datasets/1000_genomes/ERR251006.filt.fa"
@@ -456,7 +461,7 @@ then
 	default_tensorflow_steps=5000
 	default_gromacs_steps=50000
 
-elif [ $dataset == "medium" ]
+elif [[ $dataset == "medium" || "$scaling" == "medium" ]]
 then
 	dataset="datasets/1000_genomes/ERR016155.filt.fastq"
         dataset_idba="datasets/1000_genomes/ERR015528.filt.fa"
@@ -465,7 +470,7 @@ then
 	default_tensorflow_steps=2500
 	default_gromacs_steps=30000
 
-elif [ $dataset == "small" ]
+elif [[ $dataset == "small" || "$scaling" == "small" ]]
 then	
 	dataset="datasets/1000_genomes/ERR016155.filt.fastq"
 	dataset_idba="datasets/1000_genomes/SRR741411.filt.fa"
@@ -484,7 +489,6 @@ else
 
         echo "Parameter is not one of small, medium or large. Please check -d flag again. Default settings will be used (medium)"
 fi
-
 
 if [ $default_cores == "full" ]
 then
@@ -509,6 +513,7 @@ else
 	echo "Parameter is not one of full, half, one or an integer number. Please check -p flag again."
 	exit 1
 fi
+	
 
 if [[ $default_toolgroup != "all" && $default_toolgroup != "genomics" && $default_toolgroup != "ml" && $default_toolgroup != "quant" && $default_toolgroup != "bowtie2-build" && $default_toolgroup != "velvet" && $default_toolgroup != "idba" && $default_toolgroup != "tensorflow" && $default_toolgroup != "gromacs" && $default_toolgroup != "SPAdes" && $default_toolgroup != "clustalomega" ]]
 then
@@ -516,20 +521,59 @@ then
 	exit 1
 fi
 
+if [ "$scaling" == "none" ]
+then
+	echo "General genomic dataset for Bowtie2, Velvet, SPAdes: $dataset"
+	echo "IDBA dataset: $dataset_idba"
+	echo "Reference dataset: $default_reference"
+	echo "ClustalOmega dataset: $dataset_clustalOmega"
+	echo "Number of used cores: $default_cores"
+	echo "Number of used replicates: $default_replicas"
+	echo "Number of Tensorflow steps: $default_tensorflow_steps"
+	echo "Number of GROMACS steps: $default_gromacs_steps"
+	echo "Toolgroup: $default_toolgroup"
 
+	echo "BOOTABLE benchmark run with $default_cores cores and $default_replicas replicates"
 
-echo "General genomic dataset for Bowtie2, Velvet, SPAdes: $dataset"
-echo "IDBA dataset: $dataset_idba"
-echo "Reference dataset: $default_reference"
-echo "ClustalOmega dataset: $dataset_clustalOmega"
-echo "Number of used cores: $default_cores"
-echo "Number of used replicates: $default_replicas"
-echo "Number of Tensorflow steps: $default_tensorflow_steps"
-echo "Number of GROMACS steps: $default_gromacs_steps"
-echo "Toolgroup: $default_toolgroup"
+	for replica in $( seq 1 $default_replicas ) 
+	do
+		run_benchmark_tools $default_cores $default_cores_velvet $replica $dataset $default_tensorflow_steps $default_gromacs_steps $default_reference $dataset_idba $default_toolgroup $dataset_clustalOmega
+	done
 
-echo "BOOTABLE benchmark run with $default_cores cores and $default_replicas replicates"
-for replica in $( seq 1 $default_replicas ) 
-do
-	run_benchmark_tools $default_cores $default_cores_velvet $replica $dataset $default_tensorflow_steps $default_gromacs_steps $default_reference $dataset_idba $default_toolgroup $dataset_clustalOmega
-done
+else
+	echo "Scaling mode is chosen and scaling benchmark will be conducted."
+	echo "BOOTABLE scaling benchmark run with 1 core 1/4 of available cores, 1/2 of available cores, all available cores and $default_replicas replicates each"
+	
+	for replica in $( seq 1 $default_replicas )
+        do
+		default_cores=$one_core
+		default_cores_velvet=$one_core
+		echo "$replica replica of $default_replicas replica with $default_cores core is running."
+                run_benchmark_tools $default_cores $default_cores_velvet $replica $dataset $default_tensorflow_steps $default_gromacs_steps $default_reference $dataset_idba $default_toolgroup $dataset_clustalOmega
+        done
+	
+	for replica in $( seq 1 $default_replicas )
+        do
+                default_cores=$quarter_cores
+		default_cores_velvet=$quarter_cores_velvet
+		echo "$replica replica of $default_replicas replica with $default_cores cores is running."
+                run_benchmark_tools $default_cores $default_cores_velvet $replica $dataset $default_tensorflow_steps $default_gromacs_steps $default_reference $dataset_idba $default_toolgroup $dataset_clustalOmega
+        done
+
+	for replica in $( seq 1 $default_replicas )
+        do
+                default_cores=$half_cores
+                default_cores_velvet=$half_cores_velvet
+		echo "$replica replica of $default_replicas replica with $default_cores cores is running."
+                run_benchmark_tools $default_cores $default_cores_velvet $replica $dataset $default_tensorflow_steps $default_gromacs_steps $default_reference $dataset_idba $default_toolgroup $dataset_clustalOmega
+        done
+
+	for replica in $( seq 1 $default_replicas )
+        do
+                default_cores=$max_cores
+                default_cores_velvet=$max_cores_velvet
+		echo "$replica replica of $default_replicas replica with $default_cores cores is running."
+                run_benchmark_tools $default_cores $default_cores_velvet $replica $dataset $default_tensorflow_steps $default_gromacs_steps $default_reference $dataset_idba $default_toolgroup $dataset_clustalOmega
+	done
+fi
+
