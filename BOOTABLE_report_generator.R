@@ -100,6 +100,7 @@ df_system_information[11,1] <- compiler_version
 # Get all summary files, containing the time output
 summary_file_paths <- list.files(path = workingdir, pattern = "^benchmark_summary_.*\\.txt", full.names = TRUE)
 summary_file_names <- list.files(path = workingdir, pattern = "^benchmark_summary_.*\\.txt", full.names = FALSE)
+ordered_summary_file_paths <- summary_file_paths[order(as.numeric(gsub("[^\\d]+", "\\1", summary_file_paths, perl = TRUE)))]  
 number_of_summary_files <- length(summary_file_paths)
 names_time_vector <- c("real", "user", "sys")
 
@@ -108,7 +109,7 @@ scaling_cores_vector <- c()
 scaling_mean_real_times_vector <- c()
 scaling_number_of_used_tools <- c()
 
-for (summary_file in summary_file_paths){
+for (summary_file in ordered_summary_file_paths){
   used_tools <- c()
   used_replica <- c()
   real_values_all_vector <- c()
@@ -380,12 +381,13 @@ if (scaling_flag == "scaling") {
        xlab = "Number of used CPU cores",
        ylab = "Wall clock time in seconds",
        xaxt = "n",
-       cex.main = 0.8)
-    
+       cex.main = 0.8,
+       log = "yx")
+      
   lines(scaling_cores_vector,
         y_value_vector)
   
- axis(side = 1, 
+  axis(side = 1, 
        at = scaling_cores_vector, 
        labels = scaling_cores_vector,
        tck=-.02)
