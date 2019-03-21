@@ -120,7 +120,6 @@ scaling_number_of_used_tools <- c()     # Initialize vector for the number of to
 ###########################################################
 ### START Iterate over all available summary text files ###
 ###########################################################
-
 for (summary_file in ordered_summary_file_paths){  # Iterate over the ordered filepaths vector
   used_tools <- c()                                                              # Initialize used tools name vector   
   used_replica <- c()                                                            # Initialize used replica value vector  
@@ -143,7 +142,6 @@ for (summary_file in ordered_summary_file_paths){  # Iterate over the ordered fi
   #######################################################################################
   ### START Iterate over all replica entries to get the tool names and replica values ###
   #######################################################################################
-  
   for (replica_entry in replica_entries_line_numbers){
     used_replica <- c(used_replica, strsplit(summary_file_lines[replica_entry], "\\s+")[[1]][1]) # Get the used replica string "Replica_N"
     used_tools <- c(used_tools, strsplit(summary_file_lines[replica_entry], "\\s+")[[1]][2])     # Get used tool names
@@ -171,7 +169,6 @@ for (summary_file in ordered_summary_file_paths){  # Iterate over the ordered fi
   #############################################################################################
   ### START Iterate over all time values and add them to the empty dataframe for all values ###
   #############################################################################################
-  
   for (entry in 1:length(real_entries_line_numbers)){
     real_entry <- as.numeric(strsplit(summary_file_lines[real_entries_line_numbers[entry]], "\\s+")[[1]][2])
     user_entry <- as.numeric(strsplit(summary_file_lines[user_entries_line_numbers[entry]], "\\s+")[[1]][2])
@@ -188,76 +185,96 @@ for (summary_file in ordered_summary_file_paths){  # Iterate over the ordered fi
       j <- j + 1
     }
   }
-  
   ###########################################################################################
   ### END Iterate over all time values and add them to the empty dataframe for all values ###
   ###########################################################################################
   
-  used_time_values <- c("average real", "average user", "average sys")
-  df_toolwise <- data.frame(matrix(ncol = number_of_used_tools, nrow = 3))
-  colnames(df_toolwise) <- used_tools_unique
-  rownames(df_toolwise) <- used_time_values
-  real_mean_values_tools_vector <- c() 
-  user_mean_values_tools_vector <- c()
-  sys_mean_values_tools_vector <- c()
+  used_time_values <- c("average real", "average user", "average sys")      # Create average name vector      
+  df_toolwise <- data.frame(matrix(ncol = number_of_used_tools, nrow = 3))  # Create empty data frame for table in the report
+  colnames(df_toolwise) <- used_tools_unique                                # Column names are the tool names
+  rownames(df_toolwise) <- used_time_values                                 # Row names are the time values (average)
+  real_mean_values_tools_vector <- c()                                      # Initialize real average values vector
+  user_mean_values_tools_vector <- c()                                      # Initialize user average values vector
+  sys_mean_values_tools_vector <- c()                                       # Initialize sys average values vector
   
+  ##############################################################
+  ### START Iterate over all tools and fill empty data frame ###
+  ##############################################################
   for (tool in 1:number_of_used_tools) {
-    real_values_vector <- c()
-    user_values_vector <- c()
-    sys_values_vector  <- c()
+    real_values_vector <- c()            # Initialize real time values vector
+    user_values_vector <- c()            # Initialize real user values vector
+    sys_values_vector  <- c()            # Initialize real sys values vector
     
+    #########################################################################################
+    ### START Iterate over all replicas for every tool to create the mean (average) value ###
+    #########################################################################################
     for (value in 1:number_of_used_replica){
-      real_values_vector <- c(real_values_vector, df_all[[tool]][[value]][1])
-      
-      user_values_vector <- c(user_values_vector, df_all[[tool]][[value]][2])
-      
-      sys_values_vector <- c(sys_values_vector, df_all[[tool]][[value]][3])
+      real_values_vector <- c(real_values_vector, df_all[[tool]][[value]][1]) # Get all real values from every replica
+      user_values_vector <- c(user_values_vector, df_all[[tool]][[value]][2]) # Get all user values from every replica
+      sys_values_vector <- c(sys_values_vector, df_all[[tool]][[value]][3])   # Get all sys values from every replica
     }
-    df_toolwise[[1, tool]] <- format(round(mean(real_values_vector), digits = 2), nsmall = 2)
-    df_toolwise[[2, tool]] <- format(round(mean(user_values_vector), digits = 2), nsmall = 2)
-    df_toolwise[[3, tool]] <- format(round(mean(sys_values_vector), digits = 2), nsmall = 2)
+    #######################################################################################
+    ### END Iterate over all replicas for every tool to create the mean (average) value ###
+    #######################################################################################
     
-    real_mean_values_tools_vector <- c(real_mean_values_tools_vector, df_toolwise[[1, tool]])
-    user_mean_values_tools_vector <- c(user_mean_values_tools_vector, df_toolwise[[2, tool]])
-    sys_mean_values_tools_vector <- c(sys_mean_values_tools_vector, df_toolwise[[3, tool]])
+    df_toolwise[[1, tool]] <- format(round(mean(real_values_vector), digits = 2), nsmall = 2)  # Calculate mean of real values over replica with 2 digits after the comma
+    df_toolwise[[2, tool]] <- format(round(mean(user_values_vector), digits = 2), nsmall = 2)  # Calculate mean of user values over replica with 2 digits after the comma
+    df_toolwise[[3, tool]] <- format(round(mean(sys_values_vector), digits = 2), nsmall = 2)   # Calculate mean of sys values over replica with 2 digits after the comma
     
+    real_mean_values_tools_vector <- c(real_mean_values_tools_vector, df_toolwise[[1, tool]])  # Collect all real mean time values for every tool
+    user_mean_values_tools_vector <- c(user_mean_values_tools_vector, df_toolwise[[2, tool]])  # Collect all user mean time values for every tool
+    sys_mean_values_tools_vector <- c(sys_mean_values_tools_vector, df_toolwise[[3, tool]])    # Collect all sys mean time values for every tool
     
-    
-    real_values_all_vector <- c(real_values_all_vector, real_values_vector)
-    user_values_all_vector <- c(user_values_all_vector, user_values_vector)
-    sys_values_all_vector  <- c(sys_values_all_vector, sys_values_vector) 
+    real_values_all_vector <- c(real_values_all_vector, real_values_vector)                    # Collect all real time values from every replica
+    user_values_all_vector <- c(user_values_all_vector, user_values_vector)                    # Collect all user time values from every replica
+    sys_values_all_vector  <- c(sys_values_all_vector, sys_values_vector)                      # Collect all sys time values from every replica
   }
+  ############################################################
+  ### END Iterate over all tools and fill empty data frame ###
+  ############################################################
   
-  scaling_mean_real_times_vector <- c(scaling_mean_real_times_vector, real_mean_values_tools_vector)
+  scaling_mean_real_times_vector <- c(scaling_mean_real_times_vector, real_mean_values_tools_vector) # Collect only the real time mean values from every summary txt file for scaling functionality
   
-  df_replicawise <- data.frame(matrix(ncol = number_of_used_replica, nrow = 3))
-  colnames(df_replicawise) <- used_replica_unique
-  rownames(df_replicawise) <- used_time_values
+  df_replicawise <- data.frame(matrix(ncol = number_of_used_replica, nrow = 3))  # Create empty dataframe for table in report (average all tool times for one replica)
+  colnames(df_replicawise) <- used_replica_unique                                # Column names are the replica (Replica_1, Replica_2, ...)
+  rownames(df_replicawise) <- used_time_values                                   # Row names are the time values (average real, average user, average sys)
   
-  real_mean_values_replica_vector <- c() 
-  user_mean_values_replica_vector <- c()
-  sys_mean_values_replica_vector <- c()
+  real_mean_values_replica_vector <- c()                                         # Initialize real time average per replica vector
+  user_mean_values_replica_vector <- c()                                         # Initialize user time average per replica vector
+  sys_mean_values_replica_vector <- c()                                          # Initialize sys time average per replica vector
   
+  #################################################################
+  ### START Iterate over all replicas and fill empty data frame ###
+  #################################################################
   for (replica in 1:number_of_used_replica) {
-    real_values_vector <- c()
-    user_values_vector <- c()
-    sys_values_vector  <- c()
+    real_values_vector <- c()                                                    # Initialize real value vector
+    user_values_vector <- c()                                                    # Initialize user value vector
+    sys_values_vector  <- c()                                                    # Initialize sys value vector
     
+    #########################################################################################
+    ### START Iterate over all tools for every replica to create the mean (average) value ###
+    #########################################################################################
     for (value in 1:number_of_used_tools){
-      real_values_vector <- c(real_values_vector, df_all[[value]][[replica]][1])
-      
-      user_values_vector <- c(user_values_vector, df_all[[value]][[replica]][2])
-      
-      sys_values_vector <- c(sys_values_vector, df_all[[value]][[replica]][3])
+      real_values_vector <- c(real_values_vector, df_all[[value]][[replica]][1]) # Collect real values from every replica
+      user_values_vector <- c(user_values_vector, df_all[[value]][[replica]][2]) # Collect user values from every replica
+      sys_values_vector <- c(sys_values_vector, df_all[[value]][[replica]][3])   # Collect sys values from every replica
     }
-    df_replicawise[[1, replica]] <- format(round(mean(real_values_vector), digits = 2), nsmall = 2)
-    df_replicawise[[2, replica]] <- format(round(mean(user_values_vector), digits = 2), nsmall = 2)
-    df_replicawise[[3, replica]] <- format(round(mean(sys_values_vector), digits = 2), nsmall = 2)
+    #######################################################################################
+    ### END Iterate over all tools for every replica to create the mean (average) value ###
+    #######################################################################################
     
-    real_mean_values_replica_vector <- c(real_mean_values_replica_vector, df_replicawise[[1, replica]])
-    user_mean_values_replica_vector <- c(user_mean_values_replica_vector, df_replicawise[[2, replica]])
-    sys_mean_values_replica_vector <- c(sys_mean_values_replica_vector, df_replicawise[[3, replica]])
+    df_replicawise[[1, replica]] <- format(round(mean(real_values_vector), digits = 2), nsmall = 2)  # Calculate mean of real values over tools with 2 digits after the comma
+    df_replicawise[[2, replica]] <- format(round(mean(user_values_vector), digits = 2), nsmall = 2)  # Calculate mean of user values over replica with 2 digits after the comma
+    df_replicawise[[3, replica]] <- format(round(mean(sys_values_vector), digits = 2), nsmall = 2)   # Calculate mean of sys values over replica with 2 digits after the comma
+    
+    real_mean_values_replica_vector <- c(real_mean_values_replica_vector, df_replicawise[[1, replica]])  # Collect all real mean time values for every replica
+    user_mean_values_replica_vector <- c(user_mean_values_replica_vector, df_replicawise[[2, replica]])  # Collect all user mean time values for every replica
+    sys_mean_values_replica_vector <- c(sys_mean_values_replica_vector, df_replicawise[[3, replica]])    # Collect all sys mean time values for every replica
   }
+  ###############################################################
+  ### END Iterate over all replicas and fill empty data frame ###
+  ###############################################################
+  
   total_time_real <- format(sum(real_values_all_vector), nsmall = 2)
   total_time_user <- format(sum(user_values_all_vector), nsmall = 2)
   total_time_sys  <- format(sum(sys_values_all_vector), nsmall = 2)
