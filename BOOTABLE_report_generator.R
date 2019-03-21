@@ -1,36 +1,41 @@
-#Parse ThreadedBioBenchSuite output
+# Author: Maximilian Hanussek, maximilian.hanussek@uni-tuebingen.de
+# Parse and generate plots of BOOTABLE
 
-
-
+# Choose CRAN mirror in beforehand to run the script without interaction
 chooseCRANmirror(ind = 33)
 
+# Save the old warnvalue
 old_warnvalue <- getOption("warn")
+
+# Suppress warnings on stdout for a cleaner user experience
 options(warn = -1)
 
-load.fun <- function(x) {
+# Load or install package if necessary
+load.fun <- function(x) {  # x is the package name
   x <- as.character(substitute(x))
-  if(isTRUE(x %in% .packages(all.available=TRUE))) {
-    eval(parse(text=paste("require(", x, ")", sep="")))
-  } else {
-    update.packages() # recommended before installing so that dependencies are the latest version
-    eval(parse(text=paste("install.packages('", x, "')", sep="")))
-    eval(parse(text=paste("require(", x, ")", sep="")))
+  if(isTRUE(x %in% .packages(all.available=TRUE))) {  # Check if package is already installed
+    eval(parse(text=paste("require(", x, ")", sep="")))  # If yes, load it
+  } else {  # Else install it and load it
+    update.packages() # Recommended before installing so that dependencies are the latest version
+    eval(parse(text=paste("install.packages('", x, "')", sep=""))) # Install package
+    eval(parse(text=paste("require(", x, ")", sep="")))  # Load package
   }
 } 
 
-load.fun(grid)
-load.fun(gridExtra)
-load.fun(RColorBrewer)
-load.fun(stringr)
+load.fun(grid)          # Load grid package, required for tables
+load.fun(gridExtra)     # Load gridExtra package, required for tables
+load.fun(RColorBrewer)  # Load RColorBrewer package, required for pie plots
+load.fun(stringr)       # Load stringr package, required for host information parsing
 
+# Set current working directory to the directory where the script is executed
 workingdir <- "./"
 
-
+# Get argument from the command line, whether scaling plot should be generated or not
 args <- commandArgs(trailingOnly = TRUE)
 argslen <- length(args)
-if (argslen == 1){ 
+if (argslen == 1){          # Handle error if flag is not set
   scaling_flag <- args[1]
-} else {
+} else {                    # Set default value FALSE
   scaling_flag <- FALSE
 }
 
@@ -53,7 +58,8 @@ cpu_num_cores <- str_squish(unlist(strsplit(cpu_info[grep("CPU\\(s\\):", cpu_inf
 ram_max_mem <- paste0(str_squish(unlist(strsplit(ram_info[grep("Total online memory:", ram_info)], split = ":")))[2], "B")
 compiler_version <- paste(unlist(strsplit(compiler_info[grep("gcc-Version", compiler_info)], split = " "))[1], unlist(strsplit(compiler_info[7], split = " "))[2], collapse = " ")
 
-if (cpu_cache3_size == "NAB") {
+# Check if Layer3 cache is available otherwise use Layer2 cache
+if (cpu_cache3_size == "NAB") {         
   system_information_row_names <- c("Hostname",
                                     "Architecture", 
                                     "Vendor ID", 
@@ -80,7 +86,8 @@ if (cpu_cache3_size == "NAB") {
                                     "Compiler")
   cpu_cache_size <- cpu_cache3_size
 }
-  
+
+# Create dataframe with host information for printing it in tabular form
 df_system_information <- data.frame(matrix(ncol = 1, nrow = 11))
 colnames(df_system_information) <- c("System Information")
 rownames(df_system_information) <- system_information_row_names
@@ -97,57 +104,73 @@ df_system_information[10,1] <- ram_max_mem
 df_system_information[11,1] <- compiler_version
 
 
-# Get all summary files, containing the time output
-summary_file_paths <- list.files(path = workingdir, pattern = "^benchmark_summary_.*\\.txt", full.names = TRUE)
-summary_file_names <- list.files(path = workingdir, pattern = "^benchmark_summary_.*\\.txt", full.names = FALSE)
-ordered_summary_file_paths <- summary_file_paths[order(as.numeric(gsub("[^\\d]+", "\\1", summary_file_paths, perl = TRUE)))]  
-number_of_summary_files <- length(summary_file_paths)
-names_time_vector <- c("real", "user", "sys")
+# Get all summary text files produced from BOOTABLE, containing the time output
+summary_file_paths <- list.files(path = workingdir, pattern = "^benchmark_summary_.*\\.txt", full.names = TRUE)  # Get the full paths of all report
+summary_file_names <- list.files(path = workingdir, pattern = "^benchmark_summary_.*\\.txt", full.names = FALSE) # Get only the report names
+ordered_summary_file_paths <- summary_file_paths[order(as.numeric(gsub("[^\\d]+", "\\1", summary_file_paths, perl = TRUE)))] # Full paths ordered by integer of the used CPU cores
+number_of_summary_files <- length(summary_file_paths)  # Get the number of created summary text files
+names_time_vector <- c("real", "user", "sys")  # Create a name vector for the 3 different measured times
 
-# Initialize scaling capabilities vector
-scaling_cores_vector <- c()
-scaling_mean_real_times_vector <- c()
-scaling_number_of_used_tools <- c()
+# Initialize scaling capabilities vectors
+scaling_cores_vector <- c()             # Initialize vector for the used cores numbers (e.g. 1,7,14,28)
+scaling_mean_real_times_vector <- c()   # Initialize vector for the mean values of the real times of all replica
+scaling_number_of_used_tools <- c()     # Initialize vector for the number of tools used in the benchmark run
 
-for (summary_file in ordered_summary_file_paths){
-  used_tools <- c()
-  used_replica <- c()
-  real_values_all_vector <- c()
-  user_values_all_vector <- c()
-  sys_values_all_vector <- c()
-  summary_name <- summary_file_names[which(summary_file == summary_file_paths)]
-  summary_name <- strsplit(summary_name, "\\.")[[1]][1]
-  summary_file_name <- paste(summary_name, ".pdf", sep = "")
+
+###########################################################
+### START Iterate over all available summary text files ###
+###########################################################
+
+for (summary_file in ordered_summary_file_paths){  # Iterate over the ordered filepaths vector
+  used_tools <- c()                                                              # Initialize used tools name vector   
+  used_replica <- c()                                                            # Initialize used replica value vector  
+  real_values_all_vector <- c()                                                  # Initialize real time values vector
+  user_values_all_vector <- c()                                                  # Initialize user time values vector
+  sys_values_all_vector <- c()                                                   # Initialize sys time values vector
+  summary_name <- summary_file_names[which(summary_file == summary_file_paths)]  # Get the index of the current summary file in the vector
+  summary_name <- strsplit(summary_name, "\\.")[[1]][1]                          # Get rid of the .txt extension
+  summary_file_name <- paste(summary_name, ".pdf", sep = "")                     # Create complete report filename 
   
-  summary_file_lines <- readLines(con = summary_file)
-  replica_entries_line_numbers <- grep("Replica", summary_file_lines)
-  real_entries_line_numbers <- grep ("real ", summary_file_lines)
-  user_entries_line_numbers <- grep ("user ", summary_file_lines)
-  sys_entries_line_numbers <- grep ("sys ", summary_file_lines)
+  summary_file_lines <- readLines(con = summary_file)                            # Read in current summary file, linewise
+  replica_entries_line_numbers <- grep("Replica", summary_file_lines)            # Get onyl the replica line numbers
+  real_entries_line_numbers <- grep ("real ", summary_file_lines)                # Get onyl the real time values line numbers
+  user_entries_line_numbers <- grep ("user ", summary_file_lines)                # Get only the user time values line numbers
+  sys_entries_line_numbers <- grep ("sys ", summary_file_lines)                  # Get onyl the sys time values line numbers
   
-  number_of_cores <- as.integer(strsplit(summary_file_lines[1], "\\s+")[[1]][4])
-  scaling_cores_vector <- c(scaling_cores_vector, number_of_cores)
+  number_of_cores <- as.integer(strsplit(summary_file_lines[1], "\\s+")[[1]][4]) # Get the number of cores used in this summary file and this benchmark run
+  scaling_cores_vector <- c(scaling_cores_vector, number_of_cores)               # Append the number of used cpu cores for the scalability plot later
+
+  #######################################################################################
+  ### START Iterate over all replica entries to get the tool names and replica values ###
+  #######################################################################################
   
   for (replica_entry in replica_entries_line_numbers){
-    used_replica <- c(used_replica, strsplit(summary_file_lines[replica_entry], "\\s+")[[1]][1])
-    used_tools <- c(used_tools, strsplit(summary_file_lines[replica_entry], "\\s+")[[1]][2])
+    used_replica <- c(used_replica, strsplit(summary_file_lines[replica_entry], "\\s+")[[1]][1]) # Get the used replica string "Replica_N"
+    used_tools <- c(used_tools, strsplit(summary_file_lines[replica_entry], "\\s+")[[1]][2])     # Get used tool names
   }
+  #####################################################################################
+  ### END Iterate over all replica entries to get the tool names and replica values ###
+  #####################################################################################
   
-  used_tools_unique <- unique(used_tools)
-  number_of_used_tools <- length(used_tools_unique)
-  scaling_number_of_used_tools <- number_of_used_tools
-  used_replica_unique <- unique(used_replica)
-  number_of_used_replica <- length(used_replica_unique)
+  used_tools_unique <- unique(used_tools)                                                                 # Remove duplciates of extracted tool names
+  number_of_used_tools <- length(used_tools_unique)                                                       # Get the number of used tools
+  scaling_number_of_used_tools <- number_of_used_tools                                                    # Duplicate vector above for scaling functionality
+  used_replica_unique <- unique(used_replica)                                                             # Remove duplicate of extracted replicate strings
+  number_of_used_replica <- length(used_replica_unique)                                                   # Get the number of used replicas
   
-  df_all <- data.frame(matrix(data = list(), ncol = number_of_used_tools, nrow = number_of_used_replica))
-  df_all_printable <- data.frame(matrix(ncol = number_of_used_tools, nrow = number_of_used_replica))
-  colnames(df_all) <- used_tools_unique
-  rownames(df_all) <- used_replica_unique
-  colnames(df_all_printable) <- used_tools_unique
-  rownames(df_all_printable) <- used_replica_unique
+  df_all <- data.frame(matrix(data = list(), ncol = number_of_used_tools, nrow = number_of_used_replica)) # Initialize data frame for all colected data
+  df_all_printable <- data.frame(matrix(ncol = number_of_used_tools, nrow = number_of_used_replica))      # Initialize data frame in printable version
+  colnames(df_all) <- used_tools_unique                                                                   # Create column names (Tool)
+  rownames(df_all) <- used_replica_unique                                                                 # Create row names (Replica)
+  colnames(df_all_printable) <- used_tools_unique                                                         # Create column names (Tool) for printabel version
+  rownames(df_all_printable) <- used_replica_unique                                                       # Create row names (Replica) for printabel version
   
-  i <- 1
-  j <- 1
+  i <- 1  # Initialize inner-loop variable
+  j <- 1  # Initialize inner-loop variable
+  
+  #############################################################################################
+  ### START Iterate over all time values and add them to the empty dataframe for all values ###
+  #############################################################################################
   
   for (entry in 1:length(real_entries_line_numbers)){
     real_entry <- as.numeric(strsplit(summary_file_lines[real_entries_line_numbers[entry]], "\\s+")[[1]][2])
@@ -165,6 +188,10 @@ for (summary_file in ordered_summary_file_paths){
       j <- j + 1
     }
   }
+  
+  ###########################################################################################
+  ### END Iterate over all time values and add them to the empty dataframe for all values ###
+  ###########################################################################################
   
   used_time_values <- c("average real", "average user", "average sys")
   df_toolwise <- data.frame(matrix(ncol = number_of_used_tools, nrow = 3))
@@ -370,9 +397,11 @@ if (scaling_flag == "scaling") {
   
   for (i in 1:scaling_number_of_used_tools) {
   y_value_vector <- c()
-    for (j in 1:length(scaling_cores_vector)) {
-      y_value_vector <- c(y_value_vector, as.numeric(scaling_mean_real_times_vector[(i * j)]))
-    }    
+  index <- 0
+    for (core_number in scaling_cores_vector) {
+      y_value_vector <- c(y_value_vector, as.numeric(scaling_mean_real_times_vector[(i + index)]))
+      index <- index + scaling_number_of_used_tools
+    }
 
   plot(scaling_cores_vector, 
        y_value_vector,
