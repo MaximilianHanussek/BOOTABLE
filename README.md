@@ -20,6 +20,13 @@ cover a range of different application cases and make strong use of multithreadi
 in order to get some benchmarks of the underlying hardware and about the scalability of the system.
 In the following is explained how to install BOOTABLE, how to run it and what kind of options you have. Information about results are stated in the **Results**  section.
 
+## News (03.04.19)
+We changed some things regarding the report generator and the executing benchmark script.
+- New scaling mode is now available in the `run_benchmark.sh` script (flag -s) more in the **Start Benchmarks** section
+- New scaling plots regarding the used walltime 
+- New shorter name of the reportgenerator tool. Before: `threadedBioBenchsuiteStatsGenerator.R` Now: `BOOTABLE_report_generator.R`
+
+
 ## Prerequisites
 This current version is only tested for CentOS 7. Ubuntu support will be added soon.  
 If you want to install the tools and scripts BOOTABLE use please be sure to have following packages installed via yum (CentOS):
