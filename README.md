@@ -24,7 +24,7 @@ In the following is explained how to install BOOTABLE, how to run it and what ki
 We changed some things regarding the report generator and the executing benchmark script.
 - New scaling mode is now available in the `run_benchmark.sh` script (flag -s) more in the **Start Benchmarks** section
 - New scaling plots regarding the used walltime 
-- New shorter name of the reportgenerator tool. Before: `threadedBioBenchsuiteStatsGenerator.R` Now: `BOOTABLE_report_generator.R`
+- New shorter name of the report generator tool. Before: `threadedBioBenchsuiteStatsGenerator.R` Now: `BOOTABLE_report_generator.R`
 
 
 ## Prerequisites
