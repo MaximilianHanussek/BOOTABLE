@@ -23,9 +23,8 @@ In the following is explained how to install BOOTABLE, how to run it and what ki
 ## News (03.04.19)
 We changed some things regarding the report generator and the executing benchmark script.
 - New scaling mode is now available in the `run_benchmark.sh` script (flag -s) more in the **Start Benchmarks** section
-- New scaling plots regarding the used walltime 
+- New scaling plots are available in the report generator tool (parameter: scaling) more in the **Results** section
 - New shorter name of the report generator tool. Before: `threadedBioBenchsuiteStatsGenerator.R` Now: `BOOTABLE_report_generator.R`
-
 
 ## Prerequisites
 This current version is only tested for CentOS 7. Ubuntu support will be added soon.  
@@ -265,6 +264,11 @@ in the directory backed_up_benchmark_results if you confirm that. Per default th
 
 - r: Number of replicates you want to use. The more replicates the better is the chance to get a trustworthy result and regulate outliers. You can choose any integer value you want. The default value is 3.
 
+- s: The scaling mode automatically performs a benchmark of the specified tool(s) with all available cores, half of the available cores, quarter of the available cores and a single core. If you choose the scaling mode you do not have top specify the -p flag. Further choose on of the following keywords for the `-s` flag (default is medium)
+   - large: Refers to to the large dataset option
+   - medium: Refers to the medium dataset option
+   - small: Refers to the small dataset option
+
 - t: Toolgroup you want to use. You can choose between `all` which will use all tools, `genomics` which will use only genomic tools (Bowtie2, Velvet, IDBA, SPAdes), `ml` which will only use Tensorflow and `quant` which will only use GROMACS. The default option is `all`. You can also choose just single tools. Currently these are `bowtie2-build`, `velvet`, `idba`, `tensorflow`, `gromacs`, `SPAdes`, `clustalomega`, which are also the keywords that this flag exceppts.
 
 Some execution examples:
@@ -282,12 +286,21 @@ If you have already executed a benchmark and want to run a new one use the `-c` 
 If you just want to run some tensorflow benchmarks use for example:
 <pre>sh run_benchmarks.sh -d large -p full -r 3 -t ml</pre>
 
+If you want to test the scaling behaviour of a tool use the scaling mode with the `-s` flag here with three replicates, medium size dataset and all tools that belong to the genomics group:
+<pre>sh run_benchmarks.sh -r 3 -s medium -t genomics</pre>
+
 You can also skip flags where you just want to use the default values.
 
-After the benchmarks are finished you can create a Summary file in pdf format running the following command from BOOTABLE root directory:
-<pre>Rscript --vanilla threadedBioBenchsuiteStatsGenerator.R</pre>
 
-You will find the pdf file in the BOOTABLE root directory.
+### Report generation
+After the benchmarks are finished you can create a Summary file in pdf format running the following command from BOOTABLE root directory:
+<pre>Rscript --vanilla BOOTABLE_report_generator.R</pre>
+
+If you used the scaling mode for the benchmarks we suggest to plot also the scaling plots with the following parameter
+<pre>Rscript --vanilla BOOTABLE_report_generator.R scaling</pre>
+
+The output file will be named `scaling_plot_DATE_TIME.pdf`. 
+You will find the pdf file(s) in the BOOTABLE root directory.
 
 ## Results
 BOOTABLE will produce different result files. Mainly the most interesting file is the `benchmark_summary_\*.txt` file which you will find in the BOOTABLE root directory. The content looks like the following:
@@ -344,9 +357,13 @@ Every block gives you information about which replica (Replica_1) of which tool 
 - user: The used CPU time taking the number of cores into account
 - sys:  The amount of CPU time spent in the kernel for system calls
 
-Further you will find the file `benchmark_summary_\*.pdf` which gives you a more compact and statistical overview about the executed benchmarks. You will find this file only if you have run the `threadedBioBenchsuiteStatsGenerator.R` script as stated above.
+Further you will find the file `benchmark_summary_\*.pdf` which gives you a more compact and statistical overview about the executed benchmarks. You will find this file only if you have run the `BOOTABLE_report_generator.R` script as stated above.
 
-Also in the .pdf file all numbers are stated in seconds. Futher you can find a detailed list, tool by tool, in the results directory. There you can also find the stdout output (`benchmark_<tool>_output_<cores>.txt`) of the single tools and recapture the steps they have done.
+If you also used the scaling parameter you will find the scaling_plots with the number of cores on the x-axis and the walltime on the y-axis. Both axes are on logarithmic scale to identify linear behaviour.
+
+Also in the .pdf file all numbers are stated in seconds. 
+
+Futher you can find a detailed list, tool by tool, in the results directory. There you can also find the stdout output (`benchmark_<tool>_output_<cores>.txt`) of the single tools and recapture the steps they have done.
 
 Further you will find a summary of the underlying hardware/system where the benchmark has been executed, which flags of BOOTABLE has been used and how Bowtie2 and GROMACS has been compiled in the file `bootable_system_info.txt`.
 
