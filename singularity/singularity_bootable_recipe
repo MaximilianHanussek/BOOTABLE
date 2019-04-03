@@ -6,7 +6,7 @@ From: singularityhub/centos
 
 	../run_benchmarks.sh /run_benchmarks.sh
 	../install_check.sh /install_check.sh
-	../threadedBioBenchsuiteStatsGenerator.R /threadedBioBenchsuiteStatsGenerator.R
+	../BOOTABLE_report_generator.R /BOOTABLE_report_generator.R
 
 %labels
 	AUTHOR maximilian.hanussek@uni-tuebingen.de

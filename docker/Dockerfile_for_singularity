@@ -178,5 +178,5 @@ RUN /IDBA/idba_ud-1.0.9/bin/fq2fa /datasets/ebi/DRR001012.fastq /datasets/ebi/DR
 RUN /IDBA/idba_ud-1.0.9/bin/fq2fa /datasets/ebi/DRR001025.fastq /datasets/ebi/DRR001025.fa
 
 COPY run_benchmarks.sh /
-COPY threadedBioBenchsuiteStatsGenerator.R /
+COPY BOOTABLE_report_generator.R /
 COPY install_check.sh /
