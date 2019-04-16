@@ -328,10 +328,18 @@ The `Command` parameter is more important. Here you need to specify exactly how 
 
 - If your tool has a parameter to choose the number of used CPU cores/thread we suggest to use the `$cores` variable as above, so this will be handled by BOOTABLE and the input parameter. You can also hard code it directly in your command but then the scaling mode will not work as expected.
 
-- For the datasets you can do the same. You can use one of our already selected and available ones if they fit. In the example above we use the `$reference` variable and you can use any dataset available through BOOTABLE with the already known parameters `small`, `middle` or `large`. But you can also specify any dataset or input data you want to use by giving the full name.
+- For the datasets you can do the same. You can use one of our already selected and available ones if they fit. In the example above we use the `$reference` variable and you can use any dataset available through BOOTABLE with the already known parameters `small`, `middle` or `large`. But you can also specify any dataset or input data you want to use by giving the full path.
+Here a list of the datasets you will get with the corresponding variable:
+- $reference: with -d flag small  -> DRR001012.fa
+- $reference: with -d flag medium -> DRR001025.fa
+- $reference: with -d flag large  -> GRCh38_full_analysis_set_plus_decoy_hla.fa
+- $dataset:   with -d flag small   -> ERR016155.filt.fastq
+- $dataset:   with -d flag medium  -> ERR016155.filt.fastq
+- $dataset:   with -d flag large   -> ERR251006.filt.fastq
 
+- If your tool produces any ouptut you can also let handle this by BOOTABLE. You only need to specify the output folder to point to the directory BOOTABLE/benchmark_output/`Toolname` as specified in the example.
 
-
+- And of course you need to install your tool and all required dependencies yourself and check everything is working fine.
 
 ## Results
 BOOTABLE will produce different result files. Mainly the most interesting file is the `benchmark_summary_\*.txt` file which you will find in the BOOTABLE root directory. The content looks like the following:
