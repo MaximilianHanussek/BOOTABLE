@@ -315,7 +315,21 @@ The output file will be named `scaling_plot_DATE_TIME.pdf`.
 You will find the pdf file(s) in the BOOTABLE root directory.
 
 ### Generic tools wrapper
-For the case you want to benchmark a tool or other tools that are not part of BOOTABLE you can also do this and benefit of all already implemented BOOTABLE features, like automated scaling benchmarks, meaningful reports and plots or pre-selected datasets. 
+For the case you want to benchmark a tool or other tools that are not part of BOOTABLE you can also do this and benefit of all already implemented BOOTABLE features, like automated scaling benchmarks, meaningful reports and plots or pre-selected datasets.
+
+You just need to write a short textfile named as you like it and saved where you have access to it in the following manner (example for the bowtie2 index builder tool):
+
+<pre>Toolname:bowtie2_build_test
+Dataset:Medium
+Command:bowtie2/bowtie2-2.3.4.2/bowtie2-build --threads $cores --seed 42 $reference benchmark_output/bowtie2_build_test/benchmark</pre>
+
+For the lines Parameters `Toolname` and `Dataset` you can choose what ever you want it is just for you and has no direct impact on the calculations.
+The `Command` parameter is more important. Here you need to specify exactly how your tool has to be executed with some following guidelines:
+
+- If your tool has a parameter to choose the number of used CPU cores/thread we suggest to use the `$cores` variable as above, so this will be handled by BOOTABLE and the input parameter. You can also hard code it directly in your command but then the scaling mode will not work as expected.
+
+- For the datasets you can do the same. You can use one of our already selected and available ones if they fit. In the example above we use the `$reference` variable and you can use any dataset available through BOOTABLE with the already known parameters `small`, `middle` or `large`. But you can also specify any dataset or input data you want to use by giving the full name.
+
 
 
 
