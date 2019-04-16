@@ -298,6 +298,9 @@ If you just want to run some tensorflow benchmarks use for example:
 If you want to test the scaling behaviour of a tool use the scaling mode with the `-s` flag here with three replicates, medium size dataset and all tools that belong to the genomics group:
 <pre>sh run_benchmarks.sh -r 3 -s medium -t genomics</pre>
 
+If you want to use a tool that is not part of BOOTABLE you can include this one by using the `-o` flag and specifying the path to the Toolfile which is explained more in detail in the section **Generic tools wrapper**:
+<pre>sh run_benchmarks.sh -c -d small -o /absolute/path/to/toolfile.btbl -p full -r 1  
+
 You can also skip flags where you just want to use the default values.
 
 
@@ -310,6 +313,11 @@ If you used the scaling mode for the benchmarks we suggest to plot also the scal
 
 The output file will be named `scaling_plot_DATE_TIME.pdf`. 
 You will find the pdf file(s) in the BOOTABLE root directory.
+
+### Generic tools wrapper
+For the case you want to benchmark a tool or other tools that are not part of BOOTABLE you can also do this and benefit of all already implemented BOOTABLE features, like automated scaling benchmarks, meaningful reports and plots or pre-selected datasets. 
+
+
 
 ## Results
 BOOTABLE will produce different result files. Mainly the most interesting file is the `benchmark_summary_\*.txt` file which you will find in the BOOTABLE root directory. The content looks like the following:
