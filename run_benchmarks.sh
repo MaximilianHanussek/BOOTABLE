@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -x
 # Run benchmarks
 
 # Get information about the number of cores of the system 
@@ -11,6 +11,7 @@ quarter_cores_velvet=$(expr $quarter_cores - 1) #Calculate quarter core number f
 one_core=1					#Set one core variable
 clean=0 					#Set clean flag initially to 0
 scaling="none"					#Set scaling initally to "none"
+own_tool_path="none"				#Set path for own tools per default to "none"
 dataset="datasets/1000_genomes/ERR016155.filt.fastq" #Set ERR016155 as default dataset
 dataset_idba="datasets/1000_genomes/ERR015528.filt.fa" #Set ERR015528 as default dataset for IDBA
 default_reference="datasets/ebi/DRR001025.fa"   #Set DRR001012 as default reference dataset
@@ -32,13 +33,14 @@ where:
     -h  show this help text
     -c  clean up old benchmarks and back them up 
     -d  choose a dataset category (small, medium, large), medium will be default
+    -o  specify full path to a toolfile to test tools not part of bootable (/home/user/toolfile.btbl) 
     -p  number of cores/threads that should be used (one, half, full, or any integer value, full is default)
     -r  number of replica cycles that should be executed (any integer value, 3 is default)  
     -s  run scaling benchmark (small, medium, large), parameters describe the used datasets
     -t  toolgroup which should be used for the benchmarks (all, genomics, ml, quant) or a specific tool (bowtie2-build, velvet, idba, tensorflow, gromacs, SPAdes, clustalomega). Default is all"
 
 # Create flag options
-while getopts "chd:p:r:s:t:" option; do
+while getopts "chd:o:p:r:s:t:" option; do
 	case "${option}" in
 		h)	echo "$usage"
 			exit 1
@@ -48,6 +50,9 @@ while getopts "chd:p:r:s:t:" option; do
 			;;
 		d) 
 			dataset=${OPTARG}
+			;;
+		o)
+			own_tool_path=${OPTARG}
 			;;
 		p)
 			default_cores=${OPTARG}
@@ -83,7 +88,7 @@ run_benchmark_tools () {
 cores=$1					#Input parameter number cores (1,2,3,...)
 cores_velvet=$2					#Input parameter number cores velvet (1,2,3,...)
 replica=$3					#Input parameter number of replica (1,2,3,..)
-dataset=$4					#Input parameter which dataset (medium, large)
+dataset=$4					#Input parameter which dataset (small, medium, large)
 tf_steps=$5					#Input parameter for Tensorflow how much steps
 gromacs_steps=$6				#Input parameter for GROMACS how much steps 
 reference=$7					#Input parameter for bowtie build index which dataset
@@ -91,23 +96,65 @@ reference_name=$(basename $reference | cut -d. -f1)	#Get only the name of the da
 dataset_name=$(basename $dataset | cut -d. -f1) #Get only the name of the dataset from the filepath
 dataset_idba=$8					#Input parameter for IDBA (needs .fa file)
 toolgroup=$9					#Input parameter which tools should be used
-dataset_clustalOmega=${10}
+dataset_clustalOmega=${10}                      #Input parameter for Clustal Omega which dataset
 dataset_name_clustalOmega=$(basename $dataset_clustalOmega | cut -d. -f-3)
+own_tool_path=${11}				#Input parameter path to toolfile (full path)
+if [  "$own_tool_path" != "none" ]
+then
 
+own_toolname=$(cat "$own_tool_path" | grep "Toolname" | cut -d: -f2)
+own_datasetname=$(cat "$own_tool_path" | grep "Dataset" | cut -d: -f2)
+own_toolcommand=$(cat "$own_tool_path" | grep "Command" | cut -d: -f2)
+substituted_own_toolcommand=$(eval echo $own_toolcommand)
+
+if [ -d benchmark_output/"$own_toolname" ]
+then
+        echo "Directory benchmark_output for ""$own_toolname"" already exists."
+else
+        mkdir benchmark_output/"$own_toolname"
+fi
+
+#Own tool execution
+rm -rf benchmark_output/"$own_toolname"/*
+echo "Running ""$own_toolname"" index build benchmark on dataset ""$own_datasetname"" " 
+echo "Replica_$replica ""$own_toolname"" with ""$cores"" cores on dataset ""$own_datasetname"" " >> results/benchmark_""$own_toolname""_time_""$cores"".txt #Create results file with walltime
+date >> results/benchmark_"$own_toolname"_time_"$cores".txt  #Add date to walltime file
+
+# Start nmon capturing
+NMON_FILE_NAME="""$own_toolname""_""$replica""_$(date +"%Y-%m-%d-%H-%M")"
+NMON_PID=$(nmon -F "$NMON_FILE_NAME".nmon -m nmon_stats/ -p -s 2 -c 12000000) # -s is the interval between snapshots, -c is the number of snapshots very high to ensure them to the end of the tool run
+
+# Run bowtie2 index builder on dataset $reference_name
+/usr/bin/time -p -a -o results/benchmark_"$own_toolname"_time_$cores.txt sh -c "$substituted_own_toolcommand" >> results/benchmark_"$own_toolname"_output_$cores.txt 2>&1
+
+# Stop nmon capturing
+kill -USR2 "$NMON_PID"
+
+# Make nmon html graphs
+sh nmonchart/nmonchart nmon_stats/"$NMON_FILE_NAME".nmon nmon_stats/"$NMON_FILE_NAME".html
+
+echo "" >> results/benchmark_"$own_toolname"_time_"$cores".txt       #Blank line for clarity and parsing
+
+touch benchmark_summary_"$cores".txt
+
+path="results/benchmark_""$own_toolname""_time_""$cores"".txt"
+check_results $path $cores
+
+else
 # Save original PATH and LD_LIBRARY variables
 original_path_variable=$(echo $PATH)
 original_ld_library_variable=$(echo $LD_LIBRARY_PATH)
 
 if [ $toolgroup == "all" ] || [ $toolgroup == "genomics" ] || [ $toolgroup == "bowtie2-build" ]
 then
-	# Bowtie2 build index
+	# Bowtie2 buiild index
 	rm -rf benchmark_output/bowtie2/*		#Clean up bowtie2 output directoy
 	echo "Running bowtie2 index build benchmark on dataset $reference_name"	
 	echo "Replica_$replica Bowtie2_build with $cores cores on dataset $reference_name" >> results/benchmark_bowtie_build_time_$cores.txt				 #Create results file with walltime
 	date >> results/benchmark_bowtie_build_time_$cores.txt	#Add date to walltime file
 
 	# Start nmon capturing
-	NMON_FILE_NAME="bowtie2_build_"$replica"_$(date +"%Y-%m-%d-%H-%M")"
+	NMON_FILE_NAME="bowtie2_build_$replica_$(date +"%Y-%m-%d-%H-%M")"
 	NMON_PID=$(nmon -F $NMON_FILE_NAME.nmon -m nmon_stats/ -p -s 2 -c 12000000) # -s is the interval between snapshots, -c is the number of snapshots very high to ensure them to the end of the tool run
 
 	# Run bowtie2 index builder on dataset $reference_name
@@ -118,7 +165,6 @@ then
 
 	# Make nmon html graphs
 	sh nmonchart/nmonchart nmon_stats/$NMON_FILE_NAME.nmon nmon_stats/$NMON_FILE_NAME.html 
-
 	echo "" >> results/benchmark_bowtie_build_time_$cores.txt	#Blank line for clarity and parsing
 else
         echo "Bowtie2 index build will not be started as you did not choose the genomics tools, all tools or the tool itself."
@@ -364,43 +410,52 @@ check_results $path $cores
 
 path="results/benchmark_SPAdes_time_$cores.txt"
 check_results $path $cores
+
+fi
 }
 
 
-if [ $clean == 1 ]
-then
-	if [ -e benchmark_summary_*.txt ]
-	then
-		backup_date=$(stat -c %y benchmark_summary_*.txt | cut -d ' ' -f1)
-		backup_time=$(stat -c %y benchmark_summary_*.txt | cut -d ' ' -f2 | cut -d. -f1)
-		backup_dir_name="$backup_date-$backup_time"
-		mkdir backed_up_benchmark_results/$backup_dir_name
-		tar -cf backed_up_benchmark_results/$backup_dir_name/results.tar results/*
-		cp benchmark_summary_* backed_up_benchmark_results/$backup_dir_name
-		cp bootable_system_info.txt backed_up_benchmark_results/$backup_dir_name
-		tar -cf backed_up_benchmark_results/$backup_dir_name/nmon_stats.tar nmon_stats/*
-		rm benchmark_summary_*
-		rm -rf results/*
-		rm bootable_system_info.txt
-		rm -rf nmon_stats/*
-	else
-		while true; do
-                read -p "No full benchmark could have been detected so there are no files to back them up, all related data from stopped run before will be deleted. Do you want to start the benchmark?" yn
-                case $yn in
-                        [Yy]* )	rm -rf results/*
-                		rm -f bootable_system_info.txt
-                		rm -rf nmon_stats/*
-				break
-				;;
-                        [Nn]* ) echo "The benchmarks will not be started"
-				exit 1
-                                ;;
-                        * ) echo "Please answer yes or no."
-                                ;;
-                esac
-        	done
-	fi
+if [ "$clean" == 1 ]
+then	
+	for filepath in benchmark_summary_*.txt; do
 
+		if [ -e "$filepath" ]
+		then
+			#backup_date=$(stat -c %y benchmark_summary_*.txt | cut -d ' ' -f1)
+			#backup_time=$(stat -c %y benchmark_summary_*.txt | cut -d ' ' -f2 | cut -d. -f1)
+			#backup_dir_name="$backup_date-$backup_time"
+			backup_date=$(stat -c %y $filepath | cut -d ' ' -f1)
+                        backup_time=$(stat -c %y $filepath | cut -d ' ' -f2 | cut -d. -f1)
+                        backup_dir_name="$backup_date-$backup_time"
+			mkdir backed_up_benchmark_results/$backup_dir_name
+			tar -cf backed_up_benchmark_results/$backup_dir_name/results.tar results/*
+			cp benchmark_summary_* backed_up_benchmark_results/$backup_dir_name
+			cp bootable_system_info.txt backed_up_benchmark_results/$backup_dir_name
+			tar -cf backed_up_benchmark_results/$backup_dir_name/nmon_stats.tar nmon_stats/*
+			rm benchmark_summary_*
+			rm -rf results/*
+			rm bootable_system_info.txt
+			rm -rf nmon_stats/*
+			break
+		else
+			while true; do
+                	read -p "No full benchmark could have been detected so there are no files to back them up, all related data from stopped run before will be deleted. Do you want to start the benchmark?" yn
+                	case $yn in
+                        	[Yy]* )	rm -rf results/*
+                			rm -f bootable_system_info.txt
+                			rm -rf nmon_stats/*
+					break
+					;;
+                        	[Nn]* ) echo "The benchmarks will not be started"
+					exit 1
+                                	;;
+                        	* ) echo "Please answer yes or no."
+                                	;;
+                	esac
+        		done
+			break
+		fi
+	done
 fi
 
 touch bootable_system_info.txt
@@ -521,7 +576,7 @@ then
 	exit 1
 fi
 
-if [ "$scaling" == "none" ]
+if [[ "$scaling" == "none" && "$own_tool_path" == "none" ]]
 then
 	echo "General genomic dataset for Bowtie2, Velvet, SPAdes: $dataset"
 	echo "IDBA dataset: $dataset_idba"
@@ -537,10 +592,11 @@ then
 
 	for replica in $( seq 1 $default_replicas ) 
 	do
-		run_benchmark_tools $default_cores $default_cores_velvet $replica $dataset $default_tensorflow_steps $default_gromacs_steps $default_reference $dataset_idba $default_toolgroup $dataset_clustalOmega
+		run_benchmark_tools $default_cores $default_cores_velvet $replica $dataset $default_tensorflow_steps $default_gromacs_steps $default_reference $dataset_idba $default_toolgroup $dataset_clustalOmega $own_tool_path
 	done
 
-else
+elif [[ "$scaling" != "none" && "$own_tool_path" == "none" ]]
+then
 	echo "Scaling mode is chosen and scaling benchmark will be conducted."
 	echo "BOOTABLE scaling benchmark run with 1 core 1/4 of available cores, 1/2 of available cores, all available cores and $default_replicas replicates each"
 	
@@ -549,7 +605,7 @@ else
 		default_cores=$one_core
 		default_cores_velvet=$one_core
 		echo "$replica replica of $default_replicas replica with $default_cores core is running."
-                run_benchmark_tools $default_cores $default_cores_velvet $replica $dataset $default_tensorflow_steps $default_gromacs_steps $default_reference $dataset_idba $default_toolgroup $dataset_clustalOmega
+                run_benchmark_tools $default_cores $default_cores_velvet $replica $dataset $default_tensorflow_steps $default_gromacs_steps $default_reference $dataset_idba $default_toolgroup $dataset_clustalOmega $own_tool_path
         done
 	
 	for replica in $( seq 1 $default_replicas )
@@ -557,7 +613,7 @@ else
                 default_cores=$quarter_cores
 		default_cores_velvet=$quarter_cores_velvet
 		echo "$replica replica of $default_replicas replica with $default_cores cores is running."
-                run_benchmark_tools $default_cores $default_cores_velvet $replica $dataset $default_tensorflow_steps $default_gromacs_steps $default_reference $dataset_idba $default_toolgroup $dataset_clustalOmega
+                run_benchmark_tools $default_cores $default_cores_velvet $replica $dataset $default_tensorflow_steps $default_gromacs_steps $default_reference $dataset_idba $default_toolgroup $dataset_clustalOmega $own_tool_path
         done
 
 	for replica in $( seq 1 $default_replicas )
@@ -565,7 +621,7 @@ else
                 default_cores=$half_cores
                 default_cores_velvet=$half_cores_velvet
 		echo "$replica replica of $default_replicas replica with $default_cores cores is running."
-                run_benchmark_tools $default_cores $default_cores_velvet $replica $dataset $default_tensorflow_steps $default_gromacs_steps $default_reference $dataset_idba $default_toolgroup $dataset_clustalOmega
+                run_benchmark_tools $default_cores $default_cores_velvet $replica $dataset $default_tensorflow_steps $default_gromacs_steps $default_reference $dataset_idba $default_toolgroup $dataset_clustalOmega $own_tool_path
         done
 
 	for replica in $( seq 1 $default_replicas )
@@ -573,7 +629,52 @@ else
                 default_cores=$max_cores
                 default_cores_velvet=$max_cores_velvet
 		echo "$replica replica of $default_replicas replica with $default_cores cores is running."
-                run_benchmark_tools $default_cores $default_cores_velvet $replica $dataset $default_tensorflow_steps $default_gromacs_steps $default_reference $dataset_idba $default_toolgroup $dataset_clustalOmega
+                run_benchmark_tools $default_cores $default_cores_velvet $replica $dataset $default_tensorflow_steps $default_gromacs_steps $default_reference $dataset_idba $default_toolgroup $dataset_clustalOmega $own_tool_path
 	done
+elif [[ "$scaling" == "none" && "$own_tool_path" != "none" ]]
+then
+	echo "The own tool option is chosen with the toolfile under $own_tool_path"
+	
+	for replica in $( seq 1 $default_replicas )
+        do
+		run_benchmark_tools $default_cores $default_cores_velvet $replica $dataset $default_tensorflow_steps $default_gromacs_steps $default_reference $dataset_idba $default_toolgroup $dataset_clustalOmega $own_tool_path
+	done
+
+else [[ "$scaling" != "none" && "$own_tool_path" != "none" ]]
+	echo "The scaling option is combined with the own tool option and the toolfile under $own_tool_path"
+	
+	echo "BOOTABLE scaling benchmark run with 1 core 1/4 of available cores, 1/2 of available cores, all available cores and $default_replicas replicates each with your own specified tool"
+
+        for replica in $( seq 1 $default_replicas )
+        do
+                default_cores=$one_core
+                default_cores_velvet=$one_core
+                echo "$replica replica of $default_replicas replica with $default_cores core is running."
+                run_benchmark_tools $default_cores $default_cores_velvet $replica $dataset $default_tensorflow_steps $default_gromacs_steps $default_reference $dataset_idba $default_toolgroup $dataset_clustalOmega $own_tool_path
+        done
+
+        for replica in $( seq 1 $default_replicas )
+        do
+                default_cores=$quarter_cores
+                default_cores_velvet=$quarter_cores_velvet
+                echo "$replica replica of $default_replicas replica with $default_cores cores is running."
+                run_benchmark_tools $default_cores $default_cores_velvet $replica $dataset $default_tensorflow_steps $default_gromacs_steps $default_reference $dataset_idba $default_toolgroup $dataset_clustalOmega $own_tool_path
+        done
+
+        for replica in $( seq 1 $default_replicas )
+        do
+                default_cores=$half_cores
+                default_cores_velvet=$half_cores_velvet
+                echo "$replica replica of $default_replicas replica with $default_cores cores is running."
+                run_benchmark_tools $default_cores $default_cores_velvet $replica $dataset $default_tensorflow_steps $default_gromacs_steps $default_reference $dataset_idba $default_toolgroup $dataset_clustalOmega $own_tool_path
+        done
+
+        for replica in $( seq 1 $default_replicas )
+        do
+                default_cores=$max_cores
+                default_cores_velvet=$max_cores_velvet
+                echo "$replica replica of $default_replicas replica with $default_cores cores is running."
+                run_benchmark_tools $default_cores $default_cores_velvet $replica $dataset $default_tensorflow_steps $default_gromacs_steps $default_reference $dataset_idba $default_toolgroup $dataset_clustalOmega $own_tool_path
+        done
 fi
 
