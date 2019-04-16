@@ -20,6 +20,15 @@ cover a range of different application cases and make strong use of multithreadi
 in order to get some benchmarks of the underlying hardware and about the scalability of the system.
 In the following is explained how to install BOOTABLE, how to run it and what kind of options you have. Information about results are stated in the **Results**  section.
 
+## News (16.04.19)
+We added a generic approach to make it possible to test every tool not already inlcuded in BOOTABLE. 
+- You can use all built in plot variants
+- You can use the scaling mode to test your tool with regards to scalability
+- You can use all already available datasets within BOOTABLE
+- Use a simple textfile approach to specify your tool name the command to run it and what size of dataset you are using.
+
+More description can be found in the **Start Benchmarks** section.
+
 ## News (03.04.19)
 We changed some things regarding the report generator and the executing benchmark script.
 - New scaling mode is now available in the `run_benchmark.sh` script (flag -s) more in the **Start Benchmarks** section
