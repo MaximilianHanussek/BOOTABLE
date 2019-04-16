@@ -299,7 +299,7 @@ If you want to test the scaling behaviour of a tool use the scaling mode with th
 <pre>sh run_benchmarks.sh -r 3 -s medium -t genomics</pre>
 
 If you want to use a tool that is not part of BOOTABLE you can include this one by using the `-o` flag and specifying the path to the Toolfile which is explained more in detail in the section **Generic tools wrapper**:
-<pre>sh run_benchmarks.sh -c -d small -o /absolute/path/to/toolfile.btbl -p full -r 1  
+<pre>sh run_benchmarks.sh -c -d small -o /absolute/path/to/toolfile.btbl -p full -r 1</pre>
 
 You can also skip flags where you just want to use the default values.
 
