@@ -319,9 +319,9 @@ For the case you want to benchmark a tool or other tools that are not part of BO
 
 You just need to write a short textfile named as you like it and saved where you have access to it in the following manner (example for the bowtie2 index builder tool):
 
-<pre>Toolname:bowtie2_build_test
+<pre>Toolname:bowtie2_build
 Dataset:Medium
-Command:bowtie2/bowtie2-2.3.4.2/bowtie2-build --threads $cores --seed 42 $reference benchmark_output/bowtie2_build_test/benchmark</pre>
+Command:bowtie2/bowtie2-2.3.4.2/bowtie2-build --threads $cores --seed 42 $reference benchmark_output/bowtie2_build/benchmark</pre>
 
 For the lines Parameters `Toolname` and `Dataset` you can choose what ever you want it is just for you and has no direct impact on the calculations.
 The `Command` parameter is more important. Here you need to specify exactly how your tool has to be executed with some following guidelines:
@@ -337,7 +337,7 @@ Here a list of the datasets you will get with the corresponding variable:
 - $dataset:   with -d flag medium  -> ERR016155.filt.fastq
 - $dataset:   with -d flag large   -> ERR251006.filt.fastq
 
-- If your tool produces any ouptut you can also let handle this by BOOTABLE. You only need to specify the output folder to point to the directory BOOTABLE/benchmark_output/`Toolname` as specified in the example.
+- If your tool produces any ouptut you can also let handle this by BOOTABLE. You only need to specify the output folder to point to the directory BOOTABLE/benchmark_output/`Toolname` as specified in the example. Please do not overwrite already existing directories of other tools already existing in the `benchmark_output` directory.
 
 - And of course you need to install your tool and all required dependencies yourself and check everything is working fine.
 
