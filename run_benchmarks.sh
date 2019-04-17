@@ -431,10 +431,12 @@ then
 			tar -cf backed_up_benchmark_results/$backup_dir_name/results.tar results/*
 			cp benchmark_summary_* backed_up_benchmark_results/$backup_dir_name
 			cp bootable_system_info.txt backed_up_benchmark_results/$backup_dir_name
+			cp scaling_plot* backed_up_benchmark_results/$backup_dir_name
 			tar -cf backed_up_benchmark_results/$backup_dir_name/nmon_stats.tar nmon_stats/*
 			rm benchmark_summary_*
 			rm -rf results/*
 			rm bootable_system_info.txt
+			rm scaling_plot*
 			rm -rf nmon_stats/*
 			break
 		else
