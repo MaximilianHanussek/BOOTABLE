@@ -180,3 +180,4 @@ RUN ~/IDBA/idba_ud-1.0.9/bin/fq2fa ~/datasets/ebi/DRR001025.fastq ~/datasets/ebi
 COPY run_benchmarks.sh /root/
 COPY BOOTABLE_report_generator.R /root/
 COPY install_check.sh /root/
+COPY BOOTABLE_collect.sh /root/

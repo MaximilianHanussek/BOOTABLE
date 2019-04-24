@@ -1,6 +1,5 @@
 ---
-# defaults file for threadedbiobench
-## List of packages to install for RStudio
+# defaults file for BOOTABLE
 common_packages:
   - nano
   - curl
@@ -13,4 +12,12 @@ common_packages:
   - python-pip
   - cmake3
   - tbb-devel.x86_64
+  - argtable-devel
   - R
+  - inxi
+  - util-linux
+  - hwloc
+  - hwloc-devel
+  - gmp-devel
+  - mpfr-devel
+  - libmpc-devel
