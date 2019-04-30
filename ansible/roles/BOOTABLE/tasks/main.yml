@@ -328,11 +328,16 @@
     dest: /home/centos/gcc/
     remote_src: yes
 
-- name: Download nmonchart34
-  get_url:
-    url: https://s3.denbi.uni-tuebingen.de/max/nmonchart34.tar
+- name: Download and unarchive nmonchart34
+  unarchive:
+    src: https://s3.denbi.uni-tuebingen.de/max/nmonchart34.tar
     dest: /home/centos/
     remote_src: yes
+
+- name: Remove nmonchart34 tar archive after unarchiving
+  file:
+    state: absent
+    path: /home/centos/nmonchart34.tar
 
 ##########################################
 ### Install gcc compiler version 7.3.0 ###
@@ -470,16 +475,14 @@
     remote_src: yes
 
 - name: Configure clustal Omega
-  command: ./configure --prefix=$PWD
-  args:
-    chdir: /home/centos/clustalOmega/clustal-omega-1.2.4/
- 
+  shell: cd /home/centos/clustalOmega/clustal-omega-1.2.4/ && ./configure --prefix=$PWD
+
 - name: Compile clustal Omega
   make:
     chdir: /home/centos/clustalOmega/clustal-omega-1.2.4/
     target: all
     params:
-      NUM_THREADS: "{{nproc_number.stdout}}"
+      NUM_THREADS: 36
 
 - name: Install clustal Omega
   make:
