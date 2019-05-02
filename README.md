@@ -101,7 +101,7 @@ If you can not wait to test your system or tool and want to read through the who
 <pre>sh run_benchmarks.sh</pre>
 
 - After the benchmarking has finished create a report if wanted
-<pre>Rscript --vanilla threadedBioBenchsuiteStatsGenerator.R</pre>
+<pre>Rscript --vanilla BOOTABLE_report_generator.R</pre>
 
 ## Installation
 
