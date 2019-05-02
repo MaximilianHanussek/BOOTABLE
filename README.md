@@ -257,15 +257,33 @@ After the Singularity image has been build you can start the benchmark with the 
 ### 5. Using Ansible
 This guide assumes that you have Ansible already installed and are familiar with it. The playbook has been tested with Ansible version 2.7.2 and is made for Redhat/Centos operating systems. In prinicpal the installation should work the same for other operating systems like Ubuntu but has not been tested yet. Especially the packages to install maybe have to be renamed.
 
-The first step to use the playbook is to clone or download the BOOTABLE github repository. You will find everything regarding ansible in the directory `ansible` outgoing from the BOOTABLE repository root directory. Currently everything will be installed under the directory `/home/centos/` if you do not have this user/directory you can create it or wait until we have made the ansible script more flexible. Further you might need root/sudo access for the GROMACS tool to install some things in `/usr/local/`. We will also fix this in an upcoming version that no specific rights are needed at all.
+The first step to use the playbook is to clone or download the BOOTABLE github repository. You will find everything regarding ansible in the directory `ansible` outgoing from the BOOTABLE repository root directory. Currently everything will be installed under the directory `/home/centos/` if you do not have this user/directory you can create it or wait until we have made the ansible script more flexible. Further you might need root/sudo access for the GROMACS tool to install some things in `/usr/local/` and additional R packages. We will also fix this in an upcoming version that no specific rights are needed at all.
 
 The configuration of the hosts is done via the `inventory` file which includes a template which you have to fill out.
 
 <pre>;[BOOTABLE]
 bootable_machine ansible_host=<REMOTE_IP> ansible_user=<REMOTE_USER> ansible_ssh_private_key_file=</path/to/ssh/key></pre>
 
-- REMOTE_IP: Here you have to specifiy the IP of the machine where you want to install BOOTABLE via the ansible playbook  
+- REMOTE_IP: Here you have to specifiy the IP of the machine where you want to install BOOTABLE via the ansible playbook
+- REMOTE_USER: Here you have to specifiy the user name of the remote host. Which could be root or any other user available on the remote machine
+- ansible_ssh_private_key_file: The access to the machine is granted over an ssh key which should be already placed on the remote machine
 
+You should also be able to install BOOTABLE via the ansible playbook on the same machine where you have downloaded it but than you could use the `install_bootable.sh` directly described above in the **Bare Metal** section.
+
+The `site.yml` file specififies which roles and hosts should be used, which are currently all that are part of the inventory file.
+
+In the roles directory you will find one single role, `BOOTABLE`. In this directory you will find the three important directories and their corresponding yaml files (`main.yml`).
+
+- defaults: In the file of the defaults directory is specified which packages need to be installed during the installation
+- files: The directory contains the executable files required to run the BOOTABLE benchmarks and create the reports.
+- tasks: The file of the tasks directory is the main part of the BOOTABLE installation process. It contains all instructions how to download, configure and install the offered tools and other things required.
+
+In order to run the playbook after you have configured the `inventory` file is the following. Change into the `ansible` directory where you can see the `inventory` and `site.yml` file and execute the follwoing command:
+<pre>ansible-playbook site.yml</pre>
+
+After that ansible will start and BOOTABLE will be installed in an automated way. Ansible will also inform you if something went wrong. Please be patient during the GCC compilation task ( Compile gcc compiler version 7.3.0) as this can take a while (up to hours depending on the hardware).  
+
+Afterwards you can use BOOTABLE like in the following chapter.
 
 ## Start Benchmarks
 In order to start a benchmark just stay in the BOOTABLE root directory and run the `run_benchmarks.sh` script.
