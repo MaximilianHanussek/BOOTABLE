@@ -8,6 +8,7 @@ common_packages:
   - htop
   - time
   - git
+  - nmon
   - zlib-devel.x86_64
   - python-pip
   - cmake3
