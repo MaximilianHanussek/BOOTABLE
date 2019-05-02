@@ -322,6 +322,10 @@
 - name: Set nsteps value from 10000 to 50000 in 
   command: sed -i 's/nsteps.*/nsteps                  = 50000/' /home/centos/datasets/gromacs/adh_cubic/pme_verlet.mdp
 
+
+#################################
+### Download additional tools ###
+#################################
 - name: Download and unarchive GCC compiler version 7.3.0
   unarchive:
     src: https://s3.denbi.uni-tuebingen.de/max/gcc-7.3.0.tar.gz
@@ -384,8 +388,9 @@
     params:
       STATIC_BUILD: 1
 
-
-
+######################
+### Install velvet ###
+######################
 - name: Download velvet from git repo
   command: git clone https://github.com/dzerbino/velvet.git /home/centos/velvet/ creates=/home/centos/velvet/*
 
@@ -395,7 +400,9 @@
     params:
       OPENMP: 1
 
-
+####################
+### Install IDBA ###
+####################
 - name: Download and unarchive IDBA tool in version 1.0.9
   unarchive:
     src: https://s3.denbi.uni-tuebingen.de/max/idba_ud-1.0.9.tar.gz
@@ -412,7 +419,9 @@
   make:
     chdir: /home/centos/IDBA/idba_ud-1.0.9/
 
-
+##################################
+### Install pip and tensorflow ###
+##################################
 - name: Use pip install to install pip in Version 9.0.3
   pip:
     name: pip
@@ -426,7 +435,9 @@
     version: 1.4.0
   become: yes
 
-
+#######################
+### Install GROMACS ###
+#######################
 - name: Download and unarchive GROMACS 2018.3
   unarchive:
     src: https://s3.denbi.uni-tuebingen.de/max/gromacs-2018.3.tar.gz
@@ -461,13 +472,18 @@
   environment:
       LD_LIBRARY_PATH: "/home/centos/gcc/gcc-installed/lib64/"
 
+######################
+### Install SPAdes ###
+######################
 - name: Download and unarchive SPAdes 3.12.0
   unarchive:
     src: https://s3.denbi.uni-tuebingen.de/max/SPAdes-3.12.0-Linux.tar.gz
     dest: /home/centos/SPAdes/
     remote_src: yes
 
-
+#############################
+### Install Clustal Omega ###
+#############################
 - name: Download and unarchive and install clustal Omega 1.2.4
   unarchive:
     src: https://s3.denbi.uni-tuebingen.de/max/clustal-omega-1.2.4.tar.gz
@@ -482,7 +498,7 @@
     chdir: /home/centos/clustalOmega/clustal-omega-1.2.4/
     target: all
     params:
-      NUM_THREADS: 36
+      NUM_THREADS: "{{ nproc_number.stdout }}"
 
 - name: Install clustal Omega
   make:
