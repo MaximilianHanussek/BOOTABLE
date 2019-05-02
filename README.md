@@ -257,6 +257,8 @@ After the Singularity image has been build you can start the benchmark with the 
 ### 5. Using Ansible
 This guide assumes that you have Ansible already installed and are familiar with it. The playbook has been tested with Ansible version 2.7.2 and is made for Redhat/Centos operating systems. In prinicpal the installation should work the same for other operating systems like Ubuntu but has not been tested yet. Especially the packages to install maybe have to be renamed.
 
+**A short warning in beforehand, the playbook will at first update all packages to latest available version, afterwards reboot the machine, install the epel package and the Development tolls package group. If you do not want to update all package versions please uncomment the resepctive tasks.**
+
 The first step to use the playbook is to clone or download the BOOTABLE github repository. You will find everything regarding ansible in the directory `ansible` outgoing from the BOOTABLE repository root directory. Currently everything will be installed under the directory `/home/centos/` if you do not have this user/directory you can create it or wait until we have made the ansible script more flexible. Further you might need root/sudo access for the GROMACS tool to install some things in `/usr/local/` and additional R packages. We will also fix this in an upcoming version that no specific rights are needed at all.
 
 The configuration of the hosts is done via the `inventory` file which includes a template which you have to fill out.
