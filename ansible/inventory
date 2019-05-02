@@ -1,5 +1,2 @@
-;[openstack-centos-vm-image-creation]
-bootable_image_creation ansible_host=193.196.20.76 ansible_user=centos ansible_ssh_private_key_file=/home/mhanussek/Zertifikate/maximilian-demo.pem
-
 ;[BOOTABLE]
-;bootable_machine ansible_host=<IP> ansible_user=<USER> ansible_ssh_private_key_file=</path/to/ssh/key>
+bootable_machine ansible_host=<REMOTE_IP> ansible_user=<REMOTE_USER> ansible_ssh_private_key_file=</path/to/ssh/key>
