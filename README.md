@@ -110,7 +110,7 @@ There are 6 different kinds of installation possibilities.
 2. Using a .qcow2 image with everything already preinstalled
 3. Using Docker and the provided Dockerfile to install everything into a Docker Container
 4. Using Singularity and the provided Singularity file
-5. Transform the Docker container from option 3. into a Singualrity Container
+5. Transform the Docker container from option 3. into a Singularity container
 6. Use Ansible and the provided Ansible script to install the tools on a CentOS based system from scratch
 
 ### 1. Bare metal installation
