@@ -259,7 +259,7 @@ This guide assumes that you have Ansible already installed and are familiar with
 
 **A short warning in beforehand, the playbook will at first update all packages to latest available version, afterwards reboot the machine, install the epel package and the Development tolls package group. If you do not want to update all package versions please uncomment the resepctive tasks.**
 
-The first step to use the playbook is to clone or download the BOOTABLE github repository. You will find everything regarding ansible in the directory `ansible` outgoing from the BOOTABLE repository root directory. Currently everything will be installed under the directory `/home/centos/` if you do not have this user/directory you can create it or wait until we have made the ansible script more flexible. Further you might need root/sudo access for the GROMACS tool to install some things in `/usr/local/` and additional R packages. We will also fix this in an upcoming version that no specific rights are needed at all.
+The first step to use the playbook is to clone or download the BOOTABLE github repository. You will find everything regarding ansible in the directory `ansible` outgoing from the BOOTABLE repository root directory. Currently everything will be installed under the directory `/home/centos/` if you do not have this user/directory you can create it or wait until we have made the ansible script more flexible. Further you might need root/sudo access for the GROMACS tool to install some things in `/usr/local/`, additional R packages and tensorflow via pip. We will also fix this in an upcoming version that no specific rights are needed at all.
 
 The configuration of the hosts is done via the `inventory` file which includes a template which you have to fill out.
 
