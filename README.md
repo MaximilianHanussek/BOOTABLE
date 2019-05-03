@@ -20,11 +20,11 @@ cover a range of different application cases and make strong use of multithreadi
 in order to get some benchmarks of the underlying hardware and about the scalability of the system.
 In the following is explained how to install BOOTABLE, how to run it and what kind of options you have. Information about results are stated in the **Results**  section.
 
+
+
 ## News (02.05.19)
 We added the possibility to install BOOTABLE via Ansible.
 - You will find more about how to use it in the **Using Ansible** section under the installation possibilities.
-- This is an inital state and we are working on getting the playbook more flexible regarding file paths and so on.
-
 
 ## News (16.04.19)
 We added a generic approach to make it possible to test every tool not already inlcuded in BOOTABLE. 
@@ -259,7 +259,7 @@ This guide assumes that you have Ansible already installed and are familiar with
 
 **A short warning in beforehand, the playbook will at first update all packages to latest available version, afterwards reboot the machine, install the epel package and the Development tolls package group. If you do not want to update all package versions please uncomment the resepctive tasks.**
 
-The first step to use the playbook is to clone or download the BOOTABLE github repository. You will find everything regarding ansible in the directory `ansible` outgoing from the BOOTABLE repository root directory. Currently everything will be installed under the directory `/home/centos/` if you do not have this user/directory you can create it or wait until we have made the ansible script more flexible. Further you might need root/sudo access for the GROMACS tool to install some things in `/usr/local/`, additional R packages and tensorflow via pip. We will also fix this in an upcoming version that no specific rights are needed at all.
+The first step to use the playbook is to clone or download the BOOTABLE github repository. You will find everything regarding ansible in the directory `ansible` outgoing from the BOOTABLE repository root directory. Currently everything will be installed under the directory `/home/centos/` if you want to install BOOTABLE in an other path please adjust it via the `site.yml` file. Further you might need root/sudo access for the GROMACS tool to install some things in `/usr/local/`, additional R packages and tensorflow via pip. We will also fix this in an upcoming version that no specific rights are needed at all.
 
 The configuration of the hosts is done via the `inventory` file which includes a template which you have to fill out.
 
@@ -272,7 +272,7 @@ bootable_machine ansible_host=<REMOTE_IP> ansible_user=<REMOTE_USER> ansible_ssh
 
 You should also be able to install BOOTABLE via the ansible playbook on the same machine where you have downloaded it but than you could use the `install_bootable.sh` directly described above in the **Bare Metal** section.
 
-The `site.yml` file specififies which roles and hosts should be used, which are currently all that are part of the inventory file.
+The `site.yml` file specififies which roles and hosts should be used, which are currently all that are part of the inventory file. Further you will find the variable `root_path`, that specifies the installation path prefix. Please change it to any path you want to. BOOTABLE will then be installed in this directory.
 
 In the roles directory you will find one single role, `BOOTABLE`. In this directory you will find the three important directories and their corresponding yaml files (`main.yml`).
 
