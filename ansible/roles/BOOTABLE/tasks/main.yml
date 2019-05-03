@@ -65,42 +65,42 @@
 ###########################################
 - name: Create empty benchmark output directory
   file:
-    path: /home/centos/benchmark_output/
+    path: "{{ root_path }}benchmark_output/"
     state: directory
 
 - name: Create empty bowtie2 output directory
   file:
-    path: /home/centos/benchmark_output/bowtie2/
+    path: "{{ root_path }}benchmark_output/bowtie2/"
     state: directory
 
 - name: Create empty clustal Omega output directory
   file:
-    path: /home/centos/benchmark_output/clustalOmega/
+    path: "{{ root_path }}benchmark_output/clustalOmega/"
     state: directory
 
 - name: Create empty GROMACS output directory
   file:
-    path: /home/centos/benchmark_output/gromacs/
+    path: "{{ root_path }}benchmark_output/gromacs/"
     state: directory
 
 - name: Create empty IDBA output directory
   file:
-    path: /home/centos/benchmark_output/IDBA/
+    path: "{{ root_path }}benchmark_output/IDBA/"
     state: directory
 
 - name: Create empty SPAdes output directory
   file:
-    path: /home/centos/benchmark_output/SPAdes/
+    path: "{{ root_path }}benchmark_output/SPAdes/"
     state: directory
 
 - name: Create empty tensorflow output directory
   file:
-    path: /home/centos/benchmark_output/tensorflow/
+    path: "{{ root_path }}benchmark_output/tensorflow/"
     state: directory
 
 - name: Create empty velvet output directory
   file:
-    path: /home/centos/benchmark_output/velvet/
+    path: "{{ root_path }}benchmark_output/velvet/"
     state: directory
 
 
@@ -109,42 +109,42 @@
 ###############################
 - name: Create empty bowtie2 directory
   file:
-    path: /home/centos/bowtie2/
+    path: "{{ root_path }}bowtie2/"
     state: directory
 
 - name: Create empty clustal Omega directory
   file:
-    path: /home/centos/clustalOmega/
+    path: "{{ root_path }}clustalOmega/"
     state: directory
 
 - name: Create empty GROMACS directory
   file:
-    path: /home/centos/gromacs/
+    path: "{{ root_path }}gromacs/"
     state: directory
 
 - name: Create empty GROMACS build directory
   file:
-    path: /home/centos/gromacs/gromacs-2018.3/build/
+    path: "{{ root_path }}gromacs/gromacs-2018.3/build/"
     state: directory
 
 - name: Create empty IDBA directory
   file:
-    path: /home/centos/IDBA/
+    path: "{{ root_path }}IDBA/"
     state: directory
 
 - name: Create empty SPAdes directory
   file:
-    path: /home/centos/SPAdes/
+    path: "{{ root_path }}SPAdes/"
     state: directory
 
 - name: Create empty tensorflow directory
   file:
-    path: /home/centos/tensorflow/
+    path: "{{ root_path }}tensorflow/"
     state: directory
 
 - name: Create empty velvet directory
   file:
-    path: /home/centos/velvet/
+    path: "{{ root_path }}velvet/"
     state: directory
 
 
@@ -153,32 +153,32 @@
 ##################################
 - name: Create empty dataset directory
   file:
-    path: /home/centos/datasets/
+    path: "{{ root_path }}datasets/"
     state: directory
 
 - name: Create empty 1000 genomes directory
   file:
-    path: /home/centos/datasets/1000_genomes
+    path: "{{ root_path }}datasets/1000_genomes"
     state: directory
 
 - name: Create empty clustal Omega dataset directory
   file:
-    path: /home/centos/datasets/clustalOmega
+    path: "{{ root_path }}datasets/clustalOmega"
     state: directory
 
 - name: Create empty tensorflow data directory
   file:
-    path: /home/centos/datasets/tensorflow
+    path: "{{ root_path }}datasets/tensorflow"
     state: directory
 
 - name: Create empty gromacs data directory
   file:
-    path: /home/centos/datasets/gromacs
+    path: "{{ root_path }}datasets/gromacs"
     state: directory
 
 - name: Create empty ebi dataset directory
   file:
-    path: /home/centos/datasets/ebi
+    path: "{{ root_path }}datasets/ebi"
     state: directory
 
 ##########################################
@@ -186,32 +186,32 @@
 ##########################################
 - name: Create empty results directory
   file:
-    path: /home/centos/results
+    path: "{{ root_path }}results"
     state: directory
 
 - name: Create empty back up directory
   file:
-    path: /home/centos/backed_up_benchmark_results
+    path: "{{ root_path }}backed_up_benchmark_results"
     state: directory
 
 - name: Create empty gcc directory
   file:
-    path: /home/centos/gcc
+    path: "{{ root_path }}gcc"
     state: directory
 
 - name: Create empty gcc-build directory
   file:
-    path: /home/centos/gcc/gcc-build
+    path: "{{ root_path }}gcc/gcc-build"
     state: directory
 
 - name: Create empty gcc/gcc-installed directory
   file:
-    path: /home/centos/gcc/gcc-installed
+    path: "{{ root_path }}gcc/gcc-installed"
     state: directory
 
 - name: Create empty nmon_stats directory
   file:
-    path: /home/centos/nmon_stats
+    path: "{{ root_path }}nmon_stats"
     state: directory
 
 #########################
@@ -220,107 +220,107 @@
 - name: Download read set ERR251006
   get_url:
     url:  https://s3.denbi.uni-tuebingen.de/max/ERR251006.filt.fastq.gz
-    dest: /home/centos/datasets/1000_genomes/ERR251006.filt.fastq.gz
+    dest: "{{ root_path }}datasets/1000_genomes/ERR251006.filt.fastq.gz"
 
 - name: Unarchive read set ERR251006
-  command: gunzip /home/centos/datasets/1000_genomes/ERR251006.filt.fastq.gz creates=/home/centos/datasets/1000_genomes/ERR251006.filt.fastq
+  command: gunzip "{{ root_path }}datasets/1000_genomes/ERR251006.filt.fastq.gz" creates="{{ root_path }}datasets/1000_genomes/ERR251006.filt.fastq"
 
 
 - name: Download read set ERR016155
   get_url:
     url: https://s3.denbi.uni-tuebingen.de/max/ERR016155.filt.fastq.gz
-    dest: /home/centos/datasets/1000_genomes/ERR016155.filt.fastq.gz
+    dest: "{{ root_path }}datasets/1000_genomes/ERR016155.filt.fastq.gz"
 
 - name: Unarchive read set ERR016155
-  command: gunzip /home/centos/datasets/1000_genomes/ERR016155.filt.fastq.gz creates=/home/centos/datasets/1000_genomes/ERR016155.filt.fastq
+  command: gunzip "{{ root_path }}datasets/1000_genomes/ERR016155.filt.fastq.gz" creates="{{ root_path }}datasets/1000_genomes/ERR016155.filt.fastq"
 
 
 - name: Download read set ERR015528
   get_url:
     url: https://s3.denbi.uni-tuebingen.de/max/ERR015528.filt.fastq.gz
-    dest: /home/centos/datasets/1000_genomes/ERR015528.filt.fastq.gz
+    dest: "{{ root_path }}datasets/1000_genomes/ERR015528.filt.fastq.gz"
 
 - name: Unarchive read set ERR015528
-  command: gunzip /home/centos/datasets/1000_genomes/ERR015528.filt.fastq.gz creates=/home/centos/datasets/1000_genomes/ERR015528.filt.fastq
+  command: gunzip "{{ root_path }}datasets/1000_genomes/ERR015528.filt.fastq.gz" creates="{{ root_path }}datasets/1000_genomes/ERR015528.filt.fastq"
 
 
 - name: Download read set SRR741411
   get_url:
     url: https://s3.denbi.uni-tuebingen.de/max/SRR741411.filt.fastq.gz
-    dest: /home/centos/datasets/1000_genomes/SRR741411.filt.fastq.gz
+    dest: "{{ root_path }}datasets/1000_genomes/SRR741411.filt.fastq.gz"
 
 - name: Unarchive read set SRR741411
-  command: gunzip /home/centos/datasets/1000_genomes/SRR741411.filt.fastq.gz creates=/home/centos/datasets/1000_genomes/SRR741411.filt.fastq
+  command: gunzip "{{ root_path }}datasets/1000_genomes/SRR741411.filt.fastq.gz" creates="{{ root_path }}datasets/1000_genomes/SRR741411.filt.fastq"
 
 
 - name: Download read set DRR001012
   get_url:
     url: https://s3.denbi.uni-tuebingen.de/max/DRR001012.fastq.gz
-    dest: /home/centos/datasets/ebi/DRR001012.fastq.gz
+    dest: "{{ root_path }}datasets/ebi/DRR001012.fastq.gz"
 
 - name: Unarchive read set DRR001012
-  command: gunzip /home/centos/datasets/ebi/DRR001012.fastq.gz creates=/home/centos/datasets/ebi/DRR001012.fastq
+  command: gunzip "{{ root_path }}datasets/ebi/DRR001012.fastq.gz" creates="{{ root_path }}datasets/ebi/DRR001012.fastq"
 
 
 - name: Download read set DRR001025
   get_url:
     url: https://s3.denbi.uni-tuebingen.de/max/DRR001025.fastq.gz
-    dest: /home/centos/datasets/ebi/DRR001025.fastq.gz
+    dest: "{{ root_path }}datasets/ebi/DRR001025.fastq.gz"
 
 - name: Unarchive read set DRR001025
-  command: gunzip /home/centos/datasets/ebi/DRR001025.fastq.gz creates=/home/centos/datasets/ebi/DRR001025.fastq
+  command: gunzip "{{ root_path }}datasets/ebi/DRR001025.fastq.gz" creates="{{ root_path }}datasets/ebi/DRR001025.fastq"
 
 
 - name: Download reference genome GRCh38
   get_url: 
     url: https://s3.denbi.uni-tuebingen.de/max/GRCh38_full_analysis_set_plus_decoy_hla.fa
-    dest: /home/centos/datasets/1000_genomes/GRCh38_full_analysis_set_plus_decoy_hla.fa
+    dest: "{{ root_path }}datasets/1000_genomes/GRCh38_full_analysis_set_plus_decoy_hla.fa"
 
 
 - name: Download clustal Omega dataset wgs.ANCA.1_200
   get_url:
     url: https://s3.denbi.uni-tuebingen.de/max/wgs.ANCA.1_200.fsa
-    dest: /home/centos/datasets/clustalOmega/wgs.ANCA.1_200.fsa
+    dest: "{{ root_path }}datasets/clustalOmega/wgs.ANCA.1_200.fsa"
 
 
 - name: Download clustal Omega dataset wgs.ANCA.1_400
   get_url:
     url: https://s3.denbi.uni-tuebingen.de/max/wgs.ANCA.1_400.fsa
-    dest: /home/centos/datasets/clustalOmega/wgs.ANCA.1_400.fsa
+    dest: "{{ root_path }}datasets/clustalOmega/wgs.ANCA.1_400.fsa"
 
 
 - name: Download clustal Omega dataset wgs.ANCA.1_500
   get_url:
     url: https://s3.denbi.uni-tuebingen.de/max/wgs.ANCA.1_500.fsa
-    dest: /home/centos/datasets/clustalOmega/wgs.ANCA.1_500.fsa
+    dest: "{{ root_path }}datasets/clustalOmega/wgs.ANCA.1_500.fsa"
 
 
 - name: Download and unarchive tensorflow models
   unarchive:
     src: https://s3.denbi.uni-tuebingen.de/max/models.tar.gz
-    dest: /home/centos/datasets/tensorflow/
+    dest: "{{ root_path }}datasets/tensorflow/"
     remote_src: yes
 
 - name: Download and unarchive tensorflow cifar-10-binary
   unarchive:
     src: https://s3.denbi.uni-tuebingen.de/max/cifar-10-binary.tar.gz
-    dest: /home/centos/datasets/tensorflow/
+    dest: "{{ root_path }}datasets/tensorflow/"
     remote_src: yes
 
 - name: Download tensorflow cifar-10-binary again, needs to be present as .tar.gz
   get_url:
     url: https://s3.denbi.uni-tuebingen.de/max/cifar-10-binary.tar.gz
-    dest: /home/centos/datasets/tensorflow/
+    dest: "{{ root_path }}datasets/tensorflow/"
 
 
 - name: Download and unarchive GROMACS dataset
   unarchive:
     src: https://s3.denbi.uni-tuebingen.de/max/ADH_bench_systems.tar.gz
-    dest: /home/centos/datasets/gromacs/
+    dest: "{{ root_path }}datasets/gromacs/"
     remote_src: yes
 
 - name: Set nsteps value from 10000 to 50000 in 
-  command: sed -i 's/nsteps.*/nsteps                  = 50000/' /home/centos/datasets/gromacs/adh_cubic/pme_verlet.mdp
+  command: sed -i 's/nsteps.*/nsteps                  = 50000/' "{{ root_path }}datasets/gromacs/adh_cubic/pme_verlet.mdp"
 
 
 #################################
@@ -329,19 +329,19 @@
 - name: Download and unarchive GCC compiler version 7.3.0
   unarchive:
     src: https://s3.denbi.uni-tuebingen.de/max/gcc-7.3.0.tar.gz
-    dest: /home/centos/gcc/
+    dest: "{{ root_path }}gcc/"
     remote_src: yes
 
 - name: Download and unarchive nmonchart34
   unarchive:
     src: https://s3.denbi.uni-tuebingen.de/max/nmonchart34.tar
-    dest: /home/centos/
+    dest: "{{ root_path }}"
     remote_src: yes
 
 - name: Remove nmonchart34 tar archive after unarchiving
   file:
     state: absent
-    path: /home/centos/nmonchart34.tar
+    path: "{{ root_path }}nmonchart34.tar"
 
 ##########################################
 ### Install gcc compiler version 7.3.0 ###
@@ -349,23 +349,23 @@
 - name: Install additional software for gcc compiler version 7.3.0
   command: ./contrib/download_prerequisites
   args:
-    chdir: /home/centos/gcc/gcc-7.3.0
+    chdir: "{{ root_path }}gcc/gcc-7.3.0"
 
 - name: Configure gcc compiler version 7.3.0
-  command: ../gcc-7.3.0/configure --enable-languages=c,c++ --disable-multilib --prefix=/home/centos/gcc/gcc-installed
+  command: ../gcc-7.3.0/configure --enable-languages=c,c++ --disable-multilib --prefix="{{ root_path }}gcc/gcc-installed"
   args:
-    chdir: /home/centos/gcc/gcc-build
+    chdir: "{{ root_path }}gcc/gcc-build"
 
 - name: Compile gcc compiler version 7.3.0
   make:
-    chdir: /home/centos/gcc/gcc-build
+    chdir: "{{ root_path }}gcc/gcc-build"
     target: all
     params:
       NUM_THREADS: "{{ nproc_number.stdout }}"
 
 - name: Install gcc compiler version 7.3.0
   make:
-   chdir: /home/centos/gcc/gcc-build
+   chdir: "{{ root_path }}gcc/gcc-build"
    target: install
 
 #######################
@@ -374,16 +374,18 @@
 - name: Download and unarchive and install bowtie2 tool
   unarchive:
     src: https://s3.denbi.uni-tuebingen.de/max/bowtie2-2.3.4.2-source.zip
-    dest: /home/centos/bowtie2/
+    dest: "{{ root_path }}bowtie2/"
     remote_src: yes
-    creates: /home/centos/bowtie2/*
+    creates: "{{ root_path }}bowtie2/*"
 
-- make:
-    chdir: /home/centos/bowtie2/bowtie2-2.3.4.2/
+- name: Compile static libs for bowtie2
+  make:
+    chdir: "{{ root_path }}bowtie2/bowtie2-2.3.4.2/"
     target: static-libs
 
-- make:
-    chdir: /home/centos/bowtie2/bowtie2-2.3.4.2/
+- name: Compile and install bowtie2
+  make:
+    chdir: "{{ root_path }}bowtie2/bowtie2-2.3.4.2/"
     target: all
     params:
       STATIC_BUILD: 1
@@ -396,7 +398,7 @@
 
 - name: Compile and install velvet
   make: 
-    chdir: /home/centos/velvet/
+    chdir: "{{ root_path }}velvet/"
     params:
       OPENMP: 1
 
@@ -406,18 +408,18 @@
 - name: Download and unarchive IDBA tool in version 1.0.9
   unarchive:
     src: https://s3.denbi.uni-tuebingen.de/max/idba_ud-1.0.9.tar.gz
-    dest: /home/centos/IDBA/
+    dest: "{{ root_path }}IDBA/"
     remote_src: yes
-    creates: /home/centos/IDBA/*
+    creates: "{{ root_path }}IDBA/*"
 
 - name: Configure IDBA
   command: ./configure
   args:
-    chdir: /home/centos/IDBA/idba_ud-1.0.9/
+    chdir: "{{ root_path }}IDBA/idba_ud-1.0.9/"
 
 - name: Compile and install IDBA
   make:
-    chdir: /home/centos/IDBA/idba_ud-1.0.9/
+    chdir: "{{ root_path }}IDBA/idba_ud-1.0.9/"
 
 ##################################
 ### Install pip and tensorflow ###
@@ -441,36 +443,36 @@
 - name: Download and unarchive GROMACS 2018.3
   unarchive:
     src: https://s3.denbi.uni-tuebingen.de/max/gromacs-2018.3.tar.gz
-    dest: /home/centos/gromacs/
+    dest: "{{ root_path }}gromacs/"
     remote_src: yes
-    creates: /home/centos/gromacs/*
+    creates: "{{ root_path }}gromacs/*"
 
 - name: Prepare makefile for GROMACS with cmake3
-  shell:  cd /home/centos/gromacs/gromacs-2018.3/build/ && CC=gcc CXX=g++ cmake3 -DCMAKE_CXX_COMPILER=g++ -DGMX_BUILD_OWN_FFTW=on -DGMX_GPU=off -DGMX_BUILD_MPI=off --build ./ /home/centos/gromacs/gromacs-2018.3/
+  shell:  cd "{{ root_path }}gromacs/gromacs-2018.3/build/" && CC=gcc CXX=g++ cmake3 -DCMAKE_CXX_COMPILER=g++ -DGMX_BUILD_OWN_FFTW=on -DGMX_GPU=off -DGMX_BUILD_MPI=off --build ./ "{{ root_path }}gromacs/gromacs-2018.3/"
   environment:
-    PATH: "/home/centos/gcc/gcc-installed/bin:{{ ansible_env.PATH}}"
-    LD_LIBRARY_PATH: "/home/centos/gcc/gcc-installed/lib64/"
+    PATH: "{{ root_path }}gcc/gcc-installed/bin:{{ ansible_env.PATH}}"
+    LD_LIBRARY_PATH: "{{ root_path }}gcc/gcc-installed/lib64/"
 
 - name: Compile GROMACS
   make:
-    chdir: /home/centos/gromacs/gromacs-2018.3/build/
+    chdir: "{{ root_path }}gromacs/gromacs-2018.3/build/"
     target: all
     params:
       NUM_THREADS: "{{ nproc_number.stdout }}"
   environment:
-      PATH: "/home/centos/gcc/gcc-installed/bin:{{ ansible_env.PATH}}"
-      LD_LIBRARY_PATH: "/home/centos/gcc/gcc-installed/lib64/" 
+      PATH: "{{ root_path }}gcc/gcc-installed/bin:{{ ansible_env.PATH}}"
+      LD_LIBRARY_PATH: "{{ root_path }}gcc/gcc-installed/lib64/" 
 
 - name: Install GROMACS
   make:
-    chdir: /home/centos/gromacs/gromacs-2018.3/build/
+    chdir: "{{ root_path }}gromacs/gromacs-2018.3/build/"
     target: install  
   become: yes
 
 - name: Build input files for GROMACS on testdata adh_cubic
-  command: /usr/local/gromacs/bin/gmx grompp -f /home/centos/datasets/gromacs/adh_cubic/pme_verlet.mdp -c /home/centos/datasets/gromacs/adh_cubic/conf.gro -p /home/centos/datasets/gromacs/adh_cubic/topol.top -o /home/centos/datasets/gromacs/adh_cubic/topol -po /home/centos/datasets/gromacs/adh_cubic/mdout
+  command: /usr/local/gromacs/bin/gmx grompp -f "{{ root_path }}datasets/gromacs/adh_cubic/pme_verlet.mdp" -c "{{ root_path }}datasets/gromacs/adh_cubic/conf.gro" -p "{{ root_path }}datasets/gromacs/adh_cubic/topol.top" -o "{{ root_path }}datasets/gromacs/adh_cubic/topol" -po "{{ root_path }}datasets/gromacs/adh_cubic/mdout"
   environment:
-      LD_LIBRARY_PATH: "/home/centos/gcc/gcc-installed/lib64/"
+      LD_LIBRARY_PATH: "{{ root_path }}gcc/gcc-installed/lib64/"
 
 ######################
 ### Install SPAdes ###
@@ -478,31 +480,31 @@
 - name: Download and unarchive SPAdes 3.12.0
   unarchive:
     src: https://s3.denbi.uni-tuebingen.de/max/SPAdes-3.12.0-Linux.tar.gz
-    dest: /home/centos/SPAdes/
+    dest: "{{ root_path }}SPAdes/"
     remote_src: yes
 
 #############################
 ### Install Clustal Omega ###
 #############################
-- name: Download and unarchive and install clustal Omega 1.2.4
+- name: Download and unarchive clustal Omega 1.2.4
   unarchive:
     src: https://s3.denbi.uni-tuebingen.de/max/clustal-omega-1.2.4.tar.gz
-    dest: /home/centos/clustalOmega
+    dest: "{{ root_path }}clustalOmega"
     remote_src: yes
 
 - name: Configure clustal Omega
-  shell: cd /home/centos/clustalOmega/clustal-omega-1.2.4/ && ./configure --prefix=$PWD
+  shell: cd "{{ root_path }}clustalOmega/clustal-omega-1.2.4/" && ./configure --prefix=$PWD
 
 - name: Compile clustal Omega
   make:
-    chdir: /home/centos/clustalOmega/clustal-omega-1.2.4/
+    chdir: "{{ root_path }}clustalOmega/clustal-omega-1.2.4/"
     target: all
     params:
       NUM_THREADS: "{{ nproc_number.stdout }}"
-
+  
 - name: Install clustal Omega
   make:
-    chdir: /home/centos/clustalOmega/clustal-omega-1.2.4/
+    chdir: "{{ root_path }}clustalOmega/clustal-omega-1.2.4/"
     target: install
 
 
@@ -510,22 +512,22 @@
 ### Convert datastes from fastq to fa with IDBA ###
 ###################################################
 - name: Convert fastq to fasta data (ERR016155)
-  command: /home/centos/IDBA/idba_ud-1.0.9/bin/fq2fa /home/centos/datasets/1000_genomes/ERR016155.filt.fastq /home/centos/datasets/1000_genomes/ERR016155.filt.fa
+  command: "{{ root_path }}IDBA/idba_ud-1.0.9/bin/fq2fa {{ root_path }}datasets/1000_genomes/ERR016155.filt.fastq {{ root_path }}datasets/1000_genomes/ERR016155.filt.fa"
 
 - name: Convert fastq to fasta data (ERR251006)
-  command: /home/centos/IDBA/idba_ud-1.0.9/bin/fq2fa /home/centos/datasets/1000_genomes/ERR251006.filt.fastq /home/centos/datasets/1000_genomes/ERR251006.filt.fa
+  command: "{{ root_path }}IDBA/idba_ud-1.0.9/bin/fq2fa {{ root_path }}datasets/1000_genomes/ERR251006.filt.fastq {{ root_path }}datasets/1000_genomes/ERR251006.filt.fa"
 
 - name: Convert fastq to fasta data (ERR015528)
-  command: /home/centos/IDBA/idba_ud-1.0.9/bin/fq2fa /home/centos/datasets/1000_genomes/ERR015528.filt.fastq /home/centos/datasets/1000_genomes/ERR015528.filt.fa
+  command: "{{ root_path }}IDBA/idba_ud-1.0.9/bin/fq2fa {{ root_path }}datasets/1000_genomes/ERR015528.filt.fastq {{ root_path }}datasets/1000_genomes/ERR015528.filt.fa"
 
 - name: Convert fastq to fasta data (SRR741411)
-  command: /home/centos/IDBA/idba_ud-1.0.9/bin/fq2fa /home/centos/datasets/1000_genomes/SRR741411.filt.fastq /home/centos/datasets/1000_genomes/SRR741411.filt.fa
+  command: "{{ root_path }}IDBA/idba_ud-1.0.9/bin/fq2fa {{ root_path }}datasets/1000_genomes/SRR741411.filt.fastq {{ root_path }}datasets/1000_genomes/SRR741411.filt.fa"
 
 - name: Convert fastq to fasta data (DRR001012)
-  command: /home/centos/IDBA/idba_ud-1.0.9/bin/fq2fa /home/centos/datasets/ebi/DRR001012.fastq /home/centos/datasets/ebi/DRR001012.fa
+  command: "{{ root_path }}IDBA/idba_ud-1.0.9/bin/fq2fa {{ root_path }}datasets/ebi/DRR001012.fastq {{ root_path }}datasets/ebi/DRR001012.fa"
 
 - name: Convert fastq to fasta data (DRR001025)
-  command: /home/centos/IDBA/idba_ud-1.0.9/bin/fq2fa /home/centos/datasets/ebi/DRR001025.fastq /home/centos/datasets/ebi/DRR001025.fa
+  command: "{{ root_path }}IDBA/idba_ud-1.0.9/bin/fq2fa {{ root_path }}datasets/ebi/DRR001025.fastq {{ root_path }}datasets/ebi/DRR001025.fa"
 
 #############################
 ### Copy executable files ###
@@ -533,19 +535,19 @@
 - name: Copy run_benchmarks.sh script to host
   copy:
     src: run_benchmarks.sh
-    dest: /home/centos/run_benchmarks.sh
+    dest: "{{ root_path }}run_benchmarks.sh"
 
 - name: Copy install_check.sh script to host
   copy:
     src: install_check.sh
-    dest: /home/centos/install_check.sh
+    dest: "{{ root_path }}install_check.sh"
 
 - name: Copy BOOTABLE_collect.sh script to host
   copy:
     src: BOOTABLE_collect.sh
-    dest: /home/centos/BOOTABLE_collect.sh
+    dest: "{{ root_path }}BOOTABLE_collect.sh"
 
 - name: Copy BOOTABLE_report_generator.sh script to host
   copy:
     src: BOOTABLE_report_generator.R
-    dest: /home/centos/BOOTABLE_report_generator.sh
+    dest: "{{ root_path }}BOOTABLE_report_generator.sh"

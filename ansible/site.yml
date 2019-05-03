@@ -2,4 +2,6 @@
 - hosts: all
   roles:
     - BOOTABLE
+  vars:
+    - root_path: /home/centos/
 
