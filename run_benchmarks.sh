@@ -95,6 +95,7 @@ reference=$7					#Input parameter for bowtie build index which dataset
 reference_name=$(basename $reference | cut -d. -f1)	#Get only the name of the dataset from the filepath
 dataset_name=$(basename $dataset | cut -d. -f1) #Get only the name of the dataset from the filepath
 dataset_idba=$8					#Input parameter for IDBA (needs .fa file)
+dataset_name_idba=$(basename $dataset_idba | cut -d. -f1) #Get only the name of the dataset for idba from the filepath
 toolgroup=$9					#Input parameter which tools should be used
 dataset_clustalOmega=${10}                      #Input parameter for Clustal Omega which dataset
 dataset_name_clustalOmega=$(basename $dataset_clustalOmega | cut -d. -f-3)
@@ -246,7 +247,7 @@ then
 	# IDBA 
 	echo "Running IDBA benchmark on dataset $dataset_name"
 	rm -rf benchmark_output/IDBA/*
-	echo "Replica_$replica IDBA with $cores cores on dataset $dataset_name" >> results/benchmark_idba_time_$cores.txt
+	echo "Replica_$replica IDBA with $cores cores on dataset $dataset_name_idba" >> results/benchmark_idba_time_$cores.txt
 	date >> results/benchmark_idba_time_$cores.txt
 
 	# Start nmon capturing
