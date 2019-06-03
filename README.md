@@ -20,6 +20,8 @@ cover a range of different application cases and make strong use of multithreadi
 in order to get some benchmarks of the underlying hardware and about the scalability of the system.
 In the following is explained how to install BOOTABLE, how to run it and what kind of options you have. Information about results are stated in the **Results**  section.
 
+If you have any questions or remarks just write me a mail: maximilian.hanussek@uni-tuebingen.de
+
 
 
 ## News (02.05.19)
