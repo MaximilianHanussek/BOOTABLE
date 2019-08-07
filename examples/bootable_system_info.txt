@@ -1,0 +1,77 @@
+Di 21. Mai 12:35:26 UTC 2019
+
+Executed command: run_benchmarks.sh -c -d datasets/1000_genomes/ERR016155.filt.fastq -p 36 -r 3 -t all
+
+System information:
+System:
+  Host: bootable-image-creation.novalocal 
+  Kernel: 3.10.0-957.10.1.el7.x86_64 x86_64 bits: 64 compiler: gcc v: 4.8.5 
+  Console: N/A Distro: CentOS Linux release 7.6.1810 (Core) 
+Machine:
+  Type: Kvm System: RDO product: OpenStack Compute v: 15.1.0-1.el7 
+  serial: <root required> 
+  Mobo: N/A model: N/A serial: N/A BIOS: SeaBIOS v: 1.10.2-3.el7_4.1 
+  date: 04/01/2014 
+Memory:
+  RAM: total: 1.41 TiB used: 10.31 GiB (0.7%) 
+  RAM Report: 
+  permissions: Unable to run dmidecode. Root privileges required. 
+CPU:
+  Topology: 36x Single Core model: Intel Xeon Gold 6140 bits: 64 type: SMP 
+  arch: Skylake rev: 4 L2 cache: 576.0 MiB bogomips: 165599 
+  Speed: 2300 MHz min/max: N/A Core speeds (MHz): 1: 2300 2: 2300 3: 2300 
+  4: 2300 5: 2300 6: 2300 7: 2300 8: 2300 9: 2300 10: 2300 11: 2300 12: 2300 
+  13: 2300 14: 2300 15: 2300 16: 2300 17: 2300 18: 2300 19: 2300 20: 2300 
+  21: 2300 22: 2300 23: 2300 24: 2300 25: 2300 26: 2300 27: 2300 28: 2300 
+  29: 2300 30: 2300 31: 2300 32: 2300 33: 2300 34: 2300 35: 2300 36: 2300 
+  Flags: 3dnowprefetch abm adx aes apic arat arch_perfmon avx avx2 avx512bw 
+  avx512cd avx512dq avx512f avx512vl bmi1 bmi2 clflush clflushopt clwb cmov 
+  constant_tsc cx16 cx8 de eagerfpu erms f16c fma fpu fsgsbase fxsr hle 
+  hypervisor ibpb ibrs invpcid lahf_lm lm mca mce mmx movbe mpx msr mtrr 
+  nopl nx pae pat pcid pclmulqdq pdpe1gb pge pni popcnt pse pse36 rdrand 
+  rdseed rdtscp rep_good rtm sep smap smep spec_ctrl ss sse sse2 sse4_1 
+  sse4_2 ssse3 syscall tsc tsc_adjust tsc_deadline_timer vme x2apic xgetbv1 
+  xsave xsavec xsaveopt xtopology 
+Drives:
+  Local Storage: total: 100.00 GiB used: 23.44 GiB (23.4%) 
+  ID-1: /dev/vda model: N/A size: 100.00 GiB 
+Info:
+  Processes: 331 Uptime: 27d 1h 14m Init: systemd runlevel: 3 Compilers: 
+  gcc: 4.8.5 Shell: bash v: 4.2.46 inxi: 3.0.32 
+tuned status: Current active profile: virtual-guest
+Hyperthreading: disabled (1 thread(s)) per core
+
+Bowtie2 compile information:
+/home/centos/bowtie2/bowtie2-2.3.4.2/bowtie2-align-s version 2.3.4.2
+64-bit
+Built on bootable-image-creation.novalocal
+Mi 24. Apr 13:22:28 UTC 2019
+Compiler: gcc-Version 4.8.5 20150623 (Red Hat 4.8.5-36) (GCC) 
+Options: -O3 -m64 -msse2 -funroll-loops -g3 -std=c++98 -DPOPCNT_CAPABILITY -DWITH_TBB -DNO_SPINLOCK -DWITH_QUEUELOCK=1
+Sizeof {int, long, long long, void*, size_t, off_t}: {4, 8, 8, 8, 8, 8}
+
+GROMACS compile information:
+GROMACS version:    2018.3
+Precision:          single
+Memory model:       64 bit
+MPI library:        thread_mpi
+OpenMP support:     enabled (GMX_OPENMP_MAX_THREADS = 64)
+GPU support:        disabled
+SIMD instructions:  AVX_512
+FFT library:        fftw-3.3.8-sse2-avx-avx2-avx2_128-avx512
+RDTSCP usage:       enabled
+TNG support:        enabled
+Hwloc support:      hwloc-1.11.8
+Tracing support:    disabled
+Built on:           2019-04-24 13:25:35
+Built by:           centos@bootable-image-creation.novalocal [CMAKE]
+Build OS/arch:      Linux 3.10.0-957.10.1.el7.x86_64 x86_64
+Build CPU vendor:   Intel
+Build CPU brand:    Intel(R) Xeon(R) Gold 6140 CPU @ 2.30GHz
+Build CPU family:   6   Model: 85   Stepping: 4
+Build CPU features: aes apic avx avx2 avx512f avx512cd avx512bw avx512vl clfsh cmov cx8 cx16 f16c fma hle intel lahf mmx msr pcid pclmuldq pdpe1gb popcnt pse rdrnd rdtscp rtm sse2 sse3 sse4.1 sse4.2 ssse3 tdt x2apic
+C compiler:         /home/centos/gcc/gcc-installed/bin/gcc GNU 7.3.0
+C compiler flags:    -mavx512f -mfma     -O2 -DNDEBUG -funroll-all-loops -fexcess-precision=fast  
+C++ compiler:       /home/centos/gcc/gcc-installed/bin/g++ GNU 7.3.0
+C++ compiler flags:  -mavx512f -mfma    -std=c++11   -O2 -DNDEBUG -funroll-all-loops -fexcess-precision=fast  
+

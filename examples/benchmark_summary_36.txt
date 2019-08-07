@@ -1,0 +1,162 @@
+Replica_1 Bowtie2_build with 36 cores on dataset DRR001025
+Do 23. Mai 22:25:38 UTC 2019
+real 758.29
+user 16119.28
+sys 48.91
+
+Replica_1 Bowtie2_align with 36 cores on dataset ERR016155
+Do 23. Mai 22:38:17 UTC 2019
+real 51.76
+user 117.25
+sys 75.44
+
+Replica_1 Velveth with 36 cores on dataset ERR016155
+Do 23. Mai 22:39:09 UTC 2019
+real 8.52
+user 92.57
+sys 4.27
+
+Replica_1 Velvetg with 36 cores on dataset ERR016155
+Do 23. Mai 22:39:18 UTC 2019
+real 56.92
+user 175.39
+sys 1.38
+
+Replica_1 IDBA with 36 cores on dataset ERR016155
+Do 23. Mai 22:40:15 UTC 2019
+real 127.73
+user 3468.77
+sys 19.61
+
+Replica_1 clustalOmega with 36 cores on dataset wgs.ANCA.1_400
+Do 23. Mai 22:42:23 UTC 2019
+real 282.45
+user 8793.38
+sys 19.24
+
+Replica_1 Tensorflow with 36 cores on dataset cifar10 with 2500
+Do 23. Mai 22:47:06 UTC 2019
+real 244.69
+user 4367.12
+sys 629.76
+
+Replica_1 GROMACS with 36 cores on dataset adh_cubic calculating 30000 steps with CPU pinning enabled
+Do 23. Mai 22:51:12 UTC 2019
+real 470.47
+user 6715.53
+sys 9676.36
+
+Replica_1 SPAdes with 36 cores on dataset ERR016155
+Do 23. Mai 22:59:03 UTC 2019
+real 359.48
+user 4528.85
+sys 280.84
+
+Replica_2 Bowtie2_build with 36 cores on dataset DRR001025
+Do 23. Mai 23:05:03 UTC 2019
+real 492.32
+user 6941.92
+sys 48.24
+
+Replica_2 Bowtie2_align with 36 cores on dataset ERR016155
+Do 23. Mai 23:13:16 UTC 2019
+real 52.44
+user 125.31
+sys 94.33
+
+Replica_2 Velveth with 36 cores on dataset ERR016155
+Do 23. Mai 23:14:09 UTC 2019
+real 8.56
+user 94.52
+sys 4.31
+
+Replica_2 Velvetg with 36 cores on dataset ERR016155
+Do 23. Mai 23:14:17 UTC 2019
+real 56.03
+user 160.23
+sys 1.37
+
+Replica_2 IDBA with 36 cores on dataset ERR016155
+Do 23. Mai 23:15:14 UTC 2019
+real 130.63
+user 3512.00
+sys 22.35
+
+Replica_2 clustalOmega with 36 cores on dataset wgs.ANCA.1_400
+Do 23. Mai 23:17:24 UTC 2019
+real 333.26
+user 10407.61
+sys 23.40
+
+Replica_2 Tensorflow with 36 cores on dataset cifar10 with 2500
+Do 23. Mai 23:22:58 UTC 2019
+real 244.55
+user 4371.66
+sys 626.64
+
+Replica_2 GROMACS with 36 cores on dataset adh_cubic calculating 30000 steps with CPU pinning enabled
+Do 23. Mai 23:27:04 UTC 2019
+real 421.52
+user 5614.26
+sys 9029.91
+
+Replica_2 SPAdes with 36 cores on dataset ERR016155
+Do 23. Mai 23:34:06 UTC 2019
+real 358.34
+user 4495.60
+sys 289.77
+
+Replica_3 Bowtie2_build with 36 cores on dataset DRR001025
+Do 23. Mai 23:40:05 UTC 2019
+real 799.62
+user 18165.31
+sys 48.83
+
+Replica_3 Bowtie2_align with 36 cores on dataset ERR016155
+Do 23. Mai 23:53:25 UTC 2019
+real 53.28
+user 133.82
+sys 115.47
+
+Replica_3 Velveth with 36 cores on dataset ERR016155
+Do 23. Mai 23:54:19 UTC 2019
+real 8.73
+user 95.19
+sys 4.36
+
+Replica_3 Velvetg with 36 cores on dataset ERR016155
+Do 23. Mai 23:54:28 UTC 2019
+real 56.14
+user 160.50
+sys 1.38
+
+Replica_3 IDBA with 36 cores on dataset ERR016155
+Do 23. Mai 23:55:24 UTC 2019
+real 135.76
+user 3697.46
+sys 21.95
+
+Replica_3 clustalOmega with 36 cores on dataset wgs.ANCA.1_400
+Do 23. Mai 23:57:40 UTC 2019
+real 385.49
+user 11891.28
+sys 27.03
+
+Replica_3 Tensorflow with 36 cores on dataset cifar10 with 2500
+Fr 24. Mai 00:04:06 UTC 2019
+real 243.86
+user 4378.65
+sys 635.17
+
+Replica_3 GROMACS with 36 cores on dataset adh_cubic calculating 30000 steps with CPU pinning enabled
+Fr 24. Mai 00:08:11 UTC 2019
+real 351.32
+user 4748.04
+sys 7444.91
+
+Replica_3 SPAdes with 36 cores on dataset ERR016155
+Fr 24. Mai 00:14:03 UTC 2019
+real 360.78
+user 4544.88
+sys 272.44
+

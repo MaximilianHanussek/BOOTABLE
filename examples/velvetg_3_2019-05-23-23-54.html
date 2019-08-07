@@ -1,0 +1,2418 @@
+<html>
+	<head>
+		<title>nmonChart</title>
+<script>
+function config() {
+    var myWindow = window.open("", "MsgWindow", "width=1024, height=800");
+    myWindow.document.write("<h2>Configuration data for nmon_stats/velvetg_3_2019-05-23-23-54.nmon <br>Use PageDown or Scroll bar (if available)</h2><br>\
+<b>progname</b> = nmon<br>\
+<b>command</b> = nmon -F velvetg_3_2019-05-23-23-54.nmon -m nmon_stats/ -p -s 2 -c 12000000 <br>\
+<b>version</b> = 16g<br>\
+<b>disks_per_line</b> = 150<br>\
+<b>max_disks</b> = 256<br>\
+<b>disks</b> = 2<br>\
+<b>host</b> = bootable-image-creation<br>\
+<b>user</b> = centos<br>\
+<b>OS</b> = Linux<br>\
+<b>runname</b> = bootable-image-creation<br>\
+<b>time</b> = 23:54.28<br>\
+<b>date</b> = 23-MAY-2019<br>\
+<b>interval</b> = 2<br>\
+<b>snapshots</b> = 12000000<br>\
+<b>cpus</b> = 36<br>\
+<b>x86</b> = VendorId<br>\
+<b>x86</b> = ModelName<br>\
+<b>x86</b> = MHz<br>\
+<b>x86</b> = bogomips<br>\
+<b>x86</b> = ProcessorChips<br>\
+<b>x86</b> = Cores<br>\
+<b>x86</b> = hyperthreads<br>\
+<b>x86</b> = VirtualCPUs<br>\
+<b>proc_stat_variables</b> = 8<br>\
+<b>boottime</b> = 11:21 AM 24-Apr-2019<br>\
+<b>steal</b> = 1<br>\
+000 <b>/etc/release</b> <br>\
+001 <b>/etc/release</b> CentOS Linux release 7.6.1810 (Core) <br>\
+002 <b>/etc/release</b> NAME=QCentOS LinuxQ<br>\
+003 <b>/etc/release</b> VERSION=Q7 (Core)Q<br>\
+004 <b>/etc/release</b> ID=QcentosQ<br>\
+005 <b>/etc/release</b> ID_LIKE=Qrhel fedoraQ<br>\
+006 <b>/etc/release</b> VERSION_ID=Q7Q<br>\
+007 <b>/etc/release</b> PRETTY_NAME=QCentOS Linux 7 (Core)Q<br>\
+008 <b>/etc/release</b> ANSI_COLOR=Q0;31Q<br>\
+009 <b>/etc/release</b> CPE_NAME=Qcpe:/o:centos:centos:7Q<br>\
+010 <b>/etc/release</b> HOME_URL=Qhttps://www.centos.org/Q<br>\
+011 <b>/etc/release</b> BUG_REPORT_URL=Qhttps://bugs.centos.org/Q<br>\
+012 <b>/etc/release</b> <br>\
+013 <b>/etc/release</b> CENTOS_MANTISBT_PROJECT=QCentOS-7Q<br>\
+014 <b>/etc/release</b> CENTOS_MANTISBT_PROJECT_VERSION=Q7Q<br>\
+015 <b>/etc/release</b> REDHAT_SUPPORT_PRODUCT=QcentosQ<br>\
+016 <b>/etc/release</b> REDHAT_SUPPORT_PRODUCT_VERSION=Q7Q<br>\
+017 <b>/etc/release</b> <br>\
+018 <b>/etc/release</b> CentOS Linux release 7.6.1810 (Core) <br>\
+019 <b>/etc/release</b> CentOS Linux release 7.6.1810 (Core) <br>\
+020 <b>lsb_release</b> <br>\
+021 <b>fdisk-l</b> <br>\
+022 <b>lsblk</b> <br>\
+023 <b>lsblk</b> NAME   MAJ:MIN RM  SIZE RO TYPE MOUNTPOINT<br>\
+024 <b>lsblk</b> vda    253:0    0  100G  0 disk <br>\
+025 <b>lsblk</b> └─vda1 253:1    0  100G  0 part /<br>\
+026 <b>lscpu</b> <br>\
+027 <b>lscpu</b> Architecture:          x86_64<br>\
+028 <b>lscpu</b> CPU op-mode(s):        32-bit<br>\
+029 <b>lscpu</b> Byte Order:            Little Endian<br>\
+030 <b>lscpu</b> CPU(s):                36<br>\
+031 <b>lscpu</b> On-line CPU(s) list:   0-35<br>\
+032 <b>lscpu</b> Thread(s) per core:    1<br>\
+033 <b>lscpu</b> Core(s) per socket:    1<br>\
+034 <b>lscpu</b> Socket(s):             36<br>\
+035 <b>lscpu</b> NUMA node(s):          1<br>\
+036 <b>lscpu</b> Vendor ID:             GenuineIntel<br>\
+037 <b>lscpu</b> CPU family:            6<br>\
+038 <b>lscpu</b> Model:                 85<br>\
+039 <b>lscpu</b> Model name:            Intel(R) Xeon(R) Gold 6140 CPU @ 2.30GHz<br>\
+040 <b>lscpu</b> Stepping:              4<br>\
+041 <b>lscpu</b> CPU MHz:               2299.992<br>\
+042 <b>lscpu</b> BogoMIPS:              4599.98<br>\
+043 <b>lscpu</b> Hypervisor vendor:     KVM<br>\
+044 <b>lscpu</b> Virtualization type:   full<br>\
+045 <b>lscpu</b> L1d cache:             32K<br>\
+046 <b>lscpu</b> L1i cache:             32K<br>\
+047 <b>lscpu</b> L2 cache:              4096K<br>\
+048 <b>lscpu</b> L3 cache:              16384K<br>\
+049 <b>lscpu</b> NUMA node0 CPU(s):     0-35<br>\
+050 <b>lscpu</b> Flags:                 fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ss syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon rep_good nopl xtopology eagerfpu pni pclmulqdq ssse3 fma cx16 pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm abm 3dnowprefetch ibrs ibpb fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 erms invpcid rtm mpx avx512f avx512dq rdseed adx smap clflushopt clwb avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 arat spec_ctrl<br>\
+051 <b>lshw</b> <br>\
+052 <b>/proc/cpuinfo</b> <br>\
+053 <b>/proc/cpuinfo</b> processor	: 0<br>\
+054 <b>/proc/cpuinfo</b> vendor_id	: GenuineIntel<br>\
+055 <b>/proc/cpuinfo</b> cpu family	: 6<br>\
+056 <b>/proc/cpuinfo</b> model		: 85<br>\
+057 <b>/proc/cpuinfo</b> model name	: Intel(R) Xeon(R) Gold 6140 CPU @ 2.30GHz<br>\
+058 <b>/proc/cpuinfo</b> stepping	: 4<br>\
+059 <b>/proc/cpuinfo</b> microcode	: 0x1<br>\
+060 <b>/proc/cpuinfo</b> cpu MHz		: 2299.992<br>\
+061 <b>/proc/cpuinfo</b> cache size	: 16384 KB<br>\
+062 <b>/proc/cpuinfo</b> physical id	: 0<br>\
+063 <b>/proc/cpuinfo</b> siblings	: 1<br>\
+064 <b>/proc/cpuinfo</b> core id		: 0<br>\
+065 <b>/proc/cpuinfo</b> cpu cores	: 1<br>\
+066 <b>/proc/cpuinfo</b> apicid		: 0<br>\
+067 <b>/proc/cpuinfo</b> initial apicid	: 0<br>\
+068 <b>/proc/cpuinfo</b> fpu		: yes<br>\
+069 <b>/proc/cpuinfo</b> fpu_exception	: yes<br>\
+070 <b>/proc/cpuinfo</b> cpuid level	: 13<br>\
+071 <b>/proc/cpuinfo</b> wp		: yes<br>\
+072 <b>/proc/cpuinfo</b> flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ss syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon rep_good nopl xtopology eagerfpu pni pclmulqdq ssse3 fma cx16 pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm abm 3dnowprefetch ibrs ibpb fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 erms invpcid rtm mpx avx512f avx512dq rdseed adx smap clflushopt clwb avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 arat spec_ctrl<br>\
+073 <b>/proc/cpuinfo</b> bogomips	: 4599.98<br>\
+074 <b>/proc/cpuinfo</b> clflush size	: 64<br>\
+075 <b>/proc/cpuinfo</b> cache_alignment	: 64<br>\
+076 <b>/proc/cpuinfo</b> address sizes	: 46 bits physical<br>\
+077 <b>/proc/cpuinfo</b> power management:<br>\
+078 <b>/proc/cpuinfo</b> <br>\
+079 <b>/proc/cpuinfo</b> processor	: 1<br>\
+080 <b>/proc/cpuinfo</b> vendor_id	: GenuineIntel<br>\
+081 <b>/proc/cpuinfo</b> cpu family	: 6<br>\
+082 <b>/proc/cpuinfo</b> model		: 85<br>\
+083 <b>/proc/cpuinfo</b> model name	: Intel(R) Xeon(R) Gold 6140 CPU @ 2.30GHz<br>\
+084 <b>/proc/cpuinfo</b> stepping	: 4<br>\
+085 <b>/proc/cpuinfo</b> microcode	: 0x1<br>\
+086 <b>/proc/cpuinfo</b> cpu MHz		: 2299.992<br>\
+087 <b>/proc/cpuinfo</b> cache size	: 16384 KB<br>\
+088 <b>/proc/cpuinfo</b> physical id	: 1<br>\
+089 <b>/proc/cpuinfo</b> siblings	: 1<br>\
+090 <b>/proc/cpuinfo</b> core id		: 0<br>\
+091 <b>/proc/cpuinfo</b> cpu cores	: 1<br>\
+092 <b>/proc/cpuinfo</b> apicid		: 1<br>\
+093 <b>/proc/cpuinfo</b> initial apicid	: 1<br>\
+094 <b>/proc/cpuinfo</b> fpu		: yes<br>\
+095 <b>/proc/cpuinfo</b> fpu_exception	: yes<br>\
+096 <b>/proc/cpuinfo</b> cpuid level	: 13<br>\
+097 <b>/proc/cpuinfo</b> wp		: yes<br>\
+098 <b>/proc/cpuinfo</b> flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ss syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon rep_good nopl xtopology eagerfpu pni pclmulqdq ssse3 fma cx16 pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm abm 3dnowprefetch ibrs ibpb fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 erms invpcid rtm mpx avx512f avx512dq rdseed adx smap clflushopt clwb avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 arat spec_ctrl<br>\
+099 <b>/proc/cpuinfo</b> bogomips	: 4599.98<br>\
+100 <b>/proc/cpuinfo</b> clflush size	: 64<br>\
+101 <b>/proc/cpuinfo</b> cache_alignment	: 64<br>\
+102 <b>/proc/cpuinfo</b> address sizes	: 46 bits physical<br>\
+103 <b>/proc/cpuinfo</b> power management:<br>\
+104 <b>/proc/cpuinfo</b> <br>\
+105 <b>/proc/cpuinfo</b> processor	: 2<br>\
+106 <b>/proc/cpuinfo</b> vendor_id	: GenuineIntel<br>\
+107 <b>/proc/cpuinfo</b> cpu family	: 6<br>\
+108 <b>/proc/cpuinfo</b> model		: 85<br>\
+109 <b>/proc/cpuinfo</b> model name	: Intel(R) Xeon(R) Gold 6140 CPU @ 2.30GHz<br>\
+110 <b>/proc/cpuinfo</b> stepping	: 4<br>\
+111 <b>/proc/cpuinfo</b> microcode	: 0x1<br>\
+112 <b>/proc/cpuinfo</b> cpu MHz		: 2299.992<br>\
+113 <b>/proc/cpuinfo</b> cache size	: 16384 KB<br>\
+114 <b>/proc/cpuinfo</b> physical id	: 2<br>\
+115 <b>/proc/cpuinfo</b> siblings	: 1<br>\
+116 <b>/proc/cpuinfo</b> core id		: 0<br>\
+117 <b>/proc/cpuinfo</b> cpu cores	: 1<br>\
+118 <b>/proc/cpuinfo</b> apicid		: 2<br>\
+119 <b>/proc/cpuinfo</b> initial apicid	: 2<br>\
+120 <b>/proc/cpuinfo</b> fpu		: yes<br>\
+121 <b>/proc/cpuinfo</b> fpu_exception	: yes<br>\
+122 <b>/proc/cpuinfo</b> cpuid level	: 13<br>\
+123 <b>/proc/cpuinfo</b> wp		: yes<br>\
+124 <b>/proc/cpuinfo</b> flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ss syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon rep_good nopl xtopology eagerfpu pni pclmulqdq ssse3 fma cx16 pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm abm 3dnowprefetch ibrs ibpb fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 erms invpcid rtm mpx avx512f avx512dq rdseed adx smap clflushopt clwb avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 arat spec_ctrl<br>\
+125 <b>/proc/cpuinfo</b> bogomips	: 4599.98<br>\
+126 <b>/proc/cpuinfo</b> clflush size	: 64<br>\
+127 <b>/proc/cpuinfo</b> cache_alignment	: 64<br>\
+128 <b>/proc/cpuinfo</b> address sizes	: 46 bits physical<br>\
+129 <b>/proc/cpuinfo</b> power management:<br>\
+130 <b>/proc/cpuinfo</b> <br>\
+131 <b>/proc/cpuinfo</b> processor	: 3<br>\
+132 <b>/proc/cpuinfo</b> vendor_id	: GenuineIntel<br>\
+133 <b>/proc/cpuinfo</b> cpu family	: 6<br>\
+134 <b>/proc/cpuinfo</b> model		: 85<br>\
+135 <b>/proc/cpuinfo</b> model name	: Intel(R) Xeon(R) Gold 6140 CPU @ 2.30GHz<br>\
+136 <b>/proc/cpuinfo</b> stepping	: 4<br>\
+137 <b>/proc/cpuinfo</b> microcode	: 0x1<br>\
+138 <b>/proc/cpuinfo</b> cpu MHz		: 2299.992<br>\
+139 <b>/proc/cpuinfo</b> cache size	: 16384 KB<br>\
+140 <b>/proc/cpuinfo</b> physical id	: 3<br>\
+141 <b>/proc/cpuinfo</b> siblings	: 1<br>\
+142 <b>/proc/cpuinfo</b> core id		: 0<br>\
+143 <b>/proc/cpuinfo</b> cpu cores	: 1<br>\
+144 <b>/proc/cpuinfo</b> apicid		: 3<br>\
+145 <b>/proc/cpuinfo</b> initial apicid	: 3<br>\
+146 <b>/proc/cpuinfo</b> fpu		: yes<br>\
+147 <b>/proc/cpuinfo</b> fpu_exception	: yes<br>\
+148 <b>/proc/cpuinfo</b> cpuid level	: 13<br>\
+149 <b>/proc/cpuinfo</b> wp		: yes<br>\
+150 <b>/proc/cpuinfo</b> flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ss syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon rep_good nopl xtopology eagerfpu pni pclmulqdq ssse3 fma cx16 pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm abm 3dnowprefetch ibrs ibpb fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 erms invpcid rtm mpx avx512f avx512dq rdseed adx smap clflushopt clwb avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 arat spec_ctrl<br>\
+151 <b>/proc/cpuinfo</b> bogomips	: 4599.98<br>\
+152 <b>/proc/cpuinfo</b> clflush size	: 64<br>\
+153 <b>/proc/cpuinfo</b> cache_alignment	: 64<br>\
+154 <b>/proc/cpuinfo</b> address sizes	: 46 bits physical<br>\
+155 <b>/proc/cpuinfo</b> power management:<br>\
+156 <b>/proc/cpuinfo</b> <br>\
+157 <b>/proc/cpuinfo</b> processor	: 4<br>\
+158 <b>/proc/cpuinfo</b> vendor_id	: GenuineIntel<br>\
+159 <b>/proc/cpuinfo</b> cpu family	: 6<br>\
+160 <b>/proc/cpuinfo</b> model		: 85<br>\
+161 <b>/proc/cpuinfo</b> model name	: Intel(R) Xeon(R) Gold 6140 CPU @ 2.30GHz<br>\
+162 <b>/proc/cpuinfo</b> stepping	: 4<br>\
+163 <b>/proc/cpuinfo</b> microcode	: 0x1<br>\
+164 <b>/proc/cpuinfo</b> cpu MHz		: 2299.992<br>\
+165 <b>/proc/cpuinfo</b> cache size	: 16384 KB<br>\
+166 <b>/proc/cpuinfo</b> physical id	: 4<br>\
+167 <b>/proc/cpuinfo</b> siblings	: 1<br>\
+168 <b>/proc/cpuinfo</b> core id		: 0<br>\
+169 <b>/proc/cpuinfo</b> cpu cores	: 1<br>\
+170 <b>/proc/cpuinfo</b> apicid		: 4<br>\
+171 <b>/proc/cpuinfo</b> initial apicid	: 4<br>\
+172 <b>/proc/cpuinfo</b> fpu		: yes<br>\
+173 <b>/proc/cpuinfo</b> fpu_exception	: yes<br>\
+174 <b>/proc/cpuinfo</b> cpuid level	: 13<br>\
+175 <b>/proc/cpuinfo</b> wp		: yes<br>\
+176 <b>/proc/cpuinfo</b> flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ss syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon rep_good nopl xtopology eagerfpu pni pclmulqdq ssse3 fma cx16 pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm abm 3dnowprefetch ibrs ibpb fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 erms invpcid rtm mpx avx512f avx512dq rdseed adx smap clflushopt clwb avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 arat spec_ctrl<br>\
+177 <b>/proc/cpuinfo</b> bogomips	: 4599.98<br>\
+178 <b>/proc/cpuinfo</b> clflush size	: 64<br>\
+179 <b>/proc/cpuinfo</b> cache_alignment	: 64<br>\
+180 <b>/proc/cpuinfo</b> address sizes	: 46 bits physical<br>\
+181 <b>/proc/cpuinfo</b> power management:<br>\
+182 <b>/proc/cpuinfo</b> <br>\
+183 <b>/proc/cpuinfo</b> processor	: 5<br>\
+184 <b>/proc/cpuinfo</b> vendor_id	: GenuineIntel<br>\
+185 <b>/proc/cpuinfo</b> cpu family	: 6<br>\
+186 <b>/proc/cpuinfo</b> model		: 85<br>\
+187 <b>/proc/cpuinfo</b> model name	: Intel(R) Xeon(R) Gold 6140 CPU @ 2.30GHz<br>\
+188 <b>/proc/cpuinfo</b> stepping	: 4<br>\
+189 <b>/proc/cpuinfo</b> microcode	: 0x1<br>\
+190 <b>/proc/cpuinfo</b> cpu MHz		: 2299.992<br>\
+191 <b>/proc/cpuinfo</b> cache size	: 16384 KB<br>\
+192 <b>/proc/cpuinfo</b> physical id	: 5<br>\
+193 <b>/proc/cpuinfo</b> siblings	: 1<br>\
+194 <b>/proc/cpuinfo</b> core id		: 0<br>\
+195 <b>/proc/cpuinfo</b> cpu cores	: 1<br>\
+196 <b>/proc/cpuinfo</b> apicid		: 5<br>\
+197 <b>/proc/cpuinfo</b> initial apicid	: 5<br>\
+198 <b>/proc/cpuinfo</b> fpu		: yes<br>\
+199 <b>/proc/cpuinfo</b> fpu_exception	: yes<br>\
+200 <b>/proc/cpuinfo</b> cpuid level	: 13<br>\
+201 <b>/proc/cpuinfo</b> wp		: yes<br>\
+202 <b>/proc/cpuinfo</b> flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ss syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon rep_good nopl xtopology eagerfpu pni pclmulqdq ssse3 fma cx16 pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm abm 3dnowprefetch ibrs ibpb fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 erms invpcid rtm mpx avx512f avx512dq rdseed adx smap clflushopt clwb avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 arat spec_ctrl<br>\
+203 <b>/proc/cpuinfo</b> bogomips	: 4599.98<br>\
+204 <b>/proc/cpuinfo</b> clflush size	: 64<br>\
+205 <b>/proc/cpuinfo</b> cache_alignment	: 64<br>\
+206 <b>/proc/cpuinfo</b> address sizes	: 46 bits physical<br>\
+207 <b>/proc/cpuinfo</b> power management:<br>\
+208 <b>/proc/cpuinfo</b> <br>\
+209 <b>/proc/cpuinfo</b> processor	: 6<br>\
+210 <b>/proc/cpuinfo</b> vendor_id	: GenuineIntel<br>\
+211 <b>/proc/cpuinfo</b> cpu family	: 6<br>\
+212 <b>/proc/cpuinfo</b> model		: 85<br>\
+213 <b>/proc/cpuinfo</b> model name	: Intel(R) Xeon(R) Gold 6140 CPU @ 2.30GHz<br>\
+214 <b>/proc/cpuinfo</b> stepping	: 4<br>\
+215 <b>/proc/cpuinfo</b> microcode	: 0x1<br>\
+216 <b>/proc/cpuinfo</b> cpu MHz		: 2299.992<br>\
+217 <b>/proc/cpuinfo</b> cache size	: 16384 KB<br>\
+218 <b>/proc/cpuinfo</b> physical id	: 6<br>\
+219 <b>/proc/cpuinfo</b> siblings	: 1<br>\
+220 <b>/proc/cpuinfo</b> core id		: 0<br>\
+221 <b>/proc/cpuinfo</b> cpu cores	: 1<br>\
+222 <b>/proc/cpuinfo</b> apicid		: 6<br>\
+223 <b>/proc/cpuinfo</b> initial apicid	: 6<br>\
+224 <b>/proc/cpuinfo</b> fpu		: yes<br>\
+225 <b>/proc/cpuinfo</b> fpu_exception	: yes<br>\
+226 <b>/proc/cpuinfo</b> cpuid level	: 13<br>\
+227 <b>/proc/cpuinfo</b> wp		: yes<br>\
+228 <b>/proc/cpuinfo</b> flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ss syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon rep_good nopl xtopology eagerfpu pni pclmulqdq ssse3 fma cx16 pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm abm 3dnowprefetch ibrs ibpb fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 erms invpcid rtm mpx avx512f avx512dq rdseed adx smap clflushopt clwb avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 arat spec_ctrl<br>\
+229 <b>/proc/cpuinfo</b> bogomips	: 4599.98<br>\
+230 <b>/proc/cpuinfo</b> clflush size	: 64<br>\
+231 <b>/proc/cpuinfo</b> cache_alignment	: 64<br>\
+232 <b>/proc/cpuinfo</b> address sizes	: 46 bits physical<br>\
+233 <b>/proc/cpuinfo</b> power management:<br>\
+234 <b>/proc/cpuinfo</b> <br>\
+235 <b>/proc/cpuinfo</b> processor	: 7<br>\
+236 <b>/proc/cpuinfo</b> vendor_id	: GenuineIntel<br>\
+237 <b>/proc/cpuinfo</b> cpu family	: 6<br>\
+238 <b>/proc/cpuinfo</b> model		: 85<br>\
+239 <b>/proc/cpuinfo</b> model name	: Intel(R) Xeon(R) Gold 6140 CPU @ 2.30GHz<br>\
+240 <b>/proc/cpuinfo</b> stepping	: 4<br>\
+241 <b>/proc/cpuinfo</b> microcode	: 0x1<br>\
+242 <b>/proc/cpuinfo</b> cpu MHz		: 2299.992<br>\
+243 <b>/proc/cpuinfo</b> cache size	: 16384 KB<br>\
+244 <b>/proc/cpuinfo</b> physical id	: 7<br>\
+245 <b>/proc/cpuinfo</b> siblings	: 1<br>\
+246 <b>/proc/cpuinfo</b> core id		: 0<br>\
+247 <b>/proc/cpuinfo</b> cpu cores	: 1<br>\
+248 <b>/proc/cpuinfo</b> apicid		: 7<br>\
+249 <b>/proc/cpuinfo</b> initial apicid	: 7<br>\
+250 <b>/proc/cpuinfo</b> fpu		: yes<br>\
+251 <b>/proc/cpuinfo</b> fpu_exception	: yes<br>\
+252 <b>/proc/cpuinfo</b> cpuid level	: 13<br>\
+253 <b>/proc/cpuinfo</b> wp		: yes<br>\
+254 <b>/proc/cpuinfo</b> flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ss syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon rep_good nopl xtopology eagerfpu pni pclmulqdq ssse3 fma cx16 pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm abm 3dnowprefetch ibrs ibpb fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 erms invpcid rtm mpx avx512f avx512dq rdseed adx smap clflushopt clwb avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 arat spec_ctrl<br>\
+255 <b>/proc/cpuinfo</b> bogomips	: 4599.98<br>\
+256 <b>/proc/cpuinfo</b> clflush size	: 64<br>\
+257 <b>/proc/cpuinfo</b> cache_alignment	: 64<br>\
+258 <b>/proc/cpuinfo</b> address sizes	: 46 bits physical<br>\
+259 <b>/proc/cpuinfo</b> power management:<br>\
+260 <b>/proc/cpuinfo</b> <br>\
+261 <b>/proc/cpuinfo</b> processor	: 8<br>\
+262 <b>/proc/cpuinfo</b> vendor_id	: GenuineIntel<br>\
+263 <b>/proc/cpuinfo</b> cpu family	: 6<br>\
+264 <b>/proc/cpuinfo</b> model		: 85<br>\
+265 <b>/proc/cpuinfo</b> model name	: Intel(R) Xeon(R) Gold 6140 CPU @ 2.30GHz<br>\
+266 <b>/proc/cpuinfo</b> stepping	: 4<br>\
+267 <b>/proc/cpuinfo</b> microcode	: 0x1<br>\
+268 <b>/proc/cpuinfo</b> cpu MHz		: 2299.992<br>\
+269 <b>/proc/cpuinfo</b> cache size	: 16384 KB<br>\
+270 <b>/proc/cpuinfo</b> physical id	: 8<br>\
+271 <b>/proc/cpuinfo</b> siblings	: 1<br>\
+272 <b>/proc/cpuinfo</b> core id		: 0<br>\
+273 <b>/proc/cpuinfo</b> cpu cores	: 1<br>\
+274 <b>/proc/cpuinfo</b> apicid		: 8<br>\
+275 <b>/proc/cpuinfo</b> initial apicid	: 8<br>\
+276 <b>/proc/cpuinfo</b> fpu		: yes<br>\
+277 <b>/proc/cpuinfo</b> fpu_exception	: yes<br>\
+278 <b>/proc/cpuinfo</b> cpuid level	: 13<br>\
+279 <b>/proc/cpuinfo</b> wp		: yes<br>\
+280 <b>/proc/cpuinfo</b> flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ss syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon rep_good nopl xtopology eagerfpu pni pclmulqdq ssse3 fma cx16 pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm abm 3dnowprefetch ibrs ibpb fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 erms invpcid rtm mpx avx512f avx512dq rdseed adx smap clflushopt clwb avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 arat spec_ctrl<br>\
+281 <b>/proc/cpuinfo</b> bogomips	: 4599.98<br>\
+282 <b>/proc/cpuinfo</b> clflush size	: 64<br>\
+283 <b>/proc/cpuinfo</b> cache_alignment	: 64<br>\
+284 <b>/proc/cpuinfo</b> address sizes	: 46 bits physical<br>\
+285 <b>/proc/cpuinfo</b> power management:<br>\
+286 <b>/proc/cpuinfo</b> <br>\
+287 <b>/proc/cpuinfo</b> processor	: 9<br>\
+288 <b>/proc/cpuinfo</b> vendor_id	: GenuineIntel<br>\
+289 <b>/proc/cpuinfo</b> cpu family	: 6<br>\
+290 <b>/proc/cpuinfo</b> model		: 85<br>\
+291 <b>/proc/cpuinfo</b> model name	: Intel(R) Xeon(R) Gold 6140 CPU @ 2.30GHz<br>\
+292 <b>/proc/cpuinfo</b> stepping	: 4<br>\
+293 <b>/proc/cpuinfo</b> microcode	: 0x1<br>\
+294 <b>/proc/cpuinfo</b> cpu MHz		: 2299.992<br>\
+295 <b>/proc/cpuinfo</b> cache size	: 16384 KB<br>\
+296 <b>/proc/cpuinfo</b> physical id	: 9<br>\
+297 <b>/proc/cpuinfo</b> siblings	: 1<br>\
+298 <b>/proc/cpuinfo</b> core id		: 0<br>\
+299 <b>/proc/cpuinfo</b> cpu cores	: 1<br>\
+300 <b>/proc/cpuinfo</b> apicid		: 9<br>\
+301 <b>/proc/cpuinfo</b> initial apicid	: 9<br>\
+302 <b>/proc/cpuinfo</b> fpu		: yes<br>\
+303 <b>/proc/cpuinfo</b> fpu_exception	: yes<br>\
+304 <b>/proc/cpuinfo</b> cpuid level	: 13<br>\
+305 <b>/proc/cpuinfo</b> wp		: yes<br>\
+306 <b>/proc/cpuinfo</b> flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ss syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon rep_good nopl xtopology eagerfpu pni pclmulqdq ssse3 fma cx16 pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm abm 3dnowprefetch ibrs ibpb fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 erms invpcid rtm mpx avx512f avx512dq rdseed adx smap clflushopt clwb avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 arat spec_ctrl<br>\
+307 <b>/proc/cpuinfo</b> bogomips	: 4599.98<br>\
+308 <b>/proc/cpuinfo</b> clflush size	: 64<br>\
+309 <b>/proc/cpuinfo</b> cache_alignment	: 64<br>\
+310 <b>/proc/cpuinfo</b> address sizes	: 46 bits physical<br>\
+311 <b>/proc/cpuinfo</b> power management:<br>\
+312 <b>/proc/cpuinfo</b> <br>\
+313 <b>/proc/cpuinfo</b> processor	: 10<br>\
+314 <b>/proc/cpuinfo</b> vendor_id	: GenuineIntel<br>\
+315 <b>/proc/cpuinfo</b> cpu family	: 6<br>\
+316 <b>/proc/cpuinfo</b> model		: 85<br>\
+317 <b>/proc/cpuinfo</b> model name	: Intel(R) Xeon(R) Gold 6140 CPU @ 2.30GHz<br>\
+318 <b>/proc/cpuinfo</b> stepping	: 4<br>\
+319 <b>/proc/cpuinfo</b> microcode	: 0x1<br>\
+320 <b>/proc/cpuinfo</b> cpu MHz		: 2299.992<br>\
+321 <b>/proc/cpuinfo</b> cache size	: 16384 KB<br>\
+322 <b>/proc/cpuinfo</b> physical id	: 10<br>\
+323 <b>/proc/cpuinfo</b> siblings	: 1<br>\
+324 <b>/proc/cpuinfo</b> core id		: 0<br>\
+325 <b>/proc/cpuinfo</b> cpu cores	: 1<br>\
+326 <b>/proc/cpuinfo</b> apicid		: 10<br>\
+327 <b>/proc/cpuinfo</b> initial apicid	: 10<br>\
+328 <b>/proc/cpuinfo</b> fpu		: yes<br>\
+329 <b>/proc/cpuinfo</b> fpu_exception	: yes<br>\
+330 <b>/proc/cpuinfo</b> cpuid level	: 13<br>\
+331 <b>/proc/cpuinfo</b> wp		: yes<br>\
+332 <b>/proc/cpuinfo</b> flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ss syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon rep_good nopl xtopology eagerfpu pni pclmulqdq ssse3 fma cx16 pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm abm 3dnowprefetch ibrs ibpb fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 erms invpcid rtm mpx avx512f avx512dq rdseed adx smap clflushopt clwb avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 arat spec_ctrl<br>\
+333 <b>/proc/cpuinfo</b> bogomips	: 4599.98<br>\
+334 <b>/proc/cpuinfo</b> clflush size	: 64<br>\
+335 <b>/proc/cpuinfo</b> cache_alignment	: 64<br>\
+336 <b>/proc/cpuinfo</b> address sizes	: 46 bits physical<br>\
+337 <b>/proc/cpuinfo</b> power management:<br>\
+338 <b>/proc/cpuinfo</b> <br>\
+339 <b>/proc/cpuinfo</b> processor	: 11<br>\
+340 <b>/proc/cpuinfo</b> vendor_id	: GenuineIntel<br>\
+341 <b>/proc/cpuinfo</b> cpu family	: 6<br>\
+342 <b>/proc/cpuinfo</b> model		: 85<br>\
+343 <b>/proc/cpuinfo</b> model name	: Intel(R) Xeon(R) Gold 6140 CPU @ 2.30GHz<br>\
+344 <b>/proc/cpuinfo</b> stepping	: 4<br>\
+345 <b>/proc/cpuinfo</b> microcode	: 0x1<br>\
+346 <b>/proc/cpuinfo</b> cpu MHz		: 2299.992<br>\
+347 <b>/proc/cpuinfo</b> cache size	: 16384 KB<br>\
+348 <b>/proc/cpuinfo</b> physical id	: 11<br>\
+349 <b>/proc/cpuinfo</b> siblings	: 1<br>\
+350 <b>/proc/cpuinfo</b> core id		: 0<br>\
+351 <b>/proc/cpuinfo</b> cpu cores	: 1<br>\
+352 <b>/proc/cpuinfo</b> apicid		: 11<br>\
+353 <b>/proc/cpuinfo</b> initial apicid	: 11<br>\
+354 <b>/proc/cpuinfo</b> fpu		: yes<br>\
+355 <b>/proc/cpuinfo</b> fpu_exception	: yes<br>\
+356 <b>/proc/cpuinfo</b> cpuid level	: 13<br>\
+357 <b>/proc/cpuinfo</b> wp		: yes<br>\
+358 <b>/proc/cpuinfo</b> flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ss syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon rep_good nopl xtopology eagerfpu pni pclmulqdq ssse3 fma cx16 pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm abm 3dnowprefetch ibrs ibpb fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 erms invpcid rtm mpx avx512f avx512dq rdseed adx smap clflushopt clwb avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 arat spec_ctrl<br>\
+359 <b>/proc/cpuinfo</b> bogomips	: 4599.98<br>\
+360 <b>/proc/cpuinfo</b> clflush size	: 64<br>\
+361 <b>/proc/cpuinfo</b> cache_alignment	: 64<br>\
+362 <b>/proc/cpuinfo</b> address sizes	: 46 bits physical<br>\
+363 <b>/proc/cpuinfo</b> power management:<br>\
+364 <b>/proc/cpuinfo</b> <br>\
+365 <b>/proc/cpuinfo</b> processor	: 12<br>\
+366 <b>/proc/cpuinfo</b> vendor_id	: GenuineIntel<br>\
+367 <b>/proc/cpuinfo</b> cpu family	: 6<br>\
+368 <b>/proc/cpuinfo</b> model		: 85<br>\
+369 <b>/proc/cpuinfo</b> model name	: Intel(R) Xeon(R) Gold 6140 CPU @ 2.30GHz<br>\
+370 <b>/proc/cpuinfo</b> stepping	: 4<br>\
+371 <b>/proc/cpuinfo</b> microcode	: 0x1<br>\
+372 <b>/proc/cpuinfo</b> cpu MHz		: 2299.992<br>\
+373 <b>/proc/cpuinfo</b> cache size	: 16384 KB<br>\
+374 <b>/proc/cpuinfo</b> physical id	: 12<br>\
+375 <b>/proc/cpuinfo</b> siblings	: 1<br>\
+376 <b>/proc/cpuinfo</b> core id		: 0<br>\
+377 <b>/proc/cpuinfo</b> cpu cores	: 1<br>\
+378 <b>/proc/cpuinfo</b> apicid		: 12<br>\
+379 <b>/proc/cpuinfo</b> initial apicid	: 12<br>\
+380 <b>/proc/cpuinfo</b> fpu		: yes<br>\
+381 <b>/proc/cpuinfo</b> fpu_exception	: yes<br>\
+382 <b>/proc/cpuinfo</b> cpuid level	: 13<br>\
+383 <b>/proc/cpuinfo</b> wp		: yes<br>\
+384 <b>/proc/cpuinfo</b> flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ss syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon rep_good nopl xtopology eagerfpu pni pclmulqdq ssse3 fma cx16 pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm abm 3dnowprefetch ibrs ibpb fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 erms invpcid rtm mpx avx512f avx512dq rdseed adx smap clflushopt clwb avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 arat spec_ctrl<br>\
+385 <b>/proc/cpuinfo</b> bogomips	: 4599.98<br>\
+386 <b>/proc/cpuinfo</b> clflush size	: 64<br>\
+387 <b>/proc/cpuinfo</b> cache_alignment	: 64<br>\
+388 <b>/proc/cpuinfo</b> address sizes	: 46 bits physical<br>\
+389 <b>/proc/cpuinfo</b> power management:<br>\
+390 <b>/proc/cpuinfo</b> <br>\
+391 <b>/proc/cpuinfo</b> processor	: 13<br>\
+392 <b>/proc/cpuinfo</b> vendor_id	: GenuineIntel<br>\
+393 <b>/proc/cpuinfo</b> cpu family	: 6<br>\
+394 <b>/proc/cpuinfo</b> model		: 85<br>\
+395 <b>/proc/cpuinfo</b> model name	: Intel(R) Xeon(R) Gold 6140 CPU @ 2.30GHz<br>\
+396 <b>/proc/cpuinfo</b> stepping	: 4<br>\
+397 <b>/proc/cpuinfo</b> microcode	: 0x1<br>\
+398 <b>/proc/cpuinfo</b> cpu MHz		: 2299.992<br>\
+399 <b>/proc/cpuinfo</b> cache size	: 16384 KB<br>\
+400 <b>/proc/cpuinfo</b> physical id	: 13<br>\
+401 <b>/proc/cpuinfo</b> siblings	: 1<br>\
+402 <b>/proc/cpuinfo</b> core id		: 0<br>\
+403 <b>/proc/cpuinfo</b> cpu cores	: 1<br>\
+404 <b>/proc/cpuinfo</b> apicid		: 13<br>\
+405 <b>/proc/cpuinfo</b> initial apicid	: 13<br>\
+406 <b>/proc/cpuinfo</b> fpu		: yes<br>\
+407 <b>/proc/cpuinfo</b> fpu_exception	: yes<br>\
+408 <b>/proc/cpuinfo</b> cpuid level	: 13<br>\
+409 <b>/proc/cpuinfo</b> wp		: yes<br>\
+410 <b>/proc/cpuinfo</b> flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ss syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon rep_good nopl xtopology eagerfpu pni pclmulqdq ssse3 fma cx16 pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm abm 3dnowprefetch ibrs ibpb fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 erms invpcid rtm mpx avx512f avx512dq rdseed adx smap clflushopt clwb avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 arat spec_ctrl<br>\
+411 <b>/proc/cpuinfo</b> bogomips	: 4599.98<br>\
+412 <b>/proc/cpuinfo</b> clflush size	: 64<br>\
+413 <b>/proc/cpuinfo</b> cache_alignment	: 64<br>\
+414 <b>/proc/cpuinfo</b> address sizes	: 46 bits physical<br>\
+415 <b>/proc/cpuinfo</b> power management:<br>\
+416 <b>/proc/cpuinfo</b> <br>\
+417 <b>/proc/cpuinfo</b> processor	: 14<br>\
+418 <b>/proc/cpuinfo</b> vendor_id	: GenuineIntel<br>\
+419 <b>/proc/cpuinfo</b> cpu family	: 6<br>\
+420 <b>/proc/cpuinfo</b> model		: 85<br>\
+421 <b>/proc/cpuinfo</b> model name	: Intel(R) Xeon(R) Gold 6140 CPU @ 2.30GHz<br>\
+422 <b>/proc/cpuinfo</b> stepping	: 4<br>\
+423 <b>/proc/cpuinfo</b> microcode	: 0x1<br>\
+424 <b>/proc/cpuinfo</b> cpu MHz		: 2299.992<br>\
+425 <b>/proc/cpuinfo</b> cache size	: 16384 KB<br>\
+426 <b>/proc/cpuinfo</b> physical id	: 14<br>\
+427 <b>/proc/cpuinfo</b> siblings	: 1<br>\
+428 <b>/proc/cpuinfo</b> core id		: 0<br>\
+429 <b>/proc/cpuinfo</b> cpu cores	: 1<br>\
+430 <b>/proc/cpuinfo</b> apicid		: 14<br>\
+431 <b>/proc/cpuinfo</b> initial apicid	: 14<br>\
+432 <b>/proc/cpuinfo</b> fpu		: yes<br>\
+433 <b>/proc/cpuinfo</b> fpu_exception	: yes<br>\
+434 <b>/proc/cpuinfo</b> cpuid level	: 13<br>\
+435 <b>/proc/cpuinfo</b> wp		: yes<br>\
+436 <b>/proc/cpuinfo</b> flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ss syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon rep_good nopl xtopology eagerfpu pni pclmulqdq ssse3 fma cx16 pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm abm 3dnowprefetch ibrs ibpb fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 erms invpcid rtm mpx avx512f avx512dq rdseed adx smap clflushopt clwb avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 arat spec_ctrl<br>\
+437 <b>/proc/cpuinfo</b> bogomips	: 4599.98<br>\
+438 <b>/proc/cpuinfo</b> clflush size	: 64<br>\
+439 <b>/proc/cpuinfo</b> cache_alignment	: 64<br>\
+440 <b>/proc/cpuinfo</b> address sizes	: 46 bits physical<br>\
+441 <b>/proc/cpuinfo</b> power management:<br>\
+442 <b>/proc/cpuinfo</b> <br>\
+443 <b>/proc/cpuinfo</b> processor	: 15<br>\
+444 <b>/proc/cpuinfo</b> vendor_id	: GenuineIntel<br>\
+445 <b>/proc/cpuinfo</b> cpu family	: 6<br>\
+446 <b>/proc/cpuinfo</b> model		: 85<br>\
+447 <b>/proc/cpuinfo</b> model name	: Intel(R) Xeon(R) Gold 6140 CPU @ 2.30GHz<br>\
+448 <b>/proc/cpuinfo</b> stepping	: 4<br>\
+449 <b>/proc/cpuinfo</b> microcode	: 0x1<br>\
+450 <b>/proc/cpuinfo</b> cpu MHz		: 2299.992<br>\
+451 <b>/proc/cpuinfo</b> cache size	: 16384 KB<br>\
+452 <b>/proc/cpuinfo</b> physical id	: 15<br>\
+453 <b>/proc/cpuinfo</b> siblings	: 1<br>\
+454 <b>/proc/cpuinfo</b> core id		: 0<br>\
+455 <b>/proc/cpuinfo</b> cpu cores	: 1<br>\
+456 <b>/proc/cpuinfo</b> apicid		: 15<br>\
+457 <b>/proc/cpuinfo</b> initial apicid	: 15<br>\
+458 <b>/proc/cpuinfo</b> fpu		: yes<br>\
+459 <b>/proc/cpuinfo</b> fpu_exception	: yes<br>\
+460 <b>/proc/cpuinfo</b> cpuid level	: 13<br>\
+461 <b>/proc/cpuinfo</b> wp		: yes<br>\
+462 <b>/proc/cpuinfo</b> flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ss syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon rep_good nopl xtopology eagerfpu pni pclmulqdq ssse3 fma cx16 pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm abm 3dnowprefetch ibrs ibpb fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 erms invpcid rtm mpx avx512f avx512dq rdseed adx smap clflushopt clwb avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 arat spec_ctrl<br>\
+463 <b>/proc/cpuinfo</b> bogomips	: 4599.98<br>\
+464 <b>/proc/cpuinfo</b> clflush size	: 64<br>\
+465 <b>/proc/cpuinfo</b> cache_alignment	: 64<br>\
+466 <b>/proc/cpuinfo</b> address sizes	: 46 bits physical<br>\
+467 <b>/proc/cpuinfo</b> power management:<br>\
+468 <b>/proc/cpuinfo</b> <br>\
+469 <b>/proc/cpuinfo</b> processor	: 16<br>\
+470 <b>/proc/cpuinfo</b> vendor_id	: GenuineIntel<br>\
+471 <b>/proc/cpuinfo</b> cpu family	: 6<br>\
+472 <b>/proc/cpuinfo</b> model		: 85<br>\
+473 <b>/proc/cpuinfo</b> model name	: Intel(R) Xeon(R) Gold 6140 CPU @ 2.30GHz<br>\
+474 <b>/proc/cpuinfo</b> stepping	: 4<br>\
+475 <b>/proc/cpuinfo</b> microcode	: 0x1<br>\
+476 <b>/proc/cpuinfo</b> cpu MHz		: 2299.992<br>\
+477 <b>/proc/cpuinfo</b> cache size	: 16384 KB<br>\
+478 <b>/proc/cpuinfo</b> physical id	: 16<br>\
+479 <b>/proc/cpuinfo</b> siblings	: 1<br>\
+480 <b>/proc/cpuinfo</b> core id		: 0<br>\
+481 <b>/proc/cpuinfo</b> cpu cores	: 1<br>\
+482 <b>/proc/cpuinfo</b> apicid		: 16<br>\
+483 <b>/proc/cpuinfo</b> initial apicid	: 16<br>\
+484 <b>/proc/cpuinfo</b> fpu		: yes<br>\
+485 <b>/proc/cpuinfo</b> fpu_exception	: yes<br>\
+486 <b>/proc/cpuinfo</b> cpuid level	: 13<br>\
+487 <b>/proc/cpuinfo</b> wp		: yes<br>\
+488 <b>/proc/cpuinfo</b> flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ss syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon rep_good nopl xtopology eagerfpu pni pclmulqdq ssse3 fma cx16 pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm abm 3dnowprefetch ibrs ibpb fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 erms invpcid rtm mpx avx512f avx512dq rdseed adx smap clflushopt clwb avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 arat spec_ctrl<br>\
+489 <b>/proc/cpuinfo</b> bogomips	: 4599.98<br>\
+490 <b>/proc/cpuinfo</b> clflush size	: 64<br>\
+491 <b>/proc/cpuinfo</b> cache_alignment	: 64<br>\
+492 <b>/proc/cpuinfo</b> address sizes	: 46 bits physical<br>\
+493 <b>/proc/cpuinfo</b> power management:<br>\
+494 <b>/proc/cpuinfo</b> <br>\
+495 <b>/proc/cpuinfo</b> processor	: 17<br>\
+496 <b>/proc/cpuinfo</b> vendor_id	: GenuineIntel<br>\
+497 <b>/proc/cpuinfo</b> cpu family	: 6<br>\
+498 <b>/proc/cpuinfo</b> model		: 85<br>\
+499 <b>/proc/cpuinfo</b> model name	: Intel(R) Xeon(R) Gold 6140 CPU @ 2.30GHz<br>\
+500 <b>/proc/cpuinfo</b> stepping	: 4<br>\
+501 <b>/proc/cpuinfo</b> microcode	: 0x1<br>\
+502 <b>/proc/cpuinfo</b> cpu MHz		: 2299.992<br>\
+503 <b>/proc/cpuinfo</b> cache size	: 16384 KB<br>\
+504 <b>/proc/cpuinfo</b> physical id	: 17<br>\
+505 <b>/proc/cpuinfo</b> siblings	: 1<br>\
+506 <b>/proc/cpuinfo</b> core id		: 0<br>\
+507 <b>/proc/cpuinfo</b> cpu cores	: 1<br>\
+508 <b>/proc/cpuinfo</b> apicid		: 17<br>\
+509 <b>/proc/cpuinfo</b> initial apicid	: 17<br>\
+510 <b>/proc/cpuinfo</b> fpu		: yes<br>\
+511 <b>/proc/cpuinfo</b> fpu_exception	: yes<br>\
+512 <b>/proc/cpuinfo</b> cpuid level	: 13<br>\
+513 <b>/proc/cpuinfo</b> wp		: yes<br>\
+514 <b>/proc/cpuinfo</b> flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ss syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon rep_good nopl xtopology eagerfpu pni pclmulqdq ssse3 fma cx16 pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm abm 3dnowprefetch ibrs ibpb fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 erms invpcid rtm mpx avx512f avx512dq rdseed adx smap clflushopt clwb avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 arat spec_ctrl<br>\
+515 <b>/proc/cpuinfo</b> bogomips	: 4599.98<br>\
+516 <b>/proc/cpuinfo</b> clflush size	: 64<br>\
+517 <b>/proc/cpuinfo</b> cache_alignment	: 64<br>\
+518 <b>/proc/cpuinfo</b> address sizes	: 46 bits physical<br>\
+519 <b>/proc/cpuinfo</b> power management:<br>\
+520 <b>/proc/cpuinfo</b> <br>\
+521 <b>/proc/cpuinfo</b> processor	: 18<br>\
+522 <b>/proc/cpuinfo</b> vendor_id	: GenuineIntel<br>\
+523 <b>/proc/cpuinfo</b> cpu family	: 6<br>\
+524 <b>/proc/cpuinfo</b> model		: 85<br>\
+525 <b>/proc/cpuinfo</b> model name	: Intel(R) Xeon(R) Gold 6140 CPU @ 2.30GHz<br>\
+526 <b>/proc/cpuinfo</b> stepping	: 4<br>\
+527 <b>/proc/cpuinfo</b> microcode	: 0x1<br>\
+528 <b>/proc/cpuinfo</b> cpu MHz		: 2299.992<br>\
+529 <b>/proc/cpuinfo</b> cache size	: 16384 KB<br>\
+530 <b>/proc/cpuinfo</b> physical id	: 18<br>\
+531 <b>/proc/cpuinfo</b> siblings	: 1<br>\
+532 <b>/proc/cpuinfo</b> core id		: 0<br>\
+533 <b>/proc/cpuinfo</b> cpu cores	: 1<br>\
+534 <b>/proc/cpuinfo</b> apicid		: 18<br>\
+535 <b>/proc/cpuinfo</b> initial apicid	: 18<br>\
+536 <b>/proc/cpuinfo</b> fpu		: yes<br>\
+537 <b>/proc/cpuinfo</b> fpu_exception	: yes<br>\
+538 <b>/proc/cpuinfo</b> cpuid level	: 13<br>\
+539 <b>/proc/cpuinfo</b> wp		: yes<br>\
+540 <b>/proc/cpuinfo</b> flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ss syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon rep_good nopl xtopology eagerfpu pni pclmulqdq ssse3 fma cx16 pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm abm 3dnowprefetch ibrs ibpb fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 erms invpcid rtm mpx avx512f avx512dq rdseed adx smap clflushopt clwb avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 arat spec_ctrl<br>\
+541 <b>/proc/cpuinfo</b> bogomips	: 4599.98<br>\
+542 <b>/proc/cpuinfo</b> clflush size	: 64<br>\
+543 <b>/proc/cpuinfo</b> cache_alignment	: 64<br>\
+544 <b>/proc/cpuinfo</b> address sizes	: 46 bits physical<br>\
+545 <b>/proc/cpuinfo</b> power management:<br>\
+546 <b>/proc/cpuinfo</b> <br>\
+547 <b>/proc/cpuinfo</b> processor	: 19<br>\
+548 <b>/proc/cpuinfo</b> vendor_id	: GenuineIntel<br>\
+549 <b>/proc/cpuinfo</b> cpu family	: 6<br>\
+550 <b>/proc/cpuinfo</b> model		: 85<br>\
+551 <b>/proc/cpuinfo</b> model name	: Intel(R) Xeon(R) Gold 6140 CPU @ 2.30GHz<br>\
+552 <b>/proc/cpuinfo</b> stepping	: 4<br>\
+553 <b>/proc/cpuinfo</b> microcode	: 0x1<br>\
+554 <b>/proc/cpuinfo</b> cpu MHz		: 2299.992<br>\
+555 <b>/proc/cpuinfo</b> cache size	: 16384 KB<br>\
+556 <b>/proc/cpuinfo</b> physical id	: 19<br>\
+557 <b>/proc/cpuinfo</b> siblings	: 1<br>\
+558 <b>/proc/cpuinfo</b> core id		: 0<br>\
+559 <b>/proc/cpuinfo</b> cpu cores	: 1<br>\
+560 <b>/proc/cpuinfo</b> apicid		: 19<br>\
+561 <b>/proc/cpuinfo</b> initial apicid	: 19<br>\
+562 <b>/proc/cpuinfo</b> fpu		: yes<br>\
+563 <b>/proc/cpuinfo</b> fpu_exception	: yes<br>\
+564 <b>/proc/cpuinfo</b> cpuid level	: 13<br>\
+565 <b>/proc/cpuinfo</b> wp		: yes<br>\
+566 <b>/proc/cpuinfo</b> flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ss syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon rep_good nopl xtopology eagerfpu pni pclmulqdq ssse3 fma cx16 pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm abm 3dnowprefetch ibrs ibpb fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 erms invpcid rtm mpx avx512f avx512dq rdseed adx smap clflushopt clwb avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 arat spec_ctrl<br>\
+567 <b>/proc/cpuinfo</b> bogomips	: 4599.98<br>\
+568 <b>/proc/cpuinfo</b> clflush size	: 64<br>\
+569 <b>/proc/cpuinfo</b> cache_alignment	: 64<br>\
+570 <b>/proc/cpuinfo</b> address sizes	: 46 bits physical<br>\
+571 <b>/proc/cpuinfo</b> power management:<br>\
+572 <b>/proc/cpuinfo</b> <br>\
+573 <b>/proc/cpuinfo</b> processor	: 20<br>\
+574 <b>/proc/cpuinfo</b> vendor_id	: GenuineIntel<br>\
+575 <b>/proc/cpuinfo</b> cpu family	: 6<br>\
+576 <b>/proc/cpuinfo</b> model		: 85<br>\
+577 <b>/proc/cpuinfo</b> model name	: Intel(R) Xeon(R) Gold 6140 CPU @ 2.30GHz<br>\
+578 <b>/proc/cpuinfo</b> stepping	: 4<br>\
+579 <b>/proc/cpuinfo</b> microcode	: 0x1<br>\
+580 <b>/proc/cpuinfo</b> cpu MHz		: 2299.992<br>\
+581 <b>/proc/cpuinfo</b> cache size	: 16384 KB<br>\
+582 <b>/proc/cpuinfo</b> physical id	: 20<br>\
+583 <b>/proc/cpuinfo</b> siblings	: 1<br>\
+584 <b>/proc/cpuinfo</b> core id		: 0<br>\
+585 <b>/proc/cpuinfo</b> cpu cores	: 1<br>\
+586 <b>/proc/cpuinfo</b> apicid		: 20<br>\
+587 <b>/proc/cpuinfo</b> initial apicid	: 20<br>\
+588 <b>/proc/cpuinfo</b> fpu		: yes<br>\
+589 <b>/proc/cpuinfo</b> fpu_exception	: yes<br>\
+590 <b>/proc/cpuinfo</b> cpuid level	: 13<br>\
+591 <b>/proc/cpuinfo</b> wp		: yes<br>\
+592 <b>/proc/cpuinfo</b> flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ss syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon rep_good nopl xtopology eagerfpu pni pclmulqdq ssse3 fma cx16 pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm abm 3dnowprefetch ibrs ibpb fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 erms invpcid rtm mpx avx512f avx512dq rdseed adx smap clflushopt clwb avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 arat spec_ctrl<br>\
+593 <b>/proc/cpuinfo</b> bogomips	: 4599.98<br>\
+594 <b>/proc/cpuinfo</b> clflush size	: 64<br>\
+595 <b>/proc/cpuinfo</b> cache_alignment	: 64<br>\
+596 <b>/proc/cpuinfo</b> address sizes	: 46 bits physical<br>\
+597 <b>/proc/cpuinfo</b> power management:<br>\
+598 <b>/proc/cpuinfo</b> <br>\
+599 <b>/proc/cpuinfo</b> processor	: 21<br>\
+600 <b>/proc/cpuinfo</b> vendor_id	: GenuineIntel<br>\
+601 <b>/proc/cpuinfo</b> cpu family	: 6<br>\
+602 <b>/proc/cpuinfo</b> model		: 85<br>\
+603 <b>/proc/cpuinfo</b> model name	: Intel(R) Xeon(R) Gold 6140 CPU @ 2.30GHz<br>\
+604 <b>/proc/cpuinfo</b> stepping	: 4<br>\
+605 <b>/proc/cpuinfo</b> microcode	: 0x1<br>\
+606 <b>/proc/cpuinfo</b> cpu MHz		: 2299.992<br>\
+607 <b>/proc/cpuinfo</b> cache size	: 16384 KB<br>\
+608 <b>/proc/cpuinfo</b> physical id	: 21<br>\
+609 <b>/proc/cpuinfo</b> siblings	: 1<br>\
+610 <b>/proc/cpuinfo</b> core id		: 0<br>\
+611 <b>/proc/cpuinfo</b> cpu cores	: 1<br>\
+612 <b>/proc/cpuinfo</b> apicid		: 21<br>\
+613 <b>/proc/cpuinfo</b> initial apicid	: 21<br>\
+614 <b>/proc/cpuinfo</b> fpu		: yes<br>\
+615 <b>/proc/cpuinfo</b> fpu_exception	: yes<br>\
+616 <b>/proc/cpuinfo</b> cpuid level	: 13<br>\
+617 <b>/proc/cpuinfo</b> wp		: yes<br>\
+618 <b>/proc/cpuinfo</b> flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ss syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon rep_good nopl xtopology eagerfpu pni pclmulqdq ssse3 fma cx16 pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm abm 3dnowprefetch ibrs ibpb fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 erms invpcid rtm mpx avx512f avx512dq rdseed adx smap clflushopt clwb avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 arat spec_ctrl<br>\
+619 <b>/proc/cpuinfo</b> bogomips	: 4599.98<br>\
+620 <b>/proc/cpuinfo</b> clflush size	: 64<br>\
+621 <b>/proc/cpuinfo</b> cache_alignment	: 64<br>\
+622 <b>/proc/cpuinfo</b> address sizes	: 46 bits physical<br>\
+623 <b>/proc/cpuinfo</b> power management:<br>\
+624 <b>/proc/cpuinfo</b> <br>\
+625 <b>/proc/cpuinfo</b> processor	: 22<br>\
+626 <b>/proc/cpuinfo</b> vendor_id	: GenuineIntel<br>\
+627 <b>/proc/cpuinfo</b> cpu family	: 6<br>\
+628 <b>/proc/cpuinfo</b> model		: 85<br>\
+629 <b>/proc/cpuinfo</b> model name	: Intel(R) Xeon(R) Gold 6140 CPU @ 2.30GHz<br>\
+630 <b>/proc/cpuinfo</b> stepping	: 4<br>\
+631 <b>/proc/cpuinfo</b> microcode	: 0x1<br>\
+632 <b>/proc/cpuinfo</b> cpu MHz		: 2299.992<br>\
+633 <b>/proc/cpuinfo</b> cache size	: 16384 KB<br>\
+634 <b>/proc/cpuinfo</b> physical id	: 22<br>\
+635 <b>/proc/cpuinfo</b> siblings	: 1<br>\
+636 <b>/proc/cpuinfo</b> core id		: 0<br>\
+637 <b>/proc/cpuinfo</b> cpu cores	: 1<br>\
+638 <b>/proc/cpuinfo</b> apicid		: 22<br>\
+639 <b>/proc/cpuinfo</b> initial apicid	: 22<br>\
+640 <b>/proc/cpuinfo</b> fpu		: yes<br>\
+641 <b>/proc/cpuinfo</b> fpu_exception	: yes<br>\
+642 <b>/proc/cpuinfo</b> cpuid level	: 13<br>\
+643 <b>/proc/cpuinfo</b> wp		: yes<br>\
+644 <b>/proc/cpuinfo</b> flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ss syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon rep_good nopl xtopology eagerfpu pni pclmulqdq ssse3 fma cx16 pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm abm 3dnowprefetch ibrs ibpb fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 erms invpcid rtm mpx avx512f avx512dq rdseed adx smap clflushopt clwb avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 arat spec_ctrl<br>\
+645 <b>/proc/cpuinfo</b> bogomips	: 4599.98<br>\
+646 <b>/proc/cpuinfo</b> clflush size	: 64<br>\
+647 <b>/proc/cpuinfo</b> cache_alignment	: 64<br>\
+648 <b>/proc/cpuinfo</b> address sizes	: 46 bits physical<br>\
+649 <b>/proc/cpuinfo</b> power management:<br>\
+650 <b>/proc/cpuinfo</b> <br>\
+651 <b>/proc/cpuinfo</b> processor	: 23<br>\
+652 <b>/proc/cpuinfo</b> vendor_id	: GenuineIntel<br>\
+653 <b>/proc/cpuinfo</b> cpu family	: 6<br>\
+654 <b>/proc/cpuinfo</b> model		: 85<br>\
+655 <b>/proc/cpuinfo</b> model name	: Intel(R) Xeon(R) Gold 6140 CPU @ 2.30GHz<br>\
+656 <b>/proc/cpuinfo</b> stepping	: 4<br>\
+657 <b>/proc/cpuinfo</b> microcode	: 0x1<br>\
+658 <b>/proc/cpuinfo</b> cpu MHz		: 2299.992<br>\
+659 <b>/proc/cpuinfo</b> cache size	: 16384 KB<br>\
+660 <b>/proc/cpuinfo</b> physical id	: 23<br>\
+661 <b>/proc/cpuinfo</b> siblings	: 1<br>\
+662 <b>/proc/cpuinfo</b> core id		: 0<br>\
+663 <b>/proc/cpuinfo</b> cpu cores	: 1<br>\
+664 <b>/proc/cpuinfo</b> apicid		: 23<br>\
+665 <b>/proc/cpuinfo</b> initial apicid	: 23<br>\
+666 <b>/proc/cpuinfo</b> fpu		: yes<br>\
+667 <b>/proc/cpuinfo</b> fpu_exception	: yes<br>\
+668 <b>/proc/cpuinfo</b> cpuid level	: 13<br>\
+669 <b>/proc/cpuinfo</b> wp		: yes<br>\
+670 <b>/proc/cpuinfo</b> flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ss syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon rep_good nopl xtopology eagerfpu pni pclmulqdq ssse3 fma cx16 pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm abm 3dnowprefetch ibrs ibpb fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 erms invpcid rtm mpx avx512f avx512dq rdseed adx smap clflushopt clwb avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 arat spec_ctrl<br>\
+671 <b>/proc/cpuinfo</b> bogomips	: 4599.98<br>\
+672 <b>/proc/cpuinfo</b> clflush size	: 64<br>\
+673 <b>/proc/cpuinfo</b> cache_alignment	: 64<br>\
+674 <b>/proc/cpuinfo</b> address sizes	: 46 bits physical<br>\
+675 <b>/proc/cpuinfo</b> power management:<br>\
+676 <b>/proc/cpuinfo</b> <br>\
+677 <b>/proc/cpuinfo</b> processor	: 24<br>\
+678 <b>/proc/cpuinfo</b> vendor_id	: GenuineIntel<br>\
+679 <b>/proc/cpuinfo</b> cpu family	: 6<br>\
+680 <b>/proc/cpuinfo</b> model		: 85<br>\
+681 <b>/proc/cpuinfo</b> model name	: Intel(R) Xeon(R) Gold 6140 CPU @ 2.30GHz<br>\
+682 <b>/proc/cpuinfo</b> stepping	: 4<br>\
+683 <b>/proc/cpuinfo</b> microcode	: 0x1<br>\
+684 <b>/proc/cpuinfo</b> cpu MHz		: 2299.992<br>\
+685 <b>/proc/cpuinfo</b> cache size	: 16384 KB<br>\
+686 <b>/proc/cpuinfo</b> physical id	: 24<br>\
+687 <b>/proc/cpuinfo</b> siblings	: 1<br>\
+688 <b>/proc/cpuinfo</b> core id		: 0<br>\
+689 <b>/proc/cpuinfo</b> cpu cores	: 1<br>\
+690 <b>/proc/cpuinfo</b> apicid		: 24<br>\
+691 <b>/proc/cpuinfo</b> initial apicid	: 24<br>\
+692 <b>/proc/cpuinfo</b> fpu		: yes<br>\
+693 <b>/proc/cpuinfo</b> fpu_exception	: yes<br>\
+694 <b>/proc/cpuinfo</b> cpuid level	: 13<br>\
+695 <b>/proc/cpuinfo</b> wp		: yes<br>\
+696 <b>/proc/cpuinfo</b> flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ss syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon rep_good nopl xtopology eagerfpu pni pclmulqdq ssse3 fma cx16 pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm abm 3dnowprefetch ibrs ibpb fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 erms invpcid rtm mpx avx512f avx512dq rdseed adx smap clflushopt clwb avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 arat spec_ctrl<br>\
+697 <b>/proc/cpuinfo</b> bogomips	: 4599.98<br>\
+698 <b>/proc/cpuinfo</b> clflush size	: 64<br>\
+699 <b>/proc/cpuinfo</b> cache_alignment	: 64<br>\
+700 <b>/proc/cpuinfo</b> address sizes	: 46 bits physical<br>\
+701 <b>/proc/cpuinfo</b> power management:<br>\
+702 <b>/proc/cpuinfo</b> <br>\
+703 <b>/proc/cpuinfo</b> processor	: 25<br>\
+704 <b>/proc/cpuinfo</b> vendor_id	: GenuineIntel<br>\
+705 <b>/proc/cpuinfo</b> cpu family	: 6<br>\
+706 <b>/proc/cpuinfo</b> model		: 85<br>\
+707 <b>/proc/cpuinfo</b> model name	: Intel(R) Xeon(R) Gold 6140 CPU @ 2.30GHz<br>\
+708 <b>/proc/cpuinfo</b> stepping	: 4<br>\
+709 <b>/proc/cpuinfo</b> microcode	: 0x1<br>\
+710 <b>/proc/cpuinfo</b> cpu MHz		: 2299.992<br>\
+711 <b>/proc/cpuinfo</b> cache size	: 16384 KB<br>\
+712 <b>/proc/cpuinfo</b> physical id	: 25<br>\
+713 <b>/proc/cpuinfo</b> siblings	: 1<br>\
+714 <b>/proc/cpuinfo</b> core id		: 0<br>\
+715 <b>/proc/cpuinfo</b> cpu cores	: 1<br>\
+716 <b>/proc/cpuinfo</b> apicid		: 25<br>\
+717 <b>/proc/cpuinfo</b> initial apicid	: 25<br>\
+718 <b>/proc/cpuinfo</b> fpu		: yes<br>\
+719 <b>/proc/cpuinfo</b> fpu_exception	: yes<br>\
+720 <b>/proc/cpuinfo</b> cpuid level	: 13<br>\
+721 <b>/proc/cpuinfo</b> wp		: yes<br>\
+722 <b>/proc/cpuinfo</b> flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ss syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon rep_good nopl xtopology eagerfpu pni pclmulqdq ssse3 fma cx16 pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm abm 3dnowprefetch ibrs ibpb fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 erms invpcid rtm mpx avx512f avx512dq rdseed adx smap clflushopt clwb avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 arat spec_ctrl<br>\
+723 <b>/proc/cpuinfo</b> bogomips	: 4599.98<br>\
+724 <b>/proc/cpuinfo</b> clflush size	: 64<br>\
+725 <b>/proc/cpuinfo</b> cache_alignment	: 64<br>\
+726 <b>/proc/cpuinfo</b> address sizes	: 46 bits physical<br>\
+727 <b>/proc/cpuinfo</b> power management:<br>\
+728 <b>/proc/cpuinfo</b> <br>\
+729 <b>/proc/cpuinfo</b> processor	: 26<br>\
+730 <b>/proc/cpuinfo</b> vendor_id	: GenuineIntel<br>\
+731 <b>/proc/cpuinfo</b> cpu family	: 6<br>\
+732 <b>/proc/cpuinfo</b> model		: 85<br>\
+733 <b>/proc/cpuinfo</b> model name	: Intel(R) Xeon(R) Gold 6140 CPU @ 2.30GHz<br>\
+734 <b>/proc/cpuinfo</b> stepping	: 4<br>\
+735 <b>/proc/cpuinfo</b> microcode	: 0x1<br>\
+736 <b>/proc/cpuinfo</b> cpu MHz		: 2299.992<br>\
+737 <b>/proc/cpuinfo</b> cache size	: 16384 KB<br>\
+738 <b>/proc/cpuinfo</b> physical id	: 26<br>\
+739 <b>/proc/cpuinfo</b> siblings	: 1<br>\
+740 <b>/proc/cpuinfo</b> core id		: 0<br>\
+741 <b>/proc/cpuinfo</b> cpu cores	: 1<br>\
+742 <b>/proc/cpuinfo</b> apicid		: 26<br>\
+743 <b>/proc/cpuinfo</b> initial apicid	: 26<br>\
+744 <b>/proc/cpuinfo</b> fpu		: yes<br>\
+745 <b>/proc/cpuinfo</b> fpu_exception	: yes<br>\
+746 <b>/proc/cpuinfo</b> cpuid level	: 13<br>\
+747 <b>/proc/cpuinfo</b> wp		: yes<br>\
+748 <b>/proc/cpuinfo</b> flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ss syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon rep_good nopl xtopology eagerfpu pni pclmulqdq ssse3 fma cx16 pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm abm 3dnowprefetch ibrs ibpb fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 erms invpcid rtm mpx avx512f avx512dq rdseed adx smap clflushopt clwb avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 arat spec_ctrl<br>\
+749 <b>/proc/cpuinfo</b> bogomips	: 4599.98<br>\
+750 <b>/proc/cpuinfo</b> clflush size	: 64<br>\
+751 <b>/proc/cpuinfo</b> cache_alignment	: 64<br>\
+752 <b>/proc/cpuinfo</b> address sizes	: 46 bits physical<br>\
+753 <b>/proc/cpuinfo</b> power management:<br>\
+754 <b>/proc/cpuinfo</b> <br>\
+755 <b>/proc/cpuinfo</b> processor	: 27<br>\
+756 <b>/proc/cpuinfo</b> vendor_id	: GenuineIntel<br>\
+757 <b>/proc/cpuinfo</b> cpu family	: 6<br>\
+758 <b>/proc/cpuinfo</b> model		: 85<br>\
+759 <b>/proc/cpuinfo</b> model name	: Intel(R) Xeon(R) Gold 6140 CPU @ 2.30GHz<br>\
+760 <b>/proc/cpuinfo</b> stepping	: 4<br>\
+761 <b>/proc/cpuinfo</b> microcode	: 0x1<br>\
+762 <b>/proc/cpuinfo</b> cpu MHz		: 2299.992<br>\
+763 <b>/proc/cpuinfo</b> cache size	: 16384 KB<br>\
+764 <b>/proc/cpuinfo</b> physical id	: 27<br>\
+765 <b>/proc/cpuinfo</b> siblings	: 1<br>\
+766 <b>/proc/cpuinfo</b> core id		: 0<br>\
+767 <b>/proc/cpuinfo</b> cpu cores	: 1<br>\
+768 <b>/proc/cpuinfo</b> apicid		: 27<br>\
+769 <b>/proc/cpuinfo</b> initial apicid	: 27<br>\
+770 <b>/proc/cpuinfo</b> fpu		: yes<br>\
+771 <b>/proc/cpuinfo</b> fpu_exception	: yes<br>\
+772 <b>/proc/cpuinfo</b> cpuid level	: 13<br>\
+773 <b>/proc/cpuinfo</b> wp		: yes<br>\
+774 <b>/proc/cpuinfo</b> flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ss syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon rep_good nopl xtopology eagerfpu pni pclmulqdq ssse3 fma cx16 pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm abm 3dnowprefetch ibrs ibpb fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 erms invpcid rtm mpx avx512f avx512dq rdseed adx smap clflushopt clwb avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 arat spec_ctrl<br>\
+775 <b>/proc/cpuinfo</b> bogomips	: 4599.98<br>\
+776 <b>/proc/cpuinfo</b> clflush size	: 64<br>\
+777 <b>/proc/cpuinfo</b> cache_alignment	: 64<br>\
+778 <b>/proc/cpuinfo</b> address sizes	: 46 bits physical<br>\
+779 <b>/proc/cpuinfo</b> power management:<br>\
+780 <b>/proc/cpuinfo</b> <br>\
+781 <b>/proc/cpuinfo</b> processor	: 28<br>\
+782 <b>/proc/cpuinfo</b> vendor_id	: GenuineIntel<br>\
+783 <b>/proc/cpuinfo</b> cpu family	: 6<br>\
+784 <b>/proc/cpuinfo</b> model		: 85<br>\
+785 <b>/proc/cpuinfo</b> model name	: Intel(R) Xeon(R) Gold 6140 CPU @ 2.30GHz<br>\
+786 <b>/proc/cpuinfo</b> stepping	: 4<br>\
+787 <b>/proc/cpuinfo</b> microcode	: 0x1<br>\
+788 <b>/proc/cpuinfo</b> cpu MHz		: 2299.992<br>\
+789 <b>/proc/cpuinfo</b> cache size	: 16384 KB<br>\
+790 <b>/proc/cpuinfo</b> physical id	: 28<br>\
+791 <b>/proc/cpuinfo</b> siblings	: 1<br>\
+792 <b>/proc/cpuinfo</b> core id		: 0<br>\
+793 <b>/proc/cpuinfo</b> cpu cores	: 1<br>\
+794 <b>/proc/cpuinfo</b> apicid		: 28<br>\
+795 <b>/proc/cpuinfo</b> initial apicid	: 28<br>\
+796 <b>/proc/cpuinfo</b> fpu		: yes<br>\
+797 <b>/proc/cpuinfo</b> fpu_exception	: yes<br>\
+798 <b>/proc/cpuinfo</b> cpuid level	: 13<br>\
+799 <b>/proc/cpuinfo</b> wp		: yes<br>\
+800 <b>/proc/cpuinfo</b> flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ss syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon rep_good nopl xtopology eagerfpu pni pclmulqdq ssse3 fma cx16 pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm abm 3dnowprefetch ibrs ibpb fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 erms invpcid rtm mpx avx512f avx512dq rdseed adx smap clflushopt clwb avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 arat spec_ctrl<br>\
+801 <b>/proc/cpuinfo</b> bogomips	: 4599.98<br>\
+802 <b>/proc/cpuinfo</b> clflush size	: 64<br>\
+803 <b>/proc/cpuinfo</b> cache_alignment	: 64<br>\
+804 <b>/proc/cpuinfo</b> address sizes	: 46 bits physical<br>\
+805 <b>/proc/cpuinfo</b> power management:<br>\
+806 <b>/proc/cpuinfo</b> <br>\
+807 <b>/proc/cpuinfo</b> processor	: 29<br>\
+808 <b>/proc/cpuinfo</b> vendor_id	: GenuineIntel<br>\
+809 <b>/proc/cpuinfo</b> cpu family	: 6<br>\
+810 <b>/proc/cpuinfo</b> model		: 85<br>\
+811 <b>/proc/cpuinfo</b> model name	: Intel(R) Xeon(R) Gold 6140 CPU @ 2.30GHz<br>\
+812 <b>/proc/cpuinfo</b> stepping	: 4<br>\
+813 <b>/proc/cpuinfo</b> microcode	: 0x1<br>\
+814 <b>/proc/cpuinfo</b> cpu MHz		: 2299.992<br>\
+815 <b>/proc/cpuinfo</b> cache size	: 16384 KB<br>\
+816 <b>/proc/cpuinfo</b> physical id	: 29<br>\
+817 <b>/proc/cpuinfo</b> siblings	: 1<br>\
+818 <b>/proc/cpuinfo</b> core id		: 0<br>\
+819 <b>/proc/cpuinfo</b> cpu cores	: 1<br>\
+820 <b>/proc/cpuinfo</b> apicid		: 29<br>\
+821 <b>/proc/cpuinfo</b> initial apicid	: 29<br>\
+822 <b>/proc/cpuinfo</b> fpu		: yes<br>\
+823 <b>/proc/cpuinfo</b> fpu_exception	: yes<br>\
+824 <b>/proc/cpuinfo</b> cpuid level	: 13<br>\
+825 <b>/proc/cpuinfo</b> wp		: yes<br>\
+826 <b>/proc/cpuinfo</b> flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ss syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon rep_good nopl xtopology eagerfpu pni pclmulqdq ssse3 fma cx16 pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm abm 3dnowprefetch ibrs ibpb fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 erms invpcid rtm mpx avx512f avx512dq rdseed adx smap clflushopt clwb avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 arat spec_ctrl<br>\
+827 <b>/proc/cpuinfo</b> bogomips	: 4599.98<br>\
+828 <b>/proc/cpuinfo</b> clflush size	: 64<br>\
+829 <b>/proc/cpuinfo</b> cache_alignment	: 64<br>\
+830 <b>/proc/cpuinfo</b> address sizes	: 46 bits physical<br>\
+831 <b>/proc/cpuinfo</b> power management:<br>\
+832 <b>/proc/cpuinfo</b> <br>\
+833 <b>/proc/cpuinfo</b> processor	: 30<br>\
+834 <b>/proc/cpuinfo</b> vendor_id	: GenuineIntel<br>\
+835 <b>/proc/cpuinfo</b> cpu family	: 6<br>\
+836 <b>/proc/cpuinfo</b> model		: 85<br>\
+837 <b>/proc/cpuinfo</b> model name	: Intel(R) Xeon(R) Gold 6140 CPU @ 2.30GHz<br>\
+838 <b>/proc/cpuinfo</b> stepping	: 4<br>\
+839 <b>/proc/cpuinfo</b> microcode	: 0x1<br>\
+840 <b>/proc/cpuinfo</b> cpu MHz		: 2299.992<br>\
+841 <b>/proc/cpuinfo</b> cache size	: 16384 KB<br>\
+842 <b>/proc/cpuinfo</b> physical id	: 30<br>\
+843 <b>/proc/cpuinfo</b> siblings	: 1<br>\
+844 <b>/proc/cpuinfo</b> core id		: 0<br>\
+845 <b>/proc/cpuinfo</b> cpu cores	: 1<br>\
+846 <b>/proc/cpuinfo</b> apicid		: 30<br>\
+847 <b>/proc/cpuinfo</b> initial apicid	: 30<br>\
+848 <b>/proc/cpuinfo</b> fpu		: yes<br>\
+849 <b>/proc/cpuinfo</b> fpu_exception	: yes<br>\
+850 <b>/proc/cpuinfo</b> cpuid level	: 13<br>\
+851 <b>/proc/cpuinfo</b> wp		: yes<br>\
+852 <b>/proc/cpuinfo</b> flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ss syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon rep_good nopl xtopology eagerfpu pni pclmulqdq ssse3 fma cx16 pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm abm 3dnowprefetch ibrs ibpb fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 erms invpcid rtm mpx avx512f avx512dq rdseed adx smap clflushopt clwb avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 arat spec_ctrl<br>\
+853 <b>/proc/cpuinfo</b> bogomips	: 4599.98<br>\
+854 <b>/proc/cpuinfo</b> clflush size	: 64<br>\
+855 <b>/proc/cpuinfo</b> cache_alignment	: 64<br>\
+856 <b>/proc/cpuinfo</b> address sizes	: 46 bits physical<br>\
+857 <b>/proc/cpuinfo</b> power management:<br>\
+858 <b>/proc/cpuinfo</b> <br>\
+859 <b>/proc/cpuinfo</b> processor	: 31<br>\
+860 <b>/proc/cpuinfo</b> vendor_id	: GenuineIntel<br>\
+861 <b>/proc/cpuinfo</b> cpu family	: 6<br>\
+862 <b>/proc/cpuinfo</b> model		: 85<br>\
+863 <b>/proc/cpuinfo</b> model name	: Intel(R) Xeon(R) Gold 6140 CPU @ 2.30GHz<br>\
+864 <b>/proc/cpuinfo</b> stepping	: 4<br>\
+865 <b>/proc/cpuinfo</b> microcode	: 0x1<br>\
+866 <b>/proc/cpuinfo</b> cpu MHz		: 2299.992<br>\
+867 <b>/proc/cpuinfo</b> cache size	: 16384 KB<br>\
+868 <b>/proc/cpuinfo</b> physical id	: 31<br>\
+869 <b>/proc/cpuinfo</b> siblings	: 1<br>\
+870 <b>/proc/cpuinfo</b> core id		: 0<br>\
+871 <b>/proc/cpuinfo</b> cpu cores	: 1<br>\
+872 <b>/proc/cpuinfo</b> apicid		: 31<br>\
+873 <b>/proc/cpuinfo</b> initial apicid	: 31<br>\
+874 <b>/proc/cpuinfo</b> fpu		: yes<br>\
+875 <b>/proc/cpuinfo</b> fpu_exception	: yes<br>\
+876 <b>/proc/cpuinfo</b> cpuid level	: 13<br>\
+877 <b>/proc/cpuinfo</b> wp		: yes<br>\
+878 <b>/proc/cpuinfo</b> flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ss syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon rep_good nopl xtopology eagerfpu pni pclmulqdq ssse3 fma cx16 pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm abm 3dnowprefetch ibrs ibpb fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 erms invpcid rtm mpx avx512f avx512dq rdseed adx smap clflushopt clwb avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 arat spec_ctrl<br>\
+879 <b>/proc/cpuinfo</b> bogomips	: 4599.98<br>\
+880 <b>/proc/cpuinfo</b> clflush size	: 64<br>\
+881 <b>/proc/cpuinfo</b> cache_alignment	: 64<br>\
+882 <b>/proc/cpuinfo</b> address sizes	: 46 bits physical<br>\
+883 <b>/proc/cpuinfo</b> power management:<br>\
+884 <b>/proc/cpuinfo</b> <br>\
+885 <b>/proc/cpuinfo</b> processor	: 32<br>\
+886 <b>/proc/cpuinfo</b> vendor_id	: GenuineIntel<br>\
+887 <b>/proc/cpuinfo</b> cpu family	: 6<br>\
+888 <b>/proc/cpuinfo</b> model		: 85<br>\
+889 <b>/proc/cpuinfo</b> model name	: Intel(R) Xeon(R) Gold 6140 CPU @ 2.30GHz<br>\
+890 <b>/proc/cpuinfo</b> stepping	: 4<br>\
+891 <b>/proc/cpuinfo</b> microcode	: 0x1<br>\
+892 <b>/proc/cpuinfo</b> cpu MHz		: 2299.992<br>\
+893 <b>/proc/cpuinfo</b> cache size	: 16384 KB<br>\
+894 <b>/proc/cpuinfo</b> physical id	: 32<br>\
+895 <b>/proc/cpuinfo</b> siblings	: 1<br>\
+896 <b>/proc/cpuinfo</b> core id		: 0<br>\
+897 <b>/proc/cpuinfo</b> cpu cores	: 1<br>\
+898 <b>/proc/cpuinfo</b> apicid		: 32<br>\
+899 <b>/proc/cpuinfo</b> initial apicid	: 32<br>\
+900 <b>/proc/cpuinfo</b> fpu		: yes<br>\
+901 <b>/proc/cpuinfo</b> fpu_exception	: yes<br>\
+902 <b>/proc/cpuinfo</b> cpuid level	: 13<br>\
+903 <b>/proc/cpuinfo</b> wp		: yes<br>\
+904 <b>/proc/cpuinfo</b> flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ss syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon rep_good nopl xtopology eagerfpu pni pclmulqdq ssse3 fma cx16 pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm abm 3dnowprefetch ibrs ibpb fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 erms invpcid rtm mpx avx512f avx512dq rdseed adx smap clflushopt clwb avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 arat spec_ctrl<br>\
+905 <b>/proc/cpuinfo</b> bogomips	: 4599.98<br>\
+906 <b>/proc/cpuinfo</b> clflush size	: 64<br>\
+907 <b>/proc/cpuinfo</b> cache_alignment	: 64<br>\
+908 <b>/proc/cpuinfo</b> address sizes	: 46 bits physical<br>\
+909 <b>/proc/cpuinfo</b> power management:<br>\
+910 <b>/proc/cpuinfo</b> <br>\
+911 <b>/proc/cpuinfo</b> processor	: 33<br>\
+912 <b>/proc/cpuinfo</b> vendor_id	: GenuineIntel<br>\
+913 <b>/proc/cpuinfo</b> cpu family	: 6<br>\
+914 <b>/proc/cpuinfo</b> model		: 85<br>\
+915 <b>/proc/cpuinfo</b> model name	: Intel(R) Xeon(R) Gold 6140 CPU @ 2.30GHz<br>\
+916 <b>/proc/cpuinfo</b> stepping	: 4<br>\
+917 <b>/proc/cpuinfo</b> microcode	: 0x1<br>\
+918 <b>/proc/cpuinfo</b> cpu MHz		: 2299.992<br>\
+919 <b>/proc/cpuinfo</b> cache size	: 16384 KB<br>\
+920 <b>/proc/cpuinfo</b> physical id	: 33<br>\
+921 <b>/proc/cpuinfo</b> siblings	: 1<br>\
+922 <b>/proc/cpuinfo</b> core id		: 0<br>\
+923 <b>/proc/cpuinfo</b> cpu cores	: 1<br>\
+924 <b>/proc/cpuinfo</b> apicid		: 33<br>\
+925 <b>/proc/cpuinfo</b> initial apicid	: 33<br>\
+926 <b>/proc/cpuinfo</b> fpu		: yes<br>\
+927 <b>/proc/cpuinfo</b> fpu_exception	: yes<br>\
+928 <b>/proc/cpuinfo</b> cpuid level	: 13<br>\
+929 <b>/proc/cpuinfo</b> wp		: yes<br>\
+930 <b>/proc/cpuinfo</b> flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ss syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon rep_good nopl xtopology eagerfpu pni pclmulqdq ssse3 fma cx16 pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm abm 3dnowprefetch ibrs ibpb fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 erms invpcid rtm mpx avx512f avx512dq rdseed adx smap clflushopt clwb avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 arat spec_ctrl<br>\
+931 <b>/proc/cpuinfo</b> bogomips	: 4599.98<br>\
+932 <b>/proc/cpuinfo</b> clflush size	: 64<br>\
+933 <b>/proc/cpuinfo</b> cache_alignment	: 64<br>\
+934 <b>/proc/cpuinfo</b> address sizes	: 46 bits physical<br>\
+935 <b>/proc/cpuinfo</b> power management:<br>\
+936 <b>/proc/cpuinfo</b> <br>\
+937 <b>/proc/cpuinfo</b> processor	: 34<br>\
+938 <b>/proc/cpuinfo</b> vendor_id	: GenuineIntel<br>\
+939 <b>/proc/cpuinfo</b> cpu family	: 6<br>\
+940 <b>/proc/cpuinfo</b> model		: 85<br>\
+941 <b>/proc/cpuinfo</b> model name	: Intel(R) Xeon(R) Gold 6140 CPU @ 2.30GHz<br>\
+942 <b>/proc/cpuinfo</b> stepping	: 4<br>\
+943 <b>/proc/cpuinfo</b> microcode	: 0x1<br>\
+944 <b>/proc/cpuinfo</b> cpu MHz		: 2299.992<br>\
+945 <b>/proc/cpuinfo</b> cache size	: 16384 KB<br>\
+946 <b>/proc/cpuinfo</b> physical id	: 34<br>\
+947 <b>/proc/cpuinfo</b> siblings	: 1<br>\
+948 <b>/proc/cpuinfo</b> core id		: 0<br>\
+949 <b>/proc/cpuinfo</b> cpu cores	: 1<br>\
+950 <b>/proc/cpuinfo</b> apicid		: 34<br>\
+951 <b>/proc/cpuinfo</b> initial apicid	: 34<br>\
+952 <b>/proc/cpuinfo</b> fpu		: yes<br>\
+953 <b>/proc/cpuinfo</b> fpu_exception	: yes<br>\
+954 <b>/proc/cpuinfo</b> cpuid level	: 13<br>\
+955 <b>/proc/cpuinfo</b> wp		: yes<br>\
+956 <b>/proc/cpuinfo</b> flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ss syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon rep_good nopl xtopology eagerfpu pni pclmulqdq ssse3 fma cx16 pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm abm 3dnowprefetch ibrs ibpb fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 erms invpcid rtm mpx avx512f avx512dq rdseed adx smap clflushopt clwb avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 arat spec_ctrl<br>\
+957 <b>/proc/cpuinfo</b> bogomips	: 4599.98<br>\
+958 <b>/proc/cpuinfo</b> clflush size	: 64<br>\
+959 <b>/proc/cpuinfo</b> cache_alignment	: 64<br>\
+960 <b>/proc/cpuinfo</b> address sizes	: 46 bits physical<br>\
+961 <b>/proc/cpuinfo</b> power management:<br>\
+962 <b>/proc/cpuinfo</b> <br>\
+963 <b>/proc/cpuinfo</b> processor	: 35<br>\
+964 <b>/proc/cpuinfo</b> vendor_id	: GenuineIntel<br>\
+965 <b>/proc/cpuinfo</b> cpu family	: 6<br>\
+966 <b>/proc/cpuinfo</b> model		: 85<br>\
+967 <b>/proc/cpuinfo</b> model name	: Intel(R) Xeon(R) Gold 6140 CPU @ 2.30GHz<br>\
+968 <b>/proc/cpuinfo</b> stepping	: 4<br>\
+969 <b>/proc/cpuinfo</b> microcode	: 0x1<br>\
+970 <b>/proc/cpuinfo</b> cpu MHz		: 2299.992<br>\
+971 <b>/proc/cpuinfo</b> cache size	: 16384 KB<br>\
+972 <b>/proc/cpuinfo</b> physical id	: 35<br>\
+973 <b>/proc/cpuinfo</b> siblings	: 1<br>\
+974 <b>/proc/cpuinfo</b> core id		: 0<br>\
+975 <b>/proc/cpuinfo</b> cpu cores	: 1<br>\
+976 <b>/proc/cpuinfo</b> apicid		: 35<br>\
+977 <b>/proc/cpuinfo</b> initial apicid	: 35<br>\
+978 <b>/proc/cpuinfo</b> fpu		: yes<br>\
+979 <b>/proc/cpuinfo</b> fpu_exception	: yes<br>\
+980 <b>/proc/cpuinfo</b> cpuid level	: 13<br>\
+981 <b>/proc/cpuinfo</b> wp		: yes<br>\
+982 <b>/proc/cpuinfo</b> flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush mmx fxsr sse sse2 ss syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon rep_good nopl xtopology eagerfpu pni pclmulqdq ssse3 fma cx16 pcid sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand hypervisor lahf_lm abm 3dnowprefetch ibrs ibpb fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 erms invpcid rtm mpx avx512f avx512dq rdseed adx smap clflushopt clwb avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 arat spec_ctrl<br>\
+983 <b>/proc/cpuinfo</b> bogomips	: 4599.98<br>\
+984 <b>/proc/cpuinfo</b> clflush size	: 64<br>\
+985 <b>/proc/cpuinfo</b> cache_alignment	: 64<br>\
+986 <b>/proc/cpuinfo</b> address sizes	: 46 bits physical<br>\
+987 <b>/proc/cpuinfo</b> power management:<br>\
+988 <b>/proc/cpuinfo</b> <br>\
+989 <b>/proc/meminfo</b> <br>\
+990 <b>/proc/meminfo</b> MemTotal:       1514795608 kB<br>\
+991 <b>/proc/meminfo</b> MemFree:        1477495208 kB<br>\
+992 <b>/proc/meminfo</b> MemAvailable:   1501552356 kB<br>\
+993 <b>/proc/meminfo</b> Buffers:            2088 kB<br>\
+994 <b>/proc/meminfo</b> Cached:         26427024 kB<br>\
+995 <b>/proc/meminfo</b> SwapCached:            0 kB<br>\
+996 <b>/proc/meminfo</b> Active:         19916164 kB<br>\
+997 <b>/proc/meminfo</b> Inactive:        6568284 kB<br>\
+998 <b>/proc/meminfo</b> Active(anon):     161572 kB<br>\
+999 <b>/proc/meminfo</b> Inactive(anon):    66388 kB<br>\
+1000 <b>/proc/meminfo</b> Active(file):   19754592 kB<br>\
+1001 <b>/proc/meminfo</b> Inactive(file):  6501896 kB<br>\
+1002 <b>/proc/meminfo</b> Unevictable:           0 kB<br>\
+1003 <b>/proc/meminfo</b> Mlocked:               0 kB<br>\
+1004 <b>/proc/meminfo</b> SwapTotal:             0 kB<br>\
+1005 <b>/proc/meminfo</b> SwapFree:              0 kB<br>\
+1006 <b>/proc/meminfo</b> Dirty:            330572 kB<br>\
+1007 <b>/proc/meminfo</b> Writeback:             0 kB<br>\
+1008 <b>/proc/meminfo</b> AnonPages:         45744 kB<br>\
+1009 <b>/proc/meminfo</b> Mapped:            28020 kB<br>\
+1010 <b>/proc/meminfo</b> Shmem:            172624 kB<br>\
+1011 <b>/proc/meminfo</b> Slab:            1440756 kB<br>\
+1012 <b>/proc/meminfo</b> SReclaimable:    1150300 kB<br>\
+1013 <b>/proc/meminfo</b> SUnreclaim:       290456 kB<br>\
+1014 <b>/proc/meminfo</b> KernelStack:        6752 kB<br>\
+1015 <b>/proc/meminfo</b> PageTables:         5200 kB<br>\
+1016 <b>/proc/meminfo</b> NFS_Unstable:          0 kB<br>\
+1017 <b>/proc/meminfo</b> Bounce:                0 kB<br>\
+1018 <b>/proc/meminfo</b> WritebackTmp:          0 kB<br>\
+1019 <b>/proc/meminfo</b> CommitLimit:    757397804 kB<br>\
+1020 <b>/proc/meminfo</b> Committed_AS:     430516 kB<br>\
+1021 <b>/proc/meminfo</b> VmallocTotal:   34359738367 kB<br>\
+1022 <b>/proc/meminfo</b> VmallocUsed:     3244116 kB<br>\
+1023 <b>/proc/meminfo</b> VmallocChunk:   34356483836 kB<br>\
+1024 <b>/proc/meminfo</b> HardwareCorrupted:     0 kB<br>\
+1025 <b>/proc/meminfo</b> AnonHugePages:      8192 kB<br>\
+1026 <b>/proc/meminfo</b> CmaTotal:              0 kB<br>\
+1027 <b>/proc/meminfo</b> CmaFree:               0 kB<br>\
+1028 <b>/proc/meminfo</b> HugePages_Total:       0<br>\
+1029 <b>/proc/meminfo</b> HugePages_Free:        0<br>\
+1030 <b>/proc/meminfo</b> HugePages_Rsvd:        0<br>\
+1031 <b>/proc/meminfo</b> HugePages_Surp:        0<br>\
+1032 <b>/proc/meminfo</b> Hugepagesize:       2048 kB<br>\
+1033 <b>/proc/meminfo</b> DirectMap4k:      180072 kB<br>\
+1034 <b>/proc/meminfo</b> DirectMap2M:    10977280 kB<br>\
+1035 <b>/proc/meminfo</b> DirectMap1G:    1527775232 kB<br>\
+1036 <b>/proc/stat</b> <br>\
+1037 <b>/proc/stat</b> cpu  288055586 24602 16786033 8874859871 265345 0 2208 1154644 0 0<br>\
+1038 <b>/proc/stat</b> cpu0 7815159 574 432997 246741545 4022 0 141 34550 0 0<br>\
+1039 <b>/proc/stat</b> cpu1 9143014 342 578806 245180522 35065 0 146 49114 0 0<br>\
+1040 <b>/proc/stat</b> cpu2 11890638 568 673721 242398151 25138 0 39 34924 0 0<br>\
+1041 <b>/proc/stat</b> cpu3 11214668 467 579566 243174827 17363 0 42 36725 0 0<br>\
+1042 <b>/proc/stat</b> cpu4 10441557 357 611437 243931391 16482 0 25 33211 0 0<br>\
+1043 <b>/proc/stat</b> cpu5 9698481 676 520531 244769470 12507 0 27 30270 0 0<br>\
+1044 <b>/proc/stat</b> cpu6 9456915 24 509853 245029991 9126 0 16 30173 0 0<br>\
+1045 <b>/proc/stat</b> cpu7 9240756 776 513948 245238043 9027 0 17 33793 0 0<br>\
+1046 <b>/proc/stat</b> cpu8 9077931 788 555472 245366496 6601 0 17 29743 0 0<br>\
+1047 <b>/proc/stat</b> cpu9 8551893 877 487053 245957427 6884 0 16 30197 0 0<br>\
+1048 <b>/proc/stat</b> cpu10 8702710 340 473021 245818497 5719 0 13 31439 0 0<br>\
+1049 <b>/proc/stat</b> cpu11 8908673 577 512238 245582468 5608 0 11 26120 0 0<br>\
+1050 <b>/proc/stat</b> cpu12 8291129 566 462735 246248023 5561 0 15 32609 0 0<br>\
+1051 <b>/proc/stat</b> cpu13 8472768 686 456224 246070184 5922 0 10 27617 0 0<br>\
+1052 <b>/proc/stat</b> cpu14 8828838 561 489806 245681267 5118 0 14 31931 0 0<br>\
+1053 <b>/proc/stat</b> cpu15 8337471 877 466637 246196035 5617 0 13 31012 0 0<br>\
+1054 <b>/proc/stat</b> cpu16 8199162 676 472232 246331215 4784 0 12 29925 0 0<br>\
+1055 <b>/proc/stat</b> cpu17 7959914 667 457208 246583815 4361 0 15 28300 0 0<br>\
+1056 <b>/proc/stat</b> cpu18 7927045 468 466690 246608868 5325 0 12 30517 0 0<br>\
+1057 <b>/proc/stat</b> cpu19 7744084 1119 444072 246818639 4026 0 12 26999 0 0<br>\
+1058 <b>/proc/stat</b> cpu20 7780552 370 462601 246758225 5310 0 9 30984 0 0<br>\
+1059 <b>/proc/stat</b> cpu21 7526256 890 442562 247032088 5022 0 12 34140 0 0<br>\
+1060 <b>/proc/stat</b> cpu22 6932343 1571 439840 247630089 4735 0 11 32092 0 0<br>\
+1061 <b>/proc/stat</b> cpu23 7640034 1017 442710 246921352 3415 0 12 29977 0 0<br>\
+1062 <b>/proc/stat</b> cpu24 8305147 1149 578160 245979546 13325 0 1403 42251 0 0<br>\
+1063 <b>/proc/stat</b> cpu25 7346312 797 439700 247218171 3682 0 12 26365 0 0<br>\
+1064 <b>/proc/stat</b> cpu26 7155368 233 448337 247399382 4532 0 13 28217 0 0<br>\
+1065 <b>/proc/stat</b> cpu27 6698226 906 410104 247893868 4363 0 13 31319 0 0<br>\
+1066 <b>/proc/stat</b> cpu28 6005946 1215 377711 248614788 4311 0 20 30841 0 0<br>\
+1067 <b>/proc/stat</b> cpu29 6637586 458 396953 247965382 3333 0 11 35131 0 0<br>\
+1068 <b>/proc/stat</b> cpu30 6490647 460 377518 248138414 2328 0 14 31476 0 0<br>\
+1069 <b>/proc/stat</b> cpu31 6685731 1170 381170 247939160 2797 0 10 28254 0 0<br>\
+1070 <b>/proc/stat</b> cpu32 5987565 469 365845 248651777 3354 0 11 30002 0 0<br>\
+1071 <b>/proc/stat</b> cpu33 5696156 552 357281 248952095 4299 0 8 37131 0 0<br>\
+1072 <b>/proc/stat</b> cpu34 5656400 671 358817 248993697 2545 0 10 29964 0 0<br>\
+1073 <b>/proc/stat</b> cpu35 5608496 673 342462 249044944 3721 0 11 37312 0 0<br>\
+1074 <b>/proc/stat</b> intr 6116518661 1200 10 0 0 2269 0 3 0 0 0 255068 35 15 0 0 0 0 0 0 0 0 0 0 0 0 10709786 27 0 2197323 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0<br>\
+1075 <b>/proc/stat</b> ctxt 5589116661<br>\
+1076 <b>/proc/stat</b> btime 1556104862<br>\
+1077 <b>/proc/stat</b> processes 3413563<br>\
+1078 <b>/proc/stat</b> procs_running 2<br>\
+1079 <b>/proc/stat</b> procs_blocked 0<br>\
+1080 <b>/proc/stat</b> softirq 3809845377 2 3194985749 1 10710976 0 0 32 290115802 0 314032815<br>\
+1081 <b>/proc/version</b> <br>\
+1082 <b>/proc/version</b> Linux version 3.10.0-957.10.1.el7.x86_64 (mockbuild@kbuilder.bsys.centos.org) (gcc version 4.8.5 20150623 (Red Hat 4.8.5-36) (GCC) ) #1 SMP Mon Mar 18 15:06:45 UTC 2019<br>\
+1083 <b>/proc/net/dev</b> <br>\
+1084 <b>/proc/net/dev</b> Inter-|   Receive                                                |  Transmit<br>\
+1085 <b>/proc/net/dev</b>  face |bytes    packets errs drop fifo frame compressed multicast|bytes    packets errs drop fifo colls carrier compressed<br>\
+1086 <b>/proc/net/dev</b>   eth0: 6968358795 12144162    0    0    0     0          0         0 587298272 1753672    0    0    0     0       0          0<br>\
+1087 <b>/proc/net/dev</b>     lo:     416       6    0    0    0     0          0         0      416       6    0    0    0     0       0          0<br>\
+1088 <b>/proc/diskinfo</b> <br>\
+1089 <b>/proc/diskstats</b> <br>\
+1090 <b>/proc/diskstats</b>  253       0 vda 7768 13 518034 5716 4277436 259334 3844714193 848871003 0 4748905 496772845<br>\
+1091 <b>/proc/diskstats</b>  253       1 vda1 7684 13 513906 5689 4265458 259334 3844714193 848867883 0 4763715 499052088<br>\
+1092 <b>/sbin/multipath</b> <br>\
+1093 <b>/dev/mapper</b> <br>\
+1094 <b>/dev/mapper</b> insgesamt 0<br>\
+1095 <b>/dev/mapper</b> crw-------. 1 root root 10<br>\
+1096 <b>/dev/mpath</b> <br>\
+1097 <b>/dev/dm-*</b> <br>\
+1098 <b>/dev/md*</b> <br>\
+1099 <b>/dev/sd*</b> <br>\
+1100 <b>/proc/partitions</b> <br>\
+1101 <b>/proc/partitions</b> major minor  #blocks  name<br>\
+1102 <b>/proc/partitions</b> <br>\
+1103 <b>/proc/partitions</b>  253        0  104857600 vda<br>\
+1104 <b>/proc/partitions</b>  253        1  104855231 vda1<br>\
+1105 <b>/proc/1/stat</b> <br>\
+1106 <b>/proc/1/stat</b> 1 (systemd) S 0 1 1 0 -1 4202752 273439 435758332 65 530 14046 30505 2947369 237567 20 0 1 0 118 200630272 2243 18446744073709551615 1 1 0 0 0 0 671173123 4096 1260 18446744073709551615 0 0 17 26 0 0 6 0 0 0 0 0 0 0 0 0 0<br>\
+1107 <b>/proc/1/statm</b> <br>\
+1108 <b>/proc/1/statm</b> 48982 2243 1040 353 0 38056 0<br>\
+1109 <b>/proc/net/rpc/nfs</b> <br>\
+1110 <b>/proc/net/rpc/nfsd</b> <br>\
+1111 <b>/proc/modules</b> <br>\
+1112 <b>/proc/modules</b> binfmt_misc 17468 1 - Live 0xffffffffc0151000<br>\
+1113 <b>/proc/modules</b> ipmi_devintf 17603 0 - Live 0xffffffffc0172000<br>\
+1114 <b>/proc/modules</b> ipmi_msghandler 56032 1 ipmi_devintf<br>\
+1115 <b>/proc/modules</b> ppdev 17671 0 - Live 0xffffffffc014b000<br>\
+1116 <b>/proc/modules</b> nfit 55016 0 - Live 0xffffffffc015a000<br>\
+1117 <b>/proc/modules</b> libnvdimm 147731 1 nfit<br>\
+1118 <b>/proc/modules</b> cirrus 24377 1 - Live 0xffffffffc04ff000<br>\
+1119 <b>/proc/modules</b> iosf_mbi 15582 0 - Live 0xffffffffc0128000<br>\
+1120 <b>/proc/modules</b> crc32_pclmul 13133 0 - Live 0xffffffffc0322000<br>\
+1121 <b>/proc/modules</b> ttm 114635 1 cirrus<br>\
+1122 <b>/proc/modules</b> ghash_clmulni_intel 13273 0 - Live 0xffffffffc0141000<br>\
+1123 <b>/proc/modules</b> drm_kms_helper 179394 1 cirrus<br>\
+1124 <b>/proc/modules</b> syscopyarea 12529 1 drm_kms_helper<br>\
+1125 <b>/proc/modules</b> aesni_intel 189414 0 - Live 0xffffffffc02c4000<br>\
+1126 <b>/proc/modules</b> sysfillrect 12701 1 drm_kms_helper<br>\
+1127 <b>/proc/modules</b> lrw 13286 1 aesni_intel<br>\
+1128 <b>/proc/modules</b> sysimgblt 12640 1 drm_kms_helper<br>\
+1129 <b>/proc/modules</b> gf128mul 15139 1 lrw<br>\
+1130 <b>/proc/modules</b> fb_sys_fops 12703 1 drm_kms_helper<br>\
+1131 <b>/proc/modules</b> glue_helper 13990 1 aesni_intel<br>\
+1132 <b>/proc/modules</b> parport_pc 28205 0 - Live 0xffffffffc0335000<br>\
+1133 <b>/proc/modules</b> ablk_helper 13597 1 aesni_intel<br>\
+1134 <b>/proc/modules</b> drm 429744 4 cirrus<br>\
+1135 <b>/proc/modules</b> parport 46395 2 ppdev<br>\
+1136 <b>/proc/modules</b> cryptd 21190 3 ghash_clmulni_intel<br>\
+1137 <b>/proc/modules</b> joydev 17389 0 - Live 0xffffffffc011d000<br>\
+1138 <b>/proc/modules</b> virtio_balloon 18015 0 - Live 0xffffffffc0117000<br>\
+1139 <b>/proc/modules</b> drm_panel_orientation_quirks 12957 1 drm<br>\
+1140 <b>/proc/modules</b> pcspkr 12718 0 - Live 0xffffffffc0101000<br>\
+1141 <b>/proc/modules</b> i2c_piix4 22401 0 - Live 0xffffffffc00f6000<br>\
+1142 <b>/proc/modules</b> ip_tables 27126 0 - Live 0xffffffffc00ea000<br>\
+1143 <b>/proc/modules</b> xfs 997127 1 - Live 0xffffffffc01cf000<br>\
+1144 <b>/proc/modules</b> libcrc32c 12644 1 xfs<br>\
+1145 <b>/proc/modules</b> virtio_blk 18222 2 - Live 0xffffffffc00c3000<br>\
+1146 <b>/proc/modules</b> virtio_net 28063 0 - Live 0xffffffffc00c9000<br>\
+1147 <b>/proc/modules</b> ata_generic 12923 0 - Live 0xffffffffc00b0000<br>\
+1148 <b>/proc/modules</b> pata_acpi 13053 0 - Live 0xffffffffc00be000<br>\
+1149 <b>/proc/modules</b> floppy 69432 0 - Live 0xffffffffc00d8000<br>\
+1150 <b>/proc/modules</b> ata_piix 35052 0 - Live 0xffffffffc0091000<br>\
+1151 <b>/proc/modules</b> libata 243133 3 ata_generic<br>\
+1152 <b>/proc/modules</b> crct10dif_pclmul 14307 0 - Live 0xffffffffc0112000<br>\
+1153 <b>/proc/modules</b> crct10dif_common 12595 1 crct10dif_pclmul<br>\
+1154 <b>/proc/modules</b> crc32c_intel 22094 1 - Live 0xffffffffc00a3000<br>\
+1155 <b>/proc/modules</b> serio_raw 13434 0 - Live 0xffffffffc008c000<br>\
+1156 <b>/proc/modules</b> virtio_pci 22985 0 - Live 0xffffffffc00b7000<br>\
+1157 <b>/proc/modules</b> virtio_ring 22746 4 virtio_balloon<br>\
+1158 <b>/proc/modules</b> virtio 14959 4 virtio_balloon<br>\
+1159 <b>/proc/modules</b> sunrpc 353407 1 - Live 0xffffffffc0034000<br>\
+1160 <b>ifconfig</b> <br>\
+1161 <b>ifconfig</b> eth0: flags=4163<UP<br>\
+1162 <b>ifconfig</b>         inet 193.196.20.76  netmask 255.255.255.192  broadcast 193.196.20.127<br>\
+1163 <b>ifconfig</b>         inet6 fe80::f816:3eff:feae:d94c  prefixlen 64  scopeid 0x20<link><br>\
+1164 <b>ifconfig</b>         ether fa:16:3e:ae:d9:4c  txqueuelen 1000  (Ethernet)<br>\
+1165 <b>ifconfig</b>         RX packets 12144162  bytes 6968358795 (6.4 GiB)<br>\
+1166 <b>ifconfig</b>         RX errors 0  dropped 0  overruns 0  frame 0<br>\
+1167 <b>ifconfig</b>         TX packets 1753672  bytes 587298272 (560.0 MiB)<br>\
+1168 <b>ifconfig</b>         TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0<br>\
+1169 <b>ifconfig</b> <br>\
+1170 <b>ifconfig</b> lo: flags=73<UP<br>\
+1171 <b>ifconfig</b>         inet 127.0.0.1  netmask 255.0.0.0<br>\
+1172 <b>ifconfig</b>         inet6 ::1  prefixlen 128  scopeid 0x10<host><br>\
+1173 <b>ifconfig</b>         loop  txqueuelen 1000  (Lokale Schleife)<br>\
+1174 <b>ifconfig</b>         RX packets 6  bytes 416 (416.0 B)<br>\
+1175 <b>ifconfig</b>         RX errors 0  dropped 0  overruns 0  frame 0<br>\
+1176 <b>ifconfig</b>         TX packets 6  bytes 416 (416.0 B)<br>\
+1177 <b>ifconfig</b>         TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0<br>\
+1178 <b>ifconfig</b> <br>\
+1179 <b>/bin/df-m</b> <br>\
+1180 <b>/bin/df-m</b> Dateisystem    1M-Blöcke Benutzt Verfügbar Verw% Eingehängt auf<br>\
+1181 <b>/bin/df-m</b> ddev/vda1         102388   26765     75623   27% /<br>\
+1182 <b>/bin/df-m</b> devtmpfs          739624       0    739624    0% /dev<br>\
+1183 <b>/bin/df-m</b> tmpfs             739647       0    739647    0% /dev/shm<br>\
+1184 <b>/bin/df-m</b> tmpfs             739647     169    739478    1% /run<br>\
+1185 <b>/bin/df-m</b> tmpfs             739647       0    739647    0% /sys/fs/cgroup<br>\
+1186 <b>/bin/df-m</b> tmpfs             147930       0    147930    0% /run/user/1000<br>\
+1187 <b>/bin/mount</b> <br>\
+1188 <b>/bin/mount</b> sysfs on /sys type sysfs (rw<br>\
+1189 <b>/bin/mount</b> proc on /proc type proc (rw<br>\
+1190 <b>/bin/mount</b> devtmpfs on /dev type devtmpfs (rw<br>\
+1191 <b>/bin/mount</b> securityfs on /sys/kernel/security type securityfs (rw<br>\
+1192 <b>/bin/mount</b> tmpfs on /dev/shm type tmpfs (rw<br>\
+1193 <b>/bin/mount</b> devpts on /dev/pts type devpts (rw<br>\
+1194 <b>/bin/mount</b> tmpfs on /run type tmpfs (rw<br>\
+1195 <b>/bin/mount</b> tmpfs on /sys/fs/cgroup type tmpfs (ro<br>\
+1196 <b>/bin/mount</b> cgroup on /sys/fs/cgroup/systemd type cgroup (rw<br>\
+1197 <b>/bin/mount</b> pstore on /sys/fs/pstore type pstore (rw<br>\
+1198 <b>/bin/mount</b> cgroup on /sys/fs/cgroup/net_cls<br>\
+1199 <b>/bin/mount</b> cgroup on /sys/fs/cgroup/cpuset type cgroup (rw<br>\
+1200 <b>/bin/mount</b> cgroup on /sys/fs/cgroup/hugetlb type cgroup (rw<br>\
+1201 <b>/bin/mount</b> cgroup on /sys/fs/cgroup/freezer type cgroup (rw<br>\
+1202 <b>/bin/mount</b> cgroup on /sys/fs/cgroup/cpu<br>\
+1203 <b>/bin/mount</b> cgroup on /sys/fs/cgroup/devices type cgroup (rw<br>\
+1204 <b>/bin/mount</b> cgroup on /sys/fs/cgroup/blkio type cgroup (rw<br>\
+1205 <b>/bin/mount</b> cgroup on /sys/fs/cgroup/memory type cgroup (rw<br>\
+1206 <b>/bin/mount</b> cgroup on /sys/fs/cgroup/perf_event type cgroup (rw<br>\
+1207 <b>/bin/mount</b> cgroup on /sys/fs/cgroup/pids type cgroup (rw<br>\
+1208 <b>/bin/mount</b> configfs on /sys/kernel/config type configfs (rw<br>\
+1209 <b>/bin/mount</b> ddev/vda1 on / type xfs (rw<br>\
+1210 <b>/bin/mount</b> rpc_pipefs on /var/lib/nfs/rpc_pipefs type rpc_pipefs (rw<br>\
+1211 <b>/bin/mount</b> selinuxfs on /sys/fs/selinux type selinuxfs (rw<br>\
+1212 <b>/bin/mount</b> systemd-1 on /proc/sys/fs/binfmt_misc type autofs (rw<br>\
+1213 <b>/bin/mount</b> hugetlbfs on /dev/hugepages type hugetlbfs (rw<br>\
+1214 <b>/bin/mount</b> debugfs on /sys/kernel/debug type debugfs (rw<br>\
+1215 <b>/bin/mount</b> mqueue on /dev/mqueue type mqueue (rw<br>\
+1216 <b>/bin/mount</b> tmpfs on /run/user/1000 type tmpfs (rw<br>\
+1217 <b>/bin/mount</b> binfmt_misc on /proc/sys/fs/binfmt_misc type binfmt_misc (rw<br>\
+1218 <b>/etc/fstab</b> <br>\
+1219 <b>/etc/fstab</b> <br>\
+1220 <b>/etc/fstab</b> #<br>\
+1221 <b>/etc/fstab</b> # /etc/fstab<br>\
+1222 <b>/etc/fstab</b> # Created by anaconda on Tue Mar 31 12:21:36 2015<br>\
+1223 <b>/etc/fstab</b> #<br>\
+1224 <b>/etc/fstab</b> # Accessible filesystems<br>\
+1225 <b>/etc/fstab</b> # See man pages fstab(5)<br>\
+1226 <b>/etc/fstab</b> #<br>\
+1227 <b>/etc/fstab</b> UUID=a78bb152-e525-4f0e-961a-bf6147ac7d3e /                       xfs     defaults        1 1<br>\
+1228 <b>netstat -r</b> <br>\
+1229 <b>netstat -r</b> Kernel IP Routentabelle<br>\
+1230 <b>netstat -r</b> Ziel            Router          Genmask         Flags   MSS Fenster irtt Iface<br>\
+1231 <b>netstat -r</b> default         193.196.20.65   0.0.0.0         UG        0 0          0 eth0<br>\
+1232 <b>netstat -r</b> 169.254.169.254 193.196.20.66   255.255.255.255 UGH       0 0          0 eth0<br>\
+1233 <b>netstat -r</b> 193.196.20.64   0.0.0.0         255.255.255.192 U         0 0          0 eth0<br>\
+1234 <b>uptime</b> <br>\
+1235 <b>uptime</b>  23:54:28 up 29 days<br>\
+1236 <b>getconf PAGESIZE</b> <br>\
+1237 <b>getconf PAGESIZE</b> 4096<br>\
+");
+}
+</script>
+		<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+		<script type="text/javascript">
+		google.load("visualization", "1.1", {packages:["corechart"]});
+
+		google.setOnLoadCallback(setupCharts);
+		
+		function setupCharts() {
+		
+		var chart = null;
+
+			var data_CPU_UTIL = google.visualization.arrayToDataTable([
+[{type: 'datetime', label: 'Datetime' },'User%','Sys%','Wait%','Idle%','Steal%']
+,['Date(2019,  4, 23, 23, 54, 29)',2.6,0.4,0.0,97.0,0.0]
+,['Date(2019,  4, 23, 23, 54, 31)',3.9,0.2,0.0,95.9,0.0]
+,['Date(2019,  4, 23, 23, 54, 33)',6.5,0.1,0.0,93.4,0.0]
+,['Date(2019,  4, 23, 23, 54, 35)',2.7,0.0,0.0,97.2,0.0]
+,['Date(2019,  4, 23, 23, 54, 37)',2.4,0.4,0.0,97.2,0.0]
+,['Date(2019,  4, 23, 23, 54, 39)',2.7,0.1,0.0,97.2,0.0]
+,['Date(2019,  4, 23, 23, 54, 41)',2.7,0.1,0.0,97.2,0.0]
+,['Date(2019,  4, 23, 23, 54, 43)',2.7,0.1,0.0,97.2,0.0]
+,['Date(2019,  4, 23, 23, 54, 45)',45.6,0.2,0.0,54.2,0.0]
+,['Date(2019,  4, 23, 23, 54, 47)',88.7,0.1,0.0,11.1,0.1]
+,['Date(2019,  4, 23, 23, 54, 49)',15.0,0.2,0.0,84.8,0.0]
+,['Date(2019,  4, 23, 23, 54, 51)',2.7,0.0,0.0,97.2,0.0]
+,['Date(2019,  4, 23, 23, 54, 53)',2.7,0.1,0.1,97.1,0.0]
+,['Date(2019,  4, 23, 23, 54, 55)',2.8,0.0,0.0,97.2,0.0]
+,['Date(2019,  4, 23, 23, 54, 57)',2.8,0.0,0.0,97.2,0.0]
+,['Date(2019,  4, 23, 23, 54, 59)',2.8,0.0,0.0,97.2,0.0]
+,['Date(2019,  4, 23, 23, 55, 01)',2.8,0.0,0.0,97.2,0.0]
+,['Date(2019,  4, 23, 23, 55, 03)',2.8,0.0,0.0,97.2,0.0]
+,['Date(2019,  4, 23, 23, 55, 05)',2.8,0.0,0.0,97.2,0.0]
+,['Date(2019,  4, 23, 23, 55, 07)',2.8,0.0,0.0,97.2,0.0]
+,['Date(2019,  4, 23, 23, 55, 09)',2.8,0.0,0.0,97.2,0.0]
+,['Date(2019,  4, 23, 23, 55, 11)',2.8,0.0,0.0,97.2,0.0]
+,['Date(2019,  4, 23, 23, 55, 13)',2.8,0.0,0.0,97.2,0.0]
+,['Date(2019,  4, 23, 23, 55, 15)',2.8,0.0,0.0,97.2,0.0]
+,['Date(2019,  4, 23, 23, 55, 17)',2.7,0.0,0.0,97.2,0.0]
+,['Date(2019,  4, 23, 23, 55, 19)',2.7,0.1,0.0,97.2,0.0]
+,['Date(2019,  4, 23, 23, 55, 21)',2.7,0.1,0.0,97.2,0.0]
+,['Date(2019,  4, 23, 23, 55, 23)',2.7,0.1,0.0,97.2,0.0]
+		]);
+
+		var options_CPU_UTIL = {
+			chartArea: {left: "5%", width: "85%", top: "10%", height: "80%"},
+			title: "CPU Utilisation Percentages",
+			focusTarget: "category",
+			hAxis: {
+				gridlines: {
+					color: "lightgrey",
+					count: 30
+				}
+			},
+			vAxis: {
+				gridlines: {
+					color: "lightgrey",
+					count: 11
+				}
+			},
+			explorer: { actions: ["dragToZoom", "rightClickToReset"],
+				axis: "horizontal",
+				keepInBounds: true,
+				maxZoomIn: 20.0
+			},
+			isStacked:  1
+		};
+
+		document.getElementById("draw_CPU_UTIL").addEventListener("click", function() {
+		if (chart && chart.clearChart) chart.clearChart();
+
+		chart = new google.visualization.AreaChart(document.getElementById("chart_master"));
+		chart.draw( data_CPU_UTIL, options_CPU_UTIL);
+		});
+
+			var data_MEM_LINUX = google.visualization.arrayToDataTable([
+[{type: 'datetime', label: 'Datetime' },'memtotal','memfree','cached','active','buffers','inactive']
+,['Date(2019,  4, 23, 23, 54, 29)',1479292.6,1442820.3,25807.7,19552.9,2.0,6358.3]
+,['Date(2019,  4, 23, 23, 54, 31)',1479292.6,1442692.3,25807.7,19680.5,2.0,6358.3]
+,['Date(2019,  4, 23, 23, 54, 33)',1479292.6,1442729.0,25807.8,19642.2,2.0,6358.5]
+,['Date(2019,  4, 23, 23, 54, 35)',1479292.6,1442695.2,25847.5,19636.9,2.0,6397.8]
+,['Date(2019,  4, 23, 23, 54, 37)',1479292.6,1442591.4,25857.8,19729.2,2.0,6408.7]
+,['Date(2019,  4, 23, 23, 54, 39)',1479292.6,1442548.7,25858.1,19821.5,2.0,6358.5]
+,['Date(2019,  4, 23, 23, 54, 41)',1479292.6,1442234.7,25858.1,20135.0,2.0,6358.5]
+,['Date(2019,  4, 23, 23, 54, 43)',1479292.6,1442170.6,25858.1,20199.0,2.0,6358.5]
+,['Date(2019,  4, 23, 23, 54, 45)',1479292.6,1442195.7,25858.1,20179.1,2.0,6358.5]
+,['Date(2019,  4, 23, 23, 54, 47)',1479292.6,1442132.2,25858.1,20239.8,2.0,6358.5]
+,['Date(2019,  4, 23, 23, 54, 49)',1479292.6,1442252.4,25858.1,20120.6,2.0,6358.5]
+,['Date(2019,  4, 23, 23, 54, 51)',1479292.6,1442272.4,25858.1,20100.6,2.0,6358.5]
+,['Date(2019,  4, 23, 23, 54, 53)',1479292.6,1442248.6,25858.1,20124.2,2.0,6358.5]
+,['Date(2019,  4, 23, 23, 54, 55)',1479292.6,1442248.6,25858.1,20124.2,2.0,6358.5]
+,['Date(2019,  4, 23, 23, 54, 57)',1479292.6,1442247.9,25858.1,20124.8,2.0,6358.5]
+,['Date(2019,  4, 23, 23, 54, 59)',1479292.6,1442248.1,25858.1,20125.2,2.0,6358.5]
+,['Date(2019,  4, 23, 23, 55, 01)',1479292.6,1442248.1,25858.1,20125.7,2.0,6358.5]
+,['Date(2019,  4, 23, 23, 55, 03)',1479292.6,1442248.1,25858.1,20125.7,2.0,6358.5]
+,['Date(2019,  4, 23, 23, 55, 05)',1479292.6,1442248.1,25858.1,20125.7,2.0,6358.5]
+,['Date(2019,  4, 23, 23, 55, 07)',1479292.6,1442248.1,25858.1,20125.7,2.0,6358.5]
+,['Date(2019,  4, 23, 23, 55, 09)',1479292.6,1442248.1,25858.1,20125.7,2.0,6358.5]
+,['Date(2019,  4, 23, 23, 55, 11)',1479292.6,1442248.1,25858.1,20125.7,2.0,6358.5]
+,['Date(2019,  4, 23, 23, 55, 13)',1479292.6,1442248.1,25858.1,20125.7,2.0,6358.5]
+,['Date(2019,  4, 23, 23, 55, 15)',1479292.6,1442293.9,25858.1,20079.2,2.0,6358.5]
+,['Date(2019,  4, 23, 23, 55, 17)',1479292.6,1442262.5,25890.4,20079.2,2.0,6390.5]
+,['Date(2019,  4, 23, 23, 55, 19)',1479292.6,1442237.1,25916.1,20079.2,2.0,6416.1]
+,['Date(2019,  4, 23, 23, 55, 21)',1479292.6,1442175.4,25977.1,20079.2,2.0,6477.1]
+,['Date(2019,  4, 23, 23, 55, 23)',1479292.6,1442116.7,26034.3,20079.2,2.0,6534.7]
+		]);
+
+		var options_MEM_LINUX = {
+			chartArea: {left: "5%", width: "85%", top: "10%", height: "80%"},
+			title: "Real Memory - RAM in MB",
+			focusTarget: "category",
+			hAxis: {
+				gridlines: {
+					color: "lightgrey",
+					count: 30
+				}
+			},
+			vAxis: {
+				gridlines: {
+					color: "lightgrey",
+					count: 11
+				}
+			},
+			explorer: { actions: ["dragToZoom", "rightClickToReset"],
+				axis: "horizontal",
+				keepInBounds: true,
+				maxZoomIn: 20.0
+			},
+			isStacked:  0
+		};
+
+		document.getElementById("draw_MEM_LINUX").addEventListener("click", function() {
+		if (chart && chart.clearChart) chart.clearChart();
+
+		chart = new google.visualization.AreaChart(document.getElementById("chart_master"));
+		chart.draw( data_MEM_LINUX, options_MEM_LINUX);
+		});
+
+			var data_SWAP_LINUX = google.visualization.arrayToDataTable([
+[{type: 'datetime', label: 'Datetime' },'swaptotal','swapfree']
+,['Date(2019,  4, 23, 23, 54, 29)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 54, 31)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 54, 33)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 54, 35)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 54, 37)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 54, 39)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 54, 41)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 54, 43)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 54, 45)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 54, 47)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 54, 49)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 54, 51)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 54, 53)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 54, 55)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 54, 57)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 54, 59)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 55, 01)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 55, 03)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 55, 05)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 55, 07)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 55, 09)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 55, 11)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 55, 13)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 55, 15)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 55, 17)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 55, 19)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 55, 21)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 55, 23)',0.0,0.0]
+		]);
+
+		var options_SWAP_LINUX = {
+			chartArea: {left: "5%", width: "85%", top: "10%", height: "80%"},
+			title: "Virtual Memory - Paging Space in MB",
+			focusTarget: "category",
+			hAxis: {
+				gridlines: {
+					color: "lightgrey",
+					count: 30
+				}
+			},
+			vAxis: {
+				gridlines: {
+					color: "lightgrey",
+					count: 11
+				}
+			},
+			explorer: { actions: ["dragToZoom", "rightClickToReset"],
+				axis: "horizontal",
+				keepInBounds: true,
+				maxZoomIn: 20.0
+			},
+			isStacked:  0
+		};
+
+		document.getElementById("draw_SWAP_LINUX").addEventListener("click", function() {
+		if (chart && chart.clearChart) chart.clearChart();
+
+		chart = new google.visualization.AreaChart(document.getElementById("chart_master"));
+		chart.draw( data_SWAP_LINUX, options_SWAP_LINUX);
+		});
+
+			var data_RUNQBLOCK = google.visualization.arrayToDataTable([
+[{type: 'datetime', label: 'Datetime' },'Runnable','Blocked']
+,['Date(2019,  4, 23, 23, 54, 29)',2,0]
+,['Date(2019,  4, 23, 23, 54, 31)',2,0]
+,['Date(2019,  4, 23, 23, 54, 33)',2,0]
+,['Date(2019,  4, 23, 23, 54, 35)',2,0]
+,['Date(2019,  4, 23, 23, 54, 37)',2,0]
+,['Date(2019,  4, 23, 23, 54, 39)',2,0]
+,['Date(2019,  4, 23, 23, 54, 41)',2,0]
+,['Date(2019,  4, 23, 23, 54, 43)',2,0]
+,['Date(2019,  4, 23, 23, 54, 45)',33,0]
+,['Date(2019,  4, 23, 23, 54, 47)',33,0]
+,['Date(2019,  4, 23, 23, 54, 49)',2,0]
+,['Date(2019,  4, 23, 23, 54, 51)',2,0]
+,['Date(2019,  4, 23, 23, 54, 53)',2,0]
+,['Date(2019,  4, 23, 23, 54, 55)',2,0]
+,['Date(2019,  4, 23, 23, 54, 57)',2,0]
+,['Date(2019,  4, 23, 23, 54, 59)',2,0]
+,['Date(2019,  4, 23, 23, 55, 01)',2,0]
+,['Date(2019,  4, 23, 23, 55, 03)',2,0]
+,['Date(2019,  4, 23, 23, 55, 05)',2,0]
+,['Date(2019,  4, 23, 23, 55, 07)',2,0]
+,['Date(2019,  4, 23, 23, 55, 09)',2,0]
+,['Date(2019,  4, 23, 23, 55, 11)',2,0]
+,['Date(2019,  4, 23, 23, 55, 13)',2,0]
+,['Date(2019,  4, 23, 23, 55, 15)',2,0]
+,['Date(2019,  4, 23, 23, 55, 17)',2,0]
+,['Date(2019,  4, 23, 23, 55, 19)',2,0]
+,['Date(2019,  4, 23, 23, 55, 21)',2,0]
+,['Date(2019,  4, 23, 23, 55, 23)',2,0]
+		]);
+
+		var options_RUNQBLOCK = {
+			chartArea: {left: "5%", width: "85%", top: "10%", height: "80%"},
+			title: "Run Queue - processes that running or ready to run or Blocked",
+			focusTarget: "category",
+			hAxis: {
+				gridlines: {
+					color: "lightgrey",
+					count: 30
+				}
+			},
+			vAxis: {
+				gridlines: {
+					color: "lightgrey",
+					count: 11
+				}
+			},
+			explorer: { actions: ["dragToZoom", "rightClickToReset"],
+				axis: "horizontal",
+				keepInBounds: true,
+				maxZoomIn: 20.0
+			},
+			isStacked:  0
+		};
+
+		document.getElementById("draw_RUNQBLOCK").addEventListener("click", function() {
+		if (chart && chart.clearChart) chart.clearChart();
+
+		chart = new google.visualization.AreaChart(document.getElementById("chart_master"));
+		chart.draw( data_RUNQBLOCK, options_RUNQBLOCK);
+		});
+
+			var data_PSWITCH = google.visualization.arrayToDataTable([
+[{type: 'datetime', label: 'Datetime' },'pswitch']
+,['Date(2019,  4, 23, 23, 54, 29)',0.0]
+,['Date(2019,  4, 23, 23, 54, 31)',622.1]
+,['Date(2019,  4, 23, 23, 54, 33)',303.3]
+,['Date(2019,  4, 23, 23, 54, 35)',91.0]
+,['Date(2019,  4, 23, 23, 54, 37)',160.4]
+,['Date(2019,  4, 23, 23, 54, 39)',109.9]
+,['Date(2019,  4, 23, 23, 54, 41)',136.4]
+,['Date(2019,  4, 23, 23, 54, 43)',398.8]
+,['Date(2019,  4, 23, 23, 54, 45)',287.3]
+,['Date(2019,  4, 23, 23, 54, 47)',192.3]
+,['Date(2019,  4, 23, 23, 54, 49)',199.4]
+,['Date(2019,  4, 23, 23, 54, 51)',89.0]
+,['Date(2019,  4, 23, 23, 54, 53)',525.3]
+,['Date(2019,  4, 23, 23, 54, 55)',101.9]
+,['Date(2019,  4, 23, 23, 54, 57)',130.4]
+,['Date(2019,  4, 23, 23, 54, 59)',227.9]
+,['Date(2019,  4, 23, 23, 55, 01)',133.9]
+,['Date(2019,  4, 23, 23, 55, 03)',109.9]
+,['Date(2019,  4, 23, 23, 55, 05)',122.9]
+,['Date(2019,  4, 23, 23, 55, 07)',95.9]
+,['Date(2019,  4, 23, 23, 55, 09)',237.9]
+,['Date(2019,  4, 23, 23, 55, 11)',90.0]
+,['Date(2019,  4, 23, 23, 55, 13)',123.9]
+,['Date(2019,  4, 23, 23, 55, 15)',109.4]
+,['Date(2019,  4, 23, 23, 55, 17)',140.9]
+,['Date(2019,  4, 23, 23, 55, 19)',92.0]
+,['Date(2019,  4, 23, 23, 55, 21)',129.4]
+,['Date(2019,  4, 23, 23, 55, 23)',104.9]
+		]);
+
+		var options_PSWITCH = {
+			chartArea: {left: "5%", width: "85%", top: "10%", height: "80%"},
+			title: "Process Switches per second - between processes",
+			focusTarget: "category",
+			hAxis: {
+				gridlines: {
+					color: "lightgrey",
+					count: 30
+				}
+			},
+			vAxis: {
+				gridlines: {
+					color: "lightgrey",
+					count: 11
+				}
+			},
+			explorer: { actions: ["dragToZoom", "rightClickToReset"],
+				axis: "horizontal",
+				keepInBounds: true,
+				maxZoomIn: 20.0
+			},
+			isStacked:  0
+		};
+
+		document.getElementById("draw_PSWITCH").addEventListener("click", function() {
+		if (chart && chart.clearChart) chart.clearChart();
+
+		chart = new google.visualization.AreaChart(document.getElementById("chart_master"));
+		chart.draw( data_PSWITCH, options_PSWITCH);
+		});
+
+			var data_FORKEXEC = google.visualization.arrayToDataTable([
+[{type: 'datetime', label: 'Datetime' },'fork','exec']
+,['Date(2019,  4, 23, 23, 54, 29)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 54, 31)',18.5,0.0]
+,['Date(2019,  4, 23, 23, 54, 33)',0.5,0.0]
+,['Date(2019,  4, 23, 23, 54, 35)',1.0,0.0]
+,['Date(2019,  4, 23, 23, 54, 37)',1.0,0.0]
+,['Date(2019,  4, 23, 23, 54, 39)',0.5,0.0]
+,['Date(2019,  4, 23, 23, 54, 41)',1.0,0.0]
+,['Date(2019,  4, 23, 23, 54, 43)',0.5,0.0]
+,['Date(2019,  4, 23, 23, 54, 45)',15.0,0.0]
+,['Date(2019,  4, 23, 23, 54, 47)',1.0,0.0]
+,['Date(2019,  4, 23, 23, 54, 49)',0.5,0.0]
+,['Date(2019,  4, 23, 23, 54, 51)',1.0,0.0]
+,['Date(2019,  4, 23, 23, 54, 53)',0.5,0.0]
+,['Date(2019,  4, 23, 23, 54, 55)',1.0,0.0]
+,['Date(2019,  4, 23, 23, 54, 57)',1.0,0.0]
+,['Date(2019,  4, 23, 23, 54, 59)',0.5,0.0]
+,['Date(2019,  4, 23, 23, 55, 01)',1.0,0.0]
+,['Date(2019,  4, 23, 23, 55, 03)',0.5,0.0]
+,['Date(2019,  4, 23, 23, 55, 05)',1.0,0.0]
+,['Date(2019,  4, 23, 23, 55, 07)',1.0,0.0]
+,['Date(2019,  4, 23, 23, 55, 09)',0.5,0.0]
+,['Date(2019,  4, 23, 23, 55, 11)',1.0,0.0]
+,['Date(2019,  4, 23, 23, 55, 13)',0.5,0.0]
+,['Date(2019,  4, 23, 23, 55, 15)',1.0,0.0]
+,['Date(2019,  4, 23, 23, 55, 17)',1.0,0.0]
+,['Date(2019,  4, 23, 23, 55, 19)',0.5,0.0]
+,['Date(2019,  4, 23, 23, 55, 21)',1.0,0.0]
+,['Date(2019,  4, 23, 23, 55, 23)',0.5,0.0]
+		]);
+
+		var options_FORKEXEC = {
+			chartArea: {left: "5%", width: "85%", top: "10%", height: "80%"},
+			title: "Fork() and Exec() System Calls per second - creating processes",
+			focusTarget: "category",
+			hAxis: {
+				gridlines: {
+					color: "lightgrey",
+					count: 30
+				}
+			},
+			vAxis: {
+				gridlines: {
+					color: "lightgrey",
+					count: 11
+				}
+			},
+			explorer: { actions: ["dragToZoom", "rightClickToReset"],
+				axis: "horizontal",
+				keepInBounds: true,
+				maxZoomIn: 20.0
+			},
+			isStacked:  0
+		};
+
+		document.getElementById("draw_FORKEXEC").addEventListener("click", function() {
+		if (chart && chart.clearChart) chart.clearChart();
+
+		chart = new google.visualization.AreaChart(document.getElementById("chart_master"));
+		chart.draw( data_FORKEXEC, options_FORKEXEC);
+		});
+
+			var data_CPU_USE = google.visualization.arrayToDataTable([
+['CPU','User%','System%']
+,['CPU001',6.9,0.0]
+,['CPU002',23.5,1.0]
+,['CPU003',5.9,0.0]
+,['CPU004',6.0,0.0]
+,['CPU005',5.6,0.0]
+,['CPU006',5.8,0.0]
+,['CPU007',5.8,0.0]
+,['CPU008',6.1,0.0]
+,['CPU009',6.4,0.0]
+,['CPU010',5.7,0.0]
+,['CPU011',6.2,0.0]
+,['CPU012',6.2,0.0]
+,['CPU013',6.2,0.0]
+,['CPU014',5.9,0.0]
+,['CPU015',6.1,0.0]
+,['CPU016',68.8,0.6]
+,['CPU017',5.8,0.0]
+,['CPU018',5.8,0.0]
+,['CPU019',5.8,0.1]
+,['CPU020',5.8,0.1]
+,['CPU021',6.0,0.0]
+,['CPU022',6.1,0.1]
+,['CPU023',13.5,0.5]
+,['CPU024',6.6,0.0]
+,['CPU025',6.6,0.1]
+,['CPU026',6.6,0.0]
+,['CPU027',5.0,0.0]
+,['CPU028',5.8,0.0]
+,['CPU029',5.7,0.0]
+,['CPU030',0.7,0.0]
+,['CPU031',6.0,0.0]
+,['CPU032',6.1,0.3]
+,['CPU033',3.5,0.0]
+,['CPU034',0.9,0.0]
+,['CPU035',0.1,0.0]
+,['CPU036',6.7,0.0]
+		]);
+
+		var options_CPU_USE = {
+			chartArea: {left: "5%", width: "85%", top: "10%", height: "80%"},
+			title: "Use of Logical CPU Core Threads - POWER=SMT or x86=Hyperthreads",
+			focusTarget: "category",
+			vAxis: {
+				gridlines: {
+					color: "lightgrey",
+					count: 11
+				}
+			},
+			isStacked:  1
+		};
+
+		document.getElementById("draw_CPU_USE").addEventListener("click", function() {
+		if (chart && chart.clearChart) chart.clearChart();
+
+		chart = new google.visualization.ColumnChart(document.getElementById("chart_master"));
+		chart.draw( data_CPU_USE, options_CPU_USE);
+		});
+
+			var data_TOPDISK = google.visualization.arrayToDataTable([
+[{type: 'datetime', label: 'Datetime' },'vda','vda1']
+,['Date(2019,  4, 23, 23, 54, 29)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 54, 31)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 54, 33)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 54, 35)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 54, 37)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 54, 39)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 54, 41)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 54, 43)',11.5,11.5]
+,['Date(2019,  4, 23, 23, 54, 45)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 54, 47)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 54, 49)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 54, 51)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 54, 53)',15.0,15.0]
+,['Date(2019,  4, 23, 23, 54, 55)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 54, 57)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 54, 59)',6.5,6.5]
+,['Date(2019,  4, 23, 23, 55, 01)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 55, 03)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 55, 05)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 55, 07)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 55, 09)',5.0,5.0]
+,['Date(2019,  4, 23, 23, 55, 11)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 55, 13)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 55, 15)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 55, 17)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 55, 19)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 55, 21)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 55, 23)',0.5,0.5]
+		]);
+
+		var options_TOPDISK = {
+			chartArea: {left: "5%", width: "85%", top: "10%", height: "80%"},
+			title: "Top 15 disks by sum(Busy%)",
+			focusTarget: "category",
+			hAxis: {
+				gridlines: {
+					color: "lightgrey",
+					count: 30
+				}
+			},
+			vAxis: {
+				gridlines: {
+					color: "lightgrey",
+					count: 11
+				}
+			},
+			explorer: { actions: ["dragToZoom", "rightClickToReset"],
+				axis: "horizontal",
+				keepInBounds: true,
+				maxZoomIn: 20.0
+			},
+			isStacked:  0
+		};
+
+		document.getElementById("draw_TOPDISK").addEventListener("click", function() {
+		if (chart && chart.clearChart) chart.clearChart();
+
+		chart = new google.visualization.AreaChart(document.getElementById("chart_master"));
+		chart.draw( data_TOPDISK, options_TOPDISK);
+		});
+
+			var data_NET = google.visualization.arrayToDataTable([
+[{type: 'datetime', label: 'Datetime' },'eth0-read-KB/s','lo-read-KB/s','eth0-write-KB/s','lo-write-KB/s']
+,['Date(2019,  4, 23, 23, 54, 29)',0.8,0.0,-0.2,-0.0]
+,['Date(2019,  4, 23, 23, 54, 31)',0.3,0.0,-0.0,-0.0]
+,['Date(2019,  4, 23, 23, 54, 33)',0.2,0.0,-0.0,-0.0]
+,['Date(2019,  4, 23, 23, 54, 35)',0.1,0.0,-0.0,-0.0]
+,['Date(2019,  4, 23, 23, 54, 37)',0.3,0.0,-0.0,-0.0]
+,['Date(2019,  4, 23, 23, 54, 39)',0.4,0.0,-0.0,-0.0]
+,['Date(2019,  4, 23, 23, 54, 41)',0.3,0.0,-0.0,-0.0]
+,['Date(2019,  4, 23, 23, 54, 43)',0.3,0.0,-0.0,-0.0]
+,['Date(2019,  4, 23, 23, 54, 45)',0.2,0.0,-0.0,-0.0]
+,['Date(2019,  4, 23, 23, 54, 47)',0.3,0.0,-0.0,-0.0]
+,['Date(2019,  4, 23, 23, 54, 49)',0.2,0.0,-0.0,-0.0]
+,['Date(2019,  4, 23, 23, 54, 51)',0.1,0.0,-0.0,-0.0]
+,['Date(2019,  4, 23, 23, 54, 53)',0.3,0.0,-0.0,-0.0]
+,['Date(2019,  4, 23, 23, 54, 55)',0.3,0.0,-0.0,-0.0]
+,['Date(2019,  4, 23, 23, 54, 57)',0.2,0.0,-0.0,-0.0]
+,['Date(2019,  4, 23, 23, 54, 59)',0.5,0.0,-0.0,-0.0]
+,['Date(2019,  4, 23, 23, 55, 01)',0.3,0.0,-0.0,-0.0]
+,['Date(2019,  4, 23, 23, 55, 03)',0.4,0.0,-0.0,-0.0]
+,['Date(2019,  4, 23, 23, 55, 05)',0.2,0.0,-0.0,-0.0]
+,['Date(2019,  4, 23, 23, 55, 07)',0.3,0.0,-0.0,-0.0]
+,['Date(2019,  4, 23, 23, 55, 09)',0.3,0.0,-0.0,-0.0]
+,['Date(2019,  4, 23, 23, 55, 11)',0.2,0.0,-0.0,-0.0]
+,['Date(2019,  4, 23, 23, 55, 13)',0.3,0.0,-0.0,-0.0]
+,['Date(2019,  4, 23, 23, 55, 15)',0.4,0.0,-0.0,-0.0]
+,['Date(2019,  4, 23, 23, 55, 17)',0.3,0.0,-0.0,-0.0]
+,['Date(2019,  4, 23, 23, 55, 19)',0.3,0.0,-0.0,-0.0]
+,['Date(2019,  4, 23, 23, 55, 21)',0.2,0.0,-0.0,-0.0]
+,['Date(2019,  4, 23, 23, 55, 23)',0.2,0.0,-0.0,-0.0]
+		]);
+
+		var options_NET = {
+			chartArea: {left: "5%", width: "85%", top: "10%", height: "80%"},
+			title: "Network Receive(read) & Send(write shown negatively) in KB per second",
+			focusTarget: "category",
+			hAxis: {
+				gridlines: {
+					color: "lightgrey",
+					count: 30
+				}
+			},
+			vAxis: {
+				gridlines: {
+					color: "lightgrey",
+					count: 11
+				}
+			},
+			explorer: { actions: ["dragToZoom", "rightClickToReset"],
+				axis: "horizontal",
+				keepInBounds: true,
+				maxZoomIn: 20.0
+			},
+			isStacked:  0
+		};
+
+		document.getElementById("draw_NET").addEventListener("click", function() {
+		if (chart && chart.clearChart) chart.clearChart();
+
+		chart = new google.visualization.AreaChart(document.getElementById("chart_master"));
+		chart.draw( data_NET, options_NET);
+		});
+
+			var data_NETPACKET = google.visualization.arrayToDataTable([
+[{type: 'datetime', label: 'Datetime' },'eth0-read/s','lo-read/s','eth0-write/s','lo-write/s']
+,['Date(2019,  4, 23, 23, 54, 29)',8.8,0.0,2.6,0.0]
+,['Date(2019,  4, 23, 23, 54, 31)',5.5,0.0,0.0,0.0]
+,['Date(2019,  4, 23, 23, 54, 33)',4.0,0.0,0.0,0.0]
+,['Date(2019,  4, 23, 23, 54, 35)',2.5,0.0,0.0,0.0]
+,['Date(2019,  4, 23, 23, 54, 37)',5.5,0.0,0.0,0.0]
+,['Date(2019,  4, 23, 23, 54, 39)',7.0,0.0,0.0,0.0]
+,['Date(2019,  4, 23, 23, 54, 41)',4.5,0.0,0.0,0.0]
+,['Date(2019,  4, 23, 23, 54, 43)',5.0,0.0,0.0,0.0]
+,['Date(2019,  4, 23, 23, 54, 45)',3.0,0.0,0.0,0.0]
+,['Date(2019,  4, 23, 23, 54, 47)',4.5,0.0,0.5,0.0]
+,['Date(2019,  4, 23, 23, 54, 49)',3.0,0.0,0.0,0.0]
+,['Date(2019,  4, 23, 23, 54, 51)',2.0,0.0,0.0,0.0]
+,['Date(2019,  4, 23, 23, 54, 53)',5.0,0.0,0.5,0.0]
+,['Date(2019,  4, 23, 23, 54, 55)',5.0,0.0,0.0,0.0]
+,['Date(2019,  4, 23, 23, 54, 57)',3.0,0.0,0.0,0.0]
+,['Date(2019,  4, 23, 23, 54, 59)',8.0,0.0,0.5,0.0]
+,['Date(2019,  4, 23, 23, 55, 01)',5.0,0.0,0.0,0.0]
+,['Date(2019,  4, 23, 23, 55, 03)',7.0,0.0,0.0,0.0]
+,['Date(2019,  4, 23, 23, 55, 05)',3.0,0.0,0.0,0.0]
+,['Date(2019,  4, 23, 23, 55, 07)',4.5,0.0,0.5,0.0]
+,['Date(2019,  4, 23, 23, 55, 09)',5.5,0.0,0.0,0.0]
+,['Date(2019,  4, 23, 23, 55, 11)',3.5,0.0,0.0,0.0]
+,['Date(2019,  4, 23, 23, 55, 13)',4.5,0.0,0.5,0.0]
+,['Date(2019,  4, 23, 23, 55, 15)',7.0,0.0,0.5,0.0]
+,['Date(2019,  4, 23, 23, 55, 17)',5.0,0.0,0.0,0.0]
+,['Date(2019,  4, 23, 23, 55, 19)',4.5,0.0,0.5,0.0]
+,['Date(2019,  4, 23, 23, 55, 21)',4.0,0.0,0.5,0.0]
+,['Date(2019,  4, 23, 23, 55, 23)',3.5,0.0,0.0,0.0]
+		]);
+
+		var options_NETPACKET = {
+			chartArea: {left: "5%", width: "85%", top: "10%", height: "80%"},
+			title: "Network packet count per second",
+			focusTarget: "category",
+			hAxis: {
+				gridlines: {
+					color: "lightgrey",
+					count: 30
+				}
+			},
+			vAxis: {
+				gridlines: {
+					color: "lightgrey",
+					count: 11
+				}
+			},
+			explorer: { actions: ["dragToZoom", "rightClickToReset"],
+				axis: "horizontal",
+				keepInBounds: true,
+				maxZoomIn: 20.0
+			},
+			isStacked:  0
+		};
+
+		document.getElementById("draw_NETPACKET").addEventListener("click", function() {
+		if (chart && chart.clearChart) chart.clearChart();
+
+		chart = new google.visualization.AreaChart(document.getElementById("chart_master"));
+		chart.draw( data_NETPACKET, options_NETPACKET);
+		});
+
+			var data_DISKBUSY = google.visualization.arrayToDataTable([
+[{type: 'datetime', label: 'Datetime' },'vda','vda1']
+,['Date(2019,  4, 23, 23, 54, 29)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 54, 31)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 54, 33)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 54, 35)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 54, 37)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 54, 39)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 54, 41)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 54, 43)',11.5,11.5]
+,['Date(2019,  4, 23, 23, 54, 45)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 54, 47)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 54, 49)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 54, 51)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 54, 53)',15.0,15.0]
+,['Date(2019,  4, 23, 23, 54, 55)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 54, 57)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 54, 59)',6.5,6.5]
+,['Date(2019,  4, 23, 23, 55, 01)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 55, 03)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 55, 05)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 55, 07)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 55, 09)',5.0,5.0]
+,['Date(2019,  4, 23, 23, 55, 11)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 55, 13)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 55, 15)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 55, 17)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 55, 19)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 55, 21)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 55, 23)',0.5,0.5]
+		]);
+
+		var options_DISKBUSY = {
+			chartArea: {left: "5%", width: "85%", top: "10%", height: "80%"},
+			title: "Disk Busy Percentage of the time (Stacked)",
+			focusTarget: "category",
+			hAxis: {
+				gridlines: {
+					color: "lightgrey",
+					count: 30
+				}
+			},
+			vAxis: {
+				gridlines: {
+					color: "lightgrey",
+					count: 11
+				}
+			},
+			explorer: { actions: ["dragToZoom", "rightClickToReset"],
+				axis: "horizontal",
+				keepInBounds: true,
+				maxZoomIn: 20.0
+			},
+			isStacked:  1
+		};
+
+		document.getElementById("draw_DISKBUSY").addEventListener("click", function() {
+		if (chart && chart.clearChart) chart.clearChart();
+
+		chart = new google.visualization.AreaChart(document.getElementById("chart_master"));
+		chart.draw( data_DISKBUSY, options_DISKBUSY);
+		});
+
+		var options_DISKBUSYu = {
+			chartArea: {left: "5%", width: "85%", top: "10%", height: "80%"},
+			title: "Disk Busy Percentage of the time (UnStacked)",
+			focusTarget: "category",
+			hAxis: {
+				gridlines: {
+					color: "lightgrey",
+					count: 30
+				}
+			},
+			vAxis: {
+				gridlines: {
+					color: "lightgrey",
+					count: 11
+				}
+			},
+			isStacked: 0
+		};
+
+		document.getElementById("draw_DISKBUSYu").addEventListener("click", function() {
+		if (chart && chart.clearChart) chart.clearChart();
+
+		chart = new google.visualization.AreaChart(document.getElementById("chart_master"));
+		chart.draw( data_DISKBUSY, options_DISKBUSYu);
+		});
+
+			var data_DISKREAD = google.visualization.arrayToDataTable([
+[{type: 'datetime', label: 'Datetime' },'vda','vda1']
+,['Date(2019,  4, 23, 23, 54, 29)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 54, 31)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 54, 33)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 54, 35)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 54, 37)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 54, 39)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 54, 41)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 54, 43)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 54, 45)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 54, 47)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 54, 49)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 54, 51)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 54, 53)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 54, 55)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 54, 57)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 54, 59)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 55, 01)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 55, 03)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 55, 05)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 55, 07)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 55, 09)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 55, 11)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 55, 13)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 55, 15)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 55, 17)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 55, 19)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 55, 21)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 55, 23)',0.0,0.0]
+		]);
+
+		var options_DISKREAD = {
+			chartArea: {left: "5%", width: "85%", top: "10%", height: "80%"},
+			title: "Disk Read KB per second (Stacked)",
+			focusTarget: "category",
+			hAxis: {
+				gridlines: {
+					color: "lightgrey",
+					count: 30
+				}
+			},
+			vAxis: {
+				gridlines: {
+					color: "lightgrey",
+					count: 11
+				}
+			},
+			explorer: { actions: ["dragToZoom", "rightClickToReset"],
+				axis: "horizontal",
+				keepInBounds: true,
+				maxZoomIn: 20.0
+			},
+			isStacked:  1
+		};
+
+		document.getElementById("draw_DISKREAD").addEventListener("click", function() {
+		if (chart && chart.clearChart) chart.clearChart();
+
+		chart = new google.visualization.AreaChart(document.getElementById("chart_master"));
+		chart.draw( data_DISKREAD, options_DISKREAD);
+		});
+
+		var options_DISKREADu = {
+			chartArea: {left: "5%", width: "85%", top: "10%", height: "80%"},
+			title: "Disk Read KB per second (UnStacked)",
+			focusTarget: "category",
+			hAxis: {
+				gridlines: {
+					color: "lightgrey",
+					count: 30
+				}
+			},
+			vAxis: {
+				gridlines: {
+					color: "lightgrey",
+					count: 11
+				}
+			},
+			isStacked: 0
+		};
+
+		document.getElementById("draw_DISKREADu").addEventListener("click", function() {
+		if (chart && chart.clearChart) chart.clearChart();
+
+		chart = new google.visualization.AreaChart(document.getElementById("chart_master"));
+		chart.draw( data_DISKREAD, options_DISKREADu);
+		});
+
+			var data_DISKWRITE = google.visualization.arrayToDataTable([
+[{type: 'datetime', label: 'Datetime' },'vda','vda1']
+,['Date(2019,  4, 23, 23, 54, 29)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 54, 31)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 54, 33)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 54, 35)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 54, 37)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 54, 39)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 54, 41)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 54, 43)',57873.7,57873.7]
+,['Date(2019,  4, 23, 23, 54, 45)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 54, 47)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 54, 49)',2.0,2.0]
+,['Date(2019,  4, 23, 23, 54, 51)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 54, 53)',76512.5,76512.5]
+,['Date(2019,  4, 23, 23, 54, 55)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 54, 57)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 54, 59)',30858.6,30858.6]
+,['Date(2019,  4, 23, 23, 55, 01)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 55, 03)',111.9,111.9]
+,['Date(2019,  4, 23, 23, 55, 05)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 55, 07)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 55, 09)',25706.9,25706.9]
+,['Date(2019,  4, 23, 23, 55, 11)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 55, 13)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 55, 15)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 55, 17)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 55, 19)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 55, 21)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 55, 23)',47.5,47.5]
+		]);
+
+		var options_DISKWRITE = {
+			chartArea: {left: "5%", width: "85%", top: "10%", height: "80%"},
+			title: "Disk Write KB per second (Stacked)",
+			focusTarget: "category",
+			hAxis: {
+				gridlines: {
+					color: "lightgrey",
+					count: 30
+				}
+			},
+			vAxis: {
+				gridlines: {
+					color: "lightgrey",
+					count: 11
+				}
+			},
+			explorer: { actions: ["dragToZoom", "rightClickToReset"],
+				axis: "horizontal",
+				keepInBounds: true,
+				maxZoomIn: 20.0
+			},
+			isStacked:  1
+		};
+
+		document.getElementById("draw_DISKWRITE").addEventListener("click", function() {
+		if (chart && chart.clearChart) chart.clearChart();
+
+		chart = new google.visualization.AreaChart(document.getElementById("chart_master"));
+		chart.draw( data_DISKWRITE, options_DISKWRITE);
+		});
+
+		var options_DISKWRITEu = {
+			chartArea: {left: "5%", width: "85%", top: "10%", height: "80%"},
+			title: "Disk Write KB per second (UnStacked)",
+			focusTarget: "category",
+			hAxis: {
+				gridlines: {
+					color: "lightgrey",
+					count: 30
+				}
+			},
+			vAxis: {
+				gridlines: {
+					color: "lightgrey",
+					count: 11
+				}
+			},
+			isStacked: 0
+		};
+
+		document.getElementById("draw_DISKWRITEu").addEventListener("click", function() {
+		if (chart && chart.clearChart) chart.clearChart();
+
+		chart = new google.visualization.AreaChart(document.getElementById("chart_master"));
+		chart.draw( data_DISKWRITE, options_DISKWRITEu);
+		});
+
+			var data_DISKBSIZE = google.visualization.arrayToDataTable([
+[{type: 'datetime', label: 'Datetime' },'vda','vda1']
+,['Date(2019,  4, 23, 23, 54, 29)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 54, 31)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 54, 33)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 54, 35)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 54, 37)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 54, 39)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 54, 41)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 54, 43)',510.2,510.2]
+,['Date(2019,  4, 23, 23, 54, 45)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 54, 47)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 54, 49)',4.0,4.0]
+,['Date(2019,  4, 23, 23, 54, 51)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 54, 53)',474.0,474.0]
+,['Date(2019,  4, 23, 23, 54, 55)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 54, 57)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 54, 59)',506.1,506.1]
+,['Date(2019,  4, 23, 23, 55, 01)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 55, 03)',112.0,112.0]
+,['Date(2019,  4, 23, 23, 55, 05)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 55, 07)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 55, 09)',509.3,509.3]
+,['Date(2019,  4, 23, 23, 55, 11)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 55, 13)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 55, 15)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 55, 17)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 55, 19)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 55, 21)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 55, 23)',5.9,5.9]
+		]);
+
+		var options_DISKBSIZE = {
+			chartArea: {left: "5%", width: "85%", top: "10%", height: "80%"},
+			title: "Disk Block Size KB",
+			focusTarget: "category",
+			hAxis: {
+				gridlines: {
+					color: "lightgrey",
+					count: 30
+				}
+			},
+			vAxis: {
+				gridlines: {
+					color: "lightgrey",
+					count: 11
+				}
+			},
+			explorer: { actions: ["dragToZoom", "rightClickToReset"],
+				axis: "horizontal",
+				keepInBounds: true,
+				maxZoomIn: 20.0
+			},
+			isStacked:  0
+		};
+
+		document.getElementById("draw_DISKBSIZE").addEventListener("click", function() {
+		if (chart && chart.clearChart) chart.clearChart();
+
+		chart = new google.visualization.AreaChart(document.getElementById("chart_master"));
+		chart.draw( data_DISKBSIZE, options_DISKBSIZE);
+		});
+
+			var data_DISKXFER = google.visualization.arrayToDataTable([
+[{type: 'datetime', label: 'Datetime' },'vda','vda1']
+,['Date(2019,  4, 23, 23, 54, 29)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 54, 31)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 54, 33)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 54, 35)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 54, 37)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 54, 39)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 54, 41)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 54, 43)',113.4,113.4]
+,['Date(2019,  4, 23, 23, 54, 45)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 54, 47)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 54, 49)',0.5,0.5]
+,['Date(2019,  4, 23, 23, 54, 51)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 54, 53)',161.4,161.4]
+,['Date(2019,  4, 23, 23, 54, 55)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 54, 57)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 54, 59)',61.0,61.0]
+,['Date(2019,  4, 23, 23, 55, 01)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 55, 03)',1.0,1.0]
+,['Date(2019,  4, 23, 23, 55, 05)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 55, 07)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 55, 09)',50.5,50.5]
+,['Date(2019,  4, 23, 23, 55, 11)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 55, 13)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 55, 15)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 55, 17)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 55, 19)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 55, 21)',0.0,0.0]
+,['Date(2019,  4, 23, 23, 55, 23)',8.0,8.0]
+		]);
+
+		var options_DISKXFER = {
+			chartArea: {left: "5%", width: "85%", top: "10%", height: "80%"},
+			title: "Disk Transfers per second",
+			focusTarget: "category",
+			hAxis: {
+				gridlines: {
+					color: "lightgrey",
+					count: 30
+				}
+			},
+			vAxis: {
+				gridlines: {
+					color: "lightgrey",
+					count: 11
+				}
+			},
+			explorer: { actions: ["dragToZoom", "rightClickToReset"],
+				axis: "horizontal",
+				keepInBounds: true,
+				maxZoomIn: 20.0
+			},
+			isStacked:  0
+		};
+
+		document.getElementById("draw_DISKXFER").addEventListener("click", function() {
+		if (chart && chart.clearChart) chart.clearChart();
+
+		chart = new google.visualization.AreaChart(document.getElementById("chart_master"));
+		chart.draw( data_DISKXFER, options_DISKXFER);
+		});
+
+			var data_JFS = google.visualization.arrayToDataTable([
+[{type: 'datetime', label: 'Datetime' },'/','/dev','/run','/']
+,['Date(2019,  4, 23, 23, 54, 29)',26.1,0.0,0.0,26.1]
+,['Date(2019,  4, 23, 23, 54, 31)',26.1,0.0,0.0,26.1]
+,['Date(2019,  4, 23, 23, 54, 33)',26.1,0.0,0.0,26.1]
+,['Date(2019,  4, 23, 23, 54, 35)',26.2,0.0,0.0,26.2]
+,['Date(2019,  4, 23, 23, 54, 37)',26.2,0.0,0.0,26.2]
+,['Date(2019,  4, 23, 23, 54, 39)',26.2,0.0,0.0,26.2]
+,['Date(2019,  4, 23, 23, 54, 41)',26.2,0.0,0.0,26.2]
+,['Date(2019,  4, 23, 23, 54, 43)',26.2,0.0,0.0,26.2]
+,['Date(2019,  4, 23, 23, 54, 45)',26.2,0.0,0.0,26.2]
+,['Date(2019,  4, 23, 23, 54, 47)',26.2,0.0,0.0,26.2]
+,['Date(2019,  4, 23, 23, 54, 49)',26.2,0.0,0.0,26.2]
+,['Date(2019,  4, 23, 23, 54, 51)',26.2,0.0,0.0,26.2]
+,['Date(2019,  4, 23, 23, 54, 53)',26.2,0.0,0.0,26.2]
+,['Date(2019,  4, 23, 23, 54, 55)',26.2,0.0,0.0,26.2]
+,['Date(2019,  4, 23, 23, 54, 57)',26.2,0.0,0.0,26.2]
+,['Date(2019,  4, 23, 23, 54, 59)',26.2,0.0,0.0,26.2]
+,['Date(2019,  4, 23, 23, 55, 01)',26.2,0.0,0.0,26.2]
+,['Date(2019,  4, 23, 23, 55, 03)',26.2,0.0,0.0,26.2]
+,['Date(2019,  4, 23, 23, 55, 05)',26.2,0.0,0.0,26.2]
+,['Date(2019,  4, 23, 23, 55, 07)',26.2,0.0,0.0,26.2]
+,['Date(2019,  4, 23, 23, 55, 09)',26.2,0.0,0.0,26.2]
+,['Date(2019,  4, 23, 23, 55, 11)',26.2,0.0,0.0,26.2]
+,['Date(2019,  4, 23, 23, 55, 13)',26.2,0.0,0.0,26.2]
+,['Date(2019,  4, 23, 23, 55, 15)',26.2,0.0,0.0,26.2]
+,['Date(2019,  4, 23, 23, 55, 17)',26.3,0.0,0.0,26.3]
+,['Date(2019,  4, 23, 23, 55, 19)',26.2,0.0,0.0,26.2]
+,['Date(2019,  4, 23, 23, 55, 21)',26.3,0.0,0.0,26.3]
+,['Date(2019,  4, 23, 23, 55, 23)',26.4,0.0,0.0,26.4]
+		]);
+
+		var options_JFS = {
+			chartArea: {left: "5%", width: "85%", top: "10%", height: "80%"},
+			title: "Journal File System Percent Full (Note: -1.234 = stats not avaialble)",
+			focusTarget: "category",
+			hAxis: {
+				gridlines: {
+					color: "lightgrey",
+					count: 30
+				}
+			},
+			vAxis: {
+				gridlines: {
+					color: "lightgrey",
+					count: 11
+				}
+			},
+			explorer: { actions: ["dragToZoom", "rightClickToReset"],
+				axis: "horizontal",
+				keepInBounds: true,
+				maxZoomIn: 20.0
+			},
+			isStacked:  0
+		};
+
+		document.getElementById("draw_JFS").addEventListener("click", function() {
+		if (chart && chart.clearChart) chart.clearChart();
+
+		chart = new google.visualization.AreaChart(document.getElementById("chart_master"));
+		chart.draw( data_JFS, options_JFS);
+		});
+
+		}
+		</script>
+	</head>
+	 <body bgcolor="#EEEEFF">
+	nmon data file: <b>nmon_stats/velvetg_3_2019-05-23-23-54.nmon</b>  
+	<button onclick="config()"><b>Configuration</b></button> 
+	<button id="draw_TOPDISK" style="color:black;"><b>Top Disk</b></button>
+	<br>
+	<button id="draw_CPU_UTIL" style="color:red;"><b>CPU Util.</b></button>
+	<button id="draw_CPU_USE" style="color:red;"><b>CPU Use</b></button>
+	<button id="draw_RUNQBLOCK" style="color:red;"><b>RunQ Blocked</b></button>
+	<button id="draw_PSWITCH" style="color:red;"><b>pSwitch</b></button>
+	<button id="draw_FORKEXEC" style="color:red;"><b>ForkExec</b></button>
+	<button id="draw_MEM_LINUX" style="color:blue;"><b>Memory</b></button>
+	<button id="draw_SWAP_LINUX" style="color:blue;"><b>Swap</b></button>
+<br>
+	<button id="draw_NET" style="color:purple;"><b>Network</b></button>
+	<button id="draw_NETPACKET" style="color:purple;"><b>Net Packet</b></button>
+	<button id="draw_DISKBUSY" style="color:brown;"><b>Disk Busy</b></button>
+	<button id="draw_DISKBUSYu" style="color:brown;"><b>Unstacked</b></button>
+	<button id="draw_DISKREAD" style="color:brown;"><b>Disk Read</b></button>
+	<button id="draw_DISKREADu" style="color:brown;"><b>Unstacked</b></button>
+	<button id="draw_DISKWRITE" style="color:brown;"><b>Disk Write</b></button>
+	<button id="draw_DISKWRITEu" style="color:brown;"><b>Unstacked</b></button>
+	<button id="draw_DISKBSIZE" style="color:brown;"><b>Disk BSize</b></button>
+	<button id="draw_DISKXFER" style="color:brown;"><b>Disk Xfers</b></button>
+	<button id="draw_JFS" style="color:brown;"><b>JFS</b></button>
+
+	<div id="chart_master" style="width:100%; height:75%;">
+	<h2 style="color:blue">Click on a Graph button above, to display that graph</h2>
+	</div>
+
+<table><tr><td>
+<li>Host:bootable-image-creation
+<li>Date:23-MAY-2019
+<li>Time:23:54.28
+<li>Interval:2
+<li>Snapshots: 28
+<td>
+<li>Number of CPUs:36
+<li>Number of Disks:2
+<li>Linux Kernel 3.10.0-957.10.1.el7.x86_64
+<li>Linux Version "CentOS Linux release 7.6.1810 (Core) "
+<td valign=top>
+<hr>
+<li>Graphed by <a href=http://nmon.sourceforge.net/pmwiki.php?n=Site.Nmonchart>nmonchart</a> v 34
+<li>Developer: Nigel Griffiths @mr_nmon
+<li>Zoom=ON Left-click & Drag=Zoom-in. Right-click=Reset.
+</table>
+	</body>
+</html>
