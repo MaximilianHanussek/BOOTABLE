@@ -23,7 +23,7 @@ In the following is explained how to install BOOTABLE, how to run it and what ki
 If you have any questions or remarks just write me a mail: maximilian.hanussek@uni-tuebingen.de
 
 ## News (09.10.10)
-BOOTABLE has been puplished in the [FGCS LIFE 2019 special issue](https://doi.org/10.1016/j.future.2019.09.057). So if you want to learn more about the technical details of BOOTABLE please have a look at the paper.
+BOOTABLE has been puplished in the [FGCS LIFE 2019 special issue](https://doi.org/10.1016/j.future.2019.09.057). So if you want to learn more about the technical details of BOOTABLE please have a look at the paper and please cite it if it has been useful in your own work.
 
 ## News (02.05.19)
 We added the possibility to install BOOTABLE via Ansible.
