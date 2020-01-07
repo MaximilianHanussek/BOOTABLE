@@ -345,7 +345,7 @@ You can also skip flags where you just want to use the default values.
 
 
 ### Report generation
-After the benchmarks are finished you can create a Summary file in pdf format running the following command from BOOTABLE root directory:
+After the benchmarks are finished you can create a Summary file in pdf format running the following command from BOOTABLE root directory (If you run it for the first time please run it as root or with sudo as some R packages needs to be installed):
 <pre>Rscript --vanilla BOOTABLE_report_generator.R</pre>
 
 If you used the scaling mode for the benchmarks we suggest to plot also the scaling plots with the following parameter
