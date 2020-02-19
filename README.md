@@ -303,6 +303,7 @@ in the directory backed_up_benchmark_results if you confirm that. Per default th
 |-----------------|--------------------------------------|--------------------|------------------------------------------|
 |Dataset          |ERR016155.filt.fastq/SRR741411.filt.fa|ERR016155.filt.fastq/ERR015528.filt.fa|ERR251006.filt.fastq    |
 |Reference dataset|DRR001012.fa                          |DRR001025.fa        |GRCh38_full_analysis_set_plus_decoy_hla.fa|
+|ClustalOmega     |wgs.ANCA.1.fsa_200                    |wgs.ANCA.1.fsa_400  |wgs.ANCA.1.fsa_500                        |
 |Tensorflow steps |1000                                  |2500                |5000                                      |
 |GROMACS steps    |10000                                 |30000               |50000                                     |
 
