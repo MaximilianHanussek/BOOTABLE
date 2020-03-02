@@ -217,6 +217,9 @@ with the following singularity pull command.
 After the image has been downloaded you can start an interactive Singularity container with the following command
 <pre>sudo singularity shell bootable.simg</pre>
 
+If you use a newer Singularity Version the image will come in the `.sif` format and has to be run as the following
+<pre>sudo singularity shell BOOTABLE_latest.sif</pre>
+
 After you are in the container change to the root directory
 <pre>cd /</pre>
 
