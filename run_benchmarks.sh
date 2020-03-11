@@ -125,7 +125,7 @@ date >> results/benchmark_"$own_toolname"_time_"$cores".txt  #Add date to wallti
 NMON_FILE_NAME="""$own_toolname""_""$replica""_$(date +"%Y-%m-%d-%H-%M")"
 NMON_PID=$(nmon -F "$NMON_FILE_NAME".nmon -m nmon_stats/ -p -s 2 -c 12000000) # -s is the interval between snapshots, -c is the number of snapshots very high to ensure them to the end of the tool run
 
-# Run bowtie2 index builder on dataset $reference_name
+# Run own tool
 /usr/bin/time -p -a -o results/benchmark_"$own_toolname"_time_$cores.txt sh -c "$substituted_own_toolcommand" >> results/benchmark_"$own_toolname"_output_$cores.txt 2>&1
 
 # Stop nmon capturing
@@ -155,7 +155,7 @@ then
 	date >> results/benchmark_bowtie_build_time_$cores.txt	#Add date to walltime file
 
 	# Start nmon capturing
-	NMON_FILE_NAME="bowtie2_build_$replica_$(date +"%Y-%m-%d-%H-%M")"
+	NMON_FILE_NAME="bowtie2_build_"$replica"_$(date +"%Y-%m-%d-%H-%M")"
 	NMON_PID=$(nmon -F $NMON_FILE_NAME.nmon -m nmon_stats/ -p -s 2 -c 12000000) # -s is the interval between snapshots, -c is the number of snapshots very high to ensure them to the end of the tool run
 
 	# Run bowtie2 index builder on dataset $reference_name
