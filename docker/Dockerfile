@@ -1,4 +1,4 @@
-FROM centos:latest
+FROM centos:7.7.1908
 RUN yum update -y && yum install epel-release -y && yum group install "Development Tools" -y && yum install -y \
 	nano \
 	curl \
