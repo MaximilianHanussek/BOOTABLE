@@ -22,6 +22,13 @@ In the following is explained how to install BOOTABLE, how to run it and what ki
 
 If you have any questions or remarks just write me a mail: maximilian.hanussek@uni-tuebingen.de
 
+## News (26.06.20)
+We apologize for the longer lasting maintenance of our infrastructure but now everything is restored and you should be able access the chosen datasets implemented in BOOTABLE. For the next months we also plan an expanded version of BOOTABLE including benchmark tests using GPU resources.
+
+## News (24.04.20)
+Due to a restructuring of our cloud and storage infrastructure the automated file download from our S3 storage system will not work.
+As soon as we have it back online it will be listed in the news section.
+
 ## News (09.10.19)
 BOOTABLE has been puplished in the [FGCS LIFE 2019 special issue](https://doi.org/10.1016/j.future.2019.09.057). So if you want to learn more about the technical details of BOOTABLE please have a look at the paper and please cite it if it has been useful in your own work.
 
