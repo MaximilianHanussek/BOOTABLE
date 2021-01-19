@@ -849,11 +849,11 @@ then
                 read -p "MAFFT seems already to be installed, do you want to recompile it?" yn
                 case $yn in
                         [Yy]* ) sed -i "/PREFIX = /c\PREFIX = $PWD/MAFFT/mafft-7.475-with-extensions" MAFFT/mafft-7.475-with-extensions/core/Makefile
-				cd MAFFT/mafft-7.475-with-extensions/
-                                make clean >>../../log/install_MAFFT.log 2>&1
-                                make -j$(nproc) >>../../log/install_MAFFT.log 2>&1
-				make install >>../../log/install_MAFFT.log 2>&1
-                                cd ../../
+				cd MAFFT/mafft-7.475-with-extensions/core/
+                                make clean >>../../../log/install_MAFFT.log 2>&1
+                                make -j$(nproc) >>../../../log/install_MAFFT.log 2>&1
+				make install >>../../../log/install_MAFFT.log 2>&1
+                                cd ../../../
                                 break;;
                         [Nn]* ) echo "MAFFT will not be recompiled"
                                 break;;
@@ -863,11 +863,11 @@ then
         done
 else
 	sed -i "/PREFIX = /c\PREFIX = $PWD/MAFFT/mafft-7.475-with-extensions" MAFFT/mafft-7.475-with-extensions/core/Makefile
-        cd MAFFT/mafft-7.475-with-extensions/
-        make clean >>../../log/install_MAFFT.log 2>&1
-        make -j$(nproc) >>../../log/install_MAFFT.log 2>&1
-	make install >>../../log/install_MAFFT.log 2>&1
-        cd ../../
+        cd MAFFT/mafft-7.475-with-extensions/core/
+        make clean >>../../../log/install_MAFFT.log 2>&1
+        make -j$(nproc) >>../../../log/install_MAFFT.log 2>&1
+	make install >>../../../log/install_MAFFT.log 2>&1
+        cd ../../../
 fi
 
 # Compile and install IDBA
