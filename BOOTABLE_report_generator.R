@@ -28,7 +28,8 @@ load.fun(RColorBrewer)  # Load RColorBrewer package, required for pie plots
 load.fun(stringr)       # Load stringr package, required for host information parsing
 
 # Set current working directory to the directory where the script is executed
-workingdir <- "./"
+#workingdir <- "./"
+workingdir <- "/home/mhanussek/test_bootable"
 
 # Get argument from the command line, whether scaling plot should be generated or not
 args <- commandArgs(trailingOnly = TRUE)
@@ -279,6 +280,10 @@ for (summary_file in ordered_summary_file_paths){                               
   total_time_user <- format(sum(user_values_all_vector), nsmall = 2)  # Sum of all user values from every tool for all replica in the loop    
   total_time_sys  <- format(sum(sys_values_all_vector), nsmall = 2)   # Sum of all sys values from every tool for all replica in the loop
 
+  full_total_real_time_mean_tools <- sum(as.numeric(real_mean_values_tools_vector))
+  without_bowtie2_build_total_real_time_mean_tools <- sum(as.numeric(real_mean_values_tools_vector[-1]))
+  print(without_bowtie2_build_total_real_time_mean_tools)
+  
   t0 <- tableGrob(df_system_information, rows = rownames(df_system_information), cols = colnames(df_system_information))  # Create graphical table for the systeminfos with row and col names
   t1 <- tableGrob(t(df_all_printable), rows = colnames(df_all_printable), cols = rownames(df_all_printable))              # Create graphical table for all measured times wit row and col names
   t2 <- tableGrob(t(df_toolwise), rows = colnames(df_toolwise), cols = rownames(df_toolwise))                             # Create graphical table with averaged values over all replicas per tool
