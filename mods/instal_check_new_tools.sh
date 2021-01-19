@@ -191,10 +191,15 @@ cmd="bowtie2/bowtie2-2.3.4.2/bowtie2 --version"
 name="Bowtie2 align"
 check_tool "$cmd" "$name"
 
-# BWA -> nothing to check!
-#cmd="BWA/bwa-0.7.17/bwa"
-#name="BWA"
-#check_tool "$cmd" "$name"
+# BWA
+version_line=$(BWA/bwa-0.7.17/bwa 2>&1 | grep Version)
+name="BWA"
+if [ "$version_line" == "Version: 0.7.17-r1188" ]
+then
+        echo -e "${green}$name seems to be installed correctly.${nc}"
+else
+        echo -e "${red}Something seems to be wrong with $name. Please check and maybe reinstall again.${nc}"
+fi
 
 # Velveth
 cmd="velvet/velveth"
@@ -249,10 +254,15 @@ cmd="clustalOmega/clustal-omega-1.2.4/bin/clustalo --version"
 name="ClustalOmega"
 check_tool "$cmd" "$name"
 
-# MAFFT -> Nothing to check!
-#cmd="MAFFT/mafft-7.475-with-extensions/bin/mafft"
-#name="MAFFT"
-#check_tool "$cmd" "$name"
+# MAFFT
+version_line=$(MAFFT/mafft-7.475-with-extensions/bin/mafft --help 2>&1 | grep MAFFT)
+name="MAFFT"
+if [ "$version_line" == "  MAFFT v7.475 (2020/Nov/23)" ]
+then
+        echo -e "${green}$name seems to be installed correctly.${nc}"
+else
+        echo -e "${red}Something seems to be wrong with $name. Please check and maybe reinstall again.${nc}"
+fi
 
 # SINA
 cmd="SINA/sina-1.7.2-linux/sina -V"
