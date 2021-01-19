@@ -133,7 +133,8 @@ wget https://s3.denbi.uni-tuebingen.de/max/ADH_bench_systems.tar.gz -P /datasets
 
 wget https://s3.denbi.uni-tuebingen.de/max/nmonchart34.tar -P / \
 && tar -xf /nmonchart34.tar -C / \
-&& rm /nmonchart34.tar
+&& rm /nmonchart34.tar / \
+&& chmod 777 /nmonchart/nmonchart
 
 cd /gcc/gcc-7.3.0 \
 && ./contrib/download_prerequisites

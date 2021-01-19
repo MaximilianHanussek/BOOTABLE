@@ -9,38 +9,6 @@ half_cores_velvet=$(expr $half_cores - 1)	#Calculate half core number for velvet
 quarter_cores=$(expr $max_cores / 4)		#Calculate quarter core number
 quarter_cores_velvet=$(expr $quarter_cores - 1) #Calculate quarter core number fir velvet
 one_core=1					#Set one core variable
-two_core=2
-three_core=3
-four_core=4
-five_core=5
-six_core=6
-seven_core=7
-eight_core=8
-ten_core=10
-eleven_core=11
-twelve_core=12
-13_core=13
-14_core=14
-15_core=15
-16_core=16
-17_core=17
-19_core=19
-20_core=20
-21_core=21
-22_core=22
-23_core=23
-24_core=24
-25_core=25
-26_core=26
-27_core=27
-28_core=28
-29_core=29
-30_core=30
-31_core=31
-32_core=32
-33_core=33
-34_core=34
-35_core=35
 clean=0 					#Set clean flag initially to 0
 scaling="none"					#Set scaling initally to "none"
 own_tool_path="none"				#Set path for own tools per default to "none"
@@ -157,7 +125,7 @@ date >> results/benchmark_"$own_toolname"_time_"$cores".txt  #Add date to wallti
 NMON_FILE_NAME="""$own_toolname""_""$replica""_$(date +"%Y-%m-%d-%H-%M")"
 NMON_PID=$(nmon -F "$NMON_FILE_NAME".nmon -m nmon_stats/ -p -s 2 -c 12000000) # -s is the interval between snapshots, -c is the number of snapshots very high to ensure them to the end of the tool run
 
-# Run bowtie2 index builder on dataset $reference_name
+# Run own tool
 /usr/bin/time -p -a -o results/benchmark_"$own_toolname"_time_$cores.txt sh -c "$substituted_own_toolcommand" >> results/benchmark_"$own_toolname"_output_$cores.txt 2>&1
 
 # Stop nmon capturing
@@ -187,7 +155,7 @@ then
 	date >> results/benchmark_bowtie_build_time_$cores.txt	#Add date to walltime file
 
 	# Start nmon capturing
-	NMON_FILE_NAME="bowtie2_build_$replica_$(date +"%Y-%m-%d-%H-%M")"
+	NMON_FILE_NAME="bowtie2_build_"$replica"_$(date +"%Y-%m-%d-%H-%M")"
 	NMON_PID=$(nmon -F $NMON_FILE_NAME.nmon -m nmon_stats/ -p -s 2 -c 12000000) # -s is the interval between snapshots, -c is the number of snapshots very high to ensure them to the end of the tool run
 
 	# Run bowtie2 index builder on dataset $reference_name
