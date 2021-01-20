@@ -718,39 +718,39 @@ progress_bar 11 8
 original_path_variable=$(echo $PATH)
 original_ld_library_variable=$(echo $LD_LIBRARY_PATH)
 
-# Compile and install GCC 7.3.0
-#if [ -e gcc/gcc-installed/bin/gcc ]
-#then 
-#	while true; do
-#        	read -p "GCC 7.3.0 seems already to be installed, do you want to recompile it?" yn
-#                case $yn in
-#                        [Yy]* ) rm -rf gcc/gcc-build/* >>log/install_gcc.log 2>&1
-#				rm -rf gcc/gcc-installed/* >>log/install_gcc.log 2>&1
-#				cd gcc/gcc-7.3.0
-#                                ./contrib/download_prerequisites >>../../log/install_gcc.log 2>&1
-#                                cd ../gcc-build
-#                                ../gcc-7.3.0/configure --enable-languages=c,c++ --disable-multilib --prefix=$PWD/../gcc-installed >>../../log/install_gcc.log 2>&1
-#                                make clean >>../../log/install_gcc.log 2>&1
-#                                make -j$(nproc) >>../../log/install_gcc.log 2>&1
-#				make install >>../../log/install_gcc.log 2>&1
-#                                cd ../../
-#                                break;;
-#                        [Nn]* ) echo "GCC will not be recompiled"
-#                                break;;
-#                        * ) echo "Please answer yes or no."
-#				;;
-#                esac
-#        done
-#else
-#        cd gcc/gcc-7.3.0
-#        ./contrib/download_prerequisites >>../../log/install_gcc.log 2>&1
-#        cd ../gcc-build
-#        ../gcc-7.3.0/configure --enable-languages=c,c++ --disable-multilib --prefix=$PWD/../gcc-installed >>../../log/install_gcc.log 2>&1
-#        make clean >>../../log/install_gcc.log 2>&1
-#        make -j$(nproc) >>../../log/install_gcc.log 2>&1
-#	make install >>../../log/install_gcc.log 2>&1
-#        cd ../../
-#fi
+ Compile and install GCC 7.3.0
+if [ -e gcc/gcc-installed/bin/gcc ]
+then 
+	while true; do
+        	read -p "GCC 7.3.0 seems already to be installed, do you want to recompile it?" yn
+                case $yn in
+                        [Yy]* ) rm -rf gcc/gcc-build/* >>log/install_gcc.log 2>&1
+				rm -rf gcc/gcc-installed/* >>log/install_gcc.log 2>&1
+				cd gcc/gcc-7.3.0
+                                ./contrib/download_prerequisites >>../../log/install_gcc.log 2>&1
+                                cd ../gcc-build
+                                ../gcc-7.3.0/configure --enable-languages=c,c++ --disable-multilib --prefix=$PWD/../gcc-installed >>../../log/install_gcc.log 2>&1
+                                make clean >>../../log/install_gcc.log 2>&1
+                                make -j$(nproc) >>../../log/install_gcc.log 2>&1
+				make install >>../../log/install_gcc.log 2>&1
+                                cd ../../
+                                break;;
+                        [Nn]* ) echo "GCC will not be recompiled"
+                                break;;
+                        * ) echo "Please answer yes or no."
+				;;
+                esac
+        done
+else
+        cd gcc/gcc-7.3.0
+        ./contrib/download_prerequisites >>../../log/install_gcc.log 2>&1
+        cd ../gcc-build
+        ../gcc-7.3.0/configure --enable-languages=c,c++ --disable-multilib --prefix=$PWD/../gcc-installed >>../../log/install_gcc.log 2>&1
+        make clean >>../../log/install_gcc.log 2>&1
+        make -j$(nproc) >>../../log/install_gcc.log 2>&1
+	make install >>../../log/install_gcc.log 2>&1
+        cd ../../
+fi
 
 progress_bar 75 11
 
@@ -808,8 +808,8 @@ fi
 progress_bar 80 75
 
 # Set GCC to 7.3.0
-#export PATH=$PWD/gcc/gcc-installed/bin:$PATH
-#export LD_LIBRARY_PATH=$PWD/gcc/gcc-installed/lib64:$LD_LIBRARY_PATH
+export PATH=$PWD/gcc/gcc-installed/bin:$PATH
+export LD_LIBRARY_PATH=$PWD/gcc/gcc-installed/lib64:$LD_LIBRARY_PATH
 
 # Compile and install velvet
 if [ -e velvet/velvetg ] && [ -e velvet/velveth ]
@@ -838,8 +838,8 @@ fi
 progress_bar 81 80
 
 # Reset to system compiler as IDBA is not compiling with GCC 7.3.0
-#export PATH=$original_path_variable
-#export LD_LIBRARY_PATH=$original_ld_library_variable
+export PATH=$original_path_variable
+export LD_LIBRARY_PATH=$original_ld_library_variable
 
 
 # Compile and install MAFFT
@@ -1001,39 +1001,39 @@ fi
 progress_bar 88 86
 
 # Set GCC to 7.3.0 to fasten up GROMACS
-#export PATH=$PWD/gcc/gcc-installed/bin:$PATH
-#export LD_LIBRARY_PATH=$PWD/gcc/gcc-installed/lib64:$LD_LIBRARY_PATH
+export PATH=$PWD/gcc/gcc-installed/bin:$PATH
+export LD_LIBRARY_PATH=$PWD/gcc/gcc-installed/lib64:$LD_LIBRARY_PATH
 
 # Compile and install GROMACS (sudo)
-#if [ -e /usr/local/gromacs/bin/gmx ]
-#then
-#        while true; do
-#                read -p "GROMACS seems already to be installed, do you want to recompile it?" yn
-#                case $yn in
-#                        [Yy]* ) rm -rf gromacs/gromacs-2018.3/build/* >>log/install_GROMACS.log 2>&1
-#				sudo rm -rf /usr/local/gromacs/ >>log/install_GROMACS.log 2>&1
-#				cd gromacs/gromacs-2018.3/build/
-#				CC=gcc CXX=g++ cmake3 -DCMAKE_CXX_COMPILER=g++ -DGMX_BUILD_OWN_FFTW=on -DGMX_GPU=off -DGMX_BUILD_MPI=off --build ./ ../../gromacs-2018.3/ >>../../../log/install_GROMACS.log 2>&1
-#				make clean >>../../../log/install_GROMACS.log 2>&1
-#				make -j$(nproc) >>../../../log/install_GROMACS.log 2>&1
-#				sudo make install >>../../../log/install_GROMACS.log 2>&1
-#				cd ../../../
-#				break;;
-#                        [Nn]* ) echo "GROMACS will not be recompiled"
-#                                break;;
-#                        * ) echo "Please answer yes or no."
-#                                ;;
-#                esac
-#        done
-#else
-#	mkdir gromacs/gromacs-2018.3/build
-#	cd gromacs/gromacs-2018.3/build/
-#	CC=gcc CXX=g++ cmake3 -DCMAKE_CXX_COMPILER=g++ -DGMX_BUILD_OWN_FFTW=on -DGMX_GPU=off -DGMX_BUILD_MPI=off --build ./ ../../gromacs-2018.3/ >>../../../log/install_GROMACS.log 2>&1
-#	make clean >>../../../log/install_GROMACS.log 2>&1
-#	make -j	$(nproc) >>../../../log/install_GROMACS.log 2>&1
-#	sudo make install >>../../../log/install_GROMACS.log 2>&1
-#	cd ../../../
-#	#/usr/local/gromacs/bin/gmx grompp -f datasets/gromacs/adh_cubic/pme_verlet.mdp -c datasets/gromacs/adh_cubic/conf.gro -p datasets/gromacs/adh_cubic/topol.top -o datasets/gromacs/adh_cubic/topol -po datasets/gromacs/adh_cubic/mdout
+if [ -e /usr/local/gromacs/bin/gmx ]
+then
+        while true; do
+                read -p "GROMACS seems already to be installed, do you want to recompile it?" yn
+                case $yn in
+                        [Yy]* ) rm -rf gromacs/gromacs-2018.3/build/* >>log/install_GROMACS.log 2>&1
+				sudo rm -rf /usr/local/gromacs/ >>log/install_GROMACS.log 2>&1
+				cd gromacs/gromacs-2018.3/build/
+				CC=gcc CXX=g++ cmake3 -DCMAKE_CXX_COMPILER=g++ -DGMX_BUILD_OWN_FFTW=on -DGMX_GPU=off -DGMX_BUILD_MPI=off --build ./ ../../gromacs-2018.3/ >>../../../log/install_GROMACS.log 2>&1
+				make clean >>../../../log/install_GROMACS.log 2>&1
+				make -j$(nproc) >>../../../log/install_GROMACS.log 2>&1
+				sudo make install >>../../../log/install_GROMACS.log 2>&1
+				cd ../../../
+				break;;
+                        [Nn]* ) echo "GROMACS will not be recompiled"
+                                break;;
+                        * ) echo "Please answer yes or no."
+                                ;;
+                esac
+        done
+else
+	mkdir gromacs/gromacs-2018.3/build
+	cd gromacs/gromacs-2018.3/build/
+	CC=gcc CXX=g++ cmake3 -DCMAKE_CXX_COMPILER=g++ -DGMX_BUILD_OWN_FFTW=on -DGMX_GPU=off -DGMX_BUILD_MPI=off --build ./ ../../gromacs-2018.3/ >>../../../log/install_GROMACS.log 2>&1
+	make clean >>../../../log/install_GROMACS.log 2>&1
+	make -j	$(nproc) >>../../../log/install_GROMACS.log 2>&1
+	sudo make install >>../../../log/install_GROMACS.log 2>&1
+	cd ../../../
+	#/usr/local/gromacs/bin/gmx grompp -f datasets/gromacs/adh_cubic/pme_verlet.mdp -c datasets/gromacs/adh_cubic/conf.gro -p datasets/gromacs/adh_cubic/topol.top -o datasets/gromacs/adh_cubic/topol -po datasets/gromacs/adh_cubic/mdout
 #fi
 
 progress_bar 95 88
@@ -1093,8 +1093,8 @@ fi
 
 
 # Reset to system compiler after finishing installation process
-#export PATH=$original_path_variable
-#export LD_LIBRARY_PATH=$original_ld_library_variable
+export PATH=$original_path_variable
+export LD_LIBRARY_PATH=$original_ld_library_variable
 
 progress_bar 100 95
 echo "BOOTABLE should be successfully installed, please check with the install_check.sh tool."
