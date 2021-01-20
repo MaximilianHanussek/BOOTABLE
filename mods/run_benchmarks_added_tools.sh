@@ -185,7 +185,7 @@ then
         # BWA MEM
         rm -rf benchmark_output/BWA/*               #Clean up BWA output directoy
         echo "Running BWA MEM benchmark on reference dataset $reference_name_BWA and dataset $dataset_name"
-        echo "Replica_$replica BWA MEM with $cores cores on reference dataset $reference_name_BWA and dataset $dataset_name" >> results/benchmark_bwa_mem_time_$cores.txt                             #Create results file with walltime
+        echo "Replica_$replica BWA_MEM with $cores cores on reference dataset $reference_name_BWA and dataset $dataset_name" >> results/benchmark_bwa_mem_time_$cores.txt                             #Create results file with walltime
         date >> results/benchmark_bwa_mem_time_$cores.txt  #Add date to walltime file
 
         # Start nmon capturing
