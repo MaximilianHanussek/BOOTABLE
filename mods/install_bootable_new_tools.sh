@@ -718,7 +718,7 @@ progress_bar 11 8
 original_path_variable=$(echo $PATH)
 original_ld_library_variable=$(echo $LD_LIBRARY_PATH)
 
- Compile and install GCC 7.3.0
+# Compile and install GCC 7.3.0
 if [ -e gcc/gcc-installed/bin/gcc ]
 then 
 	while true; do
@@ -1034,7 +1034,7 @@ else
 	sudo make install >>../../../log/install_GROMACS.log 2>&1
 	cd ../../../
 	#/usr/local/gromacs/bin/gmx grompp -f datasets/gromacs/adh_cubic/pme_verlet.mdp -c datasets/gromacs/adh_cubic/conf.gro -p datasets/gromacs/adh_cubic/topol.top -o datasets/gromacs/adh_cubic/topol -po datasets/gromacs/adh_cubic/mdout
-#fi
+fi
 
 progress_bar 95 88
 
