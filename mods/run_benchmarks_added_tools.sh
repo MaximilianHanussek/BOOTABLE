@@ -506,7 +506,7 @@ check_results $path $cores
 path="results/benchmark_bbmap_time_$cores.txt"
 check_results $path $cores
 
-path="results/benchmark_bwa_time_$cores.txt"
+path="results/benchmark_bwa_mem_time_$cores.txt"
 check_results $path $cores
 
 path="results/benchmark_velvet_time_$cores.txt"
