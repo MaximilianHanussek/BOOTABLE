@@ -20,7 +20,7 @@ default_gromacs_steps=30000			#Set 30000 gromacs steps as default
 dataset_clustalOmega="datasets/clustalOmega/wgs.ANCA.1_400.fsa"	#Set wgs.ANCA.1_400.fsa as default datatset for ClustalOmega
 default_SINA="datasets/SINA/RefSeq-RDP16S_v2_May2018.fa"	#Set RefSeq-RDP16S_v2_May2018.fa as default dataset for SINA
 reference_SINA="datasets/SINA/SILVA_138.1_SSURef_NR99_12_06_20_opt.arb"	#Set SILVA_138.1_SSURef_NR99_12_06_20_opt.arb as default dataset for SINA
-default_reference_BWA="datasets/BWA/DRR001025"	#Set DRR001025 as default reference dataset for BWA, index files
+default_reference_BWA="datasets/BWA/DRR001025/DRR001025"	#Set DRR001025 as default reference dataset for BWA, index files
 default_cores=$max_cores			#Set maximal core number as default
 default_cores_velvet=$max_cores_velvet		#Set default core number for velvet tool
 default_replicas=3				#Set default number of replicas to 3
@@ -184,7 +184,7 @@ if [ $toolgroup == "all" ] || [ $toolgroup == "genomics" ] || [ $toolgroup == "b
 then
         # BWA MEM
         rm -rf benchmark_output/BWA/*               #Clean up BWA output directoy
-        echo "Running BWA MEM benchmark on reference datasets $reference_name_BWA and dataset $dataset_name"
+        echo "Running BWA MEM benchmark on reference dataset $reference_name_BWA and dataset $dataset_name"
         echo "Replica_$replica BWA MEM with $cores cores on reference dataset $reference_name_BWA and dataset $dataset_name" >> results/benchmark_bwa_mem_time_$cores.txt                             #Create results file with walltime
         date >> results/benchmark_bwa_mem_time_$cores.txt  #Add date to walltime file
 
@@ -639,7 +639,7 @@ then
         default_reference="datasets/1000_genomes/GRCh38_full_analysis_set_plus_decoy_hla.fa"
 	default_SINA="datasets/SINA/GTDB_bac-arc_ssu_r86.fa"
 	reference_SINA="datasets/SINA/SILVA_138.1_SSURef_NR99_12_06_20_opt.arb"
-	default_reference_BWA="datasets/BWA/GRCh38_full_analysis_set_plus_decoy_hla"
+	default_reference_BWA="datasets/BWA/GRCh38_full_analysis_set_plus_decoy_hla/GRCh38_full_analysis_set_plus_decoy_hla"
 	default_tensorflow_steps=5000
 	default_gromacs_steps=50000
 
@@ -651,7 +651,7 @@ then
 	default_reference="datasets/ebi/DRR001025.fa"
 	default_SINA="datasets/SINA/RefSeq-RDP16S_v2_May2018.fa"
 	reference_SINA="datasets/SINA/SILVA_138.1_SSURef_NR99_12_06_20_opt.arb"
-	default_reference_BWA="datasets/BWA/DRR001025"
+	default_reference_BWA="datasets/BWA/DRR001025/DRR001025"
 	default_tensorflow_steps=2500
 	default_gromacs_steps=30000
 
@@ -663,7 +663,7 @@ then
 	default_reference="datasets/ebi/DRR001012.fa"
 	default_SINA="datasets/SINA/OE-38_R1.fa"
         reference_SINA="datasets/SINA/SILVA_138.1_SSURef_NR99_12_06_20_opt.arb"
-        default_reference_BWA="datasets/BWA/DRR001012"
+        default_reference_BWA="datasets/BWA/DRR001012/DRR001012"
 	default_tensorflow_steps=1000
 	default_gromacs_steps=10000
 
@@ -674,7 +674,7 @@ else
         default_reference="datasets/ebi/DRR001025.fa"
 	default_SINA="datasets/SINA/RefSeq-RDP16S_v2_May2018.fa"
         reference_SINA="datasets/SINA/SILVA_138.1_SSURef_NR99_12_06_20_opt.arb"
-        default_reference_BWA="datasets/BWA/DRR001025"
+        default_reference_BWA="datasets/BWA/DRR001025/DRR001025"
         default_tensorflow_steps=2500
         default_gromacs_steps=30000
 
