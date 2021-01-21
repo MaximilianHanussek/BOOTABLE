@@ -18,6 +18,9 @@ default_reference="datasets/ebi/DRR001025.fa"   #Set DRR001012 as default refere
 default_tensorflow_steps=2500			#Set 2500 tensorflow steps as default 
 default_gromacs_steps=30000			#Set 30000 gromacs steps as default
 dataset_clustalOmega="datasets/clustalOmega/wgs.ANCA.1_400.fsa"	#Set wgs.ANCA.1_400.fsa as default datatset for ClustalOmega
+default_SINA="datasets/SINA/RefSeq-RDP16S_v2_May2018.fa"	#Set RefSeq-RDP16S_v2_May2018.fa as default dataset for SINA
+reference_SINA="datasets/SINA/SILVA_138.1_SSURef_NR99_12_06_20_opt.arb"	#Set SILVA_138.1_SSURef_NR99_12_06_20_opt.arb as default dataset for SINA
+default_reference_BWA="datasets/BWA/DRR001025/DRR001025"	#Set DRR001025 as default reference dataset for BWA, index files
 default_cores=$max_cores			#Set maximal core number as default
 default_cores_velvet=$max_cores_velvet		#Set default core number for velvet tool
 default_replicas=3				#Set default number of replicas to 3
@@ -37,7 +40,7 @@ where:
     -p  number of cores/threads that should be used (one, half, full, or any integer value, full is default)
     -r  number of replica cycles that should be executed (any integer value, 3 is default)  
     -s  run scaling benchmark (small, medium, large), parameters describe the used datasets
-    -t  toolgroup which should be used for the benchmarks (all, genomics, ml, quant) or a specific tool (bowtie2-build, velvet, idba, tensorflow, gromacs, SPAdes, clustalomega). Default is all"
+    -t  toolgroup which should be used for the benchmarks (all, genomics, ml, quant) or a specific tool (bbmap, bowtie2-build, bwa, velvet, idba, tensorflow, gromacs, SPAdes, clustalomega, mafft, sina). Default is all"
 
 # Create flag options
 while getopts "chd:o:p:r:s:t:" option; do
@@ -99,7 +102,13 @@ dataset_name_idba=$(basename $dataset_idba | cut -d. -f1) #Get only the name of 
 toolgroup=$9					#Input parameter which tools should be used
 dataset_clustalOmega=${10}                      #Input parameter for Clustal Omega which dataset
 dataset_name_clustalOmega=$(basename $dataset_clustalOmega | cut -d. -f-3)
-own_tool_path=${11}				#Input parameter path to toolfile (full path)
+reference_BWA=${11}				#Input parameter for BWA which reference dataset
+reference_name_BWA=$(basename $reference_BWA)	#Get only the name of the dataset from the filepath
+dataset_SINA=${12}				#Input parameter for SINA which dataset
+dataset_name_SINA=$(basename $dataset_SINA | cut -d. -f1) #Get only the name of the dataset from the filepath
+reference_SINA=${13}				#Input parameter for SINA which reference dataset
+reference_name_SINA=$(basename $reference_SINA | cut -d. -f-2) #Get only the name of the dataset from the filepath
+own_tool_path=${14}				#Input parameter path to toolfile (full path)
 if [  "$own_tool_path" != "none" ]
 then
 
@@ -146,9 +155,59 @@ else
 original_path_variable=$(echo $PATH)
 original_ld_library_variable=$(echo $LD_LIBRARY_PATH)
 
+if [ $toolgroup == "all" ] || [ $toolgroup == "genomics" ] || [ $toolgroup == "bbmap" ]
+then
+        # BBMap index and mapping
+        rm -rf benchmark_output/BBMap/*               #Clean up BBMap output directoy
+        echo "Running BBMap benchmark on reference dataset $reference_name and dataset $dataset_name" 
+        echo "Replica_$replica BBMap with $cores cores on dataset $reference_name and dataset $dataset_name" >> results/benchmark_bbmap_time_$cores.txt                             #Create results file with walltime
+        date >> results/benchmark_bbmap_time_$cores.txt  #Add date to walltime file
+
+        # Start nmon capturing
+        NMON_FILE_NAME="bbmap_"$replica"_$(date +"%Y-%m-%d-%H-%M")"
+        NMON_PID=$(nmon -F $NMON_FILE_NAME.nmon -m nmon_stats/ -p -s 2 -c 12000000) # -s is the interval between snapshots, -c is the number of snapshots very high to ensure them to the end of the tool run
+
+        # Run BBMap on reference dataset $reference_name and dataset $dataset_name
+        /usr/bin/time -p -a -o results/benchmark_bbmap_time_$cores.txt sh -c "BBMap/bbmap/bbmap.sh threads=$cores in=$dataset out=benchmark_output/BBMap/benchmark ref=$reference path=benchmark_output/BBMap/" >> results/benchmark_bbmap_output_$cores.txt 2>&1
+
+        # Stop nmon capturing
+        kill -USR2 $NMON_PID
+
+        # Make nmon html graphs
+        sh nmonchart/nmonchart nmon_stats/$NMON_FILE_NAME.nmon nmon_stats/$NMON_FILE_NAME.html
+        echo "" >> results/benchmark_bbmap_time_$cores.txt       #Blank line for clarity and parsing
+else
+        echo "BBMap will not be started as you did not choose the genomics tools, all tools or the tool itself."
+fi
+
+if [ $toolgroup == "all" ] || [ $toolgroup == "genomics" ] || [ $toolgroup == "bwa" ]
+then
+        # BWA MEM
+        rm -rf benchmark_output/BWA/*               #Clean up BWA output directoy
+        echo "Running BWA MEM benchmark on reference dataset $reference_name_BWA and dataset $dataset_name"
+        echo "Replica_$replica BWA_MEM with $cores cores on reference dataset $reference_name_BWA and dataset $dataset_name" >> results/benchmark_bwa_mem_time_$cores.txt                             #Create results file with walltime
+        date >> results/benchmark_bwa_mem_time_$cores.txt  #Add date to walltime file
+
+        # Start nmon capturing
+        NMON_FILE_NAME="bwa_mem_"$replica"_$(date +"%Y-%m-%d-%H-%M")"
+        NMON_PID=$(nmon -F $NMON_FILE_NAME.nmon -m nmon_stats/ -p -s 2 -c 12000000) # -s is the interval between snapshots, -c is the number of snapshots very high to ensure them to the end of the tool run
+
+        # Run BWA Mem on dataset $reference_name_BWA
+        /usr/bin/time -p -a -o results/benchmark_bwa_mem_time_$cores.txt sh -c "BWA/bwa-0.7.17/bwa mem -t $cores $reference_BWA $dataset > benchmark_output/BWA/benchmark" >> results/benchmark_bwa_mem_output_$cores.txt 2>&1
+
+        # Stop nmon capturing
+        kill -USR2 $NMON_PID
+
+        # Make nmon html graphs
+        sh nmonchart/nmonchart nmon_stats/$NMON_FILE_NAME.nmon nmon_stats/$NMON_FILE_NAME.html
+        echo "" >> results/benchmark_bwa_mem_time_$cores.txt       #Blank line for clarity and parsing
+else
+        echo "BWA MEM will not be started as you did not choose the genomics tools, all tools or the tool itself."
+fi
+
 if [ $toolgroup == "all" ] || [ $toolgroup == "genomics" ] || [ $toolgroup == "bowtie2-build" ]
 then
-	# Bowtie2 buiild index
+	# Bowtie2 build index
 	rm -rf benchmark_output/bowtie2/*		#Clean up bowtie2 output directoy
 	echo "Running bowtie2 index build benchmark on dataset $reference_name"	
 	echo "Replica_$replica Bowtie2_build with $cores cores on dataset $reference_name" >> results/benchmark_bowtie_build_time_$cores.txt				 #Create results file with walltime
@@ -386,12 +445,68 @@ else
 	echo "SPAdes will not be started as you did not choose the genomics tools, all tools or the tool itself."
 fi
 
+if [ $toolgroup == "all" ] || [ $toolgroup == "genomics" ] || [ $toolgroup == "mafft" ]
+then
+        # MAFFT
+        rm -rf benchmark_output/MAFFT/*               #Clean up MAFFT output directoy
+        echo "Running MAFFT benchmark on dataset $dataset_name_clustalOmega" 
+        echo "Replica_$replica MAFFT with $cores cores on dataset $dataset_name_clustalOmega" >> results/benchmark_mafft_time_$cores.txt                             #Create results file with walltime
+        date >> results/benchmark_mafft_time_$cores.txt  #Add date to walltime file
+
+        # Start nmon capturing
+        NMON_FILE_NAME="mafft_"$replica"_$(date +"%Y-%m-%d-%H-%M")"
+        NMON_PID=$(nmon -F $NMON_FILE_NAME.nmon -m nmon_stats/ -p -s 2 -c 12000000) # -s is the interval between snapshots, -c is the number of snapshots very high to ensure them to the end of the tool run
+
+        # Run MAFFT on dataset $dataset_name_clustalOmega
+        /usr/bin/time -p -a -o results/benchmark_mafft_time_$cores.txt sh -c "MAFFT/mafft-7.475-with-extensions/bin/mafft --auto --thread $cores $dataset_clustalOmega > benchmark_output/MAFFT/benchmark" >> results/benchmark_MAFFT_output_$cores.txt 2>&1
+
+        # Stop nmon capturing
+        kill -USR2 $NMON_PID
+
+        # Make nmon html graphs
+        sh nmonchart/nmonchart nmon_stats/$NMON_FILE_NAME.nmon nmon_stats/$NMON_FILE_NAME.html
+        echo "" >> results/benchmark_mafft_time_$cores.txt       #Blank line for clarity and parsing
+else
+        echo "MAFFT will not be started as you did not choose the genomics tools, all tools or the tool itself."
+fi
+
+if [ $toolgroup == "all" ] || [ $toolgroup == "genomics" ] || [ $toolgroup == "sina" ]
+then
+        # SINA
+        rm -rf benchmark_output/SINA/*               #Clean up SINA output directoy
+        echo "Running SINA benchmark on reference datatset $reference_name_SINA and dataset $dataset_name_SINA" 
+        echo "Replica_$replica SINA with $cores cores on reference dataset $reference_name_SINA and dataset $dataset_name_SINA" >> results/benchmark_sina_time_$cores.txt                             #Create results file with walltime
+        date >> results/benchmark_sina_time_$cores.txt  #Add date to walltime file
+
+        # Start nmon capturing
+        NMON_FILE_NAME="sina_"$replica"_$(date +"%Y-%m-%d-%H-%M")"
+        NMON_PID=$(nmon -F $NMON_FILE_NAME.nmon -m nmon_stats/ -p -s 2 -c 12000000) # -s is the interval between snapshots, -c is the number of snapshots very high to ensure them to the end of the tool run
+
+        # Run SINA on reference dataset $reference_name_SINA and datatset $dataset_name_SINA
+        /usr/bin/time -p -a -o results/benchmark_sina_time_$cores.txt sh -c "SINA/sina-1.7.2-linux/sina --threads $cores -i $dataset_SINA -r $reference_SINA -o benchmark_output/SINA/benchmark" >> results/benchmark_sina_output_$cores.txt 2>&1
+
+        # Stop nmon capturing
+        kill -USR2 $NMON_PID
+
+        # Make nmon html graphs
+        sh nmonchart/nmonchart nmon_stats/$NMON_FILE_NAME.nmon nmon_stats/$NMON_FILE_NAME.html
+        echo "" >> results/benchmark_sina_time_$cores.txt       #Blank line for clarity and parsing
+else
+        echo "SINA will not be started as you did not choose the genomics tools, all tools or the tool itself."
+fi
+
 touch benchmark_summary_$cores.txt
 
 path="results/benchmark_bowtie_build_time_$cores.txt"
 check_results $path $cores
 
 path="results/benchmark_bowtie_align_time_$cores.txt"
+check_results $path $cores
+
+path="results/benchmark_bbmap_time_$cores.txt"
+check_results $path $cores
+
+path="results/benchmark_bwa_mem_time_$cores.txt"
 check_results $path $cores
 
 path="results/benchmark_velvet_time_$cores.txt"
@@ -401,6 +516,12 @@ path="results/benchmark_idba_time_$cores.txt"
 check_results $path $cores
 
 path="results/benchmark_clustalomega_time_$cores.txt"
+check_results $path $cores
+
+path="results/benchmark_mafft_time_$cores.txt"
+check_results $path $cores
+
+path="results/benchmark_sina_time_$cores.txt"
 check_results $path $cores
 
 path="results/benchmark_tensorflow_time_$cores.txt"
@@ -516,6 +637,9 @@ then
 	dataset_idba="datasets/1000_genomes/ERR251006.filt.fa"
 	dataset_clustalOmega="datasets/clustalOmega/wgs.ANCA.1_500.fsa"
         default_reference="datasets/1000_genomes/GRCh38_full_analysis_set_plus_decoy_hla.fa"
+	default_SINA="datasets/SINA/GTDB_bac-arc_ssu_r86.fa"
+	reference_SINA="datasets/SINA/SILVA_138.1_SSURef_NR99_12_06_20_opt.arb"
+	default_reference_BWA="datasets/BWA/GRCh38_full_analysis_set_plus_decoy_hla/GRCh38_full_analysis_set_plus_decoy_hla"
 	default_tensorflow_steps=5000
 	default_gromacs_steps=50000
 
@@ -525,6 +649,9 @@ then
         dataset_idba="datasets/1000_genomes/ERR015528.filt.fa"
 	dataset_clustalOmega="datasets/clustalOmega/wgs.ANCA.1_400.fsa"
 	default_reference="datasets/ebi/DRR001025.fa"
+	default_SINA="datasets/SINA/RefSeq-RDP16S_v2_May2018.fa"
+	reference_SINA="datasets/SINA/SILVA_138.1_SSURef_NR99_12_06_20_opt.arb"
+	default_reference_BWA="datasets/BWA/DRR001025/DRR001025"
 	default_tensorflow_steps=2500
 	default_gromacs_steps=30000
 
@@ -533,7 +660,10 @@ then
 	dataset="datasets/1000_genomes/ERR016155.filt.fastq"
 	dataset_idba="datasets/1000_genomes/SRR741411.filt.fa"
 	dataset_clustalOmega="datasets/clustalOmega/wgs.ANCA.1_200.fsa"
-	default_reference="datasets/ebi/DRR001012.fa" 
+	default_reference="datasets/ebi/DRR001012.fa"
+	default_SINA="datasets/SINA/OE-38_R1.fa"
+        reference_SINA="datasets/SINA/SILVA_138.1_SSURef_NR99_12_06_20_opt.arb"
+        default_reference_BWA="datasets/BWA/DRR001012/DRR001012"
 	default_tensorflow_steps=1000
 	default_gromacs_steps=10000
 
@@ -542,6 +672,9 @@ else
         dataset_idba="datasets/1000_genomes/ERR015528.filt.fa"
 	dataset_clustalOmega="datasets/clustalOmega/wgs.ANCA.1_400.fsa"
         default_reference="datasets/ebi/DRR001025.fa"
+	default_SINA="datasets/SINA/RefSeq-RDP16S_v2_May2018.fa"
+        reference_SINA="datasets/SINA/SILVA_138.1_SSURef_NR99_12_06_20_opt.arb"
+        default_reference_BWA="datasets/BWA/DRR001025/DRR001025"
         default_tensorflow_steps=2500
         default_gromacs_steps=30000
 
@@ -573,18 +706,20 @@ else
 fi
 	
 
-if [[ $default_toolgroup != "all" && $default_toolgroup != "genomics" && $default_toolgroup != "ml" && $default_toolgroup != "quant" && $default_toolgroup != "bowtie2-build" && $default_toolgroup != "velvet" && $default_toolgroup != "idba" && $default_toolgroup != "tensorflow" && $default_toolgroup != "gromacs" && $default_toolgroup != "SPAdes" && $default_toolgroup != "clustalomega" ]]
+if [[ $default_toolgroup != "all" && $default_toolgroup != "genomics" && $default_toolgroup != "ml" && $default_toolgroup != "quant" && $default_toolgroup != "bowtie2-build" && $default_toolgroup != "velvet" && $default_toolgroup != "idba" && $default_toolgroup != "tensorflow" && $default_toolgroup != "gromacs" && $default_toolgroup != "SPAdes" && $default_toolgroup != "clustalomega" && $default_toolgroup != "bbmap" && $default_toolgroup != "bwa" && $default_toolgroup != "mafft" && $default_toolgroup != "sina" ]]
 then
-	echo "Parameter is not one of all, genomics, ml, quant, bowtie2-build, velvet, idba, tensorflow, gromacs, SPAdes or clustalomega. Please check -t flag again."
+	echo "Parameter is not one of all, genomics, ml, quant, bowtie2-build, velvet, idba, tensorflow, gromacs, SPAdes, clustalomega, bbmap, bwa, mafft or sina. Please check -t flag again."
 	exit 1
 fi
 
 if [[ "$scaling" == "none" && "$own_tool_path" == "none" ]]
 then
-	echo "General genomic dataset for Bowtie2, Velvet, SPAdes: $dataset"
+	echo "General genomic dataset for Bowtie2, Velvet, SPAdes, BBMap BWA: $dataset"
 	echo "IDBA dataset: $dataset_idba"
-	echo "Reference dataset: $default_reference"
-	echo "ClustalOmega dataset: $dataset_clustalOmega"
+	echo "Reference dataset for Bowtie2, BBMap, BWA: $default_reference"
+	echo "ClustalOmega and MAFFT dataset: $dataset_clustalOmega"
+	echo "SINA reference dataset: $reference_SINA"
+	echo "SINA dataset: $default_SINA"
 	echo "Number of used cores: $default_cores"
 	echo "Number of used replicates: $default_replicas"
 	echo "Number of Tensorflow steps: $default_tensorflow_steps"
@@ -595,7 +730,7 @@ then
 
 	for replica in $( seq 1 $default_replicas ) 
 	do
-		run_benchmark_tools $default_cores $default_cores_velvet $replica $dataset $default_tensorflow_steps $default_gromacs_steps $default_reference $dataset_idba $default_toolgroup $dataset_clustalOmega $own_tool_path
+		run_benchmark_tools $default_cores $default_cores_velvet $replica $dataset $default_tensorflow_steps $default_gromacs_steps $default_reference $dataset_idba $default_toolgroup $dataset_clustalOmega $default_reference_BWA $default_SINA $reference_SINA $own_tool_path
 	done
 
 elif [[ "$scaling" != "none" && "$own_tool_path" == "none" ]]
@@ -608,7 +743,7 @@ then
 		default_cores=$one_core
 		default_cores_velvet=$one_core
 		echo "$replica replica of $default_replicas replica with $default_cores core is running."
-                run_benchmark_tools $default_cores $default_cores_velvet $replica $dataset $default_tensorflow_steps $default_gromacs_steps $default_reference $dataset_idba $default_toolgroup $dataset_clustalOmega $own_tool_path
+                run_benchmark_tools $default_cores $default_cores_velvet $replica $dataset $default_tensorflow_steps $default_gromacs_steps $default_reference $dataset_idba $default_toolgroup $dataset_clustalOmega $default_reference_BWA $default_SINA $reference_SINA $own_tool_path
         done
 	
 	for replica in $( seq 1 $default_replicas )
@@ -616,7 +751,7 @@ then
                 default_cores=$quarter_cores
 		default_cores_velvet=$quarter_cores_velvet
 		echo "$replica replica of $default_replicas replica with $default_cores cores is running."
-                run_benchmark_tools $default_cores $default_cores_velvet $replica $dataset $default_tensorflow_steps $default_gromacs_steps $default_reference $dataset_idba $default_toolgroup $dataset_clustalOmega $own_tool_path
+                run_benchmark_tools $default_cores $default_cores_velvet $replica $dataset $default_tensorflow_steps $default_gromacs_steps $default_reference $dataset_idba $default_toolgroup $dataset_clustalOmega $default_reference_BWA $default_SINA $reference_SINA $own_tool_path
         done
 
 	for replica in $( seq 1 $default_replicas )
@@ -624,7 +759,7 @@ then
                 default_cores=$half_cores
                 default_cores_velvet=$half_cores_velvet
 		echo "$replica replica of $default_replicas replica with $default_cores cores is running."
-                run_benchmark_tools $default_cores $default_cores_velvet $replica $dataset $default_tensorflow_steps $default_gromacs_steps $default_reference $dataset_idba $default_toolgroup $dataset_clustalOmega $own_tool_path
+                run_benchmark_tools $default_cores $default_cores_velvet $replica $dataset $default_tensorflow_steps $default_gromacs_steps $default_reference $dataset_idba $default_toolgroup $dataset_clustalOmega $default_reference_BWA $default_SINA $reference_SINA $own_tool_path
         done
 
 	for replica in $( seq 1 $default_replicas )
@@ -632,15 +767,16 @@ then
                 default_cores=$max_cores
                 default_cores_velvet=$max_cores_velvet
 		echo "$replica replica of $default_replicas replica with $default_cores cores is running."
-                run_benchmark_tools $default_cores $default_cores_velvet $replica $dataset $default_tensorflow_steps $default_gromacs_steps $default_reference $dataset_idba $default_toolgroup $dataset_clustalOmega $own_tool_path
+                run_benchmark_tools $default_cores $default_cores_velvet $replica $dataset $default_tensorflow_steps $default_gromacs_steps $default_reference $dataset_idba $default_toolgroup $dataset_clustalOmega $default_reference_BWA $default_SINA $reference_SINA $own_tool_path
 	done
+
 elif [[ "$scaling" == "none" && "$own_tool_path" != "none" ]]
 then
 	echo "The own tool option is chosen with the toolfile under $own_tool_path"
 	
 	for replica in $( seq 1 $default_replicas )
         do
-		run_benchmark_tools $default_cores $default_cores_velvet $replica $dataset $default_tensorflow_steps $default_gromacs_steps $default_reference $dataset_idba $default_toolgroup $dataset_clustalOmega $own_tool_path
+		run_benchmark_tools $default_cores $default_cores_velvet $replica $dataset $default_tensorflow_steps $default_gromacs_steps $default_reference $dataset_idba $default_toolgroup $dataset_clustalOmega $default_reference_BWA $default_SINA $reference_SINA $own_tool_path
 	done
 
 else [[ "$scaling" != "none" && "$own_tool_path" != "none" ]]
@@ -653,7 +789,7 @@ else [[ "$scaling" != "none" && "$own_tool_path" != "none" ]]
                 default_cores=$one_core
                 default_cores_velvet=$one_core
                 echo "$replica replica of $default_replicas replica with $default_cores core is running."
-                run_benchmark_tools $default_cores $default_cores_velvet $replica $dataset $default_tensorflow_steps $default_gromacs_steps $default_reference $dataset_idba $default_toolgroup $dataset_clustalOmega $own_tool_path
+                run_benchmark_tools $default_cores $default_cores_velvet $replica $dataset $default_tensorflow_steps $default_gromacs_steps $default_reference $dataset_idba $default_toolgroup $dataset_clustalOmega $default_reference_BWA $default_SINA $reference_SINA $own_tool_path
         done
 
         for replica in $( seq 1 $default_replicas )
@@ -661,7 +797,7 @@ else [[ "$scaling" != "none" && "$own_tool_path" != "none" ]]
                 default_cores=$quarter_cores
                 default_cores_velvet=$quarter_cores_velvet
                 echo "$replica replica of $default_replicas replica with $default_cores cores is running."
-                run_benchmark_tools $default_cores $default_cores_velvet $replica $dataset $default_tensorflow_steps $default_gromacs_steps $default_reference $dataset_idba $default_toolgroup $dataset_clustalOmega $own_tool_path
+                run_benchmark_tools $default_cores $default_cores_velvet $replica $dataset $default_tensorflow_steps $default_gromacs_steps $default_reference $dataset_idba $default_toolgroup $dataset_clustalOmega $default_reference_BWA $default_SINA $reference_SINA $own_tool_path
         done
 
         for replica in $( seq 1 $default_replicas )
@@ -669,7 +805,7 @@ else [[ "$scaling" != "none" && "$own_tool_path" != "none" ]]
                 default_cores=$half_cores
                 default_cores_velvet=$half_cores_velvet
                 echo "$replica replica of $default_replicas replica with $default_cores cores is running."
-                run_benchmark_tools $default_cores $default_cores_velvet $replica $dataset $default_tensorflow_steps $default_gromacs_steps $default_reference $dataset_idba $default_toolgroup $dataset_clustalOmega $own_tool_path
+                run_benchmark_tools $default_cores $default_cores_velvet $replica $dataset $default_tensorflow_steps $default_gromacs_steps $default_reference $dataset_idba $default_toolgroup $dataset_clustalOmega $default_reference_BWA $default_SINA $reference_SINA $own_tool_path
         done
 
         for replica in $( seq 1 $default_replicas )
@@ -677,7 +813,7 @@ else [[ "$scaling" != "none" && "$own_tool_path" != "none" ]]
                 default_cores=$max_cores
                 default_cores_velvet=$max_cores_velvet
                 echo "$replica replica of $default_replicas replica with $default_cores cores is running."
-                run_benchmark_tools $default_cores $default_cores_velvet $replica $dataset $default_tensorflow_steps $default_gromacs_steps $default_reference $dataset_idba $default_toolgroup $dataset_clustalOmega $own_tool_path
+                run_benchmark_tools $default_cores $default_cores_velvet $replica $dataset $default_tensorflow_steps $default_gromacs_steps $default_reference $dataset_idba $default_toolgroup $dataset_clustalOmega $default_reference_BWA $default_SINA $reference_SINA $own_tool_path
         done
 fi
 
