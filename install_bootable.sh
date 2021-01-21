@@ -49,7 +49,14 @@ if [ -d benchmark_output ]
 then
         echo "Directory benchmark_output already exists."
 else
-	mkdir benchmark_output
+        mkdir benchmark_output
+fi
+
+if [ -d benchmark_output/BBMap ]
+then
+        echo "Directory benchmark_output/BBMap already exists."
+else
+	mkdir benchmark_output/BBMap
 fi
 
 if [ -d benchmark_output/bowtie2 ]
@@ -57,6 +64,13 @@ then
         echo "Directory benchmark_output/bowtie2 already exists."
 else
 	mkdir benchmark_output/bowtie2
+fi
+
+if [ -d benchmark_output/BWA ]
+then
+        echo "Directory benchmark_output/BWA already exists."
+else
+        mkdir benchmark_output/BWA
 fi
 
 if [ -d benchmark_output/clustalOmega ]
@@ -78,6 +92,20 @@ then
         echo "Directory benchmark_output/IDBA already exists."
 else
 	mkdir benchmark_output/IDBA
+fi
+
+if [ -d benchmark_output/MAFFT ]
+then
+        echo "Directory benchmark_output/MAFFT already exists."
+else
+        mkdir benchmark_output/MAFFT
+fi
+
+if [ -d benchmark_output/SINA ]
+then
+        echo "Directory benchmark_output/SINA already exists."
+else
+        mkdir benchmark_output/SINA
 fi
 
 if [ -d benchmark_output/SPAdes ]
@@ -115,6 +143,34 @@ else
 	mkdir datasets/1000_genomes
 fi
 
+if [ -d datasets/BWA ]
+then
+        echo "Directory datasets/BWA already exists."
+else
+        mkdir datasets/BWA
+fi
+
+if [ -d datasets/BWA/DRR001012/ ]
+then
+        echo "Directory datasets/BWA/DRR001012/ already exists."
+else
+        mkdir datasets/BWA/DRR001012/
+fi
+
+if [ -d datasets/BWA/DRR001025/ ]
+then
+        echo "Directory datasets/BWA/DRR001025/ already exists."
+else
+        mkdir datasets/BWA/DRR001025/
+fi
+
+if [ -d datasets/BWA//GRCh38_full_analysis_set_plus_decoy_hla/ ]
+then
+        echo "Directory datasets/BWA//GRCh38_full_analysis_set_plus_decoy_hla/ already exists."
+else
+        mkdir datasets/BWA//GRCh38_full_analysis_set_plus_decoy_hla/
+fi
+
 if [ -d datasets/clustalOmega ]
 then
         echo "Directory datasets/clustalOmega already exists."
@@ -127,6 +183,13 @@ then
         echo "Directory datasets/gromacs already exists."
 else
 	mkdir datasets/gromacs
+fi
+
+if [ -d datasets/SINA ]
+then
+        echo "Directory datasets/SINA already exists."
+else
+        mkdir datasets/SINA
 fi
 
 if [ -d datasets/tensorflow ]
@@ -164,11 +227,25 @@ else
 	mkdir results
 fi
 
+if [ -d BBMap ]
+then
+        echo "Directory BBMap already exists."
+else
+        mkdir BBMap
+fi
+
 if [ -d bowtie2 ]
 then
         echo "Directory bowtie2 already exists."
 else
 	mkdir bowtie2
+fi
+
+if [ -d BWA ]
+then
+        echo "Directory BWA already exists."
+else
+        mkdir BWA
 fi
 
 if [ -d clustalOmega ]
@@ -183,6 +260,20 @@ then
         echo "Directory IDBA already exists."
 else
 	mkdir IDBA
+fi
+
+if [ -d MAFFT ]
+then
+        echo "Directory MAFFT already exists."
+else
+        mkdir MAFFT
+fi
+
+if [ -d SINA ]
+then
+        echo "Directory SINA already exists."
+else
+        mkdir SINA
 fi
 
 if [ -d SPAdes ]
@@ -300,6 +391,111 @@ else
 	wget https://s3.denbi.uni-tuebingen.de/max/GRCh38_full_analysis_set_plus_decoy_hla.fa -P datasets/1000_genomes/ >>log/dataset_GRCh38_full_analysis_set_plus_decoy_hla.log 2>&1
 fi
 
+if [ -e datasets/BWA/DRR001012/DRR001012.amb ]
+then
+        echo "File datasets/BWA/DRR001012/DRR001012.amb already exists."
+else
+        wget https://s3.denbi.uni-tuebingen.de/max/DRR001012.amb -P datasets/BWA/DRR001012/ >>log/dataset_BWA_DRR001012_amb.log 2>&1
+fi
+
+if [ -e datasets/BWA/DRR001012/DRR001012.ann ]
+then
+        echo "File datasets/BWA/DRR001012/DRR001012.ann already exists."
+else
+        wget https://s3.denbi.uni-tuebingen.de/max/DRR001012.ann -P datasets/BWA/DRR001012/ >>log/dataset_BWA_DRR001012_ann.log 2>&1
+fi
+
+if [ -e datasets/BWA/DRR001012/DRR001012.bwt ]
+then
+        echo "File datasets/BWA/DRR001012/DRR001012.bwt already exists."
+else
+        wget https://s3.denbi.uni-tuebingen.de/max/DRR001012.bwt -P datasets/BWA/DRR001012/ >>log/dataset_BWA_DRR001012_bwt.log 2>&1
+fi
+
+if [ -e datasets/BWA/DRR001012/DRR001012.pac ]
+then
+        echo "File datasets/BWA/DRR001012/DRR001012.pac already exists."
+else
+        wget https://s3.denbi.uni-tuebingen.de/max/DRR001012.pac -P datasets/BWA/DRR001012/ >>log/dataset_BWA_DRR001012_pac.log 2>&1
+fi
+
+if [ -e datasets/BWA/DRR001012/DRR001012.sa ]
+then
+        echo "File datasets/BWA/DRR001012/DRR001012.sa already exists."
+else
+        wget https://s3.denbi.uni-tuebingen.de/max/DRR001012.sa -P datasets/BWA/DRR001012/ >>log/dataset_BWA_DRR001012_sa.log 2>&1
+fi
+
+if [ -e datasets/BWA/DRR001025/DRR001025.amb ]
+then
+        echo "File datasets/BWA/DRR001025/DRR001025.amb already exists."
+else
+        wget https://s3.denbi.uni-tuebingen.de/max/DRR001025.amb -P datasets/BWA/DRR001025/ >>log/dataset_BWA_DRR001025_amb.log 2>&1
+fi
+
+if [ -e datasets/BWA/DRR001025/DRR001025.ann ]
+then
+        echo "File datasets/BWA/DRR001025/DRR001025.ann already exists."
+else
+        wget https://s3.denbi.uni-tuebingen.de/max/DRR001025.ann -P datasets/BWA/DRR001025/ >>log/dataset_BWA_DRR001025_ann.log 2>&1
+fi
+
+if [ -e datasets/BWA/DRR001025/DRR001025.bwt ]
+then
+        echo "File datasets/BWA/DRR001025/DRR001025.bwt already exists."
+else
+        wget https://s3.denbi.uni-tuebingen.de/max/DRR001025.bwt -P datasets/BWA/DRR001025/ >>log/dataset_BWA_DRR001025_bwt.log 2>&1
+fi
+
+if [ -e datasets/BWA/DRR001025/DRR001025.pac ]
+then
+        echo "File datasets/BWA/DRR001025/DRR001025.pac already exists."
+else
+        wget https://s3.denbi.uni-tuebingen.de/max/DRR001025.pac -P datasets/BWA/DRR001025/ >>log/dataset_BWA_DRR001025_pac.log 2>&1
+fi
+
+if [ -e datasets/BWA/DRR001025/DRR001025.sa ]
+then
+        echo "File datasets/BWA/DRR001025/DRR001025.sa already exists."
+else
+        wget https://s3.denbi.uni-tuebingen.de/max/DRR001025.sa -P datasets/BWA/DRR001025/ >>log/dataset_BWA_DRR001025_sa.log 2>&1
+fi
+
+if [ -e datasets/BWA/GRCh38_full_analysis_set_plus_decoy_hla/GRCh38_full_analysis_set_plus_decoy_hla.amb ]
+then
+        echo "File datasets/BWA/GRCh38_full_analysis_set_plus_decoy_hla/GRCh38_full_analysis_set_plus_decoy_hla.amb already exists."
+else
+        wget https://s3.denbi.uni-tuebingen.de/max/GRCh38_full_analysis_set_plus_decoy_hla.amb -P datasets/BWA/GRCh38_full_analysis_set_plus_decoy_hla/ >>log/dataset_BWA_GRCh38_full_analysis_set_plus_decoy_hla_amb.log 2>&1
+fi
+
+if [ -e datasets/BWA/GRCh38_full_analysis_set_plus_decoy_hla/GRCh38_full_analysis_set_plus_decoy_hla.ann ]
+then
+        echo "File datasets/BWA/GRCh38_full_analysis_set_plus_decoy_hla/GRCh38_full_analysis_set_plus_decoy_hla.ann already exists."
+else
+        wget https://s3.denbi.uni-tuebingen.de/max/GRCh38_full_analysis_set_plus_decoy_hla.ann -P datasets/BWA/GRCh38_full_analysis_set_plus_decoy_hla/ >>log/dataset_BWA_GRCh38_full_analysis_set_plus_decoy_hla_ann.log 2>&1
+fi
+
+if [ -e datasets/BWA/GRCh38_full_analysis_set_plus_decoy_hla/GRCh38_full_analysis_set_plus_decoy_hla.bwt ]
+then
+        echo "File datasets/BWA/GRCh38_full_analysis_set_plus_decoy_hla/GRCh38_full_analysis_set_plus_decoy_hla.bwt already exists."
+else
+        wget https://s3.denbi.uni-tuebingen.de/max/GRCh38_full_analysis_set_plus_decoy_hla.bwt -P datasets/BWA/GRCh38_full_analysis_set_plus_decoy_hla/ >>log/dataset_BWA_GRCh38_full_analysis_set_plus_decoy_hla_bwt.log 2>&1
+fi
+
+if [ -e datasets/BWA/GRCh38_full_analysis_set_plus_decoy_hla/GRCh38_full_analysis_set_plus_decoy_hla.pac ]
+then
+        echo "File datasets/BWA/GRCh38_full_analysis_set_plus_decoy_hla/GRCh38_full_analysis_set_plus_decoy_hla.pac already exists."
+else
+        wget https://s3.denbi.uni-tuebingen.de/max/GRCh38_full_analysis_set_plus_decoy_hla.pac -P datasets/BWA/GRCh38_full_analysis_set_plus_decoy_hla/ >>log/dataset_BWA_GRCh38_full_analysis_set_plus_decoy_hla_pac.log 2>&1
+fi
+
+if [ -e datasets/BWA/GRCh38_full_analysis_set_plus_decoy_hla/GRCh38_full_analysis_set_plus_decoy_hla.sa ]
+then
+        echo "File datasets/BWA/GRCh38_full_analysis_set_plus_decoy_hla/GRCh38_full_analysis_set_plus_decoy_hla.sa already exists."
+else
+        wget https://s3.denbi.uni-tuebingen.de/max/GRCh38_full_analysis_set_plus_decoy_hla.sa -P datasets/BWA/GRCh38_full_analysis_set_plus_decoy_hla/ >>log/dataset_BWA_GRCh38_full_analysis_set_plus_decoy_hla_sa.log 2>&1
+fi
+
 if [ -e datasets/clustalOmega/wgs.ANCA.1_200.fsa ]
 then
         echo "File datasets/clustalOmega/wgs.ANCA.1_200.fsa already exists."
@@ -341,6 +537,49 @@ else
 	rm datasets/tensorflow/models.tar.gz >>log/dataset_tensorflow_models.log 2>&1
 fi
 
+if [ -e datasets/SINA/SILVA_138.1_SSURef_NR99_12_06_20_opt.arb ]
+then
+        echo "File datasets/SINA/SILVA_138.1_SSURef_NR99_12_06_20_opt.arb already exists."
+else
+	#wget https://www.arb-silva.de/fileadmin/arb_web_db/release_138_1/ARB_files/SILVA_138.1_SSURef_NR99_12_06_20_opt.arb.gz
+        wget https://s3.denbi.uni-tuebingen.de/max/SILVA_138.1_SSURef_NR99_12_06_20_opt.arb.gz -P datasets/SINA/ >>log/dataset_SINA_SILVA_138.1_SSURef_NR99_12_06_20_opt.arb.log 2>&1
+	gunzip datasets/SINA/SILVA_138.1_SSURef_NR99_12_06_20_opt.arb.gz >>log/dataset_SINA_SILVA_138.1_SSURef_NR99_12_06_20_opt.arb.log 2>&1
+fi
+
+if [ -e datasets/SINA/SILVA_138.1_SSURef_NR99_12_06_20_opt.sidx ]
+then
+        echo "File datasets/SINA/SILVA_138.1_SSURef_NR99_12_06_20_opt.sidx already exists."
+else
+        wget https://s3.denbi.uni-tuebingen.de/max/SILVA_138.1_SSURef_NR99_12_06_20_opt.sidx -P datasets/SINA/ >>log/dataset_SINA_SILVA_138.1_SSURef_NR99_12_06_20_opt.sidx.log 2>&1
+fi
+
+if [ -e datasets/SINA/GTDB_bac-arc_ssu_r86.fa ]
+then
+        echo "File datasets/SINA/GTDB_bac-arc_ssu_r86.fa already exists."
+else 
+	#wget https://zenodo.org/record/2541239/files/GTDB_bac-arc_ssu_r86.fa.gz
+        wget https://s3.denbi.uni-tuebingen.de/max/GTDB_bac-arc_ssu_r86.fa.gz -P datasets/SINA/ >>log/dataset_SINA_GTDB_bac-arc_ssu_r86.log 2>&1
+	gunzip datasets/SINA/GTDB_bac-arc_ssu_r86.fa.gz >>log/dataset_SINA_GTDB_bac-arc_ssu_r86.log 2>&1
+fi
+
+if [ -e datasets/SINA/RefSeq-RDP16S_v2_May2018.fa ]
+then
+        echo "File datasets/SINA/RefSeq-RDP16S_v2_May2018.fa already exists."
+else
+        #wget https://zenodo.org/record/2541239/files/RefSeq-RDP16S_v2_May2018.fa.gz
+        wget https://s3.denbi.uni-tuebingen.de/max/RefSeq-RDP16S_v2_May2018.fa.gz -P datasets/SINA/ >>log/dataset_SINA_RefSeq-RDP16S_v2_May2018.log 2>&1
+        gunzip datasets/SINA/RefSeq-RDP16S_v2_May2018.fa.gz >>log/dataset_SINA_RefSeq-RDP16S_v2_May2018.log 2>&1
+fi
+
+if [ -e datasets/SINA/OE-38_R1.fastq ]
+then
+        echo "File datasets/SINA/OE-38_R1.fastq already exists."
+else
+        #wget https://zenodo.org/record/803376/files/OE-38_R1.fastq.gz
+        wget https://s3.denbi.uni-tuebingen.de/max/OE-38_R1.fastq.gz -P datasets/SINA/ >>log/dataset_SINA_OE-38_R1.log 2>&1
+        gunzip datasets/SINA/OE-38_R1.fastq.gz >>log/dataset_SINA_OE-38_R1.log 2>&1
+fi
+
 if [ -d datasets/gromacs/adh_cubic ]
 then
         echo "Directory datasets/gromacs/adh_cubic already exists."
@@ -372,7 +611,17 @@ else
 	echo "Directory nmonchart already exist."
 fi
 
-# Download Bowtie2 Sources
+# Download BBMap binaries
+if [ -d BBMap/bbmap ]
+then
+        echo "Directory BBMap/bbmap already exists."
+else
+        wget https://s3.denbi.uni-tuebingen.de/max/BBMap_38.87.tar.gz -P BBMap >>log/download_BBMap.log 2>&1
+        tar -xf BBMap/BBMap_38.87.tar.gz -C BBMap/ >>log/download_BBMap.log 2>&1
+        rm BBMap/BBMap_38.87.tar.gz >>log/download_BBMap.log 2>&1
+fi
+
+# Download Bowtie2 sources
 if [ -d bowtie2/bowtie2-2.3.4.2 ]
 then
         echo "Directory bowtie2/bowtie2-2.3.4.2 already exists."
@@ -380,6 +629,16 @@ else
 	wget https://s3.denbi.uni-tuebingen.de/max/bowtie2-2.3.4.2-source.zip -P bowtie2 >>log/download_bowtie2.log 2>&1
 	unzip bowtie2/bowtie2-2.3.4.2-source.zip -d bowtie2/ >>log/download_bowtie2.log 2>&1
 	rm bowtie2/bowtie2-2.3.4.2-source.zip >>log/download_bowtie2.log 2>&1
+fi
+
+# Download BWA sources
+if [ -d BWA/bwa-0.7.17 ]
+then
+        echo "Directory BWA/bwa-0.7.17 already exists."
+else
+        wget https://s3.denbi.uni-tuebingen.de/max/bwa-0.7.17.tar.bz2 -P BWA >>log/download_BWA.log 2>&1
+        tar -xf BWA/bwa-0.7.17.tar.bz2 -C BWA/ >>log/download_BWA.log 2>&1
+        rm BWA/bwa-0.7.17.tar.bz2 >>log/download_BWA.log 2>&1
 fi
 
 # Download Velvet github repository
@@ -432,6 +691,27 @@ else
         rm clustalOmega/clustal-omega-1.2.4.tar.gz >>log/download_clustalOmega.log 2>&1
 fi
 
+# Download MAFFT sources
+if [ -d MAFFT/mafft-7.475-with-extensions-src ]
+then
+        echo "Directory MAFFT/mafft-7.475-with-extensions-src already exists."
+else
+        wget https://s3.denbi.uni-tuebingen.de/max/mafft-7.475-with-extensions-src.tgz -P MAFFT >>log/download_MAFFT.log 2>&1
+        tar -xf MAFFT/mafft-7.475-with-extensions-src.tgz -C MAFFT/ >>log/download_MAFFT.log 2>&1
+        rm MAFFT/mafft-7.475-with-extensions-src.tgz >>log/download_MAFFT.log 2>&1
+fi
+
+# Download SINA binaries
+if [ -d SINA/sina-1.7.2-linux ]
+then
+        echo "Directory SINA/sina-1.7.2-linux already exists."
+else
+        wget https://s3.denbi.uni-tuebingen.de/max/sina-1.7.2-linux.tar.gz -P SINA >>log/download_SINA.log 2>&1
+        tar -xf SINA/sina-1.7.2-linux.tar.gz -C SINA/ >>log/download_SINA.log 2>&1
+        rm SINA/sina-1.7.2-linux.tar.gz >>log/download_SINA.log 2>&1
+fi
+
+
 progress_bar 11 8
 
 # Save original PATH and LD_LIBRARY variables
@@ -474,6 +754,31 @@ fi
 
 progress_bar 75 11
 
+
+# Compile and install BWA
+if [ -e BWA/bwa-0.7.17/bwa ]
+then
+        while true; do
+                read -p "BWA seems already to be installed, do you want to recompile it?" yn
+                case $yn in
+                        [Yy]* ) cd BWA/bwa-0.7.17/
+                                make clean >>../../log/install_BWA.log 2>&1
+                                make -j$(nproc) >>../../log/install_BWA.log 2>&1
+                                cd ../../
+                                break;;
+                        [Nn]* ) echo "BWA will not be recompiled"
+                                break;;
+                        * ) echo "Please answer yes or no."
+                                ;;
+                esac
+        done
+else
+        cd BWA/bwa-0.7.17/
+        make clean >>../../log/install_BWA.log 2>&1
+        make -j$(nproc) >>../../log/install_bowtie2.log 2>&1
+        cd ../../
+fi
+
 # Compile and install bowtie2
 if [ -e bowtie2/bowtie2-2.3.4.2/bowtie2-align-l ]
 then      
@@ -499,7 +804,6 @@ else
 	make -j$(nproc) STATIC_BUILD=1 >>../../log/install_bowtie2.log 2>&1
 	cd ../../
 fi
-
 
 progress_bar 80 75
 
@@ -537,6 +841,34 @@ progress_bar 81 80
 export PATH=$original_path_variable
 export LD_LIBRARY_PATH=$original_ld_library_variable
 
+
+# Compile and install MAFFT
+if [ -e MAFFT/mafft-7.475-with-extensions/bin/mafft ]
+then
+        while true; do
+                read -p "MAFFT seems already to be installed, do you want to recompile it?" yn
+                case $yn in
+                        [Yy]* ) sed -i "/PREFIX = /c\PREFIX = $PWD/MAFFT/mafft-7.475-with-extensions" MAFFT/mafft-7.475-with-extensions/core/Makefile
+				cd MAFFT/mafft-7.475-with-extensions/core/
+                                make clean >>../../../log/install_MAFFT.log 2>&1
+                                make -j$(nproc) >>../../../log/install_MAFFT.log 2>&1
+				make install >>../../../log/install_MAFFT.log 2>&1
+                                cd ../../../
+                                break;;
+                        [Nn]* ) echo "MAFFT will not be recompiled"
+                                break;;
+                        * ) echo "Please answer yes or no."
+                                ;;
+                esac
+        done
+else
+	sed -i "/PREFIX = /c\PREFIX = $PWD/MAFFT/mafft-7.475-with-extensions" MAFFT/mafft-7.475-with-extensions/core/Makefile
+        cd MAFFT/mafft-7.475-with-extensions/core/
+        make clean >>../../../log/install_MAFFT.log 2>&1
+        make -j$(nproc) >>../../../log/install_MAFFT.log 2>&1
+	make install >>../../../log/install_MAFFT.log 2>&1
+        cd ../../../
+fi
 
 # Compile and install IDBA
 if [ -e IDBA/idba_ud-1.0.9/bin/idba_ud ]
@@ -751,6 +1083,14 @@ then
 else
 	IDBA/idba_ud-1.0.9/bin/fq2fa datasets/ebi/DRR001025.fastq datasets/ebi/DRR001025.fa >>log/file_conversion_DRR001025.log 2>&1
 fi
+
+if [ -e datasets/SINA/OE-38_R1.fa ]
+then
+        echo "File datasets/SINA/OE-38_R1.fa already exists."
+else
+        IDBA/idba_ud-1.0.9/bin/fq2fa datasets/SINA/OE-38_R1.fastq datasets/SINA/OE-38_R1.fa >>log/file_conversion_DRR001025.log 2>&1
+fi
+
 
 # Reset to system compiler after finishing installation process
 export PATH=$original_path_variable
