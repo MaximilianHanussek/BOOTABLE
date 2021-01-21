@@ -5,13 +5,17 @@
 
 BiOinfOrmatics ThreAded Benchmark tooLsuitE (BOOTABLE)
 This toolsuite currently consists of the following tools
+- BBMap
 - Bowtie2
+- BWA
 - Velvet
 - IDBA
 - GROMACS
 - Tensowflow
 - SPAdes
 - Clustal Omega
+- MAFFT
+- SINA
 
 more are coming soon ...
  
@@ -21,6 +25,9 @@ in order to get some benchmarks of the underlying hardware and about the scalabi
 In the following is explained how to install BOOTABLE, how to run it and what kind of options you have. Information about results are stated in the **Results**  section.
 
 If you have any questions or remarks just write me a mail: maximilian.hanussek@uni-tuebingen.de
+
+## News (21.01.21)
+BOOTABLE has some new tools. We added the tools BBMap, BWA, MAFFT and SINA. We ahve also added some new datasets in order to use SINA. Currently the updated tools are only available using the bare metal installation. We are working on the update of the other versions (Docker, Singularity, QCOW2 Image, Ansible). GPU resouces are still on the agenda.
 
 ## News (26.06.20)
 We apologize for the longer lasting maintenance of our infrastructure but now everything is restored and you should be able access the chosen datasets implemented in BOOTABLE. For the next months we also plan an expanded version of BOOTABLE including benchmark tests using GPU resources.
