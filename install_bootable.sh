@@ -622,13 +622,13 @@ else
 fi
 
 # Download Bowtie2 sources
-if [ -d bowtie2/bowtie2-2.3.4.2 ]
+if [ -d bowtie2/bowtie2-2.4.2 ]
 then
-        echo "Directory bowtie2/bowtie2-2.3.4.2 already exists."
+        echo "Directory bowtie2/bowtie2-2.4.2 already exists."
 else
-	wget https://s3.denbi.uni-tuebingen.de/max/bowtie2-2.3.4.2-source.zip -P bowtie2 >>log/download_bowtie2.log 2>&1
-	unzip bowtie2/bowtie2-2.3.4.2-source.zip -d bowtie2/ >>log/download_bowtie2.log 2>&1
-	rm bowtie2/bowtie2-2.3.4.2-source.zip >>log/download_bowtie2.log 2>&1
+	wget https://s3.denbi.uni-tuebingen.de/max/bowtie2-2.4.2-source.zip -P bowtie2 >>log/download_bowtie2.log 2>&1
+	unzip bowtie2/bowtie2-2.4.2-source.zip -d bowtie2/ >>log/download_bowtie2.log 2>&1
+	rm bowtie2/bowtie2-2.4.2-source.zip >>log/download_bowtie2.log 2>&1
 fi
 
 # Download BWA sources
@@ -775,17 +775,17 @@ then
 else
         cd BWA/bwa-0.7.17/
         make clean >>../../log/install_BWA.log 2>&1
-        make -j$(nproc) >>../../log/install_bowtie2.log 2>&1
+        make -j$(nproc) >>../../log/install_BWA.log 2>&1
         cd ../../
 fi
 
 # Compile and install bowtie2
-if [ -e bowtie2/bowtie2-2.3.4.2/bowtie2-align-l ]
+if [ -e bowtie2/bowtie2-2.4.2/bowtie2-align-l ]
 then      
         while true; do
                 read -p "Bowtie2 seems already to be installed, do you want to recompile it?" yn
                 case $yn in
-                        [Yy]* )	cd bowtie2/bowtie2-2.3.4.2/
+                        [Yy]* )	cd bowtie2/bowtie2-2.4.2/
         			make clean >>../../log/install_bowtie2.log 2>&1
         			sudo make static-libs >>../../log/install_bowtie2.log 2>&1
 				make -j$(nproc) STATIC_BUILD=1 >>../../log/install_bowtie2.log 2>&1
@@ -798,7 +798,7 @@ then
                 esac
         done
 else
-	cd bowtie2/bowtie2-2.3.4.2/
+	cd bowtie2/bowtie2-2.4.2/
 	make clean >>../../log/install_bowtie2.log 2>&1
 	sudo make static-libs >>../../log/install_bowtie2.log 2>&1
 	make -j$(nproc) STATIC_BUILD=1 >>../../log/install_bowtie2.log 2>&1

@@ -182,12 +182,12 @@ name="BBMap"
 check_tool "$cmd" "$name"
 
 # Bowtie2 build
-cmd="bowtie2/bowtie2-2.3.4.2/bowtie2-build --version"
+cmd="bowtie2/bowtie2-2.4.2/bowtie2-build --version"
 name="Bowtie2 build"
 check_tool "$cmd" "$name"
 
 # Bowtie2 align
-cmd="bowtie2/bowtie2-2.3.4.2/bowtie2 --version"
+cmd="bowtie2/bowtie2-2.4.2/bowtie2 --version"
 name="Bowtie2 align"
 check_tool "$cmd" "$name"
 

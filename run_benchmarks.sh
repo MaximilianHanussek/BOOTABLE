@@ -218,7 +218,7 @@ then
 	NMON_PID=$(nmon -F $NMON_FILE_NAME.nmon -m nmon_stats/ -p -s 2 -c 12000000) # -s is the interval between snapshots, -c is the number of snapshots very high to ensure them to the end of the tool run
 
 	# Run bowtie2 index builder on dataset $reference_name
-	/usr/bin/time -p -a -o results/benchmark_bowtie_build_time_$cores.txt sh -c "bowtie2/bowtie2-2.3.4.2/bowtie2-build --threads $cores --seed 42 $reference benchmark_output/bowtie2/benchmark" >> results/benchmark_bowtie_build_output_$cores.txt 2>&1
+	/usr/bin/time -p -a -o results/benchmark_bowtie_build_time_$cores.txt sh -c "bowtie2/bowtie2-2.4.2/bowtie2-build --threads $cores --seed 42 $reference benchmark_output/bowtie2/benchmark" >> results/benchmark_bowtie_build_output_$cores.txt 2>&1
 
 	# Stop nmon capturing
         kill -USR2 $NMON_PID
@@ -242,7 +242,7 @@ then
         NMON_PID=$(nmon -F $NMON_FILE_NAME.nmon -m nmon_stats/ -p -s 2 -c 12000000)
 
 	# Run bowtie2 aligner on dataset $dataset
-	/usr/bin/time -p -a -o results/benchmark_bowtie_align_time_$cores.txt sh -c "bowtie2/bowtie2-2.3.4.2/bowtie2 --threads $cores -x benchmark_output/bowtie2/benchmark -U $dataset -S benchmark_output/bowtie2/benchmark_$dataset_name.sam" >> results/benchmark_bowtie_align_output_$cores.txt 2>&1
+	/usr/bin/time -p -a -o results/benchmark_bowtie_align_time_$cores.txt sh -c "bowtie2/bowtie2-2.4.2/bowtie2 --threads $cores -x benchmark_output/bowtie2/benchmark -U $dataset -S benchmark_output/bowtie2/benchmark_$dataset_name.sam" >> results/benchmark_bowtie_align_output_$cores.txt 2>&1
 
 	# Stop nmon capturing
         kill -USR2 $NMON_PID
@@ -617,7 +617,7 @@ do
 done
 echo "" >> bootable_system_info.txt
 echo "Bowtie2 compile information:" >> bootable_system_info.txt
-bowtie2/bowtie2-2.3.4.2/bowtie2 --version >> bootable_system_info.txt
+bowtie2/bowtie2-2.4.2/bowtie2 --version >> bootable_system_info.txt
 echo "" >> bootable_system_info.txt
 echo "GROMACS compile information:" >> bootable_system_info.txt
 
