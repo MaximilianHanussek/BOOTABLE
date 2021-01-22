@@ -26,6 +26,9 @@ In the following is explained how to install BOOTABLE, how to run it and what ki
 
 If you have any questions or remarks just write me a mail: maximilian.hanussek@uni-tuebingen.de
 
+## News (22.01.21)
+The docker version has also been updated and now incorporates the newly added tools. A fully build container is available on DockerHub. Currently the Docker image is untested, test will be done in the upcoming week.
+
 ## News (21.01.21)
 BOOTABLE has some new tools. We added the tools BBMap, BWA, MAFFT and SINA. We ahve also added some new datasets in order to use SINA. Currently the updated tools are only available using the bare metal installation. We are working on the update of the other versions (Docker, Singularity, QCOW2 Image, Ansible). GPU resouces are still on the agenda.
 
