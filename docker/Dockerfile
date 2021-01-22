@@ -24,7 +24,11 @@ RUN yum update -y && yum install epel-release -y && yum group install "Developme
 
 RUN mkdir ~/benchmark_output \
 	~/benchmark_output/bowtie2 \
-	~/benchmark_output/clustalOmega \ 
+	~/benchmark_output/BBMap \
+	~/benchmark_output/BWA \
+	~/benchmark_output/clustalOmega \
+	~/benchmark_output/MAFFT \
+	~/benchmark_output/SINA \ 
 	~/benchmark_output/gromacs \
 	~/benchmark_output/IDBA \
 	~/benchmark_output/SPAdes \
@@ -36,14 +40,24 @@ RUN mkdir ~/benchmark_output \
 	~/datasets/gromacs \
 	~/datasets/tensorflow \
 	~/datasets/ebi \
+	~/datasets/BWA \
+	~/datasets/BWA/DRR001012 \
+	~/datasets/BWA/DRR001025 \
+	~/datasets/BWA//GRCh38_full_analysis_set_plus_decoy_hla \
+	~/datasets/SINA \
 	~/backed_up_benchmark_results \
 	~/gromacs \
 	~/results \
+	~/BBMap \
+	~/BWA \
 	~/bowtie2 \
 	~/IDBA \
 	~/SPAdes \
 	~/tensorflow \
 	~/velvet \
+	~/clustalOmega \
+	~/MAFFT \
+	~/SINA \
 	~/gcc \
 	~/gcc/gcc-build \
 	~/gcc/gcc-installed \
@@ -52,9 +66,17 @@ RUN mkdir ~/benchmark_output \
 RUN original_path_variable=$(echo $PATH) \
 && original_ld_library_variable=$(echo $LD_LIBRARY_PATH)
 
-RUN wget https://s3.denbi.uni-tuebingen.de/max/bowtie2-2.3.4.2-source.zip -P ~/bowtie2 \
-&& unzip ~/bowtie2/bowtie2-2.3.4.2-source.zip -d ~/bowtie2/ \
-&& rm ~/bowtie2/bowtie2-2.3.4.2-source.zip
+RUN wget https://s3.denbi.uni-tuebingen.de/max/BBMap_38.87.tar.gz -P ~/BBMap \
+&& tar -xf ~/BBMap/BBMap_38.87.tar.gz -C ~/BBMap/ \
+&& rm ~/BBMap/BBMap_38.87.tar.gz
+
+RUN wget https://s3.denbi.uni-tuebingen.de/max/bowtie2-2.4.2-source.zip -P ~/bowtie2 \
+&& unzip ~/bowtie2/bowtie2-2.4.2-source.zip -d ~/bowtie2/ \
+&& rm ~/bowtie2/bowtie2-2.4.2-source.zip
+
+RUN wget https://s3.denbi.uni-tuebingen.de/max/bwa-0.7.17.tar.bz2 -P ~/BWA \
+&& tar -xf ~/BWA/bwa-0.7.17.tar.bz2 -C ~/BWA/ \
+&& rm ~/BWA/bwa-0.7.17.tar.bz2
 
 RUN git clone https://github.com/dzerbino/velvet.git ~/velvet/ \
 && rm -rf ~/velvet/.gitignore ~/velvet/.git/
@@ -75,6 +97,14 @@ RUN wget https://s3.denbi.uni-tuebingen.de/max/clustal-omega-1.2.4.tar.gz -P ~/c
 && tar -xf ~/clustalOmega/clustal-omega-1.2.4.tar.gz -C ~/clustalOmega/ \
 && rm ~/clustalOmega/clustal-omega-1.2.4.tar.gz
 
+RUN wget https://s3.denbi.uni-tuebingen.de/max/mafft-7.475-with-extensions-src.tgz -P ~/MAFFT \
+&& tar -xf ~/MAFFT/mafft-7.475-with-extensions-src.tgz -C ~/MAFFT/ \
+&& rm ~/MAFFT/mafft-7.475-with-extensions-src.tgz
+
+RUN wget https://s3.denbi.uni-tuebingen.de/max/sina-1.7.2-linux.tar.gz -P ~/SINA \
+&& tar -xf ~/SINA/sina-1.7.2-linux.tar.gz -C ~/SINA/ \
+&& rm ~/SINA/sina-1.7.2-linux.tar.gz
+
 RUN wget https://s3.denbi.uni-tuebingen.de/max/gcc-7.3.0.tar.gz -P ~/gcc \
 && tar -xf ~/gcc/gcc-7.3.0.tar.gz -C ~/gcc/ \
 && rm ~/gcc/gcc-7.3.0.tar.gz
@@ -94,12 +124,35 @@ RUN wget https://s3.denbi.uni-tuebingen.de/max/SRR741411.filt.fastq.gz -P ~/data
 
 RUN wget https://s3.denbi.uni-tuebingen.de/max/GRCh38_full_analysis_set_plus_decoy_hla.fa -P ~/datasets/1000_genomes/
 
+RUN wget https://s3.denbi.uni-tuebingen.de/max/GRCh38_full_analysis_set_plus_decoy_hla.amb -P ~/datasets/BWA/GRCh38_full_analysis_set_plus_decoy_hla
+
+RUN wget https://s3.denbi.uni-tuebingen.de/max/GRCh38_full_analysis_set_plus_decoy_hla.ann -P ~/datasets/BWA/GRCh38_full_analysis_set_plus_decoy_hla
+
+RUN wget https://s3.denbi.uni-tuebingen.de/max/GRCh38_full_analysis_set_plus_decoy_hla.bwt -P ~/datasets/BWA/GRCh38_full_analysis_set_plus_decoy_hla
+
+RUN wget https://s3.denbi.uni-tuebingen.de/max/GRCh38_full_analysis_set_plus_decoy_hla.pac -P ~/datasets/BWA/GRCh38_full_analysis_set_plus_decoy_hla
+
+RUN wget https://s3.denbi.uni-tuebingen.de/max/GRCh38_full_analysis_set_plus_decoy_hla.sa -P ~/datasets/BWA/GRCh38_full_analysis_set_plus_decoy_hla
+
 RUN wget https://s3.denbi.uni-tuebingen.de/max/wgs.ANCA.1_200.fsa -P ~/datasets/clustalOmega
 
 RUN wget https://s3.denbi.uni-tuebingen.de/max/wgs.ANCA.1_400.fsa -P ~/datasets/clustalOmega
 
 RUN wget https://s3.denbi.uni-tuebingen.de/max/wgs.ANCA.1_500.fsa -P ~/datasets/clustalOmega
 
+RUN  wget https://s3.denbi.uni-tuebingen.de/max/SILVA_138.1_SSURef_NR99_12_06_20_opt.arb.gz -P ~/datasets/SINA \
+&& gunzip ~/datasets/SINA/SILVA_138.1_SSURef_NR99_12_06_20_opt.arb.gz
+
+RUN  wget https://s3.denbi.uni-tuebingen.de/max/SILVA_138.1_SSURef_NR99_12_06_20_opt.sidx -P ~/datasets/SINA
+
+RUN  wget https://s3.denbi.uni-tuebingen.de/max/GTDB_bac-arc_ssu_r86.fa.gz -P ~/datasets/SINA \
+&& gunzip ~/datasets/SINA/GTDB_bac-arc_ssu_r86.fa.gz
+
+RUN  wget https://s3.denbi.uni-tuebingen.de/max/RefSeq-RDP16S_v2_May2018.fa.gz -P ~/datasets/SINA \
+&& gunzip ~/datasets/SINA/RefSeq-RDP16S_v2_May2018.fa.gz
+
+RUN  wget https://s3.denbi.uni-tuebingen.de/max/OE-38_R1.fastq.gz -P ~/datasets/SINA \
+&& gunzip ~/datasets/SINA/OE-38_R1.fastq.gz
 
 RUN wget https://s3.denbi.uni-tuebingen.de/max/cifar-10-binary.tar.gz -P ~/datasets/tensorflow \
 && tar xf ~/datasets/tensorflow/cifar-10-binary.tar.gz -C ~/datasets/tensorflow/
@@ -111,8 +164,28 @@ RUN wget https://s3.denbi.uni-tuebingen.de/max/models.tar.gz -P ~/datasets/tenso
 RUN wget https://s3.denbi.uni-tuebingen.de/max/DRR001012.fastq.gz -P ~/datasets/ebi/ \
 && gunzip ~/datasets/ebi/DRR001012.fastq.gz
 
+RUN wget https://s3.denbi.uni-tuebingen.de/max/DRR001012.amb -P ~/datasets/BWA/DRR001012
+
+RUN wget https://s3.denbi.uni-tuebingen.de/max/DRR001012.ann -P ~/datasets/BWA/DRR001012
+
+RUN wget https://s3.denbi.uni-tuebingen.de/max/DRR001012.bwt -P ~/datasets/BWA/DRR001012
+
+RUN wget https://s3.denbi.uni-tuebingen.de/max/DRR001012.pac -P ~/datasets/BWA/DRR001012
+
+RUN wget https://s3.denbi.uni-tuebingen.de/max/DRR001012.sa -P ~/datasets/BWA/DRR001012
+
 RUN wget https://s3.denbi.uni-tuebingen.de/max/DRR001025.fastq.gz -P ~/datasets/ebi/ \
 && gunzip ~/datasets/ebi/DRR001025.fastq.gz
+
+RUN wget https://s3.denbi.uni-tuebingen.de/max/DRR001025.amb -P ~/datasets/BWA/DRR001025
+
+RUN wget https://s3.denbi.uni-tuebingen.de/max/DRR001025.ann -P ~/datasets/BWA/DRR001025
+
+RUN wget https://s3.denbi.uni-tuebingen.de/max/DRR001025.bwt -P ~/datasets/BWA/DRR001025
+
+RUN wget https://s3.denbi.uni-tuebingen.de/max/DRR001025.pac -P ~/datasets/BWA/DRR001025
+
+RUN wget https://s3.denbi.uni-tuebingen.de/max/DRR001025.sa -P ~/datasets/BWA/DRR001025
 
 RUN wget https://s3.denbi.uni-tuebingen.de/max/ADH_bench_systems.tar.gz -P ~/datasets/gromacs \
 && tar -xf ~/datasets/gromacs/ADH_bench_systems.tar.gz -C ~/datasets/gromacs/ \
@@ -131,8 +204,12 @@ RUN cd ~/gcc/gcc-build \
 && make -j$(nproc) \
 && make install
 
-RUN make -C ~/bowtie2/bowtie2-2.3.4.2/ static-libs \
-&& make -C ~/bowtie2/bowtie2-2.3.4.2/ STATIC_BUILD=1
+RUN cd ~/BWA/bwa-0.7.17/ \
+&& make clean \
+&& make -j$(nproc) 
+
+RUN make -C ~/bowtie2/bowtie2-2.4.2/ static-libs \
+&& make -C ~/bowtie2/bowtie2-2.4.2/ STATIC_BUILD=1
 
 RUN export PATH=$PWD/gcc/gcc-installed/bin:$PATH \
 && export LD_LIBRARY_PATH=$PWD/gcc/gcc-installed/lib64:$LD_LIBRARY_PATH
@@ -150,6 +227,12 @@ RUN cd ~/clustalOmega/clustal-omega-1.2.4/ \
 && ~/clustalOmega/clustal-omega-1.2.4/configure --prefix=$PWD \
 && make -j$(nproc) -C ~/clustalOmega/clustal-omega-1.2.4/ \
 && make -C ~/clustalOmega/clustal-omega-1.2.4/ install
+
+RUN sed -i "/PREFIX = /c\PREFIX = $PWD/MAFFT/mafft-7.475-with-extensions" ~/MAFFT/mafft-7.475-with-extensions/core/Makefile \
+&& cd ~/MAFFT/mafft-7.475-with-extensions/core/ \
+&& make clean \
+&& make -j$(nproc) \
+&& make install
 
 RUN pip install --upgrade --force-reinstall pip==9.0.3
 RUN pip install tensorflow==1.4.0
@@ -176,6 +259,8 @@ RUN ~/IDBA/idba_ud-1.0.9/bin/fq2fa ~/datasets/1000_genomes/ERR015528.filt.fastq 
 RUN ~/IDBA/idba_ud-1.0.9/bin/fq2fa ~/datasets/1000_genomes/SRR741411.filt.fastq ~/datasets/1000_genomes/SRR741411.filt.fa
 RUN ~/IDBA/idba_ud-1.0.9/bin/fq2fa ~/datasets/ebi/DRR001012.fastq ~/datasets/ebi/DRR001012.fa
 RUN ~/IDBA/idba_ud-1.0.9/bin/fq2fa ~/datasets/ebi/DRR001025.fastq ~/datasets/ebi/DRR001025.fa
+RUN ~/IDBA/idba_ud-1.0.9/bin/fq2fa ~/datasets/SINA/OE-38_R1.fastq ~/datasets/SINA/OE-38_R1.fa
+
 
 COPY run_benchmarks.sh /root/
 COPY BOOTABLE_report_generator.R /root/
