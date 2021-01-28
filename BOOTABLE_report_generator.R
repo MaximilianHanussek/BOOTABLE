@@ -28,8 +28,7 @@ load.fun(RColorBrewer)  # Load RColorBrewer package, required for pie plots
 load.fun(stringr)       # Load stringr package, required for host information parsing
 
 # Set current working directory to the directory where the script is executed
-#workingdir <- "./"
-workingdir <- "/home/mhanussek/test_bootable"
+workingdir <- "./"
 
 # Get argument from the command line, whether scaling plot should be generated or not
 args <- commandArgs(trailingOnly = TRUE)
@@ -282,7 +281,6 @@ for (summary_file in ordered_summary_file_paths){                               
 
   full_total_real_time_mean_tools <- sum(as.numeric(real_mean_values_tools_vector))
   without_bowtie2_build_total_real_time_mean_tools <- sum(as.numeric(real_mean_values_tools_vector[-1]))
-  print(without_bowtie2_build_total_real_time_mean_tools)
   
   t0 <- tableGrob(df_system_information, rows = rownames(df_system_information), cols = colnames(df_system_information))  # Create graphical table for the systeminfos with row and col names
   t1 <- tableGrob(t(df_all_printable), rows = colnames(df_all_printable), cols = rownames(df_all_printable))              # Create graphical table for all measured times wit row and col names
