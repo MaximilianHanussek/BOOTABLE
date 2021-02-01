@@ -28,8 +28,7 @@ load.fun(RColorBrewer)  # Load RColorBrewer package, required for pie plots
 load.fun(stringr)       # Load stringr package, required for host information parsing
 
 # Set current working directory to the directory where the script is executed
-#workingdir <- "./"
-workingdir <- "/home/mhanussek/test_confidence/"
+workingdir <- "./"
 
 # Get argument from the command line, whether scaling plot should be generated or not
 args <- commandArgs(trailingOnly = TRUE)
