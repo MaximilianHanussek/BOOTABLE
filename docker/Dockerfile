@@ -228,7 +228,7 @@ RUN cd ~/clustalOmega/clustal-omega-1.2.4/ \
 && make -j$(nproc) -C ~/clustalOmega/clustal-omega-1.2.4/ \
 && make -C ~/clustalOmega/clustal-omega-1.2.4/ install
 
-RUN sed -i "/PREFIX = /c\PREFIX = $PWD/MAFFT/mafft-7.475-with-extensions" ~/MAFFT/mafft-7.475-with-extensions/core/Makefile \
+RUN sed -i "/PREFIX = /c\PREFIX = /root/MAFFT/mafft-7.475-with-extensions" ~/MAFFT/mafft-7.475-with-extensions/core/Makefile \
 && cd ~/MAFFT/mafft-7.475-with-extensions/core/ \
 && make clean \
 && make -j$(nproc) \
