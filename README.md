@@ -25,6 +25,9 @@ in order to get some benchmarks of the underlying hardware and about the scalabi
 In the following is explained how to install BOOTABLE, how to run it and what kind of options you have. Information about results are stated in the **Results**  section.
 
 If you have any questions or remarks just write me a mail: maximilian.hanussek@uni-tuebingen.de
+## News (23.02.21)
+The docker version has been tested in the meantime, there was a small bug concerning the installation of MAFFT. The Dockerfile has already been updated.
+The rebuild image will follow as soon as possible.
 
 ## News (22.01.21)
 The docker version has also been updated and now incorporates the newly added tools. A fully build container is available on DockerHub. Currently the Docker image is untested, test will be done in the upcoming week.
